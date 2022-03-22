@@ -1,10 +1,10 @@
 import React from 'react' 
 import {View, Text, SafeAreaView} from 'react-native'
-import { Divider } from 'react-native-elements'
+import PencarianBar from '../Components/PencarianBar.js';
 
 export default function HomeScreen(){
     return(
-        <SafeAreaView>
+        <SafeAreaView style={{backgroundColor:'grey', flex: 1}}>
             <Text>Home Screen</Text>
         </SafeAreaView>
     )

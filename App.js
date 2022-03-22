@@ -1,8 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import TabNavigasi from './Components/TabNavigasi.js';
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
 
-
-export default function App() {
-  return <TabNavigasi/>
+const App = () => {
+  return (
+    <View>
+      <Text>App</Text>
+    </View>
+  )
 }
+
+export default App
+
+const styles = StyleSheet.create({})
