@@ -1,28 +1,65 @@
-import React, {Component} from "react"
-import {Platform, StyleSheet, Text, View} from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import React from 'react'
+import TabItem from './TabItem';
+import { Ijo } from '../Utils/Warna';
 
-export default function TabNavigasi(){
-    return(
-        <View style={{height:54, backgroundColor: 'white', flexDirection:'row'}}>
-            <View style={{flex: 1, alignContent:'center', justifyContent:'center'}}>
-                <View>
-                    <Text>Rumah</Text>
-                </View>
-                <Text>Beranda</Text>
-            </View>
-            <View style={{flex: 1, alignContent:'center', justifyContent:'center'}}>
-                <View>
-                    <Text>Receipt</Text>
-                </View>
-                <Text>Transaksi</Text>
-            </View>
-            <View style={{flex: 1, alignContent:'center', justifyContent:'center'}}>
-                <View>
-                    <Text>Orang</Text>
-                </View>
-                <Text>Akun</Text>
-            </View>
-        </View>
-    );
+const TabNavigasi = ({ state, descriptors, navigation }) => {
+  return (
+    <View style={ styles.container }>
+      {state.routes.map((route, index) => {
+        const { options } = descriptors[route.key];
+        const label =
+          options.tabBarLabel !== undefined
+            ? options.tabBarLabel
+            : options.title !== undefined
+            ? options.title
+            : route.name;
 
-} 
+        const isFocused = state.index === index;
+
+        const onPress = () => {
+          const event = navigation.emit({
+            type: 'tabPress',
+            target: route.key,
+            canPreventDefault: true,
+          });
+
+          if (!isFocused && !event.defaultPrevented) {
+            // The `merge: true` option makes sure that the params inside the tab screen are preserved
+            navigation.navigate({ name: route.name, merge: true });
+          }
+        };
+
+        const onLongPress = () => {
+          navigation.emit({
+            type: 'tabLongPress',
+            target: route.key,
+          });
+        };
+
+        return (
+          <TabItem
+            key={index}
+            label={label}
+            isFocused={isFocused}
+            onPress={onPress}
+            onLongPress={onLongPress}
+
+          />
+        );
+      })}
+    </View>
+  );
+}
+
+export default TabNavigasi
+
+const styles = StyleSheet.create({
+    container:{
+        flexDirection: 'row',
+        backgroundColor: Ijo,
+        paddingHorizontal: 30,
+        paddingVertical: 8, 
+        justifyContent: 'space-between',
+    }
+})

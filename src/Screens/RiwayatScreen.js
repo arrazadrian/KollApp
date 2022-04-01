@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
 import React from 'react'
 
-const AkunScreen = () => {
+const TransaksiScreen = () => {
   return (
     <SafeAreaView>
-      <Text>AkunScreen</Text>
+      <Text>TransaksiScreen</Text>
     </SafeAreaView>
   )
 }
 
-export default AkunScreen
+export default TransaksiScreen
 
 const styles = StyleSheet.create({})
