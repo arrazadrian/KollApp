@@ -8,7 +8,7 @@ const PencarianBar = () => {
       <TextInput placeholder='Cari produk yang anda inginkan'  style={styles.container}> 
         
       </TextInput>
-      <IconSearch />
+      <IconSearch style={{position: 'absolute', top: 10, left: 18 }} />
     </View>
   )
 }
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingLeft:10,
     paddingRight: 10,
-    paddingStart: 30,
+    paddingStart: 35,
     paddingEnd: 10,
     marginLeft: 10,
     marginRight: 20

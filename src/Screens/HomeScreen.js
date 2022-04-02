@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   logopojok:{
-    marginLeft: 10,
+    marginLeft: 5,
     marginTop: 15,
     width: 50,
     height: 50,
