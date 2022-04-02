@@ -1,12 +1,14 @@
-import { StyleSheet, Text, View, TextInput} from 'react-native'
+import { StyleSheet, Text, View, TextInput, Image} from 'react-native'
 import React from 'react'
+import { IconSearch } from '../assets/Icon/Index.js'
 
 const PencarianBar = () => {
   return (
-    <View style={{marginTop: 20}}>
-      <TextInput placeholder='Cari produk yang anda inginkan' style={styles.container}> 
+    <View style={{marginTop: 20, flexDirection: 'row'}}>
+      <TextInput placeholder='Cari produk yang anda inginkan'  style={styles.container}> 
         
       </TextInput>
+      <IconSearch />
     </View>
   )
 }
