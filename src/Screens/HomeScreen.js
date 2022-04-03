@@ -15,9 +15,12 @@ const HomeScreen = () => {
         <PencarianBar />
       </View>
       <View>
-        <CarouselHome data={ tigaGambar } />  
+       { /* <CarouselHome data={ tigaGambar } /> */}  
       </View> 
-      <Text>HomeScreen</Text>
+      <View style={styles.bungkus}>
+      <Text style={styles.judul}>Siap Datang!</Text>
+      <Text style={styles.deskripsi}>Kami Siap Membantu Anda </Text>
+      </View>
     </View>
   )
 }
@@ -41,5 +44,17 @@ const styles = StyleSheet.create({
   latar:{
     flex: 1,
     backgroundColor: Putih,
+  },
+  judul:{
+    fontSize: 25,
+    fontWeight: 'bold',
+
+  },
+  deskripsi:{
+    fontSize: 15,
+  },
+  bungkus:{
+    marginLeft: 20,
+    marginTop: 20,
   }
 })
