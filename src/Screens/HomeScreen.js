@@ -1,20 +1,22 @@
 import { StyleSheet, Text, View, SafeAreaView, Image} from 'react-native'
 import React from 'react'
 import PencarianBar from '../Components/PencarianBar'
-import { Ijo } from '../Utils/Warna';
+import { Ijo, Kuning, Putih } from '../Utils/Warna';
 import { LogoPutih } from '../assets/Image/Index.js';
 import CarouselHome from '../Components/CarouselHome'
 import { tigaGambar } from '../Data/data.js';
 
 const HomeScreen = () => {
-/* const HomeScreen = ({item}) => { */ 
+// const HomeScreen = ({item}) => {
   return (
-    <View> 
+    <View style={styles.latar}> 
       <View style={styles.container}>
         <Image source={LogoPutih} style={styles.logopojok} />
         <PencarianBar />
       </View>
-      <CarouselHome data={tigaGambar} /> 
+      <View>
+        <CarouselHome data={ tigaGambar } />  
+      </View> 
       <Text>HomeScreen</Text>
     </View>
   )
@@ -35,5 +37,9 @@ const styles = StyleSheet.create({
     marginTop: 15,
     width: 50,
     height: 50,
+  },
+  latar:{
+    flex: 1,
+    backgroundColor: Putih,
   }
 })
