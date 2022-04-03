@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Image} from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView} from 'react-native'
 import React from 'react'
 import PencarianBar from '../Components/PencarianBar'
 import { Ijo, Kuning, Putih } from '../Utils/Warna';
@@ -14,13 +14,15 @@ const HomeScreen = () => {
         <Image source={LogoPutih} style={styles.logopojok} />
         <PencarianBar />
       </View>
-      <View>
-       { /* <CarouselHome data={ tigaGambar } /> */}  
-      </View> 
-      <View style={styles.bungkus}>
-      <Text style={styles.judul}>Siap Datang!</Text>
-      <Text style={styles.deskripsi}>Kami Siap Membantu Anda </Text>
-      </View>
+      <ScrollView>
+          <View>
+          { /* <CarouselHome data={ tigaGambar } /> */}  
+          </View> 
+          <View style={styles.bungkus}>
+            <Text style={styles.judul}>Siap Datang!</Text>
+            <Text style={styles.deskripsi}>Kami Siap Membantu Anda </Text>
+          </View>
+      </ScrollView>
     </View>
   )
 }
