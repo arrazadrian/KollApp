@@ -4,5 +4,6 @@ import LogoPutih from './logoKollPutih.png'
 import Header1 from './SwiperKoll-19.png'
 import Header2 from './SwiperKoll-20.png'
 import Header3 from './SwiperKoll-21.png'
+import DPkartu from './Dagangan.png'
 
-export { Logo, Splash, LogoPutih, Header1, Header2, Header3 }
+export { Logo, Splash, LogoPutih, Header1, Header2, Header3, DPkartu }

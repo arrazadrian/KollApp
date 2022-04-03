@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView} from 'react-native'
 import React from 'react'
 import PencarianBar from '../Components/PencarianBar'
-import { Ijo, Kuning, Putih } from '../Utils/Warna';
+import { Ijo, Kuning, Putih, Hitam, Abu } from '../Utils/Warna';
 import { LogoPutih } from '../assets/Image/Index.js';
 import CarouselHome from '../Components/CarouselHome'
 import { tigaGambar } from '../Data/data.js';
+import ListMitra from '../Components/ListMitra';
 
 const HomeScreen = () => {
 // const HomeScreen = ({item}) => {
@@ -20,8 +21,9 @@ const HomeScreen = () => {
           </View> 
           <View style={styles.bungkus}>
             <Text style={styles.judul}>Siap Datang!</Text>
-            <Text style={styles.deskripsi}>Kami Siap Membantu Anda </Text>
+            <Text style={styles.deskripsi}>Kami siap ke lokasi anda</Text>
           </View>
+            <ListMitra/>
       </ScrollView>
     </View>
   )
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
   },
   latar:{
     flex: 1,
-    backgroundColor: Putih,
+    backgroundColor: Abu,
   },
   judul:{
     fontSize: 25,
@@ -58,5 +60,7 @@ const styles = StyleSheet.create({
   bungkus:{
     marginLeft: 20,
     marginTop: 20,
+    marginBottom: 10,
+    
   }
 })
