@@ -17,12 +17,13 @@ export default PencarianBar
 
 const styles = StyleSheet.create({
   container:{
-    height: 40,
+    position: 'relative',
+    height: 40, 
     width: 290,
     backgroundColor: '#fff',
     fontSize: 15,
     borderRadius: 10,
-    paddingLeft:10,
+    paddingLeft: 35,
     paddingRight: 10,
     paddingStart: 35,
     paddingEnd: 10,
