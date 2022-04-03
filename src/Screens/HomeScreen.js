@@ -3,17 +3,18 @@ import React from 'react'
 import PencarianBar from '../Components/PencarianBar'
 import { Ijo } from '../Utils/Warna';
 import { LogoPutih } from '../assets/Image/Index.js';
-import AutoSwiper from '../Components/AutoSwiper'
-
+import CarouselHome from '../Components/CarouselHome'
+import { tigaGambar } from '../Data/data.js';
 
 const HomeScreen = () => {
+/* const HomeScreen = ({item}) => { */ 
   return (
     <View> 
       <View style={styles.container}>
         <Image source={LogoPutih} style={styles.logopojok} />
         <PencarianBar />
       </View>
-      <AutoSwiper />
+     <CarouselHome data={tigaGambar} /> 
       <Text>HomeScreen</Text>
     </View>
   )
