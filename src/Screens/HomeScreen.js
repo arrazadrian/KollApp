@@ -14,7 +14,7 @@ const HomeScreen = () => {
         <Image source={LogoPutih} style={styles.logopojok} />
         <PencarianBar />
       </View>
-     <CarouselHome data={tigaGambar} /> 
+      <CarouselHome data={tigaGambar} /> 
       <Text>HomeScreen</Text>
     </View>
   )
