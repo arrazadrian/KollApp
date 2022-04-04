@@ -2,7 +2,15 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen, SplashScreen, PembelianScreen, RiwayatScreen, AkunScreen } from '../Screens/Index.js'
+import { 
+  SplashScreen, 
+  HomeScreen, 
+  PembelianScreen, 
+  RiwayatScreen, 
+  AkunScreen, 
+  SignInScreen,
+  SignUpScreen
+} from '../Screens/Index.js'
 import TabNavigasi from '../Components/TabNavigasi.js';
 
 
@@ -19,6 +27,14 @@ const AppUtama = () =>{
         </Tab.Navigator>
     );
 };
+
+const Gerbang = () => {
+  return(
+    <Stack.Navigator>
+      <Stack.Screen name="SignInScreen" component={SignInScreen} options={{ headerShown: false }}/>
+    </Stack.Navigator>
+  )
+}
 
 const Routernih = () => {
   return (
