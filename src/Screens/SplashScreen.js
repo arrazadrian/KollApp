@@ -6,7 +6,7 @@ const SplashScreen = ({ navigation }) => {
 
   useEffect(() => {
       setTimeout( () =>{
-        navigation.replace('AppUtama');
+        navigation.replace('Gerbang');
       }, 3000)
   }, [navigation]);
 

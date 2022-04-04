@@ -22,7 +22,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/Image/logoKollApp.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#FFF3C8"
       }
     },
     "web": {
