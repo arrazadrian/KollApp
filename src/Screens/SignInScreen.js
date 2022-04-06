@@ -2,8 +2,9 @@ import { StyleSheet, Text, View, Image, TextInput, Button, Pressable } from 'rea
 import React from 'react'
 import { SignIn } from '../assets/Image/Index'
 import { Ijo, IjoTua, Putih } from '../Utils/Warna'
+import { NavigationContainer } from '@react-navigation/native'
 
-const SignInScreen = () => {
+const SignInScreen = ({navigation}) => {
   return (
     <View>
       <View>
@@ -30,7 +31,10 @@ const SignInScreen = () => {
               <View style={{alignItems: 'center', top: 30}}>
                   <Text style={{color: Putih}}>  
                       <Text>Belum punya akun?</Text>   
-                      <Text style={{fontWeight:'bold'}}>Klik ini!</Text>
+                      <Text style={{fontWeight:'bold'}}
+                      onPress={() => navigation.navigate('SignUpScreen')}
+                      
+                      >Klik ini!</Text>
                   </Text>
               </View>
           </View>
