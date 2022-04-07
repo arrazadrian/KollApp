@@ -12,7 +12,7 @@ const SignInScreen = ({navigation}) => {
       </View>
       <View style={styles.form}>
           <View style={styles.wraper}>
-              <Text style={styles.judul}>Masuk</Text>
+              <Text style={styles.judul}>Masuk Akun</Text>
               <View style={{ marginBottom: 7}}>
                   <Text style={styles.tulisan}>Email</Text>
               </View>
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: Putih,
     marginBottom: 10,
+    alignSelf: 'center',
   },
   tulisan: {
     fontSize: 15,
