@@ -14,25 +14,31 @@ const SignUpScreen = ({navigation}) => {
                   <Text style={{color: Putih}}>Nama Lengkap</Text>
               </View>
               <View style={{marginBottom: 10}}>
-                  <TextInput style={styles.input} placeholder="Nama Lengkap"/>
+                  <TextInput style={styles.input} placeholder="Asep Suryana"/>
               </View>
               <View style={{left: 5, marginBottom: 5}}>
                   <Text style={{color: Putih}}>Email</Text>
               </View>
               <View style={{marginBottom: 10}}>
-                  <TextInput style={styles.input} placeholder="Email"/>
+                  <TextInput style={styles.input} placeholder="emailanda@mail.com"/>
+              </View>
+              <View style={{left: 5, marginBottom: 5}}>
+                  <Text style={{color: Putih}}>No. Handphone</Text>
+              </View>
+              <View style={{marginBottom: 10}}>
+                  <TextInput style={styles.input} placeholder="08XXXXX"/>
               </View>
               <View style={{left: 5, marginBottom: 5}}>
                   <Text style={{color: Putih}}>Password</Text>
               </View>
               <View style={{marginBottom: 10}}>
-                  <TextInput secureTextEntry={true} style={styles.input} placeholder="Password"/>
+                  <TextInput secureTextEntry={true} style={styles.input} placeholder="Kata Sandi"/>
               </View>
               <View style={{left: 5, marginBottom: 5}}>
                   <Text style={{color: Putih}}>Tulis Ulang Password</Text>
               </View>
-              <View style={{marginBottom: 20}}>
-                <TextInput secureTextEntry={true} style={styles.input} placeholder="Tulis Ulang Password"/>
+              <View style={{marginBottom: 16}}>
+                <TextInput secureTextEntry={true} style={styles.input} placeholder="Tulis Ulang Kata Sandi"/>
               </View>
               <View style={{justifyContent: 'center'}}>
                   <Text style={{color: Putih, textAlign: 'center'}}>
@@ -42,7 +48,9 @@ const SignUpScreen = ({navigation}) => {
                   </Text>
               </View>
           </View>
-            <Button title="Daftar" />
+          <View style={styles.tombol}>
+              <Text style={{fontWeight:'bold', fontSize: 20, color: Putih}}>Daftar</Text>
+          </View>
         <View style={{alignSelf:'center'}}>
             <Text style={{color: Putih}}>
                 <Text>Sudah punya akun?</Text>   
@@ -61,19 +69,19 @@ const styles = StyleSheet.create({
   latar:{
     flex: 1,
     backgroundColor: IjoTua,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 40
   },
   kotak:{
     top: 20,
     backgroundColor: Ijo,
     borderRadius: 20,
-    width: 300,
-    height: 500,
+    width: 320,
+    height: 455,
     alignSelf: 'center',
     opacity: 1,
-    marginBottom: 50,
-    paddingHorizontal: 26,
+    marginBottom: 20,
+    paddingHorizontal: 20,
     paddingVertical: 20
   },
   input: {
@@ -82,4 +90,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingStart: 10
   },
+  tombol:{
+    width: 320,
+    height: 50,
+    backgroundColor: Ijo,
+    borderRadius: 10,
+    alignSelf: 'center',
+    marginVertical: 20,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
 })

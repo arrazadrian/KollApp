@@ -7,11 +7,13 @@ import IconRiwayatIjo from './RiwayatIjo.svg'
 import IconAkunPutih from './AkunPutih.svg'
 import IconAkunIjo from './AkunIjo.svg'
 import IconSearch from './Search.svg'
+import IconLock from './Lock.svg'
+import IconMessage from './Message.svg'
 
 export { 
     IconHomePutih, IconHomeIjo, 
     IconPembelianPutih, IconPembelianIjo, 
     IconRiwayatPutih, IconRiwayatIjo, 
     IconAkunPutih, IconAkunIjo, 
-    IconSearch 
+    IconSearch, IconLock, IconMessage 
 }
