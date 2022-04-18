@@ -1,9 +1,17 @@
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import React, { useState } from 'react'
 import { Ijo, IjoTua, Putih } from '../Utils/Warna'
 
 const SignUpScreen = ({navigation}) => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+
+
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.latar}>
          <View style={{alignItems:'center'}}>
            <Text style={{color: Putih, fontSize: 30, fontWeight:'bold'}}>Daftar Akun</Text>
@@ -14,31 +22,57 @@ const SignUpScreen = ({navigation}) => {
                   <Text style={{color: Putih}}>Nama Lengkap</Text>
               </View>
               <View style={{marginBottom: 10}}>
-                  <TextInput style={styles.input} placeholder="Asep Suryana"/>
+                  <TextInput style={styles.input} placeholder="Cth. Asep Suryana"
+                  value={username}
+                  onChangeText={setUsername}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  />
               </View>
               <View style={{left: 5, marginBottom: 5}}>
                   <Text style={{color: Putih}}>Email</Text>
               </View>
               <View style={{marginBottom: 10}}>
-                  <TextInput style={styles.input} placeholder="emailanda@mail.com"/>
+                  <TextInput style={styles.input} placeholder="Cth. emailanda@mail.com"
+                  value={email}
+                  onChangeText={setEmail}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  />
               </View>
               <View style={{left: 5, marginBottom: 5}}>
                   <Text style={{color: Putih}}>No. Handphone</Text>
               </View>
               <View style={{marginBottom: 10}}>
-                  <TextInput style={styles.input} placeholder="08XXXXX"/>
+                  <TextInput style={styles.input} placeholder="08XXXXX"
+                  value={phone}
+                  onChangeText={setPhone}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  />
               </View>
               <View style={{left: 5, marginBottom: 5}}>
                   <Text style={{color: Putih}}>Password</Text>
               </View>
               <View style={{marginBottom: 10}}>
-                  <TextInput secureTextEntry={true} style={styles.input} placeholder="Kata Sandi"/>
+                  <TextInput secureTextEntry={true} style={styles.input} placeholder="Kata Sandi"
+                  value={password}
+                  onChangeText={setPassword}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  />
               </View>
               <View style={{left: 5, marginBottom: 5}}>
                   <Text style={{color: Putih}}>Tulis Ulang Password</Text>
               </View>
               <View style={{marginBottom: 16}}>
-                <TextInput secureTextEntry={true} style={styles.input} placeholder="Tulis Ulang Kata Sandi"/>
+                <TextInput secureTextEntry={true} style={styles.input} placeholder="Tulis Ulang Kata Sandi"
+                value={passwordConfirmation}
+                onChangeText={setPasswordConfirmation}
+                autoCapitalize="none"
+                autoCorrect={false}
+                
+                />
               </View>
               <View style={{justifyContent: 'center'}}>
                   <Text style={{color: Putih, textAlign: 'center'}}>
@@ -60,6 +94,7 @@ const SignUpScreen = ({navigation}) => {
             </Text>
         </View>
     </View>
+    </TouchableWithoutFeedback>
   )
 }
 
