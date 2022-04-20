@@ -1,13 +1,17 @@
 import { StyleSheet, Text, View, Image, TextInput, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { SignIn, LatarSignIn } from '../assets/Image/Index'
 import { Hitam, Ijo, Kuning, Putih } from '../Utils/Warna'
 import { NavigationContainer } from '@react-navigation/native'
 import { IconLock, IconMessage } from '../assets/Icon/Index'
+import { useEffect, useState } from 'react'
 
 const { height, width } = Dimensions.get('window')
 
 const SignInScreen = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -36,7 +40,7 @@ const SignInScreen = ({navigation}) => {
                       </View>
                       <View style={{alignItems: 'center'}}>
                           <Text style={{color: Ijo, fontSize: 16}}>  
-                              <Text>Belum punya akun?</Text>   
+                              <Text>Belum punya akun? </Text>   
                               <Text style={{fontWeight:'bold'}}
                               onPress={() => navigation.navigate('SignUpScreen')}                      
                               >Klik ini!</Text>
