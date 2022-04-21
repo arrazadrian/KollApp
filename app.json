@@ -4,7 +4,7 @@
     "slug": "KollApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/Image/logoKollApp.png", 
+    "icon": "./src/assets/Image/logoKollApp.png",
     "splash": {
       "image": "./src/assets/Image/splashKollApp.png",
       "resizeMode": "contain",
@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/Image/logoKollApp.png",
         "backgroundColor": "#FFF3C8"
-      }
+      },
+      "package": "com.ipb.kollapp"
     },
     "web": {
       "favicon": "./src/assets/Image/favicon.png"

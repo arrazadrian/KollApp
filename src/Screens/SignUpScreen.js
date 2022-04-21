@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native'
-import React, { useState } from 'react'
-import { Ijo, IjoTua, Putih } from '../Utils/Warna'
+import { StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import React, { useState } from 'react';
+import { Ijo, IjoTua, Putih } from '../Utils/Warna';
+import { useAuth } from '../../providers/AuthProvider';
 
 const SignUpScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
@@ -8,6 +9,18 @@ const SignUpScreen = ({navigation}) => {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
+
+  const onPressSignUp = async () => {
+    console.log("Trying Sign Up with user: " + email);
+    try {
+      await signUp(username, email, phone, password, passwordConfirmation);
+      signIn(email, password);
+    } catch (error) {
+      const errorMessage = `Failed to sign up: ${error.message}`;
+      console.error(errorMessage);
+      Alert.alert(errorMessage);
+    }
+  };
 
 
   return (

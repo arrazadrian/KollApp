@@ -4,7 +4,7 @@ import { SignIn, LatarSignIn } from '../assets/Image/Index'
 import { Hitam, Ijo, Kuning, Putih } from '../Utils/Warna'
 import { NavigationContainer } from '@react-navigation/native'
 import { IconLock, IconMessage } from '../assets/Icon/Index'
-import { useEffect, useState } from 'react'
+
 
 const { height, width } = Dimensions.get('window')
 
@@ -12,6 +12,19 @@ const SignInScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const onPressSignIn = async () => {
+    console.log("Trying sign in with user: " + email);
+    try {
+      await signIn(email, password);
+    } catch (error) {
+      const errorMessage = `Failed to sign in: ${error.message}`;
+      console.error(errorMessage);
+      Alert.alert(errorMessage);
+    }
+  };
+
+
+  
   return (
     
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
