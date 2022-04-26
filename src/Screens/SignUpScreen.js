@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import React, { useState } from 'react';
 import { Ijo, IjoTua, Putih } from '../Utils/Warna';
-import { useAuth } from '../../providers/AuthProvider';
+//import { useAuth } from '../../providers/AuthProvider';
 
 const SignUpScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
@@ -62,6 +62,7 @@ const SignUpScreen = ({navigation}) => {
                   onChangeText={setPhone}
                   autoCapitalize="none"
                   autoCorrect={false}
+                  keyboardType='numeric'
                   />
               </View>
               <View style={{left: 5, marginBottom: 5}}>

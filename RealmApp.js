@@ -1,4 +1,4 @@
-import Realm from "realm";
+/*import Realm from "realm";
 
 // Shared instance of the Realm app.
 const app = new Realm.App({id: "kollapp-jfzvx"}); // Set Realm app ID here.
@@ -7,4 +7,4 @@ const app = new Realm.App({id: "kollapp-jfzvx"}); // Set Realm app ID here.
 
 export default app;
 
-//Kode berasal dari dokumentasi Realm App
+//Kode berasal dari dokumentasi Realm App */
