@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   pojoklogo: {
     width:  100,
     height: 50,
-    top: 20,
+    top: 15,
     marginLeft: 10,
     marginTop: 10,
     position: `absolute`,
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   wraper:{
-    marginTop: 180,
+    marginTop: 130,
     marginHorizontal: 30,
   }
 })
