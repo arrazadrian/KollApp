@@ -1,9 +1,12 @@
-import { StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, Keyboard, StatusBar } from 'react-native';
 import React, { useState } from 'react';
 import { Ijo, IjoTua, Putih } from '../Utils/Warna';
 //import { useAuth } from '../../providers/AuthProvider';
 
 const SignUpScreen = ({navigation}) => {
+
+  <StatusBar translucent backgroundColor="transparent" />
+
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -26,7 +29,7 @@ const SignUpScreen = ({navigation}) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.latar}>
-         <View style={{alignItems:'center'}}>
+         <View style={{alignItems:'center', top: 5}}>
            <Text style={{color: Putih, fontSize: 30, fontWeight:'bold'}}>Daftar Akun</Text>
            <Text style={{color: Putih, fontSize: 17}}>Yuk lengkapi data pribadimu!</Text>
          </View>
@@ -119,19 +122,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: IjoTua,
     paddingHorizontal: 10,
-    paddingVertical: 40
+    paddingVertical: 20
   },
   kotak:{
     top: 20,
     backgroundColor: Ijo,
     borderRadius: 20,
     width: 320,
-    height: 455,
+    height: 440,
     alignSelf: 'center',
     opacity: 1,
-    marginBottom: 20,
+    marginBottom: 15,
     paddingHorizontal: 20,
-    paddingVertical: 20
+    paddingVertical: 15,
   },
   input: {
     backgroundColor: Putih,

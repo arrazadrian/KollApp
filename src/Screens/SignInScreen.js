@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TextInput, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Dimensions, TouchableWithoutFeedback, Keyboard, StatusBar } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { SignIn, LatarSignIn } from '../assets/Image/Index'
 import { Hitam, Ijo, Kuning, Putih } from '../Utils/Warna'
@@ -9,6 +9,8 @@ import { IconLock, IconMessage } from '../assets/Icon/Index'
 const { height, width } = Dimensions.get('window')
 
 const SignInScreen = ({navigation}) => {
+
+  <StatusBar translucent backgroundColor="transparent" />
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -26,10 +28,9 @@ const SignInScreen = ({navigation}) => {
 
   
   return (
-    
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.latar}>
-            <Image source={LatarSignIn} style={styles.gerobak} />
+            <ImageBackground source={LatarSignIn} resizeMode="cover" style={styles.rumah} />
               <View>
                 <Image source={SignIn} style={styles.pojoklogo} />
               </View>
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
     flex: 1,
     
   },
-  gerobak:{
+  rumah:{
     flex:1,
     position:`absolute`,
     height: height,

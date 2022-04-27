@@ -8,7 +8,7 @@
     "splash": {
       "image": "./src/assets/Image/splashKollApp.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FFF3C8"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

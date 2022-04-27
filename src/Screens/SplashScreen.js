@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View, ImageBackground } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, Image } from 'react-native'
 import React, {useEffect} from 'react'
 import { Splash } from '../assets/Index'
+import { Kuning } from '../Utils/Warna'
 
-const SplashScreen = ({ navigation }) => {
+const { height, width } = Dimensions.get('window')
 
+const SplashScreen = ({ navigation }) => {  
   useEffect(() => {
       setTimeout( () =>{
         navigation.replace('Gerbang');
@@ -11,9 +13,9 @@ const SplashScreen = ({ navigation }) => {
   }, [navigation]);
 
   return (
-    <ImageBackground source={Splash} style={styles.background}>
-
-    </ImageBackground>
+    <View>
+      <Image source={Splash} style={styles.gambar} />
+    </View>
   )
 }
 
@@ -24,5 +26,12 @@ const styles = StyleSheet.create({
     flex:1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: Kuning,
+  },
+  gambar:{
+    flex:1,
+    position:`absolute`,
+    height: height,
+    width: width,
   }
 })
