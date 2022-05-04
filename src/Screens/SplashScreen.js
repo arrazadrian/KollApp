@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions, Image } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, ImageBackground } from 'react-native'
 import React, {useEffect} from 'react'
 import { Splash } from '../assets/Index'
 import { Kuning } from '../Utils/Warna'
@@ -14,7 +14,7 @@ const SplashScreen = ({ navigation }) => {
 
   return (
     <View>
-      <Image source={Splash} style={styles.gambar} />
+      <ImageBackground source={Splash} resizeMode="stretch" style={styles.gambar} />
     </View>
   )
 }
