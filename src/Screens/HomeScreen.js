@@ -17,7 +17,7 @@ const HomeScreen = ({navigation}) => {
       </View>
       <ScrollView>
           <View>
-          { /* <CarouselHome data={ tigaGambar } /> */}  
+            {/* <CarouselHome data={ tigaGambar } /> */}
           </View> 
           <View style={styles.bungkus}>
             <Text style={styles.judul}>Siap Datang!</Text>
@@ -58,9 +58,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   bungkus:{
-    marginLeft: 20,
-    marginTop: 20,
-    marginBottom: 10,
-    
+    marginBottom:10,
+    marginHorizontal: 20,
+    marginTop: 2,
   }
 })
