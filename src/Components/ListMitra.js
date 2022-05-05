@@ -1,54 +1,71 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View, Image} from 'react-native'
 import React from 'react'
 import { DPkartu } from '../assets/Image/Index.js'
-import { Ijo } from '../Utils/Warna.js'
+import { Abu } from '../Utils/Warna.js'
 
-const ListMitra = () => {
+const ListMitra = ({navigation}) => {
   return (
-    <TouchableOpacity>
-        <View style={styles.card}>
-            <Image source={DPkartu} style={styles.foto}/>
-            <View>
-                <Text style={{fontSize: 20, fontWeight: 'bold'}}> Sayur Aa Anri </Text>
-                <Text> 200m </Text>
-                <View style={styles.nilai}>
-                    <Text style={{color:'#FFF'}}> Nilai </Text>
-                    <Text style={{color:'#FFF', fontWeight: 'bold', fontSize:13}}> 9,8 </Text>
-                </View>
-            </View>
+
+        <View style={styles.card} onPress={() => navigation.navigate('DetailScreen')} >
+            <FotoMitra/>
+            <DeskMitra/>
         </View>
-    </TouchableOpacity>
+ 
   )
 }
 
 export default ListMitra
 
+const FotoMitra = () => {
+    return (
+        <Image source={DPkartu} style={styles.foto}/>
+    )
+}
+
+const DeskMitra = () => {
+    return (
+        <View style={styles.deskripsi}>
+            <View >
+                <Text style={{fontSize: 20, fontWeight: 'bold'}}> Sayur Aa Anri </Text>
+                <Text> 200m </Text>
+            </View>    
+            <View style={styles.nilai}>
+            <Text>9.0</Text> 
+            </View>
+        </View>
+    )
+}
+
 const styles = StyleSheet.create({
     card:{
-        flexDirection: 'row',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
         backgroundColor: '#fff',
         marginBottom: 10,
+        marginHorizontal: 15,
         borderRadius: 15,
-        alignItems: 'center',
-        marginLeft: 15,
-        marginRight: 15,
-        
+        borderWidth: 1,
+        borderColor: '#ddd',
+        padding: 10,
     },
     foto:{
-        marginLeft: 10,
-        marginRight: 10,
-        marginTop: 10,
+        width: '100%',
+        height: 180,
+        borderRadius: 10, 
         marginBottom: 10,
-        width: 96,
-        height: 96,
-        borderRadius: 15, 
+    },
+    deskripsi:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        
     },
     nilai:{
-      position:'absolute',
-      left:200, 
-      top: 30, 
-      alignItems:'center',
-      backgroundColor: Ijo,
-      borderRadius: 15,
+        height: 40,
+        width: 40,
+        backgroundColor: Abu,
+        borderRadius: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 })

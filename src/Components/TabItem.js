@@ -3,7 +3,6 @@ import React from 'react'
 import {
    IconAkunIjo, IconAkunPutih,
    IconHomeIjo, IconHomePutih,
-   IconPembelianIjo, IconPembelianPutih,
    IconRiwayatIjo, IconRiwayatPutih
 } from '../assets/Icon/Index'
 
@@ -12,7 +11,6 @@ import { IjoTua, Putih } from '../Utils/Warna'
 const TabItem = ({ isFocused, onPress, onLongPress, label}) => {
   const Icon = () => { 
     if(label === "Beranda") return isFocused ? <IconHomePutih/> : <IconHomeIjo/>
-    if(label === "Pembelian") return isFocused ? <IconPembelianPutih/> : <IconPembelianIjo/>
     if(label === "Riwayat") return isFocused ? <IconRiwayatPutih/> : <IconRiwayatIjo/>
     if(label === "Akun") return isFocused ? <IconAkunPutih/> : <IconAkunIjo/>
   }
@@ -40,5 +38,6 @@ export default TabItem
 const styles = StyleSheet.create({
   container:{
     alignItems: 'center', 
+    justifyContent: 'space-around',
   },
 });

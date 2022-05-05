@@ -7,7 +7,7 @@ import CarouselHome from '../Components/CarouselHome'
 import { tigaGambar } from '../Data/data.js';
 import ListMitra from '../Components/ListMitra';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
 // const HomeScreen = ({item}) => {
   return (
     <View style={styles.latar}> 
@@ -23,7 +23,7 @@ const HomeScreen = () => {
             <Text style={styles.judul}>Siap Datang!</Text>
             <Text style={styles.deskripsi}>Kami siap ke lokasi anda</Text>
           </View>
-            <ListMitra/>
+            <ListMitra onPress={() => navigation.navigate('DetailScreen')}/>
       </ScrollView>
     </View>
   )
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   latar:{
     flex: 1,
-    backgroundColor: Abu,
+    backgroundColor: Kuning,
   },
   judul:{
     fontSize: 25,

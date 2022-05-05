@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     container:{
         flexDirection: 'row',
         backgroundColor: Ijo,
-        paddingHorizontal: 30,
+        paddingHorizontal: 50,
         paddingVertical: 8, 
         justifyContent: 'space-between',
     }

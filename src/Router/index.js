@@ -9,24 +9,16 @@ import {
   RiwayatScreen, 
   AkunScreen, 
   SignInScreen,
-  SignUpScreen
+  SignUpScreen,
+  DetailScreen,
+  KategoriScreen,
 } from '../Screens/Index.js'
 import TabNavigasi from '../Components/TabNavigasi.js';
+import Kategori from '../Screens/KategoriScreen.js';
 
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-
-const AppUtama = () =>{
-    return(
-        <Tab.Navigator tabBar={props => <TabNavigasi {...props}/>}>
-            <Tab.Screen name="Beranda" component={HomeScreen} options={{ headerShown: false }}/>
-            <Tab.Screen name="Pembelian" component={PembelianScreen} options={{ headerShown: false }}/>
-            <Tab.Screen name="Riwayat" component={RiwayatScreen} options={{ headerShown: false }}/>
-            <Tab.Screen name="Akun" component={AkunScreen} options={{ headerShown: false }}/>
-        </Tab.Navigator>
-    );
-};
 
 const Gerbang = () => {
   return(
@@ -37,12 +29,34 @@ const Gerbang = () => {
   )
 }
 
+const AppUtama = () =>{
+    return(
+        <Tab.Navigator tabBar={props => <TabNavigasi {...props}/>}>
+            <Tab.Screen name="Beranda" component={HomeScreen} options={{ headerShown: false }}/>
+            <Tab.Screen name="Riwayat" component={RiwayatScreen} options={{ headerShown: false }}/>
+            <Tab.Screen name="Akun" component={AkunScreen} options={{ headerShown: false }}/>
+        </Tab.Navigator>
+    );
+};
+
+
+const DalamMitra = () => {
+  return(
+    <Stack.Navigator>
+      <Stack.Screen name="DetailScreen" component={DetailScreen} />
+      <Stack.Screen name="KategoriScreen" component={KategoriScreen} />
+    </Stack.Navigator>
+  )
+}
+
 const Routernih = () => {
   return (
     <Stack.Navigator initialRouteName="SplashScreen">
         <Stack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="Gerbang" component={Gerbang} options={{ headerShown: false }}/>
         <Stack.Screen name="AppUtama" component={AppUtama} options={{ headerShown: false }}/>
+        <Stack.Screen name="DalamMitra" component={DalamMitra} options={{ headerShown: false }}/>
+        <Stack.Screen name="DetailScreen" component={DetailScreen} />
     </Stack.Navigator>
   );
 };
