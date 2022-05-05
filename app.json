@@ -24,7 +24,8 @@
         "foregroundImage": "./src/assets/Image/logoKollApp.png",
         "backgroundColor": "#FFF3C8"
       },
-      "package": "com.ipb.kollapp"
+      "package": "com.ipb.kollapp",
+      "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
       "favicon": "./src/assets/Image/favicon.png"

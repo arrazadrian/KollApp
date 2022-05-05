@@ -30,7 +30,7 @@ const SignInScreen = ({navigation}) => {
   return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.latar}>
-            <ImageBackground source={LatarSignIn}  resizeMode="cover"  style={styles.rumah}/>
+            <ImageBackground source={LatarSignIn}  resizeMode="stretch"  style={styles.rumah}/>
               <View>
                 <Image source={SignIn} style={styles.pojoklogo} />
               </View>
@@ -79,8 +79,8 @@ const styles = StyleSheet.create({
  rumah:{
     flex:1,
     position:`absolute`,
-    height: '100%' ,
-    width: '100%',
+    height: height,
+    width: width,
   }, 
   pojoklogo: {
     width:  100,
