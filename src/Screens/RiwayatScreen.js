@@ -1,14 +1,21 @@
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
 import React from 'react'
+import { Ijo } from '../Utils/Warna'
 
-const TransaksiScreen = () => {
+const RiwayatScreen = () => {
   return (
     <SafeAreaView>
-      <Text>TransaksiScreen</Text>
+      <View style={styles.container}>
+        <Text>RiwayatScreen</Text>
+      </View>
     </SafeAreaView>
   )
 }
 
-export default TransaksiScreen
+export default RiwayatScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Ijo,
+  }
+})
