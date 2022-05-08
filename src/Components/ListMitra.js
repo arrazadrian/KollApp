@@ -26,11 +26,11 @@ const DeskMitra = () => {
     return (
         <View style={styles.deskripsi}>
             <View >
-                <Text style={{fontSize: 20, fontWeight: 'bold'}}> Sayur Aa Anri </Text>
+                <Text style={{fontSize: 20, fontWeight: 'bold'}}>Sayur Aa Anri</Text>
                 <Text> 200m </Text>
             </View>    
             <View style={styles.nilai}>
-            <Text>9.0</Text> 
+                 <Text>9.0</Text> 
             </View>
         </View>
     )
