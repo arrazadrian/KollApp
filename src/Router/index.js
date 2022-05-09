@@ -42,7 +42,7 @@ const AppUtama = () =>{
 
 const DalamMitra = () => {
   return(
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="DetailScreen">
       <Stack.Screen name="DetailScreen" component={DetailScreen} />
       <Stack.Screen name="KategoriScreen" component={KategoriScreen} />
     </Stack.Navigator>
@@ -56,7 +56,6 @@ const Routernih = () => {
         <Stack.Screen name="Gerbang" component={Gerbang} options={{ headerShown: false }}/>
         <Stack.Screen name="AppUtama" component={AppUtama} options={{ headerShown: false }}/>
         <Stack.Screen name="DalamMitra" component={DalamMitra} options={{ headerShown: false }}/>
-        <Stack.Screen name="DetailScreen" component={DetailScreen} />
     </Stack.Navigator>
   );
 };

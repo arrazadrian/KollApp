@@ -23,9 +23,9 @@ const HomeScreen = ({navigation}) => {
             <Text style={styles.judul}>Siap Datang!</Text>
             <Text style={styles.deskripsi}>Kami siap ke lokasi anda</Text>
           </View>
-            <ListMitra onPress={() => navigation.navigate('DetailScreen')}/>
-            <ListMitra onPress={() => navigation.navigate('DetailScreen')}/>
-            <ListMitra onPress={() => navigation.navigate('DetailScreen')}/>
+          <View>
+            <ListMitra onPress={() => navigation.navigate('DalamMitra')}/>
+          </View>
       </ScrollView>
     </View>
   )
