@@ -6,13 +6,16 @@ const AkunScreen = () => {
   return (
     <SafeAreaView style={styles.latar}>
       <View style={styles.container}>
-            <View style={{flexDirection:'row', alignItems:'center', marginBottom: 20}}>
+            <View style={{flexDirection:'row', alignItems:'center', marginBottom: 10}}>
                 <View style={styles.foto}>
                   <Text>Putuu</Text>
                 </View>
                 <View>
                     <Text style={{fontSize: 30, fontWeight:'bold', color: Putih,}}>Arraz Adrian</Text>
                     <Text style={{fontSize: 18,color: Putih,}}>Pelanggan</Text>
+                    <View style={styles.edit}>
+                      <Text style={{color: Putih, fontSize: 18, fontWeight:'bold'}}>Edit Profil</Text>
+                    </View>
                 </View>
             </View>
             <View style={{borderBottomColor: Ijo, borderBottomWidth: 1}}>
@@ -61,12 +64,22 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     height: '80%',
-    top: 150, 
+    top: 140, 
     padding: 20,
   },
   tulisan:{
     fontSize: 18,
     color: Putih,
+  },
+  edit:{
+    borderColor: Ijo,
+    borderWidth: 2,
+    borderRadius: 10,
+    width: '100%',
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
   },
   logout:{
     backgroundColor: Merah,
