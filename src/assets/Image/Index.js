@@ -7,5 +7,9 @@ import Header3 from './SwiperKoll-21.png'
 import DPkartu from './Dagangan.png'
 import SignIn from './KollLong.png'
 import LatarSignIn from './LatarSignIn.png'
+import TemuLangsung from './TemuLangsung.png'
+import PanggilMitra from './PanggilMitra.png'
 
-export { Logo, Splash, LogoPutih, Header1, Header2, Header3, DPkartu, SignIn, LatarSignIn }
+export { Logo, Splash, LogoPutih, Header1, 
+        Header2, Header3, DPkartu, SignIn, 
+        LatarSignIn, TemuLangsung, PanggilMitra }

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         width: width,
-        height: 150
+        height: 150,
     },
     gambar:{
         width: width,
