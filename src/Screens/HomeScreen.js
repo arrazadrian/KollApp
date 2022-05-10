@@ -7,7 +7,7 @@ import CarouselHome from '../Components/CarouselHome'
 import { tigaGambar } from '../Data/data.js';
 import ListMitra from '../Components/ListMitra';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({navigation, item}) => {
 // const HomeScreen = ({item}) => {
   return (
     <View style={styles.latar}> 
@@ -17,7 +17,7 @@ const HomeScreen = ({navigation}) => {
       </View>
       <ScrollView>
           <View>
-            {/* <CarouselHome data={ tigaGambar } /> */}
+            <CarouselHome data={ tigaGambar } /> 
           </View> 
           <View style={styles.bungkus}>
             <Text style={styles.judul}>Siap Datang!</Text>

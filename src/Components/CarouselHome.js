@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Dimensions, FlatList, Animated } from 'react-native'
 import React, {useState, useEffect, useRef} from 'react'
 import CarouselItem from './Carouseltem'
+import { Ijo } from '../Utils/Warna';
 
 const {width} = Dimensions.get('window')
 let flatList
@@ -27,7 +28,7 @@ function infiniteScroll(dataList, mySlide){
 
        /* this.flatList.scrollToOffset({ animated: true, offset: scrollValue}) */
         
-    }, 3000)
+    }, 5000)
 }
 
 
@@ -76,7 +77,7 @@ const CarouselHome = ({ data }) => {
                         return (
                             <Animated.View
                                 key={i}
-                                style={{ opacity, height: 10, width: 10, backgroundColor: '#595959', margin: 8, borderRadius: 5 }}
+                                style={{ opacity, height: 10, width: 10, backgroundColor: Ijo, margin: 8, borderRadius: 5 }}
                             />
                         )
                     })}
@@ -93,7 +94,8 @@ const styles = StyleSheet.create({
     titikIndikator:
     {
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    
     }
 
 })
