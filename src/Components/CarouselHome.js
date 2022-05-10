@@ -71,7 +71,7 @@ const CarouselHome = ({ data }) => {
                     {data.map((_, i) => {
                         let opacity = position.interpolate({
                             inputRange: [i - 1, i, i + 1],
-                            outputRange: [0.3, 1, 0.3],
+                            outputRange: [0.5, 1, 0.5],
                             extrapolate: 'clamp'
                         })
                         return (
