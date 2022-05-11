@@ -5,13 +5,13 @@ import HeaderTabs from '../Components/HeaderTabs'
 
 const RiwayatScreen = () => {
   return (
-    <SafeAreaView>
+   
       <View style={styles.container}>
         <View style={styles.bungkus}>
           <HeaderTabs/>
         </View>
       </View>
-    </SafeAreaView>
+    
   )
 }
 
@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
   bungkus: {
     backgroundColor: Putih,
     borderRadius: 10,
-    width: '80%',
     height: 40,
     paddingVertical: 5, 
   }

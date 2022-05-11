@@ -31,10 +31,9 @@ const HeaderButton = (props) => {
         <TouchableOpacity style={{
           backgroundColor: props.activeTab === props.text ? Ijo : Putih, 
           paddingVertical: 5,
-          paddingHorizontal: 10,
+          paddingHorizontal: 20,
           borderRadius: 10,
-          marginHorizontal: 3,
-          width: 155,
+          marginHorizontal: 5,
           alignItems: 'center',
           justifyContent: 'center',
         }}

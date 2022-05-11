@@ -19,7 +19,7 @@ const HomeScreen = ({navigation, item}) => {
           <View>
             <CarouselHome data={ tigaGambar } /> 
           </View> 
-          <View style={{backgroundColor: IjoTua, alignSelf:'center', width:'95%', padding: 10, borderRadius: 20}}>
+          <View style={{backgroundColor: IjoTua, alignSelf:'center', padding: 10, borderRadius: 20}}>
               <View style={styles.bungkus}>
                 <Text style={styles.judul}>Siap Melayani!</Text>
                 <Text style={styles.deskripsi}>Yuk pilih kebutuhanmu</Text>
