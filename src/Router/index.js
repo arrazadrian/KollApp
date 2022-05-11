@@ -18,7 +18,7 @@ import {
 } from '../Screens/Index.js'
 import TabNavigasi from '../Components/TabNavigasi.js';
 import Kategori from '../Screens/KategoriScreen.js';
-import { Ijo } from '../Utils/Warna.js';
+import { Ijo, Putih } from '../Utils/Warna.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -32,8 +32,8 @@ const HomeStackScreen = () => {
   return(
   <HomeStack.Navigator>
     <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }}/>
-    <HomeStack.Screen name="SekitarScreen" component={SekitarScreen} options={{ title: "Mitra Akftif Sekitarmu" }}/>
-    <HomeStack.Screen name="LangsungScreen" component={LangsungScreen} options={{ title: "Temu Langsung", backgroundColor: Ijo }}/>
+    <HomeStack.Screen name="SekitarScreen" component={SekitarScreen} options={{ title: "Mitra Akftif Sekitarmu", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
+    <HomeStack.Screen name="LangsungScreen" component={LangsungScreen} options={{ title: "Temu Langsung", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
   </HomeStack.Navigator>
   );
 };
