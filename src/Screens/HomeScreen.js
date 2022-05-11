@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView} from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Pressable } from 'react-native'
 import React from 'react'
 import PencarianBar from '../Components/PencarianBar'
 import { Ijo, Kuning, Putih, Hitam, Abu, IjoTua, IjoMint } from '../Utils/Warna';
@@ -16,28 +16,32 @@ const HomeScreen = ({navigation, item}) => {
         <PencarianBar />
       </View>
       <ScrollView>
-          <View>
-            <CarouselHome data={ tigaGambar } /> 
-          </View> 
-          <View style={{backgroundColor: IjoTua, alignSelf:'center', padding: 10, borderRadius: 20}}>
+         {/* <View>
+              <CarouselHome data={ tigaGambar } /> 
+             </View> */}
+          <View style={{backgroundColor: IjoTua, alignSelf:'center', paddingHorizontal: 20, paddingVertical:10, borderRadius: 20}}>
               <View style={styles.bungkus}>
                 <Text style={styles.judul}>Siap Melayani!</Text>
                 <Text style={styles.deskripsi}>Yuk pilih kebutuhanmu</Text>
               </View>
-              <View style={styles.homeButton}>
-                <View style={{flexDirection: 'column'}}>
-                    <Text style={styles.judulButton}>Panggil Mitra</Text>
-                    <Text style={styles.deskripsiButton}>Mitra akan mendatangimu</Text>
-                </View>
-                <Image source={PanggilMitra} style={styles.imageButton} />
-              </View>
-              <View style={styles.homeButton}>
-                <View style={{flexDirection: 'column'}}>
-                  <Text style={styles.judulButton}>Temu Langsung</Text>
-                  <Text style={styles.deskripsiButton}>Ketemu langsung belanja</Text>
-                </View>
-                <Image source={TemuLangsung} style={styles.imageButton} />
-              </View>
+              <Pressable onPress={() => navigation.push('SekitarScreen')}>
+                  <View style={styles.homeButton}>
+                    <View style={{flexDirection: 'column'}}>
+                        <Text style={styles.judulButton}>Panggil Mitra</Text>
+                        <Text style={styles.deskripsiButton}>Mitra akan mendatangimu</Text>
+                    </View>
+                    <Image source={PanggilMitra} style={styles.imageButton} />
+                  </View>
+              </Pressable>
+              <Pressable onPress={() => navigation.push('LangsungScreen')}>
+                  <View style={styles.homeButton}>
+                    <View style={{flexDirection: 'column'}}>
+                      <Text style={styles.judulButton}>Temu Langsung</Text>
+                      <Text style={styles.deskripsiButton}>Ketemu langsung belanja</Text>
+                    </View>
+                    <Image source={TemuLangsung} style={styles.imageButton} />
+                  </View>
+              </Pressable>
           </View>
       </ScrollView>
     </View>

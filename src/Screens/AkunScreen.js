@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Pressable } from 'react-native'
 import React from 'react'
 import { Ijo, IjoTua, Kuning, Merah, Putih} from '../Utils/Warna';
 
-const AkunScreen = () => {
+const AkunScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.latar}>
       <View style={styles.container}>
@@ -13,9 +13,11 @@ const AkunScreen = () => {
                 <View>
                     <Text style={{fontSize: 30, fontWeight:'bold', color: Putih,}}>Arraz Adrian</Text>
                     <Text style={{fontSize: 18,color: Putih,}}>Pelanggan</Text>
-                    <View style={styles.edit}>
-                      <Text style={{color: Putih, fontSize: 18, fontWeight:'bold'}}>Edit Profil</Text>
-                    </View>
+                    <Pressable  onPress={() => navigation.push('EditScreen')} >
+                        <View style={styles.edit}>
+                          <Text style={{color: Putih, fontSize: 18, fontWeight:'bold'}}>Edit Profil</Text>
+                        </View>
+                    </Pressable>
                 </View>
             </View>
             <View style={{borderBottomColor: Ijo, borderBottomWidth: 1}}>
@@ -36,7 +38,7 @@ const AkunScreen = () => {
                 </View>
             </View>
             <View style={styles.logout}>
-              <Text style={{fontSize: 20, color: Putih, fontWeight: 'bold'}}>Log Out</Text>
+              <Text style={{fontSize: 20, color: Ijo, fontWeight: 'bold'}}>Log Out</Text>
             </View>
       </View>
     </SafeAreaView>
@@ -82,12 +84,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   logout:{
-    backgroundColor: Merah,
-    borderRadius: 10,
-    height: 40,
-    width: 300,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
+    margin: 20,
   }
 })
