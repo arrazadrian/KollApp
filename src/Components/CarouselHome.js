@@ -28,7 +28,7 @@ function infiniteScroll(dataList, mySlide){
 
        /* this.flatList.scrollToOffset({ animated: true, offset: scrollValue}) */
         
-    }, 5000)
+    }, 3000)
 }
 
 
@@ -71,13 +71,13 @@ const CarouselHome = ({ data }) => {
                     {data.map((_, i) => {
                         let opacity = position.interpolate({
                             inputRange: [i - 1, i, i + 1],
-                            outputRange: [0.5, 1, 0.5],
+                            outputRange: [0.3, 1, 0.3],
                             extrapolate: 'clamp'
                         })
                         return (
                             <Animated.View
                                 key={i}
-                                style={{ opacity, height: 10, width: 10, backgroundColor: Ijo, margin: 8, borderRadius: 5 }}
+                                style={{ opacity, height: 5, width: 30, backgroundColor: Ijo, margin: 8, borderRadius: 5 }}
                             />
                         )
                     })}

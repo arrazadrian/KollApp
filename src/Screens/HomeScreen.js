@@ -19,7 +19,7 @@ const HomeScreen = ({navigation, item}) => {
           <View>
             <CarouselHome data={ tigaGambar } /> 
           </View> 
-          <View style={{backgroundColor: IjoMint, alignSelf:'center', width:'95%', height:340, padding: 10, borderRadius: 20}}>
+          <View style={{backgroundColor: IjoTua, alignSelf:'center', width:'95%', padding: 10, borderRadius: 20}}>
               <View style={styles.bungkus}>
                 <Text style={styles.judul}>Siap Melayani!</Text>
                 <Text style={styles.deskripsi}>Yuk pilih kebutuhanmu</Text>
@@ -68,19 +68,21 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',
-  },
-  judulButton:{
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: IjoTua,
-  },
-  deskripsiButton:{
-    fontSize: 18,
-    color: IjoTua,
+    color: Putih,
   },
   deskripsi:{
     fontSize: 15,
     textAlign: 'center',
+    color: Putih,
+  },
+  judulButton:{
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: Putih,
+  },
+  deskripsiButton:{
+    fontSize: 18,
+    color: Putih,
   },
   bungkus:{
     marginBottom:10,
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   homeButton:{
-    backgroundColor: Putih,
+    backgroundColor: Ijo,
     flexDirection: 'row',
     height: 120,
     width: 350,
