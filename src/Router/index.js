@@ -6,13 +6,13 @@ import {
   SplashScreen, 
   HomeScreen,
   SekitarScreen, 
+  PosisiScreen,
   LangsungScreen,
   PembelianScreen, 
   RiwayatScreen, 
   AkunScreen, 
   SignInScreen,
   SignUpScreen,
-  DetailScreen,
   KategoriScreen,
   EditScreen,
 } from '../Screens/Index.js'
@@ -34,6 +34,7 @@ const HomeStackScreen = () => {
     <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }}/>
     <HomeStack.Screen name="SekitarScreen" component={SekitarScreen} options={{ title: "Mitra Akftif Sekitarmu", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
     <HomeStack.Screen name="LangsungScreen" component={LangsungScreen} options={{ title: "Temu Langsung", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
+    <HomeStack.Screen name="DalamMitra" component={DalamMitra} options={{ title: "Posisi Mitra", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
   </HomeStack.Navigator>
   );
 };
@@ -77,8 +78,8 @@ const AppUtama = () =>{
 
 const DalamMitra = () => {
   return(
-    <Stack.Navigator initialRouteName="DetailScreen">
-      <Stack.Screen name="DetailScreen" component={DetailScreen} />
+    <Stack.Navigator initialRouteName="PosisiScreen">
+      <Stack.Screen name="PosisiScreen" component={PosisiScreen} />
       <Stack.Screen name="KategoriScreen" component={KategoriScreen} />
     </Stack.Navigator>
   )

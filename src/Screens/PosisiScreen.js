@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const DetailScreen = () => {
+const PosisiScreen = () => {
   return (
     <View>
-      <Text>DetailMitra</Text>
+      <Text>PosisiScreen</Text>
     </View>
   )
 }
 
-export default DetailScreen
+export default PosisiScreen
 
 const styles = StyleSheet.create({})

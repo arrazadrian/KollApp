@@ -1,12 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import ListMitra from '../Components/ListMitra'
 import { Kuning } from '../Utils/Warna'
 
-const SekitarScreen = () => {
+const SekitarScreen = ({ navigation }) => {
   return (
     <View style={styles.latar}>
-      <ListMitra/>
+      <Pressable  onPress={() => navigation.push('DalamMitra')} >
+          <ListMitra/>
+      </Pressable>
     </View>
   )
 }
