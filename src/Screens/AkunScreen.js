@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView, Pressable } from 'react-native'
 import React from 'react'
-import { Ijo, IjoTua, Kuning, Merah, Putih} from '../Utils/Warna';
+import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
 
 const AkunScreen = ({ navigation }) => {
   return (

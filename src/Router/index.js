@@ -79,7 +79,7 @@ const AppUtama = () =>{
 const DalamMitra = () => {
   return(
     <Stack.Navigator initialRouteName="PosisiScreen">
-      <Stack.Screen name="PosisiScreen" component={PosisiScreen} />
+      <Stack.Screen name="PosisiScreen" component={PosisiScreen}  options={{ headerShown: false }} />
       <Stack.Screen name="KategoriScreen" component={KategoriScreen} />
     </Stack.Navigator>
   )
