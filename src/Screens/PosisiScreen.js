@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
 import { DPkartu } from '../assets/Image/Index.js'
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const PosisiScreen = () => {
   return (
@@ -13,10 +14,14 @@ const PosisiScreen = () => {
           <View>
             <Image source={DPkartu} style={styles.gambar}/>
           </View>
-          <View>
-            <Text>Sayur Aa Anri</Text>
+          <View style={{paddingHorizontal:20}}>
+            <Text style={{color: Putih, fontSize:20, fontWeight: 'bold'}}>Sayur Aa Anri</Text>
+            <Text style={{color: Putih, fontSize:16}}>
+                <Text>200m</Text>
+                <Text> | </Text>
+                <Text>20 min</Text>
+            </Text>
           </View>
-
       </View>
     </View>
   )
@@ -32,6 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: Kuning,
   },
   kotak:{
+    flexDirection: 'row',
     backgroundColor: IjoTua,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
@@ -43,5 +49,6 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 10,
+    padding: 20,
   },
 })
