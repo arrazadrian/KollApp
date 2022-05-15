@@ -34,7 +34,7 @@ const HomeStackScreen = () => {
     <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }}/>
     <HomeStack.Screen name="SekitarScreen" component={SekitarScreen} options={{ title: "Mitra Akftif Sekitarmu", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
     <HomeStack.Screen name="LangsungScreen" component={LangsungScreen} options={{ title: "Temu Langsung", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
-    <HomeStack.Screen name="DalamMitra" component={DalamMitra} options={{ title: "Posisi Mitra", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
+    <HomeStack.Screen name="DalamMitra" component={DalamMitra} options={{ headerShown: false }} />
   </HomeStack.Navigator>
   );
 };
@@ -79,8 +79,8 @@ const AppUtama = () =>{
 const DalamMitra = () => {
   return(
     <Stack.Navigator initialRouteName="PosisiScreen">
-      <Stack.Screen name="PosisiScreen" component={PosisiScreen}  options={{ headerShown: false }} />
-      <Stack.Screen name="KategoriScreen" component={KategoriScreen} />
+      <Stack.Screen name="PosisiScreen" component={PosisiScreen} options={{ title: "Posisi Mitra", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+      <Stack.Screen name="KategoriScreen" component={KategoriScreen} options={{ title: "Kategori Produk", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
     </Stack.Navigator>
   )
 }
