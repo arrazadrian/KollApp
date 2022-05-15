@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
   latar:{
     flex: 1,
     backgroundColor: Kuning,
+    padding: 20
   },
   gambar:{
     width: 80,
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     width: '33%',
     height: '100%',
     alignItems: 'center',
-    margin: 10,
+    marginBottom: 10,
   },
   nama:{
     fontSize: 16,
