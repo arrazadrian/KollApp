@@ -80,7 +80,7 @@ const DalamMitra = () => {
   return(
     <Stack.Navigator initialRouteName="PosisiScreen">
       <Stack.Screen name="PosisiScreen" component={PosisiScreen} options={{ title: "Posisi Mitra", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
-      <Stack.Screen name="KategoriScreen" component={KategoriScreen} options={{ title: "Kategori Produk", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+      <Stack.Screen name="KategoriScreen" component={KategoriScreen} options={{ title: "Produk", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
     </Stack.Navigator>
   )
 }
