@@ -28,6 +28,16 @@ const HomeStack = createNativeStackNavigator();
 const RiwayatStack = createNativeStackNavigator();
 const AkunStack = createNativeStackNavigator();
 
+const AppUtama = () =>{
+  return(
+      <Tab.Navigator tabBar={props => <TabNavigasi {...props}/>}>
+          <Tab.Screen name="Beranda" component={HomeStackScreen} options={{ headerShown: false }}/>
+          <Tab.Screen name="Riwayat" component={RiwayatStackScreen} options={{ headerShown: false }}/>
+          <Tab.Screen name="Akun" component={AkunStackScreen} options={{ headerShown: false }}/>
+      </Tab.Navigator>
+  );
+};
+
 const HomeStackScreen = () => {
   return(
   <HomeStack.Navigator>
@@ -64,17 +74,6 @@ const Gerbang = () => {
     </Stack.Navigator>
   );
 };
-
-const AppUtama = () =>{
-    return(
-        <Tab.Navigator tabBar={props => <TabNavigasi {...props}/>}>
-            <Tab.Screen name="Beranda" component={HomeStackScreen} options={{ headerShown: false }}/>
-            <Tab.Screen name="Riwayat" component={RiwayatStackScreen} options={{ headerShown: false }}/>
-            <Tab.Screen name="Akun" component={AkunStackScreen} options={{ headerShown: false }}/>
-        </Tab.Navigator>
-    );
-};
-
 
 const DalamMitra = () => {
   return(
