@@ -5,7 +5,6 @@ import { Ijo, Kuning, Putih, Hitam, Abu, IjoTua, IjoMint } from '../Utils/Warna'
 import { LogoPutih, PanggilMitra, TemuLangsung } from '../assets/Image/Index.js';
 import CarouselHome from '../Components/CarouselHome'
 import { tigaGambar } from '../Data/data.js';
-import ListMitra from '../Components/ListMitra';
 
 const HomeScreen = ({navigation, item}) => {
 // const HomeScreen = ({item}) => {

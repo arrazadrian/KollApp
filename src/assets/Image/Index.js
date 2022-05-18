@@ -19,10 +19,11 @@ import Kategori07 from './Kategori07.png'
 import Kategori08 from './Kategori08.png'
 import Kategori09 from './Kategori09.png'
 import KategoriPre from './KategoriPre.png'
+import IkanMujaer from './IkanMujaer.png'
 
 export { Logo, Splash, LogoPutih, Header1, 
         Header2, Header3, DPkartu, SignIn, 
         LatarSignIn, TemuLangsung, PanggilMitra,
         Kategori01, Kategori02, Kategori03, Kategori04,
         Kategori05, Kategori06, Kategori07, Kategori08,
-        Kategori09, KategoriPre }
+        Kategori09, KategoriPre, IkanMujaer }

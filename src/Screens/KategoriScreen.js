@@ -6,6 +6,7 @@ import { Kategori01, Kategori02, Kategori03, Kategori04,
         Kategori09, 
         KategoriPre} from '../assets/Image/Index'
 import PencarianBar from '../Components/PencarianBar'
+import ListProduk from '../Components/ListProduk'
 
 const KategoriScreen = () => {
   return (
@@ -85,6 +86,9 @@ const KategoriScreen = () => {
           </View>
           <View style={{marginBottom:10, marginLeft: 10}}>
               <Text style={{fontSize: 28, fontWeight: 'bold', color: Ijo}}>Daftar Produk</Text>
+          </View>
+          <View>
+             <ListProduk/>
           </View>
     </ScrollView>
   )
