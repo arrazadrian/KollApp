@@ -4,7 +4,7 @@ import { IconSearch } from '../assets/Icon/Index.js'
 
 const PencarianBar = () => {
   return (
-    <View style={{marginTop: 20, flexDirection: 'row'}}>
+    <View style={{flexDirection: 'row'}}>
       <TextInput placeholder='Cari produk yang anda inginkan'  style={styles.container}> 
         
       </TextInput>

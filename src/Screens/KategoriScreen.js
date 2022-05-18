@@ -4,13 +4,17 @@ import { Ijo, IjoTua, Kuning, Putih } from '../Utils/Warna'
 import { Kategori01, Kategori02, Kategori03, Kategori04,
         Kategori05, Kategori06, Kategori07, Kategori08,
         Kategori09, 
-        KategoriPre} from '../assets/Image/Index'
+        KategoriPre, KollLong} from '../assets/Image/Index'
 import PencarianBar from '../Components/PencarianBar'
 import ListProduk from '../Components/ListProduk'
 
 const KategoriScreen = () => {
   return (
     <ScrollView style={styles.latar}>
+          <View style={{flexDirection: 'row', justifyContent:'space-between', alignItems:'center'}}>
+           <Image source={KollLong} style={{width: 80, height:50}} /> 
+          <PencarianBar/>
+          </View>
           <View style={{marginBottom:10, marginLeft: 10}}>
               <Text style={{fontSize: 28, fontWeight: 'bold', color: Ijo}}>Kategori</Text>
           </View>
@@ -75,7 +79,7 @@ const KategoriScreen = () => {
           </Pressable>
           </View>
           <View style={{marginBottom:10, marginLeft: 10}}>
-              <Text style={{fontSize: 28, fontWeight: 'bold', color: Ijo}}>Tidak ketemu yang kamu mau?</Text>
+              <Text style={{fontSize: 28, fontWeight: 'bold', color: Ijo}}>Tidak menemukan produk?</Text>
           </View>
           <View style={styles.preorder}>
             <View>
@@ -87,7 +91,11 @@ const KategoriScreen = () => {
           <View style={{marginBottom:10, marginLeft: 10}}>
               <Text style={{fontSize: 28, fontWeight: 'bold', color: Ijo}}>Daftar Produk</Text>
           </View>
-          <View>
+          <View style={{flexDirection:'row', flexWrap:'wrap'}}>
+             <ListProduk/>
+             <ListProduk/>
+             <ListProduk/>
+             <ListProduk/>
              <ListProduk/>
           </View>
     </ScrollView>

@@ -12,7 +12,9 @@ const HomeScreen = ({navigation, item}) => {
     <View style={styles.latar}> 
       <View style={styles.container}>
         <Image source={LogoPutih} style={styles.logopojok} />
-        <PencarianBar />
+        <View style={{top: 20}}>
+          <PencarianBar />
+        </View>
       </View>
       <ScrollView>
          {/* <View>

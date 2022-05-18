@@ -8,8 +8,9 @@ const ListProduk = () => {
     <View>
        <View style={styles.container}>
         <Image source={IkanMujaer} style={styles.gambar} />
-        <Text>Rp20.000</Text> 
-        <Text>Ikan Mujaer 250g</Text> 
+        <Text style={{fontSize:18, fontWeight:'bold'}}>Rp25.000</Text> 
+        <Text>Ikan Mujaer</Text> 
+        <Text>250g</Text> 
         </View> 
     </View>
   )
@@ -24,12 +25,13 @@ const styles = StyleSheet.create({
         borderColor: Ijo,
         borderWidth: 1,
         padding: 10,
-        height: 190,
+        height: 200,
         width: 120,
-        margin: 10,
+        marginHorizontal: 5,
+        marginBottom: 10,
     },
     gambar: {
-        width: 100,
-        height: 100,
+        width: 90,
+        height: 90,
     }
 })

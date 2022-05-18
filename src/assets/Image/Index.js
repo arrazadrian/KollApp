@@ -1,4 +1,5 @@
 import Logo from './logoKollApp.png'
+import KollLong from './KollLong.png'
 import Splash from './splashKollApp.png'
 import LogoPutih from './logoKollPutih.png'
 import Header1 from './SwiperKoll-19.png'
@@ -26,4 +27,4 @@ export { Logo, Splash, LogoPutih, Header1,
         LatarSignIn, TemuLangsung, PanggilMitra,
         Kategori01, Kategori02, Kategori03, Kategori04,
         Kategori05, Kategori06, Kategori07, Kategori08,
-        Kategori09, KategoriPre, IkanMujaer }
+        Kategori09, KategoriPre, IkanMujaer, KollLong }

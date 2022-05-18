@@ -42,7 +42,7 @@ const HomeStackScreen = () => {
   return(
   <HomeStack.Navigator>
     <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }}/>
-    <HomeStack.Screen name="SekitarScreen" component={SekitarScreen} options={{ title: "Mitra Akftif Sekitarmu", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
+    <HomeStack.Screen name="SekitarScreen" component={SekitarScreen} options={{ title: "Mitra Akftif Sekitarmu" ,headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
     <HomeStack.Screen name="LangsungScreen" component={LangsungScreen} options={{ title: "Temu Langsung", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
     <HomeStack.Screen name="DalamMitra" component={DalamMitra} options={{ headerShown: false }} />
   </HomeStack.Navigator>
