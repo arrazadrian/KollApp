@@ -25,7 +25,7 @@ const HomeScreen = ({navigation, item}) => {
                 <Text style={styles.judul}>Siap Melayani!</Text>
                 <Text style={styles.deskripsi}>Yuk pilih kebutuhanmu</Text>
               </View>
-              <Pressable onPress={() => navigation.push('SekitarScreen')}>
+              <Pressable onPress={() => navigation.navigate('SekitarScreen')}>
                   <View style={styles.homeButton}>
                     <View style={{flexDirection: 'column'}}>
                         <Text style={styles.judulButton}>Panggil Mitra</Text>
@@ -34,7 +34,7 @@ const HomeScreen = ({navigation, item}) => {
                     <Image source={PanggilMitra} style={styles.imageButton} />
                   </View>
               </Pressable>
-              <Pressable onPress={() => navigation.push('LangsungScreen')}>
+              <Pressable onPress={() => navigation.navigate('LangsungScreen')}>
                   <View style={styles.homeButton}>
                     <View style={{flexDirection: 'column'}}>
                       <Text style={styles.judulButton}>Temu Langsung</Text>
