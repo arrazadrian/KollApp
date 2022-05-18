@@ -5,11 +5,12 @@ import { Kategori01, Kategori02, Kategori03, Kategori04,
         Kategori05, Kategori06, Kategori07, Kategori08,
         Kategori09, 
         KategoriPre} from '../assets/Image/Index'
+import PencarianBar from '../Components/PencarianBar'
 
 const KategoriScreen = () => {
   return (
     <ScrollView style={styles.latar}>
-          <View style={{marginBottom:10}}>
+          <View style={{marginBottom:10, marginLeft: 10}}>
               <Text style={{fontSize: 28, fontWeight: 'bold', color: Ijo}}>Kategori</Text>
           </View>
           <View style={{flexDirection: 'row', alignItems:'center',justifyContent:'space-between'}}>
@@ -72,6 +73,9 @@ const KategoriScreen = () => {
             <Text style={styles.nama}>Frozen Food</Text>
           </Pressable>
           </View>
+          <View style={{marginBottom:10, marginLeft: 10}}>
+              <Text style={{fontSize: 28, fontWeight: 'bold', color: Ijo}}>Tidak ketemu yang kamu mau?</Text>
+          </View>
           <View style={styles.preorder}>
             <View>
                 <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>Pre-Order</Text>
@@ -79,8 +83,8 @@ const KategoriScreen = () => {
             </View>
             <Image source={KategoriPre} style={styles.gambar} />
           </View>
-          <View>
-
+          <View style={{marginBottom:10, marginLeft: 10}}>
+              <Text style={{fontSize: 28, fontWeight: 'bold', color: Ijo}}>Daftar Produk</Text>
           </View>
     </ScrollView>
   )
@@ -128,7 +132,7 @@ const styles = StyleSheet.create({
     borderColor: Ijo,
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: 10,
     elevation: 5,
   },
 })
