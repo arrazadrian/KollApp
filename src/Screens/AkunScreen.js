@@ -15,7 +15,7 @@ const AkunScreen = ({ navigation }) => {
                     <Text style={{fontSize: 18,color: Putih,}}>Pelanggan</Text>
                     <Pressable  onPress={() => navigation.push('EditScreen')} >
                         <View style={styles.edit}>
-                          <Text style={{color: Putih, fontSize: 18, fontWeight:'bold'}}>Edit Profil</Text>
+                          <Text style={{color: Putih, fontSize: 18, fontWeight:'bold'}}>Atur Profil</Text>
                         </View>
                     </Pressable>
                 </View>
@@ -38,7 +38,7 @@ const AkunScreen = ({ navigation }) => {
                 </View>
             </View>
             <View style={styles.logout}>
-              <Text style={{fontSize: 20, color: Ijo, fontWeight: 'bold'}}>Log Out</Text>
+              <Text style={{fontSize: 20, color: Ijo, fontWeight: 'bold'}}>Keluar Akun</Text>
             </View>
       </View>
     </SafeAreaView>

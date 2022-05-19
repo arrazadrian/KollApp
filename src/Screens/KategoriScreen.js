@@ -8,7 +8,7 @@ import { Kategori01, Kategori02, Kategori03, Kategori04,
 import PencarianBar from '../Components/PencarianBar'
 import ListProduk from '../Components/ListProduk'
 
-const KategoriScreen = () => {
+const KategoriScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.latar}>
           <View style={{flexDirection: 'row', justifyContent:'space-between', alignItems:'center'}}>
@@ -16,7 +16,7 @@ const KategoriScreen = () => {
           <PencarianBar/>
           </View>
           <View style={{marginBottom:10, marginLeft: 10}}>
-              <Text style={{fontSize: 28, fontWeight: 'bold', color: Ijo}}>Kategori</Text>
+              <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>Kategori</Text>
           </View>
           <View style={{flexDirection: 'row', alignItems:'center',justifyContent:'space-between'}}>
           <Pressable style={styles.kartu}>
@@ -79,17 +79,17 @@ const KategoriScreen = () => {
           </Pressable>
           </View>
           <View style={{marginBottom:10, marginLeft: 10}}>
-              <Text style={{fontSize: 28, fontWeight: 'bold', color: Ijo}}>Tidak menemukan produk?</Text>
+              <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>Tidak menemukan produk?</Text>
           </View>
-          <View style={styles.preorder}>
+          <Pressable style={styles.preorder} onPress={() => navigation.push('PreorderScreen')}>
             <View>
                 <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>Pre-Order</Text>
                 <Text>Pesan produk yang belum tersedia</Text>
             </View>
             <Image source={KategoriPre} style={styles.gambar} />
-          </View>
+          </Pressable>
           <View style={{marginBottom:10, marginLeft: 10}}>
-              <Text style={{fontSize: 28, fontWeight: 'bold', color: Ijo}}>Daftar Produk</Text>
+              <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>Daftar Produk</Text>
           </View>
           <View style={{flexDirection:'row', flexWrap:'wrap'}}>
              <ListProduk/>

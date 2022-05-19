@@ -14,6 +14,7 @@ import {
   SignInScreen,
   SignUpScreen,
   KategoriScreen,
+  PreorderScreen,
   EditScreen,
 } from '../Screens/Index.js'
 import TabNavigasi from '../Components/TabNavigasi.js';
@@ -53,7 +54,7 @@ const AkunStackScreen = () => {
   return(
   <AkunStack.Navigator>
     <AkunStack.Screen name="AkunScreen" component={AkunScreen} options={{ headerShown: false }}/>
-    <AkunStack.Screen name="EditScreen" component={EditScreen} />
+    <AkunStack.Screen name="EditScreen" component={EditScreen} options={{ title: "Atur Profil", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
   </AkunStack.Navigator>
   );
 };
@@ -80,6 +81,7 @@ const DalamMitra = () => {
     <Stack.Navigator initialRouteName="PosisiScreen">
       <Stack.Screen name="PosisiScreen" component={PosisiScreen} options={{ title: "Posisi Mitra", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
       <Stack.Screen name="KategoriScreen" component={KategoriScreen} options={{ title: "Produk", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+      <Stack.Screen name="PreorderScreen" component={PreorderScreen} options={{ title: "Pre-Order", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
     </Stack.Navigator>
   )
 }
