@@ -7,6 +7,7 @@ import { Kategori01, Kategori02, Kategori03, Kategori04,
         KategoriPre, KollLong} from '../assets/Image/Index'
 import PencarianBar from '../Components/PencarianBar'
 import ListProduk from '../Components/ListProduk'
+import ListPreOrder from '../Components/ListPreOrder'
 
 const KategoriScreen = ({ navigation }) => {
   return (
@@ -84,7 +85,7 @@ const KategoriScreen = ({ navigation }) => {
           <Pressable style={styles.preorder} onPress={() => navigation.push('PreorderScreen')}>
             <View>
                 <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>Pre-Order</Text>
-                <Text>Pesan produk yang belum tersedia</Text>
+                <Text>Pesan produk yang belum dibawa mitra</Text>
             </View>
             <Image source={KategoriPre} style={styles.gambar} />
           </Pressable>
