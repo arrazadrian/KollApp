@@ -11,7 +11,7 @@ import ListProduk from '../Components/ListProduk'
 const KategoriScreen = ({ navigation }) => {
   return (
     <View style={styles.latar}>
-          <ScrollView>
+          <ScrollView style={{marginBottom: 70}}>
                 <View style={{flexDirection: 'row', justifyContent:'space-between', alignItems:'center'}}>
                 <Image source={KollLong} style={{width: 80, height:50}} /> 
                 <PencarianBar/>
@@ -98,16 +98,20 @@ const KategoriScreen = ({ navigation }) => {
                   <ListProduk/>
                   <ListProduk/>
                   <ListProduk/>
+                  <ListProduk/>
+                  <ListProduk/>
                 </View>
           </ScrollView>
-          <View style={styles.panggil}>
-            <View>
-                <Text style={{fontWeight:'bold'}}>Menemukan produk yang kamu mau?</Text>
-                <Text style={{fontWeight:'bold'}}>Yuk panggil!</Text>
-            </View>
-            <View style={{padding: 10, backgroundColor: Ijo, borderRadius: 10}}>
-                <Text style={{fontWeight:'bold', color:Putih}}>Panggil Mitra</Text>
-            </View>
+          <View style={{flexDirection: 'column-reverse'}}>
+              <View style={styles.panggil}>
+                <View>
+                    <Text style={{fontWeight:'bold'}}>Menemukan produk yang kamu mau?</Text>
+                    <Text style={{fontWeight:'bold'}}>Yuk panggil mitra!</Text>
+                </View>
+                <View style={{padding: 10, backgroundColor: Ijo, borderRadius: 10}}>
+                    <Text style={{fontWeight:'bold', color:Putih}}>Panggil Mitra</Text>
+                </View>
+              </View>
           </View>
     </View>
   )
@@ -130,8 +134,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     position: 'absolute',
     width: '95%',
-    borderColor: IjoTua,
-    borderWidth: 1,
+    borderColor: Ijo,
+    borderWidth: 3,
+    margin: 10
   },
   gambar:{
     width: 90,
