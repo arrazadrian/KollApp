@@ -102,11 +102,11 @@ const KategoriScreen = ({ navigation }) => {
           </ScrollView>
           <View style={styles.panggil}>
             <View>
-                <Text>Menemukan produk yang kamu mau?</Text>
-                <Text>Yuk panggil!</Text>
+                <Text style={{fontWeight:'bold'}}>Menemukan produk yang kamu mau?</Text>
+                <Text style={{fontWeight:'bold'}}>Yuk panggil!</Text>
             </View>
             <View style={{padding: 10, backgroundColor: Ijo, borderRadius: 10}}>
-                <Text>Panggil Mitra</Text>
+                <Text style={{fontWeight:'bold', color:Putih}}>Panggil Mitra</Text>
             </View>
           </View>
     </View>
