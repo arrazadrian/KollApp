@@ -12,9 +12,10 @@ import SignUpScreen from "./SignUpScreen";
 import KategoriScreen from "./KategoriScreen";
 import LangsungScreen from "./LangsungScreen";
 
+
 export {
      SplashScreen, HomeScreen, PembelianScreen, 
      RiwayatScreen, AkunScreen, SignInScreen, SignUpScreen, 
      KategoriScreen, SekitarScreen, EditScreen,
-     LangsungScreen, PosisiScreen, PreorderScreen
+     LangsungScreen, PosisiScreen, PreorderScreen, 
     };

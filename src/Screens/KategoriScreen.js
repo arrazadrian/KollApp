@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View, Image, ScrollView, Modal } from 'react-native'
 import React from 'react'
 import { Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
-import { Kategori01, Kategori02, Kategori03, Kategori04,
+import { Bawah, Kategori01, Kategori02, Kategori03, Kategori04,
         Kategori05, Kategori06, Kategori07, Kategori08,
         Kategori09, 
         KategoriPre, KollLong} from '../assets/Image/Index'
@@ -11,10 +11,11 @@ import ListProduk from '../Components/ListProduk'
 const KategoriScreen = ({ navigation }) => {
   return (
     <View style={styles.latar}>
-          <ScrollView style={{marginBottom: 70}}>
-                <View style={{flexDirection: 'row', justifyContent:'space-between', alignItems:'center'}}>
-                <Image source={KollLong} style={{width: 80, height:50}} /> 
-                <PencarianBar/>
+          <ScrollView>
+            <View style={{padding: 10}}>
+                <View style={{flexDirection: 'row', justifyContent:'space-between', alignItems:'center', }}>
+                  <Image source={KollLong} style={{width: 80, height:50}} /> 
+                  <PencarianBar/>
                 </View>
                 <View style={{marginBottom:10, marginLeft: 10}}>
                     <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>Kategori</Text>
@@ -85,7 +86,7 @@ const KategoriScreen = ({ navigation }) => {
                 <Pressable style={styles.preorder} onPress={() => navigation.push('PreorderScreen')}>
                   <View>
                       <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>Pre-Order</Text>
-                      <Text>Pesan produk yang belum dibawa mitra</Text>
+                      <Text>Lihat produk pre-order yang bisa dipesan</Text>
                   </View>
                   <Image source={KategoriPre} style={styles.gambar} />
                 </Pressable>
@@ -101,12 +102,16 @@ const KategoriScreen = ({ navigation }) => {
                   <ListProduk/>
                   <ListProduk/>
                 </View>
+            </View>
+                <View>
+                  <Image source={Bawah} style={styles.bawah}/>
+                </View>
           </ScrollView>
           <View style={{flexDirection: 'column-reverse'}}>
               <View style={styles.panggil}>
                 <View>
-                    <Text style={{fontWeight:'bold'}}>Menemukan produk yang kamu mau?</Text>
-                    <Text style={{fontWeight:'bold'}}>Yuk panggil mitra!</Text>
+                    <Text style={{fontWeight:'bold', color: Ijo}}>Menemukan produk yang kamu mau?</Text>
+                    <Text style={{fontWeight:'bold', color: Ijo}}>Yuk panggil mitra!</Text>
                 </View>
                 <View style={{padding: 10, backgroundColor: Ijo, borderRadius: 10}}>
                     <Text style={{fontWeight:'bold', color:Putih}}>Panggil Mitra</Text>
@@ -123,7 +128,6 @@ const styles = StyleSheet.create({
   latar:{
     flex: 1,
     backgroundColor: Kuning,
-    paddingHorizontal: 10
   },
   panggil:{
     flexDirection: 'row',
@@ -175,4 +179,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     elevation: 5,
   },
+  bawah:{
+    width: '100%',
+    height: 98,
+  }
 })

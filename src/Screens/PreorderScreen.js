@@ -3,10 +3,11 @@ import React from 'react'
 import { Ijo, IjoTua, Kuning, Putih, IjoMint } from '../Utils/Warna'
 import PencarianBar from '../Components/PencarianBar'
 import ListPreOrder from '../Components/ListPreOrder'
+import { IconPembelianPutih } from '../assets/Icon/Index.js'
 
 const PreorderScreen = ({ navigation }) => {
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
+    <View> 
       <ScrollView style={styles.latar}>
         <View style={styles.bungkus}>
             <Text style={{textAlign: 'center', fontSize:20, fontWeight:'bold',color: Ijo}}>Kapan Harus Pre-Order?</Text>
@@ -27,7 +28,22 @@ const PreorderScreen = ({ navigation }) => {
              <ListPreOrder/>
         </View>
       </ScrollView>
-    </TouchableWithoutFeedback>
+      <View style={{flexDirection: 'column-reverse'}}>
+              <View style={styles.pesan}>
+                <View>
+                  <IconPembelianPutih/>
+                </View>
+                <View>
+                  <Text>
+                    <Text>0 </Text><Text>Produk</Text> 
+                  </Text>
+                  <Text>
+                    <Text>Rp</Text><Text>0</Text>
+                  </Text>
+                </View>
+              </View>
+      </View>
+    </View>
   )
 }
 
@@ -56,5 +72,18 @@ const styles = StyleSheet.create({
   judulisi:{
     fontSize: 16,
     color: IjoTua,
+  },
+  pesan:{
+    flexDirection: 'row',
+    backgroundColor: IjoMint,
+    alignItems:'center',
+    justifyContent:'space-between',
+    padding: 10,
+    borderRadius: 10,
+    position: 'absolute',
+    width: '95%',
+    borderColor: Ijo,
+    borderWidth: 3,
+    margin: 10
   },
 })
