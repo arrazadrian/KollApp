@@ -5,10 +5,10 @@ import PencarianBar from '../Components/PencarianBar'
 import ListPreOrder from '../Components/ListPreOrder'
 import { IconPembelianPutih } from '../assets/Icon/Index.js'
 
-const PreorderScreen = ({ navigation }) => {
+const PreorderScreen = () => {
   return (
-    <View> 
-      <ScrollView style={styles.latar}>
+    <View style={styles.latar}>
+      <ScrollView>
         <View style={styles.bungkus}>
             <Text style={{textAlign: 'center', fontSize:20, fontWeight:'bold',color: Ijo}}>Kapan Harus Pre-Order?</Text>
             <Text style={{textAlign:'center'}}>
@@ -28,21 +28,7 @@ const PreorderScreen = ({ navigation }) => {
              <ListPreOrder/>
         </View>
       </ScrollView>
-      <View style={{flexDirection: 'column-reverse'}}>
-              <View style={styles.pesan}>
-                <View>
-                  <IconPembelianPutih/>
-                </View>
-                <View>
-                  <Text>
-                    <Text>0 </Text><Text>Produk</Text> 
-                  </Text>
-                  <Text>
-                    <Text>Rp</Text><Text>0</Text>
-                  </Text>
-                </View>
-              </View>
-      </View>
+      
     </View>
   )
 }
