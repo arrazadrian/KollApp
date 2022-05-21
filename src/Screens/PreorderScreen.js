@@ -3,12 +3,17 @@ import React from 'react'
 import { Ijo, IjoTua, Kuning, Putih, IjoMint } from '../Utils/Warna'
 import PencarianBar from '../Components/PencarianBar'
 import ListPreOrder from '../Components/ListPreOrder'
-import { IconPembelianPutih } from '../assets/Icon/Index.js'
+import { Bag, Bawah, KollLong } from '../assets/Image/Index.js';
 
 const PreorderScreen = () => {
   return (
     <View style={styles.latar}>
       <ScrollView>
+        <View style={{padding:10}}>
+            <View style={{flexDirection: 'row', justifyContent:'space-between', alignItems:'center', }}>
+               <Image source={KollLong} style={{width: 80, height:50}} /> 
+               <PencarianBar/>
+            </View>
         <View style={styles.bungkus}>
             <Text style={{textAlign: 'center', fontSize:20, fontWeight:'bold',color: Ijo}}>Kapan Harus Pre-Order?</Text>
             <Text style={{textAlign:'center'}}>
@@ -27,8 +32,34 @@ const PreorderScreen = () => {
              <ListPreOrder/>
              <ListPreOrder/>
         </View>
+        </View>
+        <View>
+            <Image source={Bawah} style={styles.bawah}/>
+        </View>
       </ScrollView>
       
+      <View style={{flexDirection:'column-reverse'}}>
+          <View style={styles.pesan}>
+            <View style={{flexDirection:'row'}}>
+                <View style={{marginHorizontal: 10, justifyContent:'center'}}>
+                  <Image source={Bag} style={{width:40, height:40}}/>
+                </View>
+                <View>
+                  <Text style={{color:Putih, fontWeight:'bold'}}>
+                      <Text>0 </Text>
+                      <Text>Produk</Text>
+                  </Text>
+                  <Text style={{color:Putih, fontWeight:'bold', fontSize: 20}}>
+                      <Text>Rp </Text>
+                      <Text>0</Text>
+                  </Text>
+                </View>
+            </View>
+            <Pressable style={{backgroundColor: IjoTua, padding: 10, borderRadius: 10}}>
+              <Text style={{color:Putih, fontWeight:'bold', fontSize: 18}}>Pesan</Text>
+            </Pressable>
+          </View>
+      </View>
     </View>
   )
 }
@@ -39,7 +70,6 @@ const styles = StyleSheet.create({
   latar:{
     backgroundColor: Kuning,
     flex: 1,
-    paddingHorizontal: 10
   },
   bungkus:{
     backgroundColor: IjoMint,
@@ -61,15 +91,19 @@ const styles = StyleSheet.create({
   },
   pesan:{
     flexDirection: 'row',
-    backgroundColor: IjoMint,
+    backgroundColor: Ijo,
     alignItems:'center',
     justifyContent:'space-between',
     padding: 10,
     borderRadius: 10,
     position: 'absolute',
     width: '95%',
-    borderColor: Ijo,
+    borderColor: IjoTua,
     borderWidth: 3,
     margin: 10
   },
+  bawah:{
+    width: '100%',
+    height: 98,
+  }
 })

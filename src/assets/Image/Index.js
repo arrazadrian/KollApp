@@ -20,6 +20,7 @@ import Kategori07 from './Kategori07.png'
 import Kategori08 from './Kategori08.png'
 import Kategori09 from './Kategori09.png'
 import KategoriPre from './KategoriPre.png'
+import Bag from './Bag.png'
 import IkanMujaer from './IkanMujaer.png'
 import Bawah from './Bawah.png'
 
@@ -29,4 +30,4 @@ export { Logo, Splash, LogoPutih, Header1,
         Kategori01, Kategori02, Kategori03, Kategori04,
         Kategori05, Kategori06, Kategori07, Kategori08,
         Kategori09, KategoriPre, IkanMujaer, KollLong,
-        Bawah }
+        Bag, Bawah }
