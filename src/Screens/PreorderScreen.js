@@ -16,7 +16,7 @@ const PreorderScreen = () => {
             </View>
         <View style={styles.bungkus}>
             <Text style={{textAlign: 'center', fontSize:20, fontWeight:'bold',color: Ijo}}>Kapan Harus Pre-Order?</Text>
-            <Text style={{textAlign:'center'}}>
+            <Text style={{textAlign:'center', fontSize: 16 }}>
               Pre-Order yang dilakukan setelah pukul 18.00 WIB akan 
               dikirim lusa. Sementara Pre-Order yang dipesan sebelum 
               waktu tersebut akan dikirim keesokan harinya.

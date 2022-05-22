@@ -10,6 +10,7 @@ import EditScreen from "./EditScreen";
 import SignInScreen from "./SignInScreen";
 import SignUpScreen from "./SignUpScreen";
 import KategoriScreen from "./KategoriScreen";
+import LoadingScreen from "./LoadingScreen";
 import LangsungScreen from "./LangsungScreen";
 
 
@@ -17,5 +18,6 @@ export {
      SplashScreen, HomeScreen, PembelianScreen, 
      RiwayatScreen, AkunScreen, SignInScreen, SignUpScreen, 
      KategoriScreen, SekitarScreen, EditScreen,
-     LangsungScreen, PosisiScreen, PreorderScreen, 
+     LangsungScreen, PosisiScreen, PreorderScreen,
+     LoadingScreen, 
     };

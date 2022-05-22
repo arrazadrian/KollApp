@@ -14,6 +14,7 @@ import {
   SignInScreen,
   SignUpScreen,
   KategoriScreen,
+  LoadingScreen,
   PreorderScreen,
   EditScreen,
 } from '../Screens/Index.js'
@@ -82,6 +83,7 @@ const DalamMitra = () => {
       <Stack.Screen name="PosisiScreen" component={PosisiScreen} options={{ title: "Posisi Mitra", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
       <Stack.Screen name="KategoriScreen" component={KategoriScreen} options={{ title: "Produk", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
       <Stack.Screen name="PreorderScreen" component={PreorderScreen} options={{ title: "Pre-Order", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+      <Stack.Screen name="LoadingScreen" component={LoadingScreen} options={{ headerShown: false }}  />
     </Stack.Navigator>
   )
 }

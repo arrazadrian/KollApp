@@ -113,9 +113,9 @@ const KategoriScreen = ({ navigation }) => {
                     <Text style={{fontWeight:'bold', color: Ijo}}>Menemukan produk yang kamu mau?</Text>
                     <Text style={{fontWeight:'bold', color: Ijo}}>Yuk panggil mitra!</Text>
                 </View>
-                <View style={{padding: 10, backgroundColor: Ijo, borderRadius: 10}}>
+                <Pressable style={{padding: 10, backgroundColor: Ijo, borderRadius: 10}} onPress={() => navigation.push('LoadingScreen')}>
                     <Text style={{fontWeight:'bold', color:Putih}}>Panggil Mitra</Text>
-                </View>
+                </Pressable>
               </View>
           </View>
     </View>
