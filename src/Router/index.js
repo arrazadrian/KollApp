@@ -31,20 +31,20 @@ const HomeStack = createNativeStackNavigator();
 const RiwayatStack = createNativeStackNavigator();
 const AkunStack = createNativeStackNavigator();
 
-const AppUtama = () =>{
+const HomeStackScreen = () =>{
   return(
       <Tab.Navigator tabBar={props => <TabNavigasi {...props}/>}>
-          <Tab.Screen name="Beranda" component={HomeStackScreen} options={{ headerShown: false }}/>
+          <Tab.Screen name="Beranda" component={HomeScreen} options={{ headerShown: false }}/>
           <Tab.Screen name="Riwayat" component={RiwayatStackScreen} options={{ headerShown: false }}/>
           <Tab.Screen name="Akun" component={AkunStackScreen} options={{ headerShown: false }}/>
       </Tab.Navigator>
   );
 };
 
-const HomeStackScreen = () => {
+const AppUtama = () => {
   return(
   <HomeStack.Navigator>
-    <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }}/>
+    <HomeStack.Screen name="HomeScreen" component={HomeStackScreen} options={{ headerShown: false }}/>
     <HomeStack.Screen name="SekitarScreen" component={SekitarScreen} options={{ title: "Mitra Akftif Sekitarmu" ,headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
     <HomeStack.Screen name="LangsungScreen" component={LangsungScreen} options={{ title: "Temu Langsung", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
     <HomeStack.Screen name="DalamMitra" component={DalamMitra} options={{ headerShown: false }} />

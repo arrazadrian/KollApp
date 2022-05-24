@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions } from 'react-native'
 import React from 'react'
 import PencarianBar from '../Components/PencarianBar'
-import { Ijo, Kuning, Putih, Hitam, Abu, IjoTua, IjoMint } from '../Utils/Warna';
-import { LogoPutih, PanggilMitra, TemuLangsung } from '../assets/Image/Index.js';
+import { Ijo, Kuning, Putih} from '../Utils/Warna';
+import { LogoPutih, PanggilMitra, TemuLangsung, Location } from '../assets/Image/Index.js';
 import CarouselHome from '../Components/CarouselHome'
 import { tigaGambar } from '../Data/data.js';
+
+const { height, width } = Dimensions.get('window')
 
 const HomeScreen = ({navigation, item}) => {
 // const HomeScreen = ({item}) => {
@@ -16,34 +18,40 @@ const HomeScreen = ({navigation, item}) => {
           <PencarianBar />
         </View>
       </View>
-      <ScrollView>
+      <ScrollView style={{padding:20}}>
          {/* <View>
               <CarouselHome data={ tigaGambar } /> 
              </View> */}
-          <View style={{backgroundColor: IjoTua, alignSelf:'center', paddingHorizontal: 20, paddingVertical:10, borderRadius: 20}}>
-              <View style={styles.bungkus}>
-                <Text style={styles.judul}>Siap Melayani!</Text>
-                <Text style={styles.deskripsi}>Yuk pilih kebutuhanmu</Text>
-              </View>
-              <Pressable onPress={() => navigation.navigate('SekitarScreen')}>
-                  <View style={styles.homeButton}>
-                    <View style={{flexDirection: 'column'}}>
-                        <Text style={styles.judulButton}>Panggil Mitra</Text>
-                        <Text style={styles.deskripsiButton}>Mitra akan mendatangimu</Text>
-                    </View>
-                    <Image source={PanggilMitra} style={styles.imageButton} />
-                  </View>
-              </Pressable>
-              <Pressable onPress={() => navigation.navigate('LangsungScreen')}>
-                  <View style={styles.homeButton}>
-                    <View style={{flexDirection: 'column'}}>
-                      <Text style={styles.judulButton}>Temu Langsung</Text>
-                      <Text style={styles.deskripsiButton}>Ketemu langsung belanja</Text>
-                    </View>
-                    <Image source={TemuLangsung} style={styles.imageButton} />
-                  </View>
-              </Pressable>
+          <View>
+            <Text style={{color:Ijo,fontSize:18,fontWeight:'bold'}}>Lokasi Kamu</Text>
+            <View style={{marginVertical:5, flexDirection:'row', alignItems:'center'}}>
+              <Image source={Location} style={styles.location} />
+              <Text style={styles.deskripsi}>Jl. Skripsi Cepat Lulus No.1</Text>
+            </View>
           </View>
+          <View style={styles.bungkus}>
+            <Text style={styles.judul}>Siap Melayani!</Text>
+            <Text style={styles.deskripsi}>Yuk pilih kebutuhanmu</Text>
+          </View>
+          <Pressable onPress={() => navigation.navigate('SekitarScreen')}>
+              <View style={styles.homeButton}>
+                <View style={{flexDirection: 'column'}}>
+                    <Text style={styles.judulButton}>Panggil Mitra</Text>
+                    <Text style={styles.deskripsiButton}>Mitra akan mendatangimu</Text>
+                </View>
+                <Image source={PanggilMitra} style={styles.imageButton} />
+              </View>
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate('LangsungScreen')}>
+              <View style={styles.homeButton}>
+                <View style={{flexDirection: 'column'}}>
+                  <Text style={styles.judulButton}>Temu Langsung</Text>
+                  <Text style={styles.deskripsiButton}>Ketemu langsung belanja</Text>
+                </View>
+                <Image source={TemuLangsung} style={styles.imageButton} />
+              </View>
+          </Pressable>
+      
       </ScrollView>
     </View>
   )
@@ -69,16 +77,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Kuning,
   },
+  location:{
+    width:20,
+    height:20,
+    marginRight:5,
+  },
   judul:{
     fontSize: 25,
     fontWeight: 'bold',
-    textAlign: 'center',
-    color: Putih,
+    color: Ijo,
   },
   deskripsi:{
-    fontSize: 15,
-    textAlign: 'center',
-    color: Putih,
+    fontSize: 18,
+    color: Ijo,
   },
   judulButton:{
     fontSize: 20,
@@ -91,17 +102,14 @@ const styles = StyleSheet.create({
   },
   bungkus:{
     marginBottom:10,
-    marginHorizontal: 20,
     marginTop: 2,
-    alignSelf: 'center',
   },
   homeButton:{
     backgroundColor: Ijo,
     flexDirection: 'row',
     height: 120,
-    width: 350,
+    width: '100%',
     marginBottom: 10,
-    alignSelf: 'center',
     borderRadius: 10,
     justifyContent: 'space-between',
     alignItems: 'center',

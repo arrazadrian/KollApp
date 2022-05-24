@@ -1,14 +1,16 @@
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable, Dimensions } from 'react-native'
 import React from 'react'
 import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
 import { DPkartu } from '../assets/Image/Index.js'
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import MapView from 'react-native-maps';
+
+const { height, width } = Dimensions.get('window')
 
 const PosisiScreen = ({ navigation }) => {
   return (
     <View style={styles.latar}>
-      <View style={{height:'70%'}}>
-            <Text>Peta</Text>
+      <View>
+            <MapView style={styles.peta}/>
       </View>
       <View style={styles.kotak}>
             <View style={{flexDirection:'row'}}>
@@ -20,7 +22,7 @@ const PosisiScreen = ({ navigation }) => {
                   <Text style={{color: Putih, fontSize:16}}>
                       <Text>200m</Text>
                       <Text> | </Text>
-                      <Text>20 min</Text>
+                      <Text>20 menit</Text>
                   </Text>
                   <Pressable style={styles.tombol} onPress={() => navigation.push('KategoriScreen')}>
                     <Text style={{color: Putih, fontWeight: 'bold'}}>Lihat Produk</Text>
@@ -42,11 +44,10 @@ const styles = StyleSheet.create({
     backgroundColor: Kuning,
   },
   kotak:{
+    width: '100%',
     backgroundColor: IjoTua,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    height:'30%',
     padding: 20,
+    height: height*(1/3),
   },
   gambar:{
     width: 100,
@@ -60,5 +61,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     marginTop: 10,
-  }
+  },
+  peta:{
+    width: '100%',
+    height: height*(2/3),
+  },
 })

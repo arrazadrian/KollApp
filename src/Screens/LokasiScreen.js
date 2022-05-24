@@ -1,14 +1,18 @@
-import { StyleSheet, Text, View, Image, Pressable, TextInput } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable, TextInput, ScrollView, Dimensions } from 'react-native'
 import React from 'react'
 import { Ijo, IjoMint, Putih } from '../Utils/Warna'
 import { DPkartu } from '../assets/Image/Index'
+import MapView from 'react-native-maps';
+
+const { height, width } = Dimensions.get('window')
 
 const LokasiScreen = () => {
   return (
-    <View>
+    <ScrollView>
         <View>
+            <MapView style={styles.peta}/>
+        </View>
         <View style={styles.bungkus}>
-            
                 <View style={styles.atas}>
                     <View>
                         <Image source={DPkartu} style={styles.foto}/>
@@ -38,21 +42,22 @@ const LokasiScreen = () => {
                 </Pressable>
             
         </View>
-        </View>
-    </View>
+        
+    </ScrollView>
   )
 }
 
 export default LokasiScreen
 
 const styles = StyleSheet.create({
+    peta:{
+        width: '100%',
+        height: height*(1/3),
+      },
     bungkus:{
         width: '100%',
         backgroundColor: IjoMint,
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
         padding: 20,
-        position: 'absolute',
     },
     foto:{
         width: 100,
