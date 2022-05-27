@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React from 'react'
 import { Ijo, Putih } from '../Utils/Warna'
 import { IkanMujaer } from '../assets/Image/Index'
@@ -15,9 +15,13 @@ const ListProduk = () => {
               <Text>250g</Text> 
           </View>
           <View style={{flexDirection: 'row', justifyContent:'space-between', alignItems:'center'}}>
-            <Plus/>
+            <Pressable>
+                <Plus/>
+            </Pressable>
               <Text style={{fontSize: 20}}>0</Text>
-            <Minus/>
+            <Pressable>
+                <Minus/>
+            </Pressable>
           </View>
         </View> 
     </View>
