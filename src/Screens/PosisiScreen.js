@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, Image, Pressable, Dimensions } from 'react-native'
 import React from 'react'
 import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
-import { DPkartu } from '../assets/Image/Index.js'
-import MapView from 'react-native-maps';
+import { DPkartu, Location } from '../assets/Image/Index.js'
+import MapView, { Marker } from 'react-native-maps';
 
 const { height, width } = Dimensions.get('window')
 
@@ -10,7 +10,25 @@ const PosisiScreen = ({ navigation }) => {
   return (
     <View style={styles.latar}>
       <View>
-            <MapView style={styles.peta}/>
+            <MapView style={styles.peta} 
+            initialRegion={{
+              latitude: 37.78825,
+              longitude: -122.4324,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+            >
+              <Marker 
+              coordinate={{
+                latitude: 37.78825,
+                longitude: -122.4324
+              }}
+              title="Koll"
+              description="Lokasi Mitra"
+              pinColor={'tan'}
+              />
+            
+            </MapView>
       </View>
       <View style={styles.kotak}>
             <View style={{flexDirection:'row'}}>
@@ -24,9 +42,14 @@ const PosisiScreen = ({ navigation }) => {
                       <Text> | </Text>
                       <Text>20 menit</Text>
                   </Text>
-                  <Pressable style={styles.tombol} onPress={() => navigation.push('KategoriScreen')}>
+                  <View style={{flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+                  <Pressable style={styles.tombolproduk} onPress={() => navigation.push('KategoriScreen')}>
                     <Text style={{color: Putih, fontWeight: 'bold'}}>Lihat Produk</Text>
                   </Pressable>
+                  <Pressable style={styles.tombolpanggil} onPress={() => navigation.push('LokasiScreen')}>
+                    <Text style={{color: Putih, fontWeight: 'bold'}}>Panggil Mitra</Text>
+                  </Pressable>
+                  </View>
                 </View>
             </View>
       </View>
@@ -55,12 +78,21 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 20,
   },
-  tombol:{
+  tombolproduk:{
     backgroundColor: Ijo,
     borderRadius: 10,
     alignItems: 'center',
     padding: 10,
     marginTop: 10,
+    marginRight: 30,
+  },
+  tombolpanggil:{
+    borderRadius: 10,
+    alignItems: 'center',
+    padding: 10,
+    marginTop: 10,
+    borderColor: Ijo,
+    borderWidth: 2,
   },
   peta:{
     width: '100%',

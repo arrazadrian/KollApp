@@ -5,7 +5,7 @@ import PencarianBar from '../Components/PencarianBar'
 import ListPreOrder from '../Components/ListPreOrder'
 import { Bag, Bawah, KollLong } from '../assets/Image/Index.js';
 
-const PreorderScreen = () => {
+const PreorderScreen = ({navigation}) => {
   return (
     <View style={styles.latar}>
       <ScrollView>
@@ -55,8 +55,10 @@ const PreorderScreen = () => {
                   </Text>
                 </View>
             </View>
-            <Pressable style={{backgroundColor: IjoTua, padding: 10, borderRadius: 10}}>
-              <Text style={{color:Putih, fontWeight:'bold', fontSize: 18}}>Pesan</Text>
+            <Pressable style={{backgroundColor: IjoTua, padding: 10, borderRadius: 10}} 
+              onPress={() => navigation.push('CheckoutScreen')}
+              >
+              <Text style={{color:Putih, fontWeight:'bold', fontSize: 18}}>Checkout</Text>
             </Pressable>
           </View>
       </View>

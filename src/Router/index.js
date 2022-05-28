@@ -3,21 +3,22 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { 
-  SplashScreen, 
-  HomeScreen,
-  SekitarScreen, 
-  PosisiScreen,
-  LangsungScreen,
-  PembelianScreen, 
-  RiwayatScreen, 
   AkunScreen, 
+  CheckoutScreen,
+  EditScreen,
+  HomeScreen,
+  KategoriScreen,
+  LangsungScreen,
+  LoadingScreen,
+  LokasiScreen,
+  PembelianScreen, 
+  PreorderScreen,
+  PosisiScreen,
+  RiwayatScreen, 
+  SekitarScreen, 
   SignInScreen,
   SignUpScreen,
-  KategoriScreen,
-  LoadingScreen,
-  PreorderScreen,
-  LokasiScreen,
-  EditScreen,
+  SplashScreen, 
 } from '../Screens/Index.js'
 import TabNavigasi from '../Components/TabNavigasi.js';
 import Kategori from '../Screens/KategoriScreen.js';
@@ -85,6 +86,7 @@ const DalamMitra = () => {
       <Stack.Screen name="KategoriScreen" component={KategoriScreen} options={{ title: "Produk", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
       <Stack.Screen name="LokasiScreen" component={LokasiScreen} options={{ title: "Tentukan Lokasi Tujuan", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
       <Stack.Screen name="PreorderScreen" component={PreorderScreen} options={{ title: "Pre-Order", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+      <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} options={{ title: "Checkout", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
       <Stack.Screen name="LoadingScreen" component={LoadingScreen} options={{ headerShown: false }}  />
     </Stack.Navigator>
   )

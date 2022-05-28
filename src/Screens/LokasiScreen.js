@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
       },
     bungkus:{
         width: '100%',
+        height: height*(2/3),
         backgroundColor: IjoMint,
         padding: 20,
     },
