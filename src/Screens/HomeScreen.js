@@ -23,7 +23,10 @@ const HomeScreen = ({navigation, item}) => {
               <CarouselHome data={ tigaGambar } /> 
              </View> */}
           <View>
-            <Text style={{color:Ijo,fontSize:18,fontWeight:'bold'}}>Lokasi Kamu</Text>
+            <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                <Text style={{color:Ijo,fontSize:18,fontWeight:'bold'}}>Lokasi Kamu</Text>
+                <Text style={{color:Ijo,fontSize:18,fontWeight:'bold', textDecorationLine:'underline'}}>Ubah</Text>
+            </View>
             <View style={{marginVertical:5, flexDirection:'row', alignItems:'center'}}>
               <Image source={Location} style={styles.location} />
               <Text style={styles.deskripsi}>Jl. Skripsi Cepat Lulus No.1</Text>
