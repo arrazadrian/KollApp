@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions } from 'react-native'
 import React from 'react'
 import PencarianBar from '../Components/PencarianBar'
-import { Ijo, Kuning, Putih} from '../Utils/Warna';
+import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
 import { LogoPutih, PanggilMitra, TemuLangsung, Location } from '../assets/Image/Index.js';
 import CarouselHome from '../Components/CarouselHome'
 import { tigaGambar } from '../Data/data.js';
@@ -24,8 +24,12 @@ const HomeScreen = ({navigation, item}) => {
              </View> */}
           <View>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Text style={{color:Ijo,fontSize:18,fontWeight:'bold'}}>Lokasi Kamu</Text>
-                <Text style={{color:Ijo,fontSize:18,fontWeight:'bold', textDecorationLine:'underline'}}>Ubah</Text>
+                <Text style={{color:IjoTua,fontSize:18,fontWeight:'bold'}}>Lokasi Kamu</Text>
+                <Text style={{color:Ijo,fontSize:18,fontWeight:'bold', textDecorationLine:'underline'}}
+                onPress={() => navigation.navigate('FLocScreen')}
+                >
+                  Ubah
+                  </Text>
             </View>
             <View style={{marginVertical:5, flexDirection:'row', alignItems:'center'}}>
               <Image source={Location} style={styles.location} />
@@ -88,7 +92,7 @@ const styles = StyleSheet.create({
   judul:{
     fontSize: 25,
     fontWeight: 'bold',
-    color: Ijo,
+    color: IjoTua,
   },
   deskripsi:{
     fontSize: 18,

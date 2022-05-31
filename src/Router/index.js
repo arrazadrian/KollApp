@@ -6,6 +6,7 @@ import {
   AkunScreen, 
   CheckoutScreen,
   EditScreen,
+  FLocScreen,
   HomeScreen,
   KategoriScreen,
   LangsungScreen,
@@ -46,6 +47,7 @@ const AppUtama = () => {
   return(
   <HomeStack.Navigator>
     <HomeStack.Screen name="HomeScreen" component={HomeStackScreen} options={{ headerShown: false }}/>
+    <HomeStack.Screen name="FLocScreen" component={FLocScreen} options={{ title: "Tentukan Lokasi" ,headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
     <HomeStack.Screen name="SekitarScreen" component={SekitarScreen} options={{ title: "Mitra Akftif Sekitarmu" ,headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
     <HomeStack.Screen name="LangsungScreen" component={LangsungScreen} options={{ title: "Temu Langsung", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
     <HomeStack.Screen name="DalamMitra" component={DalamMitra} options={{ headerShown: false }} />
@@ -87,6 +89,7 @@ const DalamMitra = () => {
       <Stack.Screen name="LokasiScreen" component={LokasiScreen} options={{ title: "Tentukan Lokasi Tujuan", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
       <Stack.Screen name="PreorderScreen" component={PreorderScreen} options={{ title: "Pre-Order", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
       <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} options={{ title: "Checkout", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+      <Stack.Screen name="FLocScreen" component={FLocScreen} options={{ title: "Tentukan Lokasi" ,headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
       <Stack.Screen name="LoadingScreen" component={LoadingScreen} options={{ headerShown: false }}  />
     </Stack.Navigator>
   )

@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View, Image, Pressable, TextInput, ScrollView, Dimensions } from 'react-native'
 import React from 'react'
-import { Ijo, IjoMint, Putih } from '../Utils/Warna'
+import { Ijo, IjoMint, IjoTua, Putih } from '../Utils/Warna'
 import { DPkartu } from '../assets/Image/Index'
 import MapView from 'react-native-maps';
 
 const { height, width } = Dimensions.get('window')
 
-const LokasiScreen = () => {
+const LokasiScreen = ({ navigation }) => {
   return (
     <ScrollView>
         <View>
@@ -28,13 +28,15 @@ const LokasiScreen = () => {
                 </View>
                 <View style={{marginBottom: 10}}>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text style={{fontSize: 18, fontWeight:'bold'}}>Tujuan Lokasi</Text>
-                    <Text style={{fontSize: 18, fontWeight:'bold', color: Ijo, textDecorationLine:'underline'}}>Ubah</Text>
+                    <Text style={{fontSize: 18, fontWeight:'bold', color: IjoTua}}>Tujuan Lokasi</Text>
+                    <Text style={{fontSize: 18, fontWeight:'bold', color: Ijo, textDecorationLine:'underline'}}
+                    onPress={() => navigation.navigate('FLocScreen')}
+                    >Ubah</Text>
                     </View>
                     <Text style={{fontSize: 18, flexWrap:'wrap'}}>Jl. Menuju Skripsi No 1</Text>
                 </View>
                 <View style={{marginBottom: 10}}>
-                    <Text style={{fontSize: 18, fontWeight:'bold'}}>Beri catatan</Text>
+                    <Text style={{fontSize: 18, fontWeight:'bold', color: IjoTua}}>Beri catatan</Text>
                     <TextInput placeholder='Deskripsikan lokasi...' multiline={true} style={styles.input}/>
                 </View>
                 <Pressable style={styles.panggil}>
