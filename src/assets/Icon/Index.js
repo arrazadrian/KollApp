@@ -11,6 +11,8 @@ import IconLock from './Lock.svg'
 import IconMessage from './Message.svg'
 import Plus from './Plus.svg'
 import Minus from './Minus.svg'
+import Chat from './Chat.png'
+import Call from './Call.png'
 
 export { 
     IconHomePutih, IconHomeIjo, 
@@ -18,5 +20,5 @@ export {
     IconRiwayatPutih, IconRiwayatIjo, 
     IconAkunPutih, IconAkunIjo, 
     IconSearch, IconLock, IconMessage, 
-    Plus, Minus,
+    Plus, Minus, Chat, Call,
 }
