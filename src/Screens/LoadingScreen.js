@@ -1,9 +1,15 @@
 import { StyleSheet, Text, View, Image, ActivityIndicator } from 'react-native'
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Ijo, Kuning } from '../Utils/Warna'
 import { Gerobak } from '../assets/Image/Index'
 
-const LoadingScreen = () => {
+const LoadingScreen = ({ navigation }) => {
+  useEffect(() => {
+    setTimeout( () =>{
+      navigation.replace('OtwScreen');
+    }, 3000)
+}, [navigation]);
+  
   return (
     <View style={styles.latar}>
       <Image source={Gerobak} style={styles.gerobak} />

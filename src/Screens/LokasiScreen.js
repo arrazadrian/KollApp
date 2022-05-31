@@ -39,7 +39,9 @@ const LokasiScreen = ({ navigation }) => {
                     <Text style={{fontSize: 18, fontWeight:'bold', color: IjoTua}}>Beri catatan</Text>
                     <TextInput placeholder='Deskripsikan lokasi...' multiline={true} style={styles.input}/>
                 </View>
-                <Pressable style={styles.panggil}>
+                <Pressable style={styles.panggil}
+                onPress={() => navigation.navigate('LoadingScreen')}
+                >
                     <Text style={{fontSize: 20, color:Ijo, fontWeight:'bold'}}>Panggil</Text>
                 </Pressable>
             

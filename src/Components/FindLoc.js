@@ -4,12 +4,12 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 
 const FindLoc = () => {
   return (
-    <ScrollView style={styles.bungkus}>
+    <View style={styles.bungkus}>
       <GooglePlacesAutocomplete
       query={{key:"AIzaSyAe0RD2Jx2czBoHpLZe-9WZQ6XlgdEoDJE"}}
       placeholder='Cari Lokasi'
       />
-    </ScrollView>
+    </View>
   )
 }
 
@@ -18,5 +18,7 @@ export default FindLoc
 const styles = StyleSheet.create({
     bungkus:{
         marginTop: 5,
+        flexDirection:'row',
+        width: '100%',
     },
 })

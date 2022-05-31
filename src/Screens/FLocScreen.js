@@ -2,13 +2,17 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
 import { IjoTua, Kuning } from '../Utils/Warna'
 import FindLoc from '../Components/FindLoc'
+import MapView from 'react-native-maps'
 
 const FLocScreen = () => {
   return (
-    <ScrollView style={styles.latar}>
+    <View style={styles.latar}>
       <Text style={styles.judul}>Antar ke</Text>
-      <FindLoc/>
-    </ScrollView>
+      <View>
+        <FindLoc/>
+      </View>
+      <MapView style={styles.peta}/>
+    </View>
   )
 }
 
@@ -24,5 +28,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: IjoTua,
-  }
+  },
+  peta:{
+    width: '100%',
+    height: '70%',
+    marginTop: 10,
+  },
 })

@@ -12,6 +12,7 @@ import {
   LangsungScreen,
   LoadingScreen,
   LokasiScreen,
+  OtwScreen,
   PembelianScreen, 
   PreorderScreen,
   PosisiScreen,
@@ -91,6 +92,7 @@ const DalamMitra = () => {
       <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} options={{ title: "Checkout", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
       <Stack.Screen name="FLocScreen" component={FLocScreen} options={{ title: "Tentukan Lokasi" ,headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
       <Stack.Screen name="LoadingScreen" component={LoadingScreen} options={{ headerShown: false }}  />
+      <Stack.Screen name="OtwScreen" component={OtwScreen} options={{ title: "Menuju Lokasi" ,headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
     </Stack.Navigator>
   )
 }
