@@ -28,12 +28,12 @@ const LokasiScreen = ({ navigation }) => {
                 </View>
                 <View style={{marginBottom: 10}}>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text style={{fontSize: 18, fontWeight:'bold', color: IjoTua}}>Tujuan Lokasi</Text>
-                    <Text style={{fontSize: 18, fontWeight:'bold', color: Ijo, textDecorationLine:'underline'}}
-                    onPress={() => navigation.navigate('FLocScreen')}
-                    >Ubah</Text>
+                        <Text style={{fontSize: 18, fontWeight:'bold', color: IjoTua}}>Tujuan Lokasi</Text>
+                        <Text style={{fontSize: 18, fontWeight:'bold', color: Ijo, textDecorationLine:'underline'}}
+                        onPress={() => navigation.navigate('FLocScreen')}
+                        >Ubah</Text>
                     </View>
-                    <Text style={{fontSize: 18, flexWrap:'wrap'}}>Jl. Menuju Skripsi No 1</Text>
+                        <Text style={{fontSize: 18, flexWrap:'wrap'}}>Jl. Menuju Skripsi No 1</Text>
                 </View>
                 <View style={{marginBottom: 10}}>
                     <Text style={{fontSize: 18, fontWeight:'bold', color: IjoTua}}>Beri catatan</Text>

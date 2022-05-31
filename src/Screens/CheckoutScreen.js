@@ -6,11 +6,16 @@ import MapView, { Marker } from 'react-native-maps';
 
 const { height, width } = Dimensions.get('window')
 
-const CheckoutScreen = () => {
+const CheckoutScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.latar}>
       <MapView style={styles.peta}/>
-      <Text style={styles.judul}>Lokasi Antar</Text>
+      <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+        <Text style={styles.judul}>Lokasi Antar</Text>
+        <Text style={{fontSize: 18, fontWeight:'bold', color: Ijo, textDecorationLine:'underline'}}
+            onPress={() => navigation.navigate('FLocScreen')}
+            >Ubah</Text>
+      </View>
       <View style={{flexDirection:'row', alignItems:'center', marginBottom:10}}>
         <Image source={Location} style={styles.location} />
         <Text style={styles.deskripsi}>Jl. Skripsi Cepat Lulus No.1</Text>
