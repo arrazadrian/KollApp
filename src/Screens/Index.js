@@ -4,6 +4,7 @@ import SekitarScreen from "./SekitarScreen";
 import PosisiScreen from "./PosisiScreen";
 import PreorderScreen from "./PreorderScreen";
 import PembelianScreen from "./PembelianScreen";
+import ProsesScreen from "./ProsesScreen";
 import FLocScreen from "./FLocScreen";
 import CheckoutScreen from "./CheckoutScreen";
 import OtwScreen from "./OtwScreen";
@@ -24,5 +25,5 @@ export {
      KategoriScreen, SekitarScreen, EditScreen,
      LangsungScreen, PosisiScreen, PreorderScreen,
      LokasiScreen, LoadingScreen, CheckoutScreen,
-     FLocScreen, OtwScreen,
+     FLocScreen, OtwScreen, ProsesScreen,
     };

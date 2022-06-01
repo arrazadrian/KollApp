@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import TopTab from '../Components/TopTab.js';
 import { 
   AkunScreen, 
   CheckoutScreen,
@@ -15,6 +16,7 @@ import {
   OtwScreen,
   PembelianScreen, 
   PreorderScreen,
+  ProsesScreen,
   PosisiScreen,
   RiwayatScreen, 
   SekitarScreen, 
@@ -38,7 +40,7 @@ const HomeStackScreen = () =>{
   return(
       <Tab.Navigator tabBar={props => <TabNavigasi {...props}/>}>
           <Tab.Screen name="Beranda" component={HomeScreen} options={{ headerShown: false }}/>
-          <Tab.Screen name="Riwayat" component={RiwayatStackScreen} options={{ headerShown: false }}/>
+          <Tab.Screen name="Riwayat" component={TopTab} options={{ headerShown: false }}/>
           <Tab.Screen name="Akun" component={AkunStackScreen} options={{ headerShown: false }}/>
       </Tab.Navigator>
   );
@@ -69,6 +71,7 @@ const RiwayatStackScreen = () => {
   return(
   <RiwayatStack.Navigator>
     <RiwayatStack.Screen name="RiwayatScreen" component={RiwayatScreen} options={{ headerShown: false }}/>
+    <RiwayatStack.Screen name="ProsesScreen" component={ProsesScreen} options={{ headerShown: false }}/>
   </RiwayatStack.Navigator>
   );
 };
