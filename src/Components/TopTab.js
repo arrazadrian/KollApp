@@ -20,11 +20,12 @@ const TopTab = () => {
             inactiveTintColor: IjoTua,
             style:{ backgroundColor: Ijo },
         }}
+        //style={styles.container}
     >
         <Tab.Screen 
             name="ProsesScreen" 
             component={ProsesScreen} 
-            options={{ tabBarLabel: "Sedang Proses" }} />
+            options={{ tabBarLabel: "Dalam Proses" }} />
         
         <Tab.Screen 
             name="RiwayatScreen" 
@@ -36,4 +37,9 @@ const TopTab = () => {
 
 export default TopTab
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container:{
+    backgroundColor: Ijo,
+   paddingTop: 20, 
+  }
+})
