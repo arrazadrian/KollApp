@@ -16,11 +16,11 @@ const TopTab = () => {
     <Tab.Navigator
         initialRouteName='ProsesScreen'
         screenOptions={{
-            activeTintColor: Putih,
-            inactiveTintColor: IjoTua,
-            style:{ backgroundColor: Ijo },
+            tabBarActiveTintColor: Putih,
+            tabBarInactiveTintColor: IjoTua,
+            tabBarLabelStyle: { fontSize: 16, fontWeight: 'bold' },
+            tabBarStyle: { backgroundColor: Ijo, paddingTop: 15 },
         }}
-        //style={styles.container}
     >
         <Tab.Screen 
             name="ProsesScreen" 
@@ -37,9 +37,4 @@ const TopTab = () => {
 
 export default TopTab
 
-const styles = StyleSheet.create({
-  container:{
-    backgroundColor: Ijo,
-   paddingTop: 20, 
-  }
-})
+const styles = StyleSheet.create({})

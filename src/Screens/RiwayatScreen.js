@@ -8,11 +8,6 @@ import RiwayatCard from '../Components/RiwayatCard'
 const RiwayatScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.latar}>
-      <View style={styles.container}>
-        <View style={styles.bungkus}>
-          <HeaderTabs/>
-        </View>
-      </View>
       <ProsesCard/>
       <RiwayatCard/>
     </ScrollView>

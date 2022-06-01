@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, View} from 'react-native'
 import React from 'react'
 import TabItem from './TabItem';
 import { Ijo } from '../Utils/Warna';
