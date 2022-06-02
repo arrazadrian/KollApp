@@ -1,11 +1,14 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Kuning } from '../Utils/Warna'
+import ProsesCard from '../Components/ProsesCard'
 
 const ProsesScreen = () => {
   return (
     <ScrollView style={styles.latar}>
-      <Text>ProsesScreen</Text>
+      <ProsesCard/>
+      <ProsesCard/>
+      <ProsesCard/>
     </ScrollView>
   )
 }

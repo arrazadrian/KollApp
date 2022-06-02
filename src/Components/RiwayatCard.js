@@ -4,9 +4,11 @@ import { Ijo, IjoTua, Putih } from '../Utils/Warna'
 import { DPkartu } from '../assets/Image/Index'
 
 
-const RiwayatCard = () => {
+const RiwayatCard = ({ navigation }) => {
   return (
-    <Pressable style={styles.card}>
+    <Pressable style={styles.card}
+    onPress={() => navigation.navigate('ReceiptScreen')}
+    >
       <Image source={DPkartu} style={styles.foto} />
       <View>
         <Text

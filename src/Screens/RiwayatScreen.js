@@ -2,13 +2,13 @@ import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native'
 import React from 'react'
 import { Ijo, Kuning, Putih } from '../Utils/Warna'
 import HeaderTabs from '../Components/HeaderTabs'
-import ProsesCard from '../Components/ProsesCard'
 import RiwayatCard from '../Components/RiwayatCard'
 
 const RiwayatScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.latar}>
-      <ProsesCard/>
+      <RiwayatCard/>
+      <RiwayatCard/>
       <RiwayatCard/>
     </ScrollView>
   )
