@@ -32,10 +32,6 @@ const AkunScreen = ({ navigation }) => {
                       <Text style={{color: Putih, fontSize: 15, fontWeight:'bold'}}>Email</Text> 
                       <Text style={{color: Putih, fontSize: 20}}>contoh@gmail.com</Text>   
                 </View>
-                <View style={{justifyContent:"space-between", marginBottom: 10}}>     
-                      <Text style={{color: Putih, fontSize: 15, fontWeight:'bold'}}>Alamat</Text> 
-                      <Text style={{color: Putih, fontSize: 20}}>Jl.Contoh aja</Text>   
-                </View>
             </View>
             <View style={styles.logout}>
               <Text style={{fontSize: 20, color: Ijo, fontWeight: 'bold'}}>Keluar Akun</Text>
@@ -88,5 +84,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     margin: 20,
+    
   }
 })

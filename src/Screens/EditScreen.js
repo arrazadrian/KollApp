@@ -22,8 +22,6 @@ const EditScreen = () => {
                   />
                 <Text style={styles.judulisi}>Email</Text>
                 <TextInput style={styles.input} value="asiap"/>
-                <Text style={styles.judulisi}>Alamat</Text>
-                <TextInput style={styles.input} value="asiap"/>
             </View>
             <Pressable style={styles.tombol}>
               <Text style={styles.simpan}>Simpan</Text>

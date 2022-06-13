@@ -13,9 +13,12 @@ const HomeScreen = ({navigation, item}) => {
   return (
     <View style={styles.latar}> 
       <View style={styles.container}>
-        <Image source={LogoPutih} style={styles.logopojok} />
-        <View style={{top: 20}}>
-          <PencarianBar />
+        <View>
+          <Image source={LogoPutih} style={styles.logopojok} />
+        </View>
+        <View>
+          <Text style={{color:Putih, fontSize:18}}>Selamat datang!</Text>
+          <Text style={{color:Putih, fontSize:20, fontWeight:'bold'}}>Annisa Rifani</Text>
         </View>
       </View>
       <ScrollView style={{padding:20}}>
@@ -24,7 +27,7 @@ const HomeScreen = ({navigation, item}) => {
              </View> */}
           <View>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Text style={{color:IjoTua,fontSize:18,fontWeight:'bold'}}>Lokasi Kamu</Text>
+                <Text style={styles.judul}>Lokasi Kamu</Text>
                 <Text style={{color:Ijo,fontSize:18,fontWeight:'bold', textDecorationLine:'underline'}}
                 onPress={() => navigation.navigate('FLocScreen')}
                 >
@@ -68,15 +71,14 @@ export default HomeScreen
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
+    paddingTop: 20,
     backgroundColor: Ijo,
     paddingBottom: 10,
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems:'center',
   },
   logopojok:{
-    marginLeft: 5,
-    marginTop: 15,
     width: 50,
     height: 50,
   },
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
     marginRight:5,
   },
   judul:{
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold',
     color: IjoTua,
   },
@@ -101,18 +103,18 @@ const styles = StyleSheet.create({
   judulButton:{
     fontSize: 20,
     fontWeight: 'bold',
-    color: Putih,
+    color: Ijo,
   },
   deskripsiButton:{
     fontSize: 18,
-    color: Putih,
+    color: IjoTua,
   },
   bungkus:{
     marginBottom:10,
     marginTop: 2,
   },
   homeButton:{
-    backgroundColor: Ijo,
+    backgroundColor: Putih,
     flexDirection: 'row',
     height: 120,
     width: '100%',
