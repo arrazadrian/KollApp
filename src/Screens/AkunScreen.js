@@ -5,7 +5,7 @@ import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
 const AkunScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.latar}>
-      <View style={styles.container}>
+      <View>
             <View style={{flexDirection:'row', alignItems:'center', marginBottom: 10}}>
                 <View style={styles.foto}>
                   <Text>Putuu</Text>
@@ -46,7 +46,8 @@ export default AkunScreen
 const styles = StyleSheet.create({
   latar:{
     flex:1,
-    backgroundColor: Kuning,
+    backgroundColor: IjoTua,
+    padding: 20,
   },
   foto:{
     width: 100,
@@ -56,14 +57,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 30,
-  },
-  container:{
-    backgroundColor: IjoTua,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    height: '80%',
-    top: 140, 
-    padding: 20,
   },
   tulisan:{
     fontSize: 18,

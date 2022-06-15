@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image} from 'react-native'
 import React from 'react'
 import { DPkartu } from '../assets/Image/Index.js'
-import { Abu } from '../Utils/Warna.js'
+import { Abu, Ijo } from '../Utils/Warna.js'
 
 const ListMitra = ({navigation}) => {
   return (
@@ -27,32 +27,28 @@ const DeskMitra = () => {
         <View style={styles.deskripsi}>
             <View >
                 <Text style={{fontSize: 20, fontWeight: 'bold'}}>Sayur Aa Anri</Text>
-                <Text> 200m </Text>
+                <Text> 200m | 20 menit</Text>
             </View>    
-            <View style={styles.nilai}>
-                 <Text>9.0</Text> 
-            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     card:{
-        flexDirection: 'column',
-        justifyContent: 'space-between',
+        flexDirection: 'row',
         backgroundColor: '#fff',
         marginBottom: 10,
         marginHorizontal: 15,
         borderRadius: 15,
         borderWidth: 1,
-        borderColor: '#ddd',
+        borderColor: Ijo,
         padding: 10,
     },
     foto:{
-        width: '100%',
-        height: 180,
+        width: 100,
+        height: 100,
         borderRadius: 10, 
-        marginBottom: 10,
+        marginRight: 10,
     },
     deskripsi:{
         flexDirection: 'row',
