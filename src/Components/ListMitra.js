@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image} from 'react-native'
 import React from 'react'
 import { DPkartu } from '../assets/Image/Index.js'
-import { Abu, Ijo } from '../Utils/Warna.js'
+import { Abu, Ijo, IjoTua } from '../Utils/Warna.js'
 
 const ListMitra = ({navigation}) => {
   return (
@@ -26,7 +26,7 @@ const DeskMitra = () => {
     return (
         <View style={styles.deskripsi}>
             <View >
-                <Text style={{fontSize: 20, fontWeight: 'bold'}}>Sayur Aa Anri</Text>
+                <Text style={{fontSize: 20, fontWeight: 'bold', color:IjoTua}}>Sayur Aa Anri</Text>
                 <Text> 200m | 20 menit</Text>
             </View>    
         </View>
