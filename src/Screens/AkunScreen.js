@@ -1,18 +1,25 @@
-import { StyleSheet, Text, View, SafeAreaView, Pressable } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Pressable, Image } from 'react-native'
 import React from 'react'
 import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
+import { KollLong } from '../assets/Images/Index'
 
 const AkunScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.latar}>
-      <View>
+      <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+        <Image source={KollLong} style={styles.logo}/>
+      </View>
+      <View style={styles.bungkus}>
+            <View style={{borderBottomColor: Ijo, borderBottomWidth: 1, marginBottom: 10 }}>
+              <Text style={{color: Putih, fontSize: 30, fontWeight: 'bold'}}>Profil</Text>
+            </View>
             <View style={{flexDirection:'row', alignItems:'center', marginBottom: 10}}>
                 <View style={styles.foto}>
                   <Text>Putuu</Text>
                 </View>
                 <View>
                     <Text style={{fontSize: 30, fontWeight:'bold', color: Putih,}}>Arraz Adrian</Text>
-                    <Text style={{fontSize: 18,color: Putih,}}>Pelanggan</Text>
+                    <Text style={{fontSize: 18,color: Putih,}}>Mitra Pedagang</Text>
                     <Pressable  onPress={() => navigation.push('EditScreen')} >
                         <View style={styles.edit}>
                           <Text style={{color: Putih, fontSize: 18, fontWeight:'bold'}}>Atur Profil</Text>
@@ -46,8 +53,12 @@ export default AkunScreen
 const styles = StyleSheet.create({
   latar:{
     flex:1,
-    backgroundColor: IjoTua,
-    padding: 20,
+    backgroundColor: Kuning,
+  },
+  logo:{
+    width: 150,
+    height: 75,
+    alignSelf: 'center',
   },
   foto:{
     width: 100,
@@ -76,7 +87,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
-    margin: 20,
-    
-  }
+    margin: 20, 
+  },
+  bungkus:{
+    backgroundColor: IjoTua,
+    padding: 20,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    flex: 3,
+  },
 })
