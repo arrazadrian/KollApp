@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image} from 'react-native'
 import React from 'react'
-import { DPkartu } from '../assets/Image/Index.js'
+import { DPkartu } from '../assets/Images/Index.js'
 import { Abu, Ijo, IjoTua } from '../Utils/Warna.js'
 
 const ListMitra = ({navigation}) => {

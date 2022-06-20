@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, SafeAreaView, Pressable, Image } from 'react-native'
 import React from 'react'
 import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
-import { KollLong } from '../assets/Images/Index'
+import { KollLong } from '../assets/Images/Index.js'
 
 const AkunScreen = ({ navigation }) => {
   return (

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import { Ijo, Putih } from '../Utils/Warna'
-import { IkanMujaer } from '../assets/Image/Index'
+import { IkanMujaer } from '../assets/Images/Index'
 
 const ListProduk = () => {
   return (

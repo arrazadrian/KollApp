@@ -2,8 +2,8 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import MapView from 'react-native-maps'
 import { Ijo, IjoTua, Kuning } from '../Utils/Warna'
-import { DPkartu } from '../assets/Image/Index'
-import { Call, Chat } from '../assets/Icon/Index'
+import { DPkartu } from '../assets/Images/Index'
+import { Call, Chat } from '../assets/Icons/Index'
 
 const OtwScreen = () => {
   return (

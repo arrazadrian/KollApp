@@ -4,9 +4,9 @@
     "slug": "KollApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/Image/logoKollApp.png",
+    "icon": "./src/assets/Images/logoKollApp.png",
     "splash": {
-      "image": "./src/assets/Image/splashKollApp.png",
+      "image": "./src/assets/Images/splashKollApp.png",
       "resizeMode": "contain",
       "backgroundColor": "#FFF3C8"
     },
@@ -21,14 +21,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/Image/logoKollApp.png",
+        "foregroundImage": "./src/assets/Images/logoKollApp.png",
         "backgroundColor": "#FFF3C8"
       },
       "package": "com.ipb.kollapp",
       "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
-      "favicon": "./src/assets/Image/favicon.png"
+      "favicon": "./src/assets/Images/favicon.png"
     }
   }
 }

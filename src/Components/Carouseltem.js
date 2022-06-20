@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native'
 import React from 'react'
-import { Header1, Header2, Header3 } from '../assets/Image/Index.js'
+import { Header1, Header2, Header3 } from '../assets/Images/Index.js'
 
 const {width, height} = Dimensions.get('window')
 

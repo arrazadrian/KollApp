@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, ActivityIndicator } from 'react-native'
 import React, {useEffect} from 'react'
 import { Ijo, Kuning } from '../Utils/Warna'
-import { Gerobak } from '../assets/Image/Index'
+import { Gerobak } from '../assets/Images/Index'
 
 const LoadingScreen = ({ navigation }) => {
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, Text, View, Image, TextInput, Pressable, Dimensions } from 'react-native'
 import React from 'react'
 import { Ijo, IjoTua, Kuning, Putih } from '../Utils/Warna'
-import { Location } from '../assets/Image/Index'
+import { Location } from '../assets/Images/Index'
 import MapView, { Marker } from 'react-native-maps';
 
 const { height, width } = Dimensions.get('window')

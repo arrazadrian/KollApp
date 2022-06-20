@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TextInput, Image} from 'react-native'
 import React from 'react'
-import { IconSearch } from '../assets/Icon/Index.js'
+import { IconSearch } from '../assets/Icons/Index.js'
 
 const PencarianBar = () => {
   return (

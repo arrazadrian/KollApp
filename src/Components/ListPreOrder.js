@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React from 'react'
 import { Ijo, Putih } from '../Utils/Warna'
-import { IkanMujaer } from '../assets/Image/Index'
-import { Plus, Minus } from '../assets/Icon/Index.js'
+import { IkanMujaer } from '../assets/Images/Index'
+import { Plus, Minus } from '../assets/Icons/Index.js'
 
 const ListProduk = () => {
   return (

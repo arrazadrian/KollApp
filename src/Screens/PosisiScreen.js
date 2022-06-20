@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, Pressable, Dimensions } from 'react-native'
 import React from 'react'
 import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
-import { DPkartu, Location } from '../assets/Image/Index.js'
+import { DPkartu, Location } from '../assets/Images/Index.js'
 import MapView, { Marker } from 'react-native-maps';
 
 const { height, width } = Dimensions.get('window')

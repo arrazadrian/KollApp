@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React from 'react'
 import { Ijo, Kuning, Hitam, Putih } from '../Utils/Warna'
-import { meetup } from '../assets/Image/Index.js'
+import { meetup } from '../assets/Images/Index.js'
 
 const LangsungScreen = () => {
   return (

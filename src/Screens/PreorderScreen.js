@@ -3,7 +3,7 @@ import React from 'react'
 import { Ijo, IjoTua, Kuning, Putih, IjoMint } from '../Utils/Warna'
 import PencarianBar from '../Components/PencarianBar'
 import ListPreOrder from '../Components/ListPreOrder'
-import { Bag, Bawah, KollLong } from '../assets/Image/Index.js';
+import { Bag, Bawah, KollLong } from '../assets/Images/Index.js';
 
 const PreorderScreen = ({navigation}) => {
   return (

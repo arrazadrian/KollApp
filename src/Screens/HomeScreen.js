@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions } from
 import React from 'react'
 import PencarianBar from '../Components/PencarianBar'
 import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
-import { LogoPutih, PanggilMitra, TemuLangsung, Location } from '../assets/Image/Index.js';
+import { LogoPutih, PanggilMitra, TemuLangsung, Location } from '../assets/Images/Index.js';
 import CarouselHome from '../Components/CarouselHome'
 import { tigaGambar } from '../Data/data.js';
 

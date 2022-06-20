@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React from 'react'
 import { Ijo, IjoTua, Putih } from '../Utils/Warna'
-import { DPkartu } from '../assets/Image/Index'
+import { DPkartu } from '../assets/Images/Index'
 
 const ProsesCard = () => {
   return (

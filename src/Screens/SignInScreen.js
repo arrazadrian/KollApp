@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Dimensions, TouchableWithoutFeedback, Keyboard, StatusBar } from 'react-native'
 import React, {useEffect, useState} from 'react'
-import { SignIn, LatarSignIn } from '../assets/Image/Index'
+import { SignIn, LatarSignIn } from '../assets/Images/Index'
 import { Hitam, Ijo, Kuning, Putih } from '../Utils/Warna'
 import { NavigationContainer } from '@react-navigation/native'
-import { IconLock, IconMessage } from '../assets/Icon/Index'
+import { IconLock, IconMessage } from '../assets/Icons/Index'
 
 
 const { height, width } = Dimensions.get('window')

@@ -4,7 +4,7 @@ import { Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
 import { Bawah, Kategori01, Kategori02, Kategori03, Kategori04,
         Kategori05, Kategori06, Kategori07, Kategori08,
         Kategori09, 
-        KategoriPre, KollLong} from '../assets/Image/Index'
+        KategoriPre, KollLong} from '../assets/Images/Index.js'
 import PencarianBar from '../Components/PencarianBar'
 import ListProduk from '../Components/ListProduk'
 
