@@ -8,10 +8,15 @@ import { jeniskategori } from '../Data/jeniskategori'
 import LogoKategori from '../Components/LogoKategori'
 import ListProduk from '../Components/ListProduk'
 import PanggilMitra from '../Components/PanggilMitra'
+import { useNavigation } from '@react-navigation/native'
+
 
 headerList = () => {
+
+  const navigation = useNavigation();
+
     return(
-      <View style={{padding: 10}}>
+    <View style={{padding: 10}}>
       <View style={{flexDirection: 'row', justifyContent:'space-between', alignItems:'center', }}>
         <Image source={KollLong} style={{width: 80, height:50}} /> 
         <PencarianBar/>
@@ -32,7 +37,7 @@ headerList = () => {
                     Tidak menemukan produk?
                   </Text>
                 </View>  
-                <Pressable style={styles.preorder} onPress={() => navigation.push('PreorderScreen')}>
+                <Pressable style={styles.preorder} onPress={() => navigation.navigate('PreorderScreen')}>
                     <View>
                         <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>Pre-Order</Text>
                         <Text>Lihat produk pre-order yang bisa dipesan</Text>

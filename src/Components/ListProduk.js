@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React from 'react'
 import { Ijo, Putih } from '../Utils/Warna'
-import { IkanMujaer } from '../assets/Images/Index'
 import { useNavigation } from '@react-navigation/native'
 
 const ListProduk = ({item}) => {
@@ -20,19 +19,25 @@ const ListProduk = ({item}) => {
   }
 
   return (
-      <Pressable
-      onPress={pindahDetail}>
-          <View style={styles.container}>
+    <View style={styles.container}>
+        <Pressable
+            onPress={pindahDetail}>
             <View>
               <Image source={item.image} style={styles.gambar} />
             </View>
             <View style={{paddingLeft:5}}>
-              <Text style={{fontSize:18, fontWeight:'bold'}}>Rp{item.harga}</Text> 
-              <Text>{item.nama}</Text> 
+              <Text 
+              style={{fontSize:18, fontWeight:'bold'}}
+              numberOfLines={1}
+              >Rp{item.harga}</Text> 
+              <Text
+              style={{fontSize:16}}
+              numberOfLines={1}
+              >{item.nama}</Text> 
               <Text>{item.kuantitas}{item.satuan}</Text> 
             </View>
-          </View> 
        </Pressable>
+          </View> 
   )
 }
 

@@ -1,19 +1,20 @@
-import {StyleSheet, Text, TextInput, View, Image, Pressable, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native'
+import {StyleSheet, Text, View, Image, Pressable, FlatList } from 'react-native'
 import React from 'react'
 import { Ijo, IjoTua, Kuning, Putih, IjoMint } from '../Utils/Warna'
 import PencarianBar from '../Components/PencarianBar'
 import ListPreOrder from '../Components/ListPreOrder'
 import { Bag, Bawah, KollLong } from '../assets/Images/Index.js';
+import { daftarpreproduk } from '../Data/daftarpreproduk'
+import Keranjang from '../Components/Keranjang'
 
-const PreorderScreen = ({navigation}) => {
-  return (
-    <View style={styles.latar}>
-      <ScrollView>
-        <View style={{padding:10}}>
-            <View style={{flexDirection: 'row', justifyContent:'space-between', alignItems:'center', }}>
-               <Image source={KollLong} style={{width: 80, height:50}} /> 
-               <PencarianBar/>
-            </View>
+
+ataspreorder = () => {
+  return(
+    <View style={{padding: 10}}>
+        <View style={{flexDirection: 'row', justifyContent:'space-between', alignItems:'center', }}>
+            <Image source={KollLong} style={{width: 80, height:50}} /> 
+            <PencarianBar/>
+        </View>
         <View style={styles.bungkus}>
             <Text style={{textAlign: 'center', fontSize:20, fontWeight:'bold',color: Ijo}}>Kapan Harus Pre-Order?</Text>
             <Text style={{textAlign:'center', fontSize: 16 }}>
@@ -23,44 +24,33 @@ const PreorderScreen = ({navigation}) => {
             </Text>
         </View>
         <View style={{marginBottom:10, marginLeft: 10}}>
-              <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>Produk Pre-Order</Text>
+            <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>Produk Pre-Order</Text>
         </View>
-        <View style={{flexDirection:'row', flexWrap:'wrap'}}>
-             <ListPreOrder/>
-             <ListPreOrder/>
-             <ListPreOrder/>
-             <ListPreOrder/>
-             <ListPreOrder/>
-        </View>
-        </View>
-        <View>
-            <Image source={Bawah} style={styles.bawah}/>
-        </View>
-      </ScrollView>
+    </View>
+  )
+}
+
+
+const PreorderScreen = ({navigation}) => {
+  return (
+    <View style={styles.latar}>
+        <FlatList
+                          numColumns={3}
+                          data={daftarpreproduk}
+                          renderItem= {({item}) => <ListPreOrder item={item} />}
+                          keyExtractor={ daftarpreproduk => daftarpreproduk.id}
+                          ListHeaderComponent={ataspreorder}
+                          ListEmptyComponent={<Text>Produk utama masih kosong</Text>}
+                          ListFooterComponent={
+                          <View>
+                            <Image source={Bawah} style={styles.bawah}/>
+                          </View>
+                          }
+                      />
+
       
       <View style={{flexDirection:'column-reverse'}}>
-          <View style={styles.pesan}>
-            <View style={{flexDirection:'row'}}>
-                <View style={{marginHorizontal: 10, justifyContent:'center'}}>
-                  <Image source={Bag} style={{width:40, height:40}}/>
-                </View>
-                <View>
-                  <Text style={{color:Putih, fontWeight:'bold'}}>
-                      <Text>0 </Text>
-                      <Text>Produk</Text>
-                  </Text>
-                  <Text style={{color:Putih, fontWeight:'bold', fontSize: 20}}>
-                      <Text>Rp </Text>
-                      <Text>0</Text>
-                  </Text>
-                </View>
-            </View>
-            <Pressable style={{backgroundColor: IjoTua, padding: 10, borderRadius: 10}} 
-              onPress={() => navigation.push('CheckoutScreen')}
-              >
-              <Text style={{color:Putih, fontWeight:'bold', fontSize: 18}}>Checkout</Text>
-            </Pressable>
-          </View>
+          <Keranjang/>
       </View>
     </View>
   )

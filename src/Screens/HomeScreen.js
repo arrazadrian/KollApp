@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, SafeAreaView } from 'react-native'
 import React from 'react'
 import PencarianBar from '../Components/PencarianBar'
 import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
