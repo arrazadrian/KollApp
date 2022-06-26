@@ -19,6 +19,7 @@ import KategoriScreen from "./KategoriScreen";
 import LokasiScreen from "./LokasiScreen";
 import LoadingScreen from "./LoadingScreen";
 import LangsungScreen from "./LangsungScreen";
+import DetailScreen from "./DetailScreen";
 
 
 export {
@@ -28,5 +29,5 @@ export {
      LangsungScreen, PosisiScreen, PreorderScreen,
      LokasiScreen, LoadingScreen, CheckoutScreen,
      FLocScreen, OtwScreen, ProsesScreen, ReceiptScreen,
-     ProdukScreen,
+     ProdukScreen, DetailScreen,
     };
