@@ -1,16 +1,15 @@
 import { Pressable, StyleSheet, Text, View, Image, ScrollView, FlatList } from 'react-native'
 import React, { useState } from 'react'
 import { Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
-import { Bawah, KollLong,} from '../assets/Images/Index'
+import { Bawah, KollLong, KategoriPre} from '../assets/Images/Index'
 import PencarianBar from '../Components/PencarianBar'
-import JualProduk from '../Components/JualProduk'
 import { daftarproduk } from '../Data/daftarproduk'
 import { jeniskategori } from '../Data/jeniskategori'
 import LogoKategori from '../Components/LogoKategori'
-import Keranjang from '../Components/Keranjang'
+import ListProduk from '../Components/ListProduk'
+import PanggilMitra from '../Components/PanggilMitra'
 
 headerList = () => {
- 
     return(
       <View style={{padding: 10}}>
       <View style={{flexDirection: 'row', justifyContent:'space-between', alignItems:'center', }}>
@@ -26,6 +25,22 @@ headerList = () => {
           data={jeniskategori}
           renderItem= {({item}) => <LogoKategori item={item} />}
           keyExtractor={ jeniskategori => jeniskategori.id}
+          ListFooterComponent ={
+            <View>
+                <View style={{paddingHorizontal: 10, paddingVertical:10}}> 
+                 <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>
+                    Tidak menemukan produk?
+                  </Text>
+                </View>  
+                <Pressable style={styles.preorder} onPress={() => navigation.push('PreorderScreen')}>
+                    <View>
+                        <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>Pre-Order</Text>
+                        <Text>Lihat produk pre-order yang bisa dipesan</Text>
+                    </View>
+                    <Image source={KategoriPre} style={styles.gambar} />
+                </Pressable>
+            </View>
+          }
       />
   
       <View style={{marginBottom:10, marginLeft: 10}}>
@@ -35,14 +50,14 @@ headerList = () => {
     )
   }
 
-const ProdukScrenn = () => {
+const ProdukScreen = () => {
     return (
         <View style={styles.latar}>
                     <View>
                       <FlatList
                           numColumns={3}
                           data={daftarproduk}
-                          renderItem= {({item}) => <JualProduk item={item} />}
+                          renderItem= {({item}) => <ListProduk item={item} />}
                           keyExtractor={ daftarproduk => daftarproduk.id}
                           ListHeaderComponent={headerList}
                           ListEmptyComponent={<Text>Produk utama masih kosong</Text>}
@@ -56,13 +71,13 @@ const ProdukScrenn = () => {
                 
               
               <View style={{flexDirection: 'column-reverse'}}>
-                  <Keranjang/>
+                  <PanggilMitra/>
               </View>
         </View>
       )
 }
 
-export default ProdukScrenn
+export default ProdukScreen
 
 const styles = StyleSheet.create({
     latar:{
@@ -95,8 +110,26 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         margin: 10
       },
+      preorder:{
+        flexDirection: 'row',
+        backgroundColor: Putih,
+        borderRadius: 10,
+        height: 100,
+        padding: 20,
+        marginHorizontal: 10,
+        borderWidth: 1,
+        borderColor: Ijo,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 10,
+        elevation: 5,
+      },
       bawah:{
         width: '100%',
         height: 98,
+      },
+      gambar:{
+        height: 95,
+        width: 95,
       }
 })

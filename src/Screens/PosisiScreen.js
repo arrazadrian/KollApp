@@ -43,7 +43,7 @@ const PosisiScreen = ({ navigation }) => {
                       <Text>20 menit</Text>
                   </Text>
                   <View style={{flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
-                  <Pressable style={styles.tombolproduk} onPress={() => navigation.push('KategoriScreen')}>
+                  <Pressable style={styles.tombolproduk} onPress={() => navigation.push('ProdukScreen')}>
                     <Text style={{color: Putih, fontWeight: 'bold'}}>Lihat Produk</Text>
                   </Pressable>
                   <Pressable style={styles.tombolpanggil} onPress={() => navigation.push('LokasiScreen')}>

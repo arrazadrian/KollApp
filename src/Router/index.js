@@ -16,6 +16,7 @@ import {
   OtwScreen,
   PembelianScreen, 
   PreorderScreen,
+  ProdukScreen,
   ProsesScreen,
   PosisiScreen,
   RiwayatScreen, 
@@ -89,6 +90,7 @@ const DalamMitra = () => {
     <Stack.Navigator initialRouteName="PosisiScreen">
       <Stack.Screen name="PosisiScreen" component={PosisiScreen} options={{ title: "Posisi Mitra", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
       <Stack.Screen name="KategoriScreen" component={KategoriScreen} options={{ title: "Produk", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+      <Stack.Screen name="ProdukScreen" component={ProdukScreen} options={{ title: "Produk", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
       <Stack.Screen name="LokasiScreen" component={LokasiScreen} options={{ title: "Tentukan Lokasi Tujuan", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
       <Stack.Screen name="PreorderScreen" component={PreorderScreen} options={{ title: "Pre-Order", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
       <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} options={{ title: "Checkout", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />

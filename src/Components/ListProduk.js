@@ -1,22 +1,38 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React from 'react'
 import { Ijo, Putih } from '../Utils/Warna'
 import { IkanMujaer } from '../assets/Images/Index'
+import { useNavigation } from '@react-navigation/native'
 
-const ListProduk = () => {
+const ListProduk = ({item}) => {
+
+  const navigation = useNavigation();
+
+  const pindahDetail = () => {
+    navigation.navigate('DetailScreen', { 
+      nama: item.nama,
+      deskripsi: item.deskripsi,
+      image: item.image,
+      harga: item.harga,
+      satuan: item.satuan,
+      kuantitas: item.kuantitas,
+    })
+  }
+
   return (
-    <View>
-       <View style={styles.container}>
-        <View>
-          <Image source={IkanMujaer} style={styles.gambar} />
-        </View>
-        <View>
-          <Text style={{fontSize:18, fontWeight:'bold'}}>Rp25.000</Text> 
-          <Text>Ikan Mujaer</Text> 
-          <Text>250g</Text> 
-        </View>
-       </View> 
-    </View>
+      <Pressable
+      onPress={pindahDetail}>
+          <View style={styles.container}>
+            <View>
+              <Image source={item.image} style={styles.gambar} />
+            </View>
+            <View style={{paddingLeft:5}}>
+              <Text style={{fontSize:18, fontWeight:'bold'}}>Rp{item.harga}</Text> 
+              <Text>{item.nama}</Text> 
+              <Text>{item.kuantitas}{item.satuan}</Text> 
+            </View>
+          </View> 
+       </Pressable>
   )
 }
 
@@ -31,14 +47,14 @@ const styles = StyleSheet.create({
         padding: 10,
         height: 190,
         width: 120,
-        marginHorizontal: 5,
+        marginLeft: 13,
         marginBottom: 10,
-        alignItems: 'center',
     },
     gambar: {
         width: 90,
         height: 90,
         borderRadius: 10,
         marginBottom: 10,
+        alignSelf:'center',
     }
 })
