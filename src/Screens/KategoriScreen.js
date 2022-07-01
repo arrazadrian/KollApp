@@ -7,8 +7,11 @@ import { Bawah, Kategori01, Kategori02, Kategori03, Kategori04,
         KategoriPre, KollLong} from '../assets/Images/Index.js'
 import PencarianBar from '../Components/PencarianBar'
 import ListProduk from '../Components/ListProduk'
+import { useNavigation } from '@react-navigation/native'
 
-const KategoriScreen = ({ navigation }) => {
+
+const KategoriScreen = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.latar}>
           <ScrollView>
@@ -113,7 +116,8 @@ const KategoriScreen = ({ navigation }) => {
                     <Text style={{fontWeight:'bold', color: Ijo}}>Menemukan produk yang kamu mau?</Text>
                     <Text style={{fontWeight:'bold', color: Ijo}}>Yuk panggil mitra!</Text>
                 </View>
-                <Pressable style={{padding: 10, backgroundColor: Ijo, borderRadius: 10}} onPress={() => navigation.push('LokasiScreen')}>
+                <Pressable style={{padding: 10, backgroundColor: Ijo, borderRadius: 10}} 
+                onPress={() => navigation.navigate('LokasiScreen')}>
                     <Text style={{fontWeight:'bold', color:Putih}}>Panggil Mitra</Text>
                 </Pressable>
               </View>
