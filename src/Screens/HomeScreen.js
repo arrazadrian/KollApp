@@ -47,7 +47,7 @@ const HomeScreen = ({navigation, item}) => {
                   </View>
                   <Pressable onPress={() => navigation.navigate('SekitarScreen')}>
                       <View style={styles.homeButton}>
-                        <View style={{flexDirection: 'column'}}>
+                        <View>
                             <Text style={styles.judulButton}>Panggil Mitra</Text>
                             <Text style={styles.deskripsiButton}>Mitra akan mendatangimu</Text>
                         </View>
@@ -56,7 +56,7 @@ const HomeScreen = ({navigation, item}) => {
                   </Pressable>
                   <Pressable onPress={() => navigation.navigate('LangsungScreen')}>
                       <View style={styles.homeButton}>
-                        <View style={{flexDirection: 'column'}}>
+                        <View>
                           <Text style={styles.judulButton}>Temu Langsung</Text>
                           <Text style={styles.deskripsiButton}>Ketemu langsung belanja</Text>
                         </View>
@@ -102,12 +102,12 @@ const styles = StyleSheet.create({
     color: Ijo,
   },
   judulButton:{
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     color: Ijo,
   },
   deskripsiButton:{
-    fontSize: 18,
+    fontSize: 16,
     color: IjoTua,
   },
   bungkus:{
@@ -121,13 +121,13 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 10,
     borderRadius: 10,
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    paddingLeft: 20,
     elevation: 5,
+    padding: 10
   },
   imageButton:{
-    width: 120,
-    height: 120,
+    width: width * 0.27,
+    height: width * 0.27,
   }
 })

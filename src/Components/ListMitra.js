@@ -5,12 +5,10 @@ import { Abu, Ijo, IjoTua } from '../Utils/Warna.js'
 
 const ListMitra = ({navigation}) => {
   return (
-
         <View style={styles.card} onPress={() => navigation.navigate('DetailScreen')} >
             <FotoMitra/>
             <DeskMitra/>
         </View>
- 
   )
 }
 
@@ -45,8 +43,8 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     foto:{
-        width: 100,
-        height: 100,
+        width: 80,
+        height: 80,
         borderRadius: 10, 
         marginRight: 10,
     },
@@ -56,12 +54,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         
     },
-    nilai:{
-        height: 40,
-        width: 40,
-        backgroundColor: Abu,
-        borderRadius: 15,
-        alignItems: 'center',
-        justifyContent: 'center',
-    }
 })

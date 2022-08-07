@@ -7,7 +7,7 @@
     "icon": "./src/assets/Images/logoKollApp.png",
     "splash": {
       "image": "./src/assets/Images/splashKollApp.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#FFF3C8"
     },
     "updates": {

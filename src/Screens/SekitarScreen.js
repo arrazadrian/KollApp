@@ -12,6 +12,7 @@ const SekitarScreen = ({ navigation }) => {
           <ListMitra/>
           <ListMitra/>
           <ListMitra/>
+          <ListMitra/>
       </Pressable>
     </ScrollView>
   )
@@ -23,6 +24,6 @@ const styles = StyleSheet.create({
   latar:{
     flex: 1,
     backgroundColor: Kuning,
-    paddingVertical: 20,
+    paddingVertical: 10,
   },
 })
