@@ -1,30 +1,55 @@
-import { StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, Keyboard, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, Keyboard, StatusBar, Dimensions } from 'react-native';
 import React, { useState } from 'react';
 import { Ijo, IjoTua, Putih } from '../Utils/Warna';
-//import { useAuth } from '../../providers/AuthProvider';
+import { useNavigation } from '@react-navigation/native';
+import { registration } from '../../API/firebasemethod';
 
-const SignUpScreen = ({navigation}) => {
+const { height, width } = Dimensions.get('window')
+
+const SignUpScreen = () => {
+
+  const navigation = useNavigation();
 
   <StatusBar translucent backgroundColor="transparent" />
 
-  const [username, setUsername] = useState('');
+  const [namalengkap, setNamalengkap] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-  const onPressSignUp = async () => {
-    console.log("Trying Sign Up with user: " + email);
-    try {
-      await signUp(username, email, phone, password, passwordConfirmation);
-      signIn(email, password);
-    } catch (error) {
-      const errorMessage = `Failed to sign up: ${error.message}`;
-      console.error(errorMessage);
-      Alert.alert(errorMessage);
-    }
+  const emptyState = () => {
+    setNamalengkap('');
+    setEmail('');
+    setPhone('');
+    setPassword('');
+    setPasswordConfirmation('');
   };
 
+  const handleSignUp = async () =>{
+    if (!namalengkap) {
+      Alert.alert('Nama lengkap masih kosong','Isi nama lengkap dengan benar.');
+    } else if (!email) {
+      Alert.alert('Email masih kosong','Isi email dengan benar.');
+    } else if (!phone && 9 < phone.length < 14) {
+      Alert.alert('Nomor handphone tidak benar','Isi nomor handphone dengan benar.');
+    } else if (!password && password.length > 7) {
+      Alert.alert('Kata sandi kurang kuat','Kata sandi minimal 8 karakter.');
+    } else if (!passwordConfirmation) {
+      setPassword('');
+      Alert.alert('Pengulangan kata sandi masih kosong','Tulis ulang kata sandi.');
+    } else if (password !== passwordConfirmation) {
+      Alert.alert('Kata sandi tidak sama','Mohon cek ulang penulisan.');
+    } else {
+      registration(
+        email,
+        password,
+        namalengkap,
+        phone,
+      );
+      emptyState();
+    }
+  };  
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -39,8 +64,8 @@ const SignUpScreen = ({navigation}) => {
               </View>
               <View style={{marginBottom: 10}}>
                   <TextInput style={styles.input} placeholder="Cth. Asep Suryana"
-                  value={username}
-                  onChangeText={setUsername}
+                  value={namalengkap}
+                  onChangeText={namalengkap => setNamalengkap(namalengkap)}
                   autoCapitalize="none"
                   autoCorrect={false}
                   />
@@ -51,7 +76,7 @@ const SignUpScreen = ({navigation}) => {
               <View style={{marginBottom: 10}}>
                   <TextInput style={styles.input} placeholder="Cth. emailanda@mail.com"
                   value={email}
-                  onChangeText={setEmail}
+                  onChangeText={email => setEmail(email)}
                   autoCapitalize="none"
                   autoCorrect={false}
                   />
@@ -62,7 +87,7 @@ const SignUpScreen = ({navigation}) => {
               <View style={{marginBottom: 10}}>
                   <TextInput style={styles.input} placeholder="08XXXXX"
                   value={phone}
-                  onChangeText={setPhone}
+                  onChangeText={phone => setPhone(phone)}
                   autoCapitalize="none"
                   autoCorrect={false}
                   keyboardType='numeric'
@@ -74,7 +99,7 @@ const SignUpScreen = ({navigation}) => {
               <View style={{marginBottom: 10}}>
                   <TextInput secureTextEntry={true} style={styles.input} placeholder="Kata Sandi"
                   value={password}
-                  onChangeText={setPassword}
+                  onChangeText={password => setPassword(password)}
                   autoCapitalize="none"
                   autoCorrect={false}
                   />
@@ -85,7 +110,7 @@ const SignUpScreen = ({navigation}) => {
               <View style={{marginBottom: 16}}>
                 <TextInput secureTextEntry={true} style={styles.input} placeholder="Tulis Ulang Kata Sandi"
                 value={passwordConfirmation}
-                onChangeText={setPasswordConfirmation}
+                onChangeText={passwordConfirmation => setPasswordConfirmation(passwordConfirmation)}
                 autoCapitalize="none"
                 autoCorrect={false}
                 
@@ -99,7 +124,9 @@ const SignUpScreen = ({navigation}) => {
                   </Text>
               </View>
           </View>
-          <View style={styles.tombol}>
+          <View style={styles.tombol}
+          onPress={handleSignUp}
+          >
               <Text style={{fontWeight:'bold', fontSize: 20, color: Putih}}>Daftar</Text>
           </View>
         <View style={{alignSelf:'center'}}>

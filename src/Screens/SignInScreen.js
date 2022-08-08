@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Dimensions, TouchableWithoutFeedback, Keyboard, StatusBar } from 'react-native'
+import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Dimensions, TouchableWithoutFeedback, Keyboard, StatusBar, TouchableOpacity} from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { SignIn, LatarSignIn } from '../assets/Images/Index'
 import { Hitam, Ijo, Kuning, Putih } from '../Utils/Warna'
 import { NavigationContainer } from '@react-navigation/native'
 import { IconLock, IconMessage } from '../assets/Icons/Index'
+import { signIn } from '../../API/firebasemethod';
 
 
 const { height, width } = Dimensions.get('window')
@@ -14,14 +15,15 @@ const SignInScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const onPressSignIn = async () => {
-    console.log("Trying sign in with user: " + email);
-    try {
-      await signIn(email, password);
-    } catch (error) {
-      const errorMessage = `Failed to sign in: ${error.message}`;
-      console.error(errorMessage);
-      Alert.alert(errorMessage);
+  const handleSignIn = async () => {
+    if (!email) {
+      Alert.alert('Kamu belum tulis email','Yuk isi email akun kamu.');
+    } else if (!password) {
+      Alert.alert('Kata sandi belum ditulis','Isi dulu yuk kata sandinya.');
+    } else {
+    signIn(email, password, navigation);
+    setEmail('');
+    setPassword('');
     }
   };
 
@@ -49,9 +51,11 @@ const SignInScreen = ({navigation}) => {
                       <IconLock style={{position:'absolute', top: 14, left: 8}}/>
                       </View>
 
-                      <View style={styles.tombol}>
+                      <TouchableOpacity style={styles.tombol}
+                       onPress={handleSignIn}
+                      >
                         <Text style={{color: Putih, fontWeight: 'bold', textAlign:'center', fontSize: 20 }}>Masuk</Text>
-                      </View>
+                      </TouchableOpacity>
                       <View style={{alignItems: 'center'}}>
                           <Text style={{color: Ijo, fontSize: 16}}>  
                               <Text>Belum punya akun? </Text>   
