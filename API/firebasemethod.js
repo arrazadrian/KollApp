@@ -24,7 +24,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 // API 1: registration
 // MEMBUAT AKUN BARU DENGAN EMAIL DAN PASSWORD, 
-// LALU MEMBUAT DOKUMEN BARU PADA COLLECTION MITRA
+// LALU MEMBUAT DOKUMEN BARU PADA COLLECTION PELANGGAN
 
 export async function registration(email, password, namalengkap, namatoko, phone) {
     const auth = getAuth();
@@ -32,15 +32,15 @@ export async function registration(email, password, namalengkap, namatoko, phone
   try {
     await createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
-            setDoc(doc(db, "mitra", auth.currentUser.uid),{
-                id_mitra: auth.currentUser.uid,
+            setDoc(doc(db, "pelanggan", auth.currentUser.uid),{
+                id_pelanggan: auth.currentUser.uid,
                 email: email,
                 namalengkap: namalengkap,
                 phone: phone,
             })
         })
   } catch (err) {
-    Alert.alert("Ada error membuat akun mitra!", err.message);
+    Alert.alert("Ada error membuat akun pelanggan!", err.message);
   }
 };
 
@@ -79,11 +79,11 @@ export async function updateakunTanpafoto(namaakun, tokoakun, phoneakun){
 
   const auth = getAuth();
   const db = getFirestore(app);
-  // const docRef = doc(db, "mitra", auth.currentUser.uid);
+  // const docRef = doc(db, "pelanggan", auth.currentUser.uid);
   // const colRef = collection(docRef, "produk")
   // const storage = getStorage();
   
-  const docrefproduk = doc(db, "mitra", auth.currentUser.uid);
+  const docrefproduk = doc(db, "pelanggan", auth.currentUser.uid);
   getDoc(docrefproduk).then(docSnap => {
     if (docSnap.exists()) {
       try{
@@ -117,7 +117,7 @@ export async function updateakunDenganfoto(fotoakun, namaakun, tokoakun, phoneak
 
   const storage = getStorage();
   
-  const docrefproduk = doc(db, "mitra", auth.currentUser.uid);
+  const docrefproduk = doc(db, "pelanggan", auth.currentUser.uid);
   getDoc(docrefproduk).then(docSnap => {
     if (docSnap.exists()) {
       if(docSnap.data().foto_akun) {
