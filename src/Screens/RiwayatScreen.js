@@ -1,35 +1,28 @@
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, FlatList} from 'react-native'
 import React from 'react'
-import { Ijo, Kuning, Putih } from '../Utils/Warna'
-import HeaderTabs from '../Components/HeaderTabs'
+import { Kuning } from '../Utils/Warna'
 import RiwayatCard from '../Components/RiwayatCard'
+import { dataRiwayat } from '../Data/dataRiwayat'
 
-const RiwayatScreen = ({ navigation }) => {
+
+const RiwayatScreen = () => {
   return (
-    <ScrollView style={styles.latar}>
-      <RiwayatCard/>
-      <RiwayatCard/>
-      <RiwayatCard/>
-    </ScrollView>
+    <View style={styles.latar}>
+      <FlatList
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom:80}} 
+          data={dataRiwayat}
+          renderItem= {({item}) => <RiwayatCard item={item} />}
+          keyExtractor={(item) => item.id}
+          ListFooterComponent={<View style={{height:10}}></View>}
+      />
+    </View>
   )
 }
 
 export default RiwayatScreen
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: Ijo,
-    paddingTop: 30,
-    paddingBottom: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  bungkus: {
-    backgroundColor: Putih,
-    borderRadius: 10,
-    height: 40,
-    paddingVertical: 5, 
-  },
   latar:{
     backgroundColor: Kuning,
     flex: 1,

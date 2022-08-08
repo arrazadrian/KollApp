@@ -20,6 +20,7 @@ import {
   ProdukScreen,
   ProsesScreen,
   PosisiScreen,
+  ReceiptScreen,
   RiwayatScreen, 
   SekitarScreen, 
   SignInScreen,
@@ -51,10 +52,11 @@ const AppUtama = () => {
   return(
   <HomeStack.Navigator>
     <HomeStack.Screen name="HomeScreen" component={HomeStackScreen} options={{ headerShown: false }}/>
-    <HomeStack.Screen name="FLocScreen" component={FLocScreen} options={{ title: "Tentukan Lokasi" ,headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
-    <HomeStack.Screen name="SekitarScreen" component={SekitarScreen} options={{ title: "Mitra Akftif Sekitarmu" ,headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
+    <HomeStack.Screen name="FLocScreen" component={FLocScreen} options={{ title: "Tentukan Lokasi", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
+    <HomeStack.Screen name="SekitarScreen" component={SekitarScreen} options={{ title: "Mitra Akftif Sekitarmu", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
     <HomeStack.Screen name="LangsungScreen" component={LangsungScreen} options={{ title: "Temu Langsung", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
     <HomeStack.Screen name="DalamMitra" component={DalamMitra} options={{ headerShown: false }} />
+    <HomeStack.Screen name="ReceiptScreen" component={ReceiptScreen} options={{ title: "Detail Transaksi", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
   </HomeStack.Navigator>
   );
 };
