@@ -32,7 +32,7 @@ const SignInScreen = ({navigation}) => {
   return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.latar}>
-            <ImageBackground source={LatarSignIn}  resizeMode="stretch"  style={styles.rumah}/>
+            <ImageBackground source={LatarSignIn}  resizeMode="cover"  style={styles.rumah}/>
               <View>
                 <Image source={SignIn} style={styles.pojoklogo} />
               </View>

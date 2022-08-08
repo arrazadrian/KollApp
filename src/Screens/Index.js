@@ -1,4 +1,3 @@
-import SplashScreen from "./SplashScreen";
 import HomeScreen from "./HomeScreen";
 import SekitarScreen from "./SekitarScreen";
 import PosisiScreen from "./PosisiScreen";
@@ -23,7 +22,7 @@ import DetailScreen from "./DetailScreen";
 
 
 export {
-     SplashScreen, HomeScreen, PembelianScreen, 
+     HomeScreen, PembelianScreen, 
      RiwayatScreen, AkunScreen, SignInScreen, SignUpScreen, 
      KategoriScreen, SekitarScreen, EditScreen,
      LangsungScreen, PosisiScreen, PreorderScreen,

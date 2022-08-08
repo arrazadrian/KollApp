@@ -25,9 +25,9 @@ import {
   SekitarScreen, 
   SignInScreen,
   SignUpScreen,
-  SplashScreen, 
 } from '../Screens/Index.js'
 import TabNavigasi from '../Components/TabNavigasi.js';
+import { NavigationContainer } from '@react-navigation/native';
 import { Ijo, Putih } from '../Utils/Warna.js';
 
 
@@ -48,16 +48,18 @@ const HomeStackScreen = () =>{
   );
 };
 
-const AppUtama = () => {
+export const AppUtama = () => {
   return(
-  <HomeStack.Navigator>
-    <HomeStack.Screen name="HomeScreen" component={HomeStackScreen} options={{ headerShown: false }}/>
-    <HomeStack.Screen name="FLocScreen" component={FLocScreen} options={{ title: "Tentukan Lokasi", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
-    <HomeStack.Screen name="SekitarScreen" component={SekitarScreen} options={{ title: "Mitra Akftif Sekitarmu", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
-    <HomeStack.Screen name="LangsungScreen" component={LangsungScreen} options={{ title: "Temu Langsung", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
-    <HomeStack.Screen name="DalamMitra" component={DalamMitra} options={{ headerShown: false }} />
-    <HomeStack.Screen name="ReceiptScreen" component={ReceiptScreen} options={{ title: "Detail Transaksi", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
-  </HomeStack.Navigator>
+  <NavigationContainer>
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="HomeScreen" component={HomeStackScreen} options={{ headerShown: false }}/>
+      <HomeStack.Screen name="FLocScreen" component={FLocScreen} options={{ title: "Tentukan Lokasi", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
+      <HomeStack.Screen name="SekitarScreen" component={SekitarScreen} options={{ title: "Mitra Akftif Sekitarmu", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
+      <HomeStack.Screen name="LangsungScreen" component={LangsungScreen} options={{ title: "Temu Langsung", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
+      <HomeStack.Screen name="DalamMitra" component={DalamMitra} options={{ headerShown: false }} />
+      <HomeStack.Screen name="ReceiptScreen" component={ReceiptScreen} options={{ title: "Detail Transaksi", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
+    </HomeStack.Navigator>
+  </NavigationContainer>
   );
 };
 
@@ -79,12 +81,14 @@ const RiwayatStackScreen = () => {
   );
 };
 
-const Gerbang = () => {
+export const Gerbang = () => {
   return(
-    <Stack.Navigator>
-      <Stack.Screen name="SignInScreen" component={SignInScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{ headerShown: false }}/>
-    </Stack.Navigator>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="SignInScreen" component={SignInScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{ headerShown: false }}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
@@ -108,7 +112,6 @@ const DalamMitra = () => {
 const Routernih = () => {
   return (
     <Stack.Navigator initialRouteName="SplashScreen">
-        <Stack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="Gerbang" component={Gerbang} options={{ headerShown: false }}/>
         <Stack.Screen name="AppUtama" component={AppUtama} options={{ headerShown: false }}/>
     </Stack.Navigator>
