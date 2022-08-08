@@ -36,9 +36,7 @@ export async function registration(email, password, namalengkap, namatoko, phone
                 id_mitra: auth.currentUser.uid,
                 email: email,
                 namalengkap: namalengkap,
-                namatoko: namatoko,
                 phone: phone,
-                status_sekarang: "Tidak Aktif",
             })
         })
   } catch (err) {
@@ -189,7 +187,7 @@ async function uploadgambarakun(uri) {
           xhr.open("GET", uri, true);
           xhr.send(null);
     });
-    const fileRef = ref(getStorage(app), `mitra/${filename}`);
+    const fileRef = ref(getStorage(app), `pelanggan/${filename}`);
     const result = await uploadBytes(fileRef, blob);
     
     // We're done with the blob, close and release it
