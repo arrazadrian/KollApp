@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, Keyboard, StatusBar, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, Keyboard, StatusBar, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { Ijo, IjoTua, Putih } from '../Utils/Warna';
 import { useNavigation } from '@react-navigation/native';
@@ -53,14 +53,14 @@ const SignUpScreen = () => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    <View style={styles.latar}>
-         <View style={{alignItems:'center', top: 5}}>
+    <ScrollView style={styles.latar}>
+         <View style={{alignItems:'center', marginBottom: 10, paddingTop: 20}}>
            <Text style={{color: Putih, fontSize: 30, fontWeight:'bold'}}>Daftar Akun</Text>
            <Text style={{color: Putih, fontSize: 17}}>Yuk lengkapi data pribadimu!</Text>
          </View>
           <View style={styles.kotak}>
               <View style={{left: 5, marginBottom: 5}}>
-                  <Text style={{color: Putih}}>Nama Lengkap</Text>
+                  <Text style={styles.subjudul}>Nama Lengkap</Text>
               </View>
               <View style={{marginBottom: 10}}>
                   <TextInput style={styles.input} placeholder="Cth. Asep Suryana"
@@ -71,7 +71,7 @@ const SignUpScreen = () => {
                   />
               </View>
               <View style={{left: 5, marginBottom: 5}}>
-                  <Text style={{color: Putih}}>Email</Text>
+                  <Text style={styles.subjudul}>Email</Text>
               </View>
               <View style={{marginBottom: 10}}>
                   <TextInput style={styles.input} placeholder="Cth. emailanda@mail.com"
@@ -82,7 +82,7 @@ const SignUpScreen = () => {
                   />
               </View>
               <View style={{left: 5, marginBottom: 5}}>
-                  <Text style={{color: Putih}}>No. Handphone</Text>
+                  <Text style={styles.subjudul}>No. Handphone</Text>
               </View>
               <View style={{marginBottom: 10}}>
                   <TextInput style={styles.input} placeholder="08XXXXX"
@@ -94,7 +94,7 @@ const SignUpScreen = () => {
                   />
               </View>
               <View style={{left: 5, marginBottom: 5}}>
-                  <Text style={{color: Putih}}>Password</Text>
+                  <Text style={styles.subjudul}>Password</Text>
               </View>
               <View style={{marginBottom: 10}}>
                   <TextInput secureTextEntry={true} style={styles.input} placeholder="Kata Sandi"
@@ -105,7 +105,7 @@ const SignUpScreen = () => {
                   />
               </View>
               <View style={{left: 5, marginBottom: 5}}>
-                  <Text style={{color: Putih}}>Tulis Ulang Password</Text>
+                  <Text style={styles.subjudul}>Tulis Ulang Password</Text>
               </View>
               <View style={{marginBottom: 16}}>
                 <TextInput secureTextEntry={true} style={styles.input} placeholder="Tulis Ulang Kata Sandi"
@@ -124,11 +124,11 @@ const SignUpScreen = () => {
                   </Text>
               </View>
           </View>
-          <View style={styles.tombol}
+          <TouchableOpacity style={styles.tombol}
           onPress={handleSignUp}
           >
               <Text style={{fontWeight:'bold', fontSize: 20, color: Putih}}>Daftar</Text>
-          </View>
+          </TouchableOpacity>
         <View style={{alignSelf:'center'}}>
             <Text style={{color: Putih}}>
                 <Text>Sudah punya akun?</Text>   
@@ -137,7 +137,7 @@ const SignUpScreen = () => {
                 > Klik ini!</Text>
             </Text>
         </View>
-    </View>
+    </ScrollView>
     </TouchableWithoutFeedback>
   )
 }
@@ -152,16 +152,17 @@ const styles = StyleSheet.create({
     paddingVertical: 20
   },
   kotak:{
-    top: 20,
     backgroundColor: Ijo,
-    borderRadius: 20,
-    width: 320,
-    height: 440,
+    borderRadius: 10,
     alignSelf: 'center',
     opacity: 1,
-    marginBottom: 15,
+    marginBottom: 10,
     paddingHorizontal: 20,
     paddingVertical: 15,
+  },
+  subjudul:{
+    color: Putih,
+    fontSize: 15,
   },
   input: {
     backgroundColor: Putih,
@@ -170,8 +171,8 @@ const styles = StyleSheet.create({
     paddingStart: 10
   },
   tombol:{
-    width: 320,
-    height: 50,
+    width: width*0.84,
+    height: height*0.06,
     backgroundColor: Ijo,
     borderRadius: 10,
     alignSelf: 'center',

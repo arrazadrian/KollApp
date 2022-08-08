@@ -26,7 +26,7 @@ import { v4 as uuidv4 } from 'uuid';
 // MEMBUAT AKUN BARU DENGAN EMAIL DAN PASSWORD, 
 // LALU MEMBUAT DOKUMEN BARU PADA COLLECTION PELANGGAN
 
-export async function registration(email, password, namalengkap, namatoko, phone) {
+export async function registration(email, password, namalengkap, phone) {
     const auth = getAuth();
     const db = getFirestore(app);
   try {

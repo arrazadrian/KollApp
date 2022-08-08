@@ -1,15 +1,19 @@
 import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Dimensions, TouchableWithoutFeedback, Keyboard, StatusBar, TouchableOpacity} from 'react-native'
 import React, {useEffect, useState} from 'react'
-import { SignIn, LatarSignIn } from '../assets/Images/Index'
+import { SignIn, LatarSignIn, KollLong } from '../assets/Images/Index'
 import { Hitam, Ijo, Kuning, Putih } from '../Utils/Warna'
 import { NavigationContainer } from '@react-navigation/native'
 import { IconLock, IconMessage } from '../assets/Icons/Index'
+import { Halaman, Awan } from '../assets/Images/Index'
+import { useNavigation } from '@react-navigation/native'
 import { signIn } from '../../API/firebasemethod';
 
 
 const { height, width } = Dimensions.get('window')
 
-const SignInScreen = ({navigation}) => {
+const SignInScreen = () => {
+
+  const navigation = useNavigation();
 
   <StatusBar translucent backgroundColor="transparent" />
   const [email, setEmail] = useState('');
@@ -27,48 +31,44 @@ const SignInScreen = ({navigation}) => {
     }
   };
 
-
-  
   return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.latar}>
-            <ImageBackground source={LatarSignIn}  resizeMode="cover"  style={styles.rumah}/>
-              <View>
-                <Image source={SignIn} style={styles.pojoklogo} />
-              </View>
-              <View>
-                  <View style={styles.wraper}>
-                      <View style={{marginBottom: 10}}>
-                          <Text style={styles.judul}>Masuk Akun</Text>
-                          <Text style={{fontSize: 16}}>Lengkapi email dan kata sandi</Text>
-                      </View>
-                      <View style={{ marginBottom: 10}}>
-                          <TextInput style={styles.input} placeholder="Email akun anda" />
-                          <IconMessage style={{position:'absolute', top: 14, left: 8}} />
-                      </View>
-                      <View style={{ marginBottom: 10}}>
-                          <TextInput secureTextEntry={true} style={styles.input} placeholder="Kata sandi akun anda"/>
-                      <IconLock style={{position:'absolute', top: 14, left: 8}}/>
-                      </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.latar}>
+        <Image source={KollLong} style={styles.pojoklogo} />
+        <Image source={Awan} style={styles.awan}/>
+        <Image source={Halaman} style={styles.halaman}/>            
+          <View>
+              <View style={styles.wraper}>
+                  <View style={{marginBottom: 10}}>
+                      <Text style={styles.judul}>Masuk Akun</Text>
+                      <Text style={{fontSize: 16}}>Lengkapi email dan kata sandi</Text>
+                  </View>
+                  <View style={{ marginBottom: 10}}>
+                      <TextInput style={styles.input} placeholder="Email akun anda" />
+                      <IconMessage style={{position:'absolute', top: 14, left: 8}} />
+                  </View>
+                  <View style={{ marginBottom: 10}}>
+                      <TextInput secureTextEntry={true} style={styles.input} placeholder="Kata sandi akun anda"/>
+                  <IconLock style={{position:'absolute', top: 14, left: 8}}/>
+                  </View>
 
-                      <TouchableOpacity style={styles.tombol}
-                       onPress={handleSignIn}
-                      >
-                        <Text style={{color: Putih, fontWeight: 'bold', textAlign:'center', fontSize: 20 }}>Masuk</Text>
-                      </TouchableOpacity>
-                      <View style={{alignItems: 'center'}}>
-                          <Text style={{color: Ijo, fontSize: 16}}>  
-                              <Text>Belum punya akun? </Text>   
-                              <Text style={{fontWeight:'bold'}}
-                              onPress={() => navigation.navigate('SignUpScreen')}                      
-                              >Klik ini!</Text>
-                          </Text>
-                      </View>
+                  <TouchableOpacity style={styles.tombol}
+                    onPress={handleSignIn}
+                  >
+                    <Text style={{color: Putih, fontWeight: 'bold', textAlign:'center', fontSize: 20 }}>Masuk</Text>
+                  </TouchableOpacity>
+                  <View style={{alignItems: 'center'}}>
+                      <Text style={{color: Ijo, fontSize: 16}}>  
+                          <Text>Belum punya akun? </Text>   
+                          <Text style={{fontWeight:'bold'}}
+                          onPress={() => navigation.navigate('SignUpScreen')}                      
+                          >Klik ini!</Text>
+                      </Text>
                   </View>
               </View>
           </View>
-          </TouchableWithoutFeedback>
-     
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
 
@@ -78,32 +78,35 @@ const styles = StyleSheet.create({
   latar: {
     backgroundColor: Kuning,
     flex: 1,
-    
   },
- rumah:{
-    flex:1,
-    position:`absolute`,
-    height: height,
+  awan:{
+    position:'absolute', 
+    top: height*0.04, 
+    right: width*0.02, 
+    height: width*0.3, 
+    width: width*0.5,
+  }, 
+ halaman:{
+    position:'absolute', 
+    bottom: -1, 
+    height: height*0.32, 
     width: width,
   }, 
   pojoklogo: {
-    width:  100,
-    height: 50,
-    top: 15,
-    marginLeft: 10,
-    marginTop: 10,
+    width:  width*0.25,
+    height: height*0.1,
+    top: height*0.05,
+    left: width*0.03,
     position: `absolute`,
-  
   },
   tombol:{
-    height: 50,
-    width: 300, 
+    height: height*0.06,
+    width: width*0.8, 
     justifyContent: 'center', 
     marginVertical: 20, 
     backgroundColor: Ijo,
     borderRadius: 10,
-    alignSelf: 'center'
-   
+    alignSelf: 'center' 
   },
   judul: {
     fontSize: 30, 
@@ -119,7 +122,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   wraper:{
-    marginTop: 130,
+    marginTop: height*0.2,
     marginHorizontal: 30,
   }
 })

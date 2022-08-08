@@ -2,6 +2,10 @@ import { StyleSheet, Text, View, SafeAreaView, Pressable, Image } from 'react-na
 import React from 'react'
 import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
 import { KollLong } from '../assets/Images/Index.js'
+import { handleSignOut } from '../../API/firebasemethod'
+import { app } from '../../Firebase/config';
+import {  getAuth } from "firebase/auth";
+import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
 
 const AkunScreen = ({ navigation }) => {
   return (
@@ -41,7 +45,10 @@ const AkunScreen = ({ navigation }) => {
                 </View>
             </View>
             <View style={styles.logout}>
-              <Text style={{fontSize: 20, color: Ijo, fontWeight: 'bold'}}>Keluar Akun</Text>
+              <Text 
+              style={{fontSize: 20, color: Ijo, fontWeight: 'bold'}}
+              onPress={handleSignOut}
+              >Keluar Akun</Text>
             </View>
       </View>
     </SafeAreaView>
