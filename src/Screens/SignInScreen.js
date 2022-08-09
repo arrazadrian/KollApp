@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Dimensions, TouchableWithoutFeedback, Keyboard, StatusBar, TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View, Image, Alert, TextInput, Dimensions, TouchableWithoutFeedback, Keyboard, StatusBar, TouchableOpacity} from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { SignIn, LatarSignIn, KollLong } from '../assets/Images/Index'
 import { Hitam, Ijo, Kuning, Putih } from '../Utils/Warna'
@@ -44,11 +44,23 @@ const SignInScreen = () => {
                       <Text style={{fontSize: 16}}>Lengkapi email dan kata sandi</Text>
                   </View>
                   <View style={{ marginBottom: 10}}>
-                      <TextInput style={styles.input} placeholder="Email akun anda" />
+                      <TextInput 
+                      style={styles.input} 
+                      placeholder="Email akun anda"  
+                      value={email}
+                      onChangeText={text => setEmail(text)}
+                      autoCapitalize="none"
+                      />
                       <IconMessage style={{position:'absolute', top: 14, left: 8}} />
                   </View>
                   <View style={{ marginBottom: 10}}>
-                      <TextInput secureTextEntry={true} style={styles.input} placeholder="Kata sandi akun anda"/>
+                      <TextInput 
+                      secureTextEntry={true} 
+                      style={styles.input} 
+                      placeholder="Kata sandi akun anda"
+                      value={password}
+                      onChangeText={text => setPassword(text)}
+                      />
                   <IconLock style={{position:'absolute', top: 14, left: 8}}/>
                   </View>
 

@@ -75,7 +75,7 @@ export async function handleSignOut() {
 // PERBARUI DATA AKUN
 // DI FIRESTORE TANPA FOTO DI STORAGE
 
-export async function updateakunTanpafoto(namaakun, tokoakun, phoneakun){
+export async function updateakunTanpafoto(namaakun, phoneakun){
 
   const auth = getAuth();
   const db = getFirestore(app);
@@ -89,7 +89,6 @@ export async function updateakunTanpafoto(namaakun, tokoakun, phoneakun){
       try{
         updateDoc(docrefproduk, {
           namalengkap: namaakun,
-          namatoko: tokoakun,
           phone: phoneakun,
         });
         Alert.alert(
@@ -109,7 +108,7 @@ export async function updateakunTanpafoto(namaakun, tokoakun, phoneakun){
 // PERBARUI DATA AKUN
 // DI FIRESTORE DENGAN FOTO DI STORAGE
 
-export async function updateakunDenganfoto(fotoakun, namaakun, tokoakun, phoneakun){
+export async function updateakunDenganfoto(fotoakun, namaakun, phoneakun){
   const urlgambarbaru = await uploadgambarakun(fotoakun);
 
   const auth = getAuth();
@@ -128,28 +127,26 @@ export async function updateakunDenganfoto(fotoakun, namaakun, tokoakun, phoneak
           updateDoc(docrefproduk, {
             foto_akun: urlgambarbaru,
             namalengkap: namaakun,
-            namatoko: tokoakun,
             phone: phoneakun,
           });
           Alert.alert(
             'Data Akun Berhasil Diperbarui','Foto lama kamu juga sudah yang terbaru.'
           );
         } catch (err) {
-          Alert.alert('Ada error untuk memperbarui data akun!', err.message);
+          Alert.alert('Ada error untuk memperbarui data akun dengan ganti foto!', err.message);
         };
       } else{
         try{
           updateDoc(docrefproduk, {
             foto_akun: urlgambarbaru,
             namalengkap: namaakun,
-            namatoko: tokoakun,
             phone: phoneakun,
           });
           Alert.alert(
             'Data Akun Berhasil Diperbarui','Data akunmu sudah terbarui.'
           );
         } catch (err) {
-          Alert.alert('Ada error untuk memperbarui data akun!', err.message);
+          Alert.alert('Ada error untuk memperbarui data akun foto terbaru!', err.message);
         };
       }
       

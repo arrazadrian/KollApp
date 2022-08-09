@@ -1,13 +1,52 @@
 import { StyleSheet, Text, View, SafeAreaView, Pressable, Image } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
-import { KollLong } from '../assets/Images/Index.js'
+import { KollLong, Logo } from '../assets/Images/Index.js'
 import { handleSignOut } from '../../API/firebasemethod'
 import { app } from '../../Firebase/config';
 import {  getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { useNavigation } from '@react-navigation/native'
 
-const AkunScreen = ({ navigation }) => {
+const AkunScreen = () => {
+
+  const navigation = useNavigation();
+
+  const pindahEdit = () => {
+    navigation.navigate('EditAkunScreen', { 
+      nama: namaakun,
+      foto: fotoakun,
+      phone: phoneakun,
+    })
+  }
+
+  const [namaakun, setNamaakun] = useState('Loading...')
+  const [fotoakun, setFotoakun] = useState('')
+  const [phoneakun, setPhoneakun] = useState('Loading...')
+  const [emailakun, setEmailakun] = useState('Loading...')
+  const auth = getAuth();
+  const db = getFirestore(app)
+
+  useEffect(() =>{
+    async function getuserAkun(){
+      try{
+        const unsubscribe = onSnapshot(doc(db, "pelanggan", auth.currentUser.uid ), (doc) => {
+        setNamaakun(doc.data().namalengkap);
+        setFotoakun(doc.data().foto_akun);
+        setPhoneakun(doc.data().phone);
+        setEmailakun(doc.data().email);
+        console.log('getuserAkun jalan (Akun Screen)')
+          // Respond to data
+          // ...
+        });
+        //unsubscribe();
+      } catch (err){
+        Alert.alert('There is an error.', err.message)
+      }
+    }
+    getuserAkun();
+  },[])
+
   return (
     <SafeAreaView style={styles.latar}>
       <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
@@ -18,13 +57,15 @@ const AkunScreen = ({ navigation }) => {
               <Text style={{color: Putih, fontSize: 22, fontWeight: 'bold'}}>Profil</Text>
             </View>
             <View style={{flexDirection:'row', alignItems:'center', marginBottom: 10}}>
-                <View style={styles.foto}>
-                  <Text>Putuu</Text>
-                </View>
+            { fotoakun ? (
+                <Image source={{uri: fotoakun}} style={styles.foto}/>
+                ):(
+                <Image source={Logo} style={styles.foto}/>
+              )}
                 <View>
-                    <Text style={{fontSize: 20, fontWeight:'bold', color: Putih,}}>Arraz Adrian</Text>
+                    <Text style={{fontSize: 20, fontWeight:'bold', color: Putih,}}>{namaakun}</Text>
                     <Text style={{fontSize: 18,color: Putih,}}>Pelanggan</Text>
-                    <Pressable  onPress={() => navigation.push('EditScreen')} >
+                    <Pressable  onPress={pindahEdit} >
                         <View style={styles.edit}>
                           <Text style={{color: Putih, fontSize: 18, fontWeight:'bold'}}>Atur Profil</Text>
                         </View>
@@ -37,11 +78,11 @@ const AkunScreen = ({ navigation }) => {
             <View style={{padding: 15}}>
                 <View style={{justifyContent:"space-between", marginBottom: 10}}>     
                       <Text style={{color: Putih, fontSize: 15, fontWeight:'bold'}}>No.Handphone</Text> 
-                      <Text style={{color: Putih, fontSize: 18}}>0909090909090</Text>   
+                      <Text style={{color: Putih, fontSize: 18}}>{phoneakun}</Text>   
                 </View>
                 <View style={{justifyContent:"space-between", marginBottom: 10}}>     
                       <Text style={{color: Putih, fontSize: 15, fontWeight:'bold'}}>Email</Text> 
-                      <Text style={{color: Putih, fontSize: 18}}>contoh@gmail.com</Text>   
+                      <Text style={{color: Putih, fontSize: 18}}>{emailakun}</Text>   
                 </View>
             </View>
             <View style={styles.logout}>
@@ -74,7 +115,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 30,
+    marginRight: 15,
   },
   tulisan:{
     fontSize: 18,

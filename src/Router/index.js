@@ -7,7 +7,7 @@ import {
   AkunScreen, 
   CheckoutScreen,
   DetailScreen,
-  EditScreen,
+  EditAkunScreen,
   FLocScreen,
   HomeScreen,
   KategoriScreen,
@@ -67,7 +67,7 @@ const AkunStackScreen = () => {
   return(
   <AkunStack.Navigator>
     <AkunStack.Screen name="AkunScreen" component={AkunScreen} options={{ headerShown: false }}/>
-    <AkunStack.Screen name="EditScreen" component={EditScreen} options={{ title: "Atur Profil", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
+    <AkunStack.Screen name="EditAkunScreen" component={EditAkunScreen} options={{ title: "Atur Profil", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
   </AkunStack.Navigator>
   );
 };
