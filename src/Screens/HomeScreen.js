@@ -1,15 +1,40 @@
-import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, StatusBar } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, StatusBar, Alert } from 'react-native'
+import React, {useState, useEffect} from 'react'
 import PencarianBar from '../Components/PencarianBar'
 import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
 import { Logo, PanggilMitra, TemuLangsung, Location } from '../assets/Images/Index.js';
 import CarouselHome from '../Components/CarouselHome'
 import { tigaGambar } from '../Data/data.js';
+import { app } from '../../Firebase/config';
+import {  getAuth } from "firebase/auth";
+import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
 
 const { height, width } = Dimensions.get('window')
 
 const HomeScreen = ({navigation, item}) => {
-// const HomeScreen = ({item}) => {
+
+  const [namaakun, setNamaakun] = useState('Loading...')
+  const auth = getAuth();
+  const db = getFirestore(app)
+
+  useEffect(() =>{
+    async function getuserHome(){
+      try{
+        const unsubscribe = onSnapshot(doc(db, "pelanggan", auth.currentUser.uid ), (doc) => {
+        setNamaakun(doc.data().namalengkap);
+        console.log('getuserHome jalan (Home Screen)')
+          // Respond to data
+          // ...
+        });
+        //unsubscribe();
+      } catch (err){
+        Alert.alert('There is an error.', err.message)
+      }
+    }
+    getuserHome();
+  },[])
+
+
   return (
     <View style={styles.latar}> 
       <View style={styles.container}>
@@ -18,14 +43,10 @@ const HomeScreen = ({navigation, item}) => {
         </View>
         <View>
           <Text style={{color:Ijo, fontSize:18}}>Selamat datang!</Text>
-          <Text style={{color:Ijo, fontSize:20, fontWeight:'bold'}}>Annisa Rifani</Text>
+          <Text style={{color:Ijo, fontSize:20, fontWeight:'bold'}}>{namaakun}</Text>
         </View>
       </View>
       <ScrollView>
-         {/* <View>
-              <CarouselHome data={ tigaGambar } /> 
-          </View>
-          */}
           <View style={{paddingHorizontal: 20}}>
                   <View>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>

@@ -1,12 +1,31 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, ActivityIndicator, Alert } from 'react-native'
+import React, {useState, useEffect} from 'react'
 import { Ijo, Kuning, Hitam, Putih, IjoTua } from '../Utils/Warna'
-import { LogoKoll, meetup } from '../assets/Images/Index.js'
+import { LogoQR, meetup } from '../assets/Images/Index.js'
 import QRCode from 'react-native-qrcode-svg'
+import { app } from '../../Firebase/config';
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import {  getAuth } from "firebase/auth";
 
 const { height, width } = Dimensions.get('window')
 
 const LangsungScreen = () => {
+  
+  const [qr,setQR] = useState()
+  const auth = getAuth();
+
+  useEffect(() =>{
+    async function getQR(){
+      try{
+          setQR(auth.currentUser.uid);
+          console.log('getQR jalan (Langsung Screen)')        
+      } catch (err){
+        Alert.alert('There is an error.', err.message)
+      }
+    }
+    getQR();
+  },[])
+
   return (
     <View style={styles.latar}>
       <View style={styles.tulisan}>
@@ -16,21 +35,27 @@ const LangsungScreen = () => {
           </Text>
       </View>
       <View style={styles.qr}>
-            <QRCode 
-            value='https://yarnpkg.com/package/react-native-qrcode-svg' 
-            size={240}
-            logo={LogoKoll}
-            logoBackgroundColor={Putih}
-            logoSize={33}
-            />
+        { qr ?(
+          <QRCode 
+          value={qr} 
+          size={240}
+          logo={LogoQR}
+          logoBackgroundColor={Putih}
+          logoSize={33}
+          />
+        ):(
+          <ActivityIndicator size="large" color={Ijo}/>
+        )
+        }
+            
       </View>
       <View style={styles.bawah}>
         <View style={{flex: 1}}>
             <Image source={meetup} style={styles.gambar} />
         </View>
         <View  style={{flex: 1}}>
-            <Text style={{flexWrap:'wrap', color: Ijo, fontSize: 20, fontWeight:'bold'}}>
-              Dapatkan struk dari hasil belanja kamu.
+            <Text style={{flexWrap:'wrap', color: Ijo, fontSize: 18, fontWeight:'bold'}}>
+              Dapatkan struk dari hasil belanja kamu lewat QR Code ini.
             </Text>
         </View>
       </View>

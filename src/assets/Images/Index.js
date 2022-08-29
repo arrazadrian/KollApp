@@ -1,5 +1,6 @@
 import Awan from './awan.png'
 import Logo from './logoKollApp.png'
+import LogoQR from './LogoQR.png'
 import LogoKoll from './kollTRP.png'
 import KollLong from './KollLong.png'
 import Splash from './splashKollApp.png'
@@ -35,4 +36,5 @@ export { Awan, Logo, Splash, LogoPutih, Header1,
         Kategori01, Kategori02, Kategori03, Kategori04,
         Kategori05, Kategori06, Kategori07, Kategori08,
         Kategori09, KategoriPre, IkanMujaer,
-        meetup,Bag, Gerobak, Location, Bawah, LogoKoll }
+        meetup,Bag, Gerobak, Location, Bawah, LogoKoll,
+        LogoQR }
