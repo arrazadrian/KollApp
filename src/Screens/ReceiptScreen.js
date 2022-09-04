@@ -2,16 +2,20 @@ import { StyleSheet, Text, View, Pressable, Dimensions, FlatList, Image, ScrollV
 import React, {useEffect, useState, useRef} from 'react'
 import { Ijo, IjoTua, Kuning, Putih,  } from '../Utils/Warna'
 import { KollLong } from '../assets/Images/Index';
-import ListReceipt from '../Components/ListReceipt'
+import ListReceipt from '../Components/ListReceipt';
+import moment from 'moment';
+import localization from 'moment/locale/id';
 
 
 const { width, height } = Dimensions.get('window')
 
 const ReceiptScreen = ({route}) => {
 
+  moment.updateLocale('id', localization)
+
   const { 
-       layanan, tanggal, pukul, id_transaksi, daftar_produk,
-       namaPelanggan, sub_total, biaya_layanan, hargatotal,
+    hargatotal, id_mitra, id_pelanggan, jenislayanan, id_transaksi,
+    jumlah_kuantitas, namamitra, namapelanggan, produk, waktu
      } = route.params;
 
      const atasReceipt = () => {
@@ -21,7 +25,7 @@ const ReceiptScreen = ({route}) => {
               <View style={{ flexDirection:'row', marginBottom: 10 }}>
                     <View style={{flex:1, alignItems:'center'}}>
                       <Text style={styles.subjudul}>Jenis Layanan</Text>
-                      <Text>{layanan}</Text>
+                      <Text>{jenislayanan}</Text>
                     </View>
                     <View style={{flex:1,  alignItems:'center'}}>
                       <Text style={styles.subjudul}>ID Transaksi</Text>
@@ -33,16 +37,12 @@ const ReceiptScreen = ({route}) => {
     
               <View style={{ marginVertical: 10 }}>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                        <Text style={styles.subjudul}>Nama Pelanggan</Text>
-                        <Text>{namaPelanggan}</Text>
+                        <Text style={styles.subjudul}>Nama Mitra</Text>
+                        <Text>{namamitra}</Text>
                     </View>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                        <Text style={styles.subjudul}>Tanggal</Text>
-                        <Text>{tanggal}</Text>
-                    </View>
-                    <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                        <Text style={styles.subjudul}>Pukul</Text>
-                        <Text>{pukul}</Text>
+                        <Text style={styles.subjudul}>Waktu</Text>
+                        <Text>{moment(waktu.toDate()).calendar()}</Text>
                     </View>
               </View>
     
@@ -60,11 +60,11 @@ const ReceiptScreen = ({route}) => {
         <View style={{ marginVertical: 10 }}>
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                   <Text style={styles.subjudul}>Sub Total</Text>
-                  <Text>{sub_total}</Text>
+                  <Text>?????</Text>
               </View>
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                   <Text style={styles.subjudul}>Biaya Layanan</Text>
-                  <Text>{biaya_layanan}</Text>
+                  <Text>?????</Text>
               </View>
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                   <Text style={styles.subjudul}>Total Harga</Text>
@@ -80,7 +80,7 @@ const ReceiptScreen = ({route}) => {
       <View style={styles.kertas}>
           <View style={{ marginVertical: 10 }}>
                 <FlatList
-                  data={daftar_produk}
+                  data={produk}
                   renderItem= {({item}) => <ListReceipt item={item} />}
                   keyExtractor={(item) => item.id}
                   ListHeaderComponent= {atasReceipt}
