@@ -27,17 +27,20 @@ const RiwayatScreen = () => {
         querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
           const { 
-            hargatotal, id_mitra, id_pelanggan, jenislayanan, 
-            jumlah_kuantitas, namamitra, namapelanggan, produk, waktu
+            hargalayanan, hargasubtotal, hargatotalsemua, id_mitra, id_pelanggan, jenislayanan, 
+            jumlah_kuantitas, namamitra,  namatoko, namapelanggan, produk, waktu
           } = doc.data();
           list.push({
             id: doc.id,
-            hargatotal,
+            hargalayanan,
+            hargasubtotal,
+            hargatotalsemua,
             id_mitra,
             id_pelanggan,
             jenislayanan,
             jumlah_kuantitas,
             namamitra,
+            namatoko,
             namapelanggan,
             produk,
             waktu,

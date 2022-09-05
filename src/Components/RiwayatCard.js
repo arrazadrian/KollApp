@@ -17,18 +17,19 @@ const RiwayatCard = ({ item }) => {
 
   const pindahDetail = () => {
     navigation.navigate('ReceiptScreen', { 
-      hargatotal: item.hargatotal,
+      hargalayanan: item.hargalayanan,
+      hargasubtotal: item.hargasubtotal,
+      hargatotalsemua: item.hargatotalsemua,
       id_mitra: item.id_mitra,
       id_pelanngan: item.id_mitra,
       jenislayanan: item.jenislayanan,
       jumlah_kuantitas: item.jumlah_kuantitas,
       namamitra: item.namamitra,
+      namatoko: item.namatoko,
       namapelanggan: item.namapelanggan,
       produk: item.produk,
       waktu: item.waktu,
       id_transaksi: item.id,
-      sub_total: item.sub_total,
-      biaya_layanan: item.biaya_layanan,
     })
   }
 
@@ -41,11 +42,11 @@ const RiwayatCard = ({ item }) => {
         <Text
         style={{fontSize:18, fontWeight:'bold', color:IjoTua}}
         >
-            {item.namamitra}
+            {item.namatoko}
         </Text>
         <Text style={{fontSize:16, color:Ijo}}>
             <Text>Rp</Text>
-            <Text>{item.hargatotal}</Text>
+            <Text>{item.hargatotalsemua}</Text>
             <Text> | </Text>
             <Text>{item.jumlah_kuantitas} </Text>
             <Text>Produk</Text>

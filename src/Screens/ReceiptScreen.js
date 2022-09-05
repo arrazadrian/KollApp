@@ -14,25 +14,33 @@ const ReceiptScreen = ({route}) => {
   moment.updateLocale('id', localization)
 
   const { 
-    hargatotal, id_mitra, id_pelanggan, jenislayanan, id_transaksi,
-    jumlah_kuantitas, namamitra, namapelanggan, produk, waktu
+    hargalayanan, hargasubtotal, hargatotalsemua, id_mitra, id_pelanggan, id_transaksi,  jenislayanan,
+    jumlah_kuantitas, namamitra, namatoko, namapelanggan, produk, waktu, 
      } = route.params;
 
-     const atasReceipt = () => {
-      return(
-        <View>
+  return (
+    <View style={styles.latar}>
+      <View style={styles.kertas}>
+      <View>
             <Image source={KollLong} style={styles.logo}/>
-              <View style={{ flexDirection:'row', marginBottom: 10 }}>
-                    <View style={{flex:1, alignItems:'center'}}>
+              <View style={{marginBottom: 10}}>
+                  <Text style={{color: IjoTua, fontSize: 18, textAlign: 'center', fontWeight: 'bold'}}>
+                    Nama Toko
+                  </Text>
+                  <Text style={{color: Ijo, fontSize: 22, textAlign: 'center', fontWeight: 'bold'}}>
+                    {namatoko}
+                  </Text>
+              </View>
+              <View style={{marginBottom: 10}}>
+                  <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
                       <Text style={styles.subjudul}>Jenis Layanan</Text>
                       <Text>{jenislayanan}</Text>
-                    </View>
-                    <View style={{flex:1,  alignItems:'center'}}>
+                  </View>
+                  <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
                       <Text style={styles.subjudul}>ID Transaksi</Text>
                       <Text>{id_transaksi}</Text>
-                    </View>
-              </View >
-    
+                  </View>
+              </View>
               <View style={{borderBottomWidth:1, borderColor: Ijo}}/>
     
               <View style={{ marginVertical: 10 }}>
@@ -41,7 +49,7 @@ const ReceiptScreen = ({route}) => {
                         <Text>{namamitra}</Text>
                     </View>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                        <Text style={styles.subjudul}>Waktu</Text>
+                        <Text style={styles.subjudul}>Waktu Transaksi</Text>
                         <Text>{moment(waktu.toDate()).calendar()}</Text>
                     </View>
               </View>
@@ -49,45 +57,38 @@ const ReceiptScreen = ({route}) => {
               <View style={{borderBottomWidth:1, borderColor: Ijo, marginBottom:10}}/>
               <Text  style={styles.subjudul}>Daftar Produk</Text>
         </View>
-      )
-    }
-    
-    const bawahReceipt = () => {
-      return(
+        {Object.entries(produk).map(([key, items]) => (
+          <View key={key}>
+            <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                <Text style={styles.deskripsi}>
+                    <Text>{items.length}x         </Text>
+                    <Text>{items[0]?.namaproduk}</Text>
+                </Text>
+                <Text style={styles.harga}>
+                    <Text>Rp</Text>
+                    <Text>{items[0]?.harga}</Text>
+                </Text>
+            </View>
+          </View>
+            ))}
         <View>
         <View style={{borderBottomWidth:1, borderColor: Ijo, marginTop: 10}}/>
     
         <View style={{ marginVertical: 10 }}>
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                   <Text style={styles.subjudul}>Sub Total</Text>
-                  <Text>?????</Text>
+                  <Text>{hargasubtotal}</Text>
               </View>
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                   <Text style={styles.subjudul}>Biaya Layanan</Text>
-                  <Text>?????</Text>
+                  <Text>{hargalayanan}</Text>
               </View>
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                   <Text style={styles.subjudul}>Total Harga</Text>
-                  <Text style={styles.subjudul}>{hargatotal}</Text>
+                  <Text style={styles.subjudul}>{hargatotalsemua}</Text>
               </View>
         </View>
         </View>
-      )
-    }
-
-  return (
-    <View style={styles.latar}>
-      <View style={styles.kertas}>
-          <View style={{ marginVertical: 10 }}>
-                <FlatList
-                  data={produk}
-                  renderItem= {({item}) => <ListReceipt item={item} />}
-                  keyExtractor={(item) => item.id}
-                  ListHeaderComponent= {atasReceipt}
-                  ListFooterComponent={bawahReceipt}
-                  showsVerticalScrollIndicator={false}
-                />
-          </View>
       </View>
     </View>
   )
@@ -116,5 +117,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: IjoTua,
     fontWeight:'bold',
-  }
+  },
+  deskripsi:{
+    fontSize: 16,
+    color: IjoTua,
+},
+  harga:{
+    fontSize: 16,
+    color: IjoTua,
+    fontWeight: 'bold',
+},
 }) 
