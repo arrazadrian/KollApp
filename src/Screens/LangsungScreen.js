@@ -72,12 +72,12 @@ const styles = StyleSheet.create({
   },
   qr:{
     backgroundColor: Putih,
-    height: width * 0.7,
-    width: width * 0.7,
+    height: width * 0.8,
+    width: width * 0.8,
     justifyContent: 'center',
     alignItems:'center',
     alignSelf:'center',
-    borderRadius: 20,
+    borderRadius: 10,
     marginVertical: 20,
   },
   bawah:{
@@ -104,15 +104,6 @@ const styles = StyleSheet.create({
   tulisan:{
     alignSelf:'center',
     width: width * 0.8,
-    marginTop: height * 0.1,
-  },
-  tombol:{
-    backgroundColor: Ijo,
-    width: width * 0.8,
-    borderRadius: 10,
-    padding: 10,
-    justifyContent: 'center',
-    alignContent: 'center',
-    alignSelf: 'center',
+    marginTop: height * 0.04,
   },
 });
