@@ -87,5 +87,6 @@ const styles = StyleSheet.create({
         height: height * 0.12,
         borderRadius: 10,
         margin: 10,
+        backgroundColor: IjoMint,
     }
 })
