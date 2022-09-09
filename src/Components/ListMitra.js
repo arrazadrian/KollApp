@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Dimensions} from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions, Pressable} from 'react-native'
 import React from 'react'
 import { DPkartu } from '../assets/Images/Index.js'
 import { Abu, Ijo, IjoTua } from '../Utils/Warna.js'
@@ -10,16 +10,25 @@ const ListMitra = ({ item }) => {
 
   const navigation = useNavigation();
 
+  const pindahDetail = () => {
+    navigation.navigate('PosisiScreen', { 
+      namatoko: item.namatoko,
+      namalengkap: item.namalengkap,
+      foto_akun: item.foto_akun,
+      tempat_mangkal: item.tempat_mangkal,
+    })
+  }
+
   return (
-        <View style={styles.card}>
-          <Image source={DPkartu} style={styles.foto}/>
+        <Pressable style={styles.card} onPress={pindahDetail}>
+          <Image source={{uri: item.foto_akun}} style={styles.foto}/>
 					<View style={styles.deskripsi}>
             <View >
                 <Text style={{fontSize: 20, fontWeight: 'bold', color:IjoTua}}>{item.namatoko}</Text>
                 <Text> 200m | 20 menit</Text>
             </View>    
         	</View>
-        </View>
+        </Pressable>
   )
 }
 

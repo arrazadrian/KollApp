@@ -24,7 +24,7 @@ const SekitarScreen = ({ navigation }) => {
         querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
           const { 
-            email, foto_akun, id_mitra, namalengkap, namatoko, phone, status_sekarang, 
+            email, foto_akun, id_mitra, namalengkap, namatoko, phone, status_sekarang, tempat_mangkal 
           } = doc.data();
           list.push({
             id: doc.id,
@@ -35,6 +35,7 @@ const SekitarScreen = ({ navigation }) => {
             namatoko,
             phone,
             status_sekarang,
+            tempat_mangkal,
           });
         });
 
