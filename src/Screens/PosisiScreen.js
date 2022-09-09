@@ -33,7 +33,17 @@ const PosisiScreen = ({ route }) => {
               }}
               title={namatoko}
               description="Lokasi Mitra"
-              pinColor={'red'}
+              pinColor={'tomato'}
+              />
+
+              <Marker 
+              coordinate={{
+                latitude: -6.179503,
+                longitude: 106.864818
+              }}
+              title="Nama Pelanggan"
+              description="Lokasi Kamu"
+              pinColor={'tan'}
               />
             
             </MapView>

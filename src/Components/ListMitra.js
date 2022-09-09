@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, Dimensions, Pressable} from 'react-native'
 import React from 'react'
 import { DPkartu } from '../assets/Images/Index.js'
-import { Abu, Ijo, IjoTua } from '../Utils/Warna.js'
+import { Abu, Ijo, IjoMint, IjoTua } from '../Utils/Warna.js'
 import { useNavigation } from '@react-navigation/native'
 
 const { width, height } = Dimensions.get('window')
@@ -25,8 +25,11 @@ const ListMitra = ({ item }) => {
 					<View style={styles.deskripsi}>
             <View >
                 <Text style={{fontSize: 20, fontWeight: 'bold', color:IjoTua}}>{item.namatoko}</Text>
-                <Text> 200m | 20 menit</Text>
-            </View>    
+                <Text>200m | 20 menit</Text>
+                <View style={styles.mangkal}>
+                    <Text style={{fontSize: 12, fontWeight: 'bold', color:IjoTua}}>Lagi Mangkal</Text> 
+                </View>
+            </View>   
         	</View>
         </Pressable>
   )
@@ -40,7 +43,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         marginBottom: 5,
         marginHorizontal: 15,
-        borderRadius: 15,
+        borderRadius: 10,
         borderWidth: 1,
         borderColor: Ijo,
         padding: 10,
@@ -55,6 +58,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        
+    },
+    mangkal:{
+      backgroundColor: IjoMint, 
+      borderRadius: 5,
+      marginTop: 5,
+      width: 100,
+      padding: 5, 
+      alignItems:'center',
     },
 })
