@@ -18,61 +18,47 @@ const PosisiScreen = ({ route }) => {
   return (
     <View style={styles.latar}>
       <View>
-            <MapView style={styles.peta} 
+          <MapView style={styles.peta} 
             initialRegion={{
               latitude: tempat_mangkal.latitude,
               longitude: tempat_mangkal.longitude,
               latitudeDelta: 0.005,
               longitudeDelta: 0.005,
+          }}>
+          <Marker 
+            coordinate={{
+              latitude: tempat_mangkal.latitude,
+              longitude: tempat_mangkal.longitude,
             }}
-            >
-              <Marker 
-              coordinate={{
-                latitude: tempat_mangkal.latitude,
-                longitude: tempat_mangkal.longitude,
-              }}
               title={namatoko}
               description="Lokasi Mitra"
               pinColor={'tomato'}
-              />
-
-              <Marker 
-              coordinate={{
-                latitude: -6.179503,
-                longitude: 106.864818
-              }}
+            />
+          <Marker 
+            coordinate={{
+              latitude: -6.179503,
+              longitude: 106.864818
+            }}
               title="Nama Pelanggan"
               description="Lokasi Kamu"
               pinColor={'tan'}
-              />
-            
-            </MapView>
+            />
+          </MapView>
       </View>
       <View style={styles.kotak}>
-            <View style={{flexDirection:'row', alignItems:'center'}}>
-                <View>
-                  <Image source={{uri: foto_akun}} style={styles.gambar}/>
-                </View>
-                <View>
-                  <Text style={{color: Putih, fontSize:18, fontWeight: 'bold'}}>{namatoko}</Text>
-                  <Text style={{color: Putih, fontSize:14}}>200m | 20 menit </Text>
-                  <Text style={{color: Putih, fontSize:12}}>Waktu keliling: 10.00 - 15.00</Text>
-                  <Pressable style={styles.tombolproduk} onPress={() => navigation.push('ProdukScreen')}>
-                    <Text style={{color: Putih, fontWeight: 'bold'}}>Lihat Produk</Text>
-                  </Pressable>
-                </View>
-            </View>
-            { mangkal ? 
-              (
-              <View style={styles.mangkal}>
-                <Text style={{color: Ijo, fontWeight: 'bold', fontSize: 16}}>Maaf, mitra sedang mangkal</Text>
+          <View style={{flexDirection:'row', alignItems:'center'}}>
+              <View>
+                <Image source={{uri: foto_akun}} style={styles.gambar}/>
               </View>
-              ) : (
-              <Pressable style={styles.tombolpanggil} onPress={() => navigation.push('LokasiScreen')}>
-                <Text style={{color: Ijo, fontWeight: 'bold',  fontSize: 16}}>Panggil Mitra</Text>
-              </Pressable>
-              )
-            }
+              <View>
+                <Text style={{color: Putih, fontSize:18, fontWeight: 'bold'}}>{namatoko}</Text>
+                <Text style={{color: Putih, fontSize:14}}>200m | 20 menit </Text>
+                <Text style={{color: Putih, fontSize:12}}>Waktu keliling: 10.00 - 15.00</Text>
+              </View>
+          </View>
+          <Pressable style={styles.tombolpanggil}>
+            <Text style={{color: Putih, fontWeight: 'bold',  fontSize: 16}}>Lihat Produk</Text>
+          </Pressable> 
       </View>
     </View>
   )
@@ -94,13 +80,13 @@ const styles = StyleSheet.create({
     backgroundColor: IjoTua,
     padding: 20,
     height: height* 0.28,
-    borderTopLeftRadius: 10,
-    borderTopEndRadius: 10,
+    borderTopLeftRadius: 20,
+    borderTopEndRadius: 20,
   },
   gambar:{
     width: height * 0.15,
     height: height * 0.15,
-    borderRadius: 10,
+    borderRadius: 20,
     marginRight: 15,
   },
   tombolproduk:{
@@ -116,7 +102,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     marginTop: 10,
-    backgroundColor: IjoMint,
+    backgroundColor: Ijo,
   },
   mangkal:{
     borderRadius: 10,
@@ -127,6 +113,6 @@ const styles = StyleSheet.create({
   },
   peta:{
     width: '100%',
-    height: height* 0.65,
+    height: height* 0.85,
   },
 })

@@ -11,36 +11,37 @@ const ListMitra = ({ item }) => {
   const navigation = useNavigation();
 
   const pindahDetail = () => {
-    navigation.navigate('PosisiScreen', { 
+    navigation.navigate('EtalaseScreen', { 
       namatoko: item.namatoko,
       namalengkap: item.namalengkap,
       foto_akun: item.foto_akun,
       tempat_mangkal: item.tempat_mangkal,
       mangkal: item.mangkal,
+      id_mitra: item.id,
     })
   }
 
   return (
-        <Pressable style={styles.card} onPress={pindahDetail}>
-          <Image source={{uri: item.foto_akun}} style={styles.foto}/>
-					<View style={styles.deskripsi}>
-            <View >
-                <Text style={{fontSize: 20, fontWeight: 'bold', color:IjoTua}}>{item.namatoko}</Text>
-                <Text>200m | 20 menit</Text>
-                { item.mangkal ? 
-                  (
-                    <View style={styles.mangkal}>
-                      <Text style={{fontSize: 12, fontWeight: 'bold', color: Putih}}>Lagi Mangkal</Text> 
-                    </View>
-                  ):(
-                    <View style={styles.siap}>
-                      <Text style={{fontSize: 12, fontWeight: 'bold', color: Ijo}}>Siap Dipanggil</Text> 
-                    </View>
-                  )
-                } 
-            </View>   
-        	</View>
-        </Pressable>
+    <Pressable style={styles.card} onPress={pindahDetail}>
+      <Image source={{uri: item.foto_akun}} style={styles.foto}/>
+      <View style={styles.deskripsi}>
+        <View >
+            <Text style={{fontSize: 20, fontWeight: 'bold', color:IjoTua}}>{item.namatoko}</Text>
+            <Text>200m | 20 menit</Text>
+            { item.mangkal ? 
+              (
+                <View style={styles.mangkal}>
+                  <Text style={{fontSize: 12, fontWeight: 'bold', color: Putih}}>Lagi Mangkal</Text> 
+                </View>
+              ):(
+                <View style={styles.siap}>
+                  <Text style={{fontSize: 12, fontWeight: 'bold', color: Ijo}}>Siap Dipanggil</Text> 
+                </View>
+              )
+            } 
+        </View>   
+      </View>
+    </Pressable>
   )
 }
 
