@@ -19,12 +19,12 @@ const SekitarScreen = ({ navigation }) => {
         const db = getFirestore(app);
         const colRef = collection(db, "mitra")
 
-        const q = query(colRef, where("status_sekarang", "==", "Tidak Aktif"));
+        const q = query(colRef, where("status_sekarang", "==", "Aktif"));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
           const { 
-            email, foto_akun, id_mitra, namalengkap, namatoko, phone, status_sekarang, tempat_mangkal 
+            email, foto_akun, id_mitra, namalengkap, namatoko, phone, status_sekarang, tempat_mangkal, mangkal, 
           } = doc.data();
           list.push({
             id: doc.id,
@@ -36,6 +36,7 @@ const SekitarScreen = ({ navigation }) => {
             phone,
             status_sekarang,
             tempat_mangkal,
+            mangkal,
           });
         });
 
@@ -69,7 +70,12 @@ const SekitarScreen = ({ navigation }) => {
           keyExtractor={(item) => item.id}
           ListFooterComponent={<View style={{height:10}}></View>}
           ListHeaderComponent={<View style={{height:10}}></View>}
-          ListEmptyComponent={ <Text>Saat ini tidak ada mitra aktif di sekitar kamu</Text> }
+          ListEmptyComponent=
+          {
+            <View style={{flex: 1, alignItems:'center', justifyContent:'center'}}> 
+              <Text>Saat ini tidak ada mitra aktif di sekitar kamu</Text>
+            </View> 
+          }
       />
       )}
     </View>

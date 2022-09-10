@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, Dimensions, Pressable} from 'react-native'
 import React from 'react'
 import { DPkartu } from '../assets/Images/Index.js'
-import { Abu, Ijo, IjoMint, IjoTua } from '../Utils/Warna.js'
+import { Abu, Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna.js'
 import { useNavigation } from '@react-navigation/native'
 
 const { width, height } = Dimensions.get('window')
@@ -16,6 +16,7 @@ const ListMitra = ({ item }) => {
       namalengkap: item.namalengkap,
       foto_akun: item.foto_akun,
       tempat_mangkal: item.tempat_mangkal,
+      mangkal: item.mangkal,
     })
   }
 
@@ -26,9 +27,17 @@ const ListMitra = ({ item }) => {
             <View >
                 <Text style={{fontSize: 20, fontWeight: 'bold', color:IjoTua}}>{item.namatoko}</Text>
                 <Text>200m | 20 menit</Text>
-                <View style={styles.mangkal}>
-                    <Text style={{fontSize: 12, fontWeight: 'bold', color:IjoTua}}>Lagi Mangkal</Text> 
-                </View>
+                { item.mangkal == true ? 
+                  (
+                    <View style={styles.mangkal}>
+                      <Text style={{fontSize: 12, fontWeight: 'bold', color: Putih}}>Lagi Mangkal</Text> 
+                    </View>
+                  ):(
+                    <View style={styles.siap}>
+                      <Text style={{fontSize: 12, fontWeight: 'bold', color: Ijo}}>Siap Dipanggil</Text> 
+                    </View>
+                  )
+                } 
             </View>   
         	</View>
         </Pressable>
@@ -60,11 +69,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     mangkal:{
-      backgroundColor: IjoMint, 
+      backgroundColor: IjoTua, 
       borderRadius: 5,
       marginTop: 5,
       width: 100,
       padding: 5, 
       alignItems:'center',
     },
+    siap:{
+      backgroundColor: IjoMint, 
+      borderRadius: 5,
+      marginTop: 5,
+      width: 100,
+      padding: 5, 
+      alignItems:'center',
+    }
 })
