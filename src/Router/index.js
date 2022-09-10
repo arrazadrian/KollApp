@@ -56,8 +56,17 @@ export const AppUtama = () => {
       <HomeStack.Screen name="FLocScreen" component={FLocScreen} options={{ title: "Tentukan Lokasi", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
       <HomeStack.Screen name="SekitarScreen" component={SekitarScreen} options={{ title: "Mitra Akftif Sekitarmu", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
       <HomeStack.Screen name="LangsungScreen" component={LangsungScreen} options={{ title: "Temu Langsung", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
-      <HomeStack.Screen name="DalamMitra" component={DalamMitra} options={{ headerShown: false }} />
+      
       <HomeStack.Screen name="PosisiScreen" component={PosisiScreen} options={{ title: "Posisi Mitra Mangkal", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+      <HomeStack.Screen name="KategoriScreen" component={KategoriScreen} options={{ title: "Produk", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+      <HomeStack.Screen name="ProdukScreen" component={ProdukScreen} options={{ title: "Produk", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+      <HomeStack.Screen name="DetailScreen" component={DetailScreen} options={{ headerShown: false   }}  />
+      <HomeStack.Screen name="LokasiScreen" component={LokasiScreen} options={{ title: "Tentukan Lokasi Tujuan", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+      <HomeStack.Screen name="PreorderScreen" component={PreorderScreen} options={{ title: "Pre-Order", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+      <HomeStack.Screen name="CheckoutScreen" component={CheckoutScreen} options={{ title: "Checkout", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+      <HomeStack.Screen name="LoadingScreen" component={LoadingScreen} options={{ headerShown: false }}  />
+      <HomeStack.Screen name="OtwScreen" component={OtwScreen} options={{ title: "Menuju Lokasi" ,headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
+      
       <HomeStack.Screen name="ReceiptScreen" component={ReceiptScreen} options={{ title: "Detail Transaksi", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
     </HomeStack.Navigator>
   </NavigationContainer>

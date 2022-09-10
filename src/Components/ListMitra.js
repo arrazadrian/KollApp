@@ -27,7 +27,7 @@ const ListMitra = ({ item }) => {
             <View >
                 <Text style={{fontSize: 20, fontWeight: 'bold', color:IjoTua}}>{item.namatoko}</Text>
                 <Text>200m | 20 menit</Text>
-                { item.mangkal == true ? 
+                { item.mangkal ? 
                   (
                     <View style={styles.mangkal}>
                       <Text style={{fontSize: 12, fontWeight: 'bold', color: Putih}}>Lagi Mangkal</Text> 
