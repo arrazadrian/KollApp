@@ -5,10 +5,13 @@ import ListProduk from '../Components/ListProduk';
 import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "firebase/firestore";
 import { app } from '../../Firebase/config';
 import { KategoriPre } from '../assets/Images/Index';
+import { useNavigation } from '@react-navigation/native';
 
 const { height, width } = Dimensions.get('window')
 
 const EtalaseScreen = ({ route }) => {
+
+  const navigation = useNavigation();
 
   const[produkutama,setProdukUtama] = useState();
   const[loading, setLoading] = useState(true);
@@ -114,6 +117,32 @@ const EtalaseScreen = ({ route }) => {
                 </View>
               }
             />
+            { mangkal ? 
+              (
+                <View style={{flexDirection: 'column-reverse'}}>
+                  <View style={styles.mangkal}>
+                    <View>
+                        <Text style={{ color: Putih, textAlign:'center', fontStyle:'italic', }}>
+                          Maaf, mitra sedang mangkal sehingga tidak bisa dipanggil
+                        </Text>
+                    </View>
+                  </View>
+                </View>
+              ) : (
+                <View style={{flexDirection: 'column-reverse'}}>
+                  <View style={styles.panggil}>
+                    <View>
+                        <Text style={{fontWeight:'bold', color: Ijo, width: 180}}>Minat sama produknya? Yuk panggil mitra!</Text>
+                    </View>
+                    <Pressable style={{padding: 10, backgroundColor: Ijo, borderRadius: 10}} 
+                    onPress={() => navigation.navigate('LokasiScreen')}>
+                        <Text style={{fontWeight:'bold', color:Putih}}>Panggil Mitra</Text>
+                    </Pressable>
+                  </View>
+                </View>
+              )
+            }
+            
           </View>
           )
         }
@@ -168,5 +197,29 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       alignSelf:'center',
       elevation: 5,
+    },
+    panggil:{
+      flexDirection: 'row',
+      backgroundColor: IjoMint,
+      alignItems:'center',
+      justifyContent:'space-between',
+      padding: 10,
+      borderRadius: 10,
+      position: 'absolute',
+      width: '95%',
+      borderColor: Ijo,
+      borderWidth: 2,
+      margin: 10
+    },
+    mangkal:{
+      flexDirection: 'row',
+      backgroundColor: IjoTua,
+      alignItems:'center',
+      justifyContent:'space-between',
+      padding: 10,
+      borderRadius: 10,
+      position: 'absolute',
+      width: '95%',
+      margin: 10
     },
 })

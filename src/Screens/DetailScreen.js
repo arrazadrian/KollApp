@@ -1,21 +1,20 @@
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable, Dimensions } from 'react-native'
 import React from 'react'
 import { IkanMujaer } from '../assets/Images/Index'
 import { Ijo, IjoMint, IjoTua, Kuning } from '../Utils/Warna'
 
+const { height, width } = Dimensions.get('window')
 
 const DetailScreen = ({ navigation, route }) => {
 
-  const { nama, deskripsi, image, harga, satuan, kuantitas } = route.params;
+  const { namaproduk, deskproduk, image, harga, satuan, kuantitas } = route.params;
 
   return (
     <View style={styles.latar}>
-      <Image source={image} style={styles.gambar}/>
-      <View style={{marginBottom:2}}>
-        <Text style={styles.subjudul}>{nama}</Text>
-        <Text style={styles.deskripsi}>{deskripsi}</Text>
-      </View>
-      <View>
+      <Image source={{ uri: image}} style={styles.gambar}/>
+      <View style={{paddingHorizontal: width * 0.1}}>
+        <Text style={styles.subjudul}>{namaproduk}</Text>
+        <Text style={styles.deskripsi}>{deskproduk}</Text>
         <Text style={{fontSize:20, color:IjoTua, fontWeight:'bold'}}>Rp{harga} | {kuantitas}{satuan}</Text>     
       </View>
       <Pressable style={styles.tombol}
@@ -32,12 +31,11 @@ const styles = StyleSheet.create({
     latar:{
         backgroundColor: Kuning,
         flex: 1,
-        paddingHorizontal: 30,
-        paddingTop: 100,
+        justifyContent:'center',
     },
     gambar:{
-        height: 350,
-        width: 350,
+        height: width * 0.8,
+        width: width * 0.8,
         borderRadius: 20,
         borderWidth: 1,
         borderColor: Ijo,
@@ -64,7 +62,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         height: 50,
-        width: 300,
+        width: width * 0.8,
     },
     tomboltext:{
         color: Ijo,

@@ -10,8 +10,8 @@ const ListProduk = ({item}) => {
 
   const pindahDetail = () => {
     navigation.navigate('DetailScreen', { 
-      nama: item.nama,
-      deskripsi: item.deskripsi,
+      namaproduk: item.namaproduk,
+      deskproduk: item.deskproduk,
       image: item.image,
       harga: item.harga,
       satuan: item.satuan,
