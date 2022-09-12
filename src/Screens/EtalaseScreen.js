@@ -17,6 +17,12 @@ const EtalaseScreen = ({ route }) => {
   const[loading, setLoading] = useState(true);
   const componentMounted = useRef(true);
 
+  const pindahPreorder = () => {
+    navigation.navigate('PreorderScreen', { 
+      id_mitra: id_mitra,
+    })
+  }
+
   useEffect(()=>{
     const fetchProdukUtama = async() => {
       try{
@@ -107,12 +113,12 @@ const EtalaseScreen = ({ route }) => {
                   <View style={{marginBottom:10, marginLeft: 10}}>
                       <Text style={styles.judul}>Tidak menemukan produk?</Text>
                   </View>
-                  <Pressable style={styles.preorder} onPress={() => navigation.push('PreorderScreen')}>
+                  <Pressable style={styles.preorder} onPress={pindahPreorder}>
                     <View style={{width: 200}}>
                         <Text style={{fontSize: 18, fontWeight: 'bold', color: IjoTua}}>Pre-Order</Text>
                         <Text>Lihat produk pre-order yang bisa dipesan</Text>
                     </View>
-                  <Image source={KategoriPre} style={styles.gambarpre} />
+                    <Image source={KategoriPre} style={styles.gambarpre} />
                   </Pressable>
                 </View>
               }
