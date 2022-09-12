@@ -1,9 +1,16 @@
 import { StyleSheet, Text, View, Pressable, Image } from 'react-native'
 import React from 'react'
-import { Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
+import { AbuTua, Ijo, IjoTua, Putih } from '../Utils/Warna'
 import { Bag } from '../assets/Images/Index'
+import { useNavigation } from '@react-navigation/native'
+import { useSelector } from "react-redux";
+import { pilihProdukKeranjang, totalHarga } from '../features/keranjangSlice'
 
 const Keranjang = () => {
+  const items = useSelector(pilihProdukKeranjang)
+  const navigation = useNavigation();
+  const totalhargaKeranjang = useSelector(totalHarga)
+
   return (
     <View>
       <View style={styles.pesan}>
@@ -13,21 +20,34 @@ const Keranjang = () => {
                     </View>
                     <View>
                       <Text style={{color:Putih, fontWeight:'bold'}}>
-                          <Text>0</Text>
+                          <Text>{items.length}</Text>
                           <Text>  </Text>
                           <Text>Produk</Text>
                       </Text>
                       <Text style={{color:Putih, fontWeight:'bold', fontSize: 20}}>
                           <Text>Rp </Text>
-                          <Text>0</Text>
+                          <Text>{totalhargaKeranjang}</Text>
                       </Text>
                     </View>
                   </View>
-                  <Pressable style={{backgroundColor: IjoTua, padding: 10, borderRadius: 10}} 
-                    onPress={() => navigation.navigate('CheckoutLangScreen')}
-                    >
-                    <Text style={{color:Putih, fontWeight:'bold', fontSize: 18}}>Checkout</Text>
-                  </Pressable>
+                  { !items.length ?
+                    (
+                      <View style={{width: 85}}>
+                        <Text style={{fontStyle:'italic', color: Putih}}>
+                          Pilih produk pelangan
+                        </Text>
+                      </View>
+                    ):(
+                      <Pressable 
+                        disabled={!items.length}
+                        style={{backgroundColor: IjoTua, padding: 10, borderRadius: 10}} 
+                        onPress={() => navigation.navigate('CheckoutScreen')}
+                        >
+                        <Text style={{color:Putih, fontWeight:'bold', fontSize: 18}}>Checkout</Text>
+                      </Pressable>
+                    )
+                  }
+                  
             </View>
     </View>
   )
@@ -41,13 +61,13 @@ const styles = StyleSheet.create({
         backgroundColor: Ijo,
         alignItems:'center',
         justifyContent:'space-between',
+        alignSelf:'center',
         padding: 10,
         borderRadius: 10,
         position: 'absolute',
         width: '95%',
         borderColor: IjoTua,
-        borderWidth: 3,
-        margin: 10,
-        bottom: 5,
+        borderWidth: 1,
+        bottom:20,
       },
 })
