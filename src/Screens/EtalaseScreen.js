@@ -27,7 +27,13 @@ const EtalaseScreen = ({ route }) => {
   
   const pindahPreorder = () => {
     navigation.navigate('PreorderScreen', { 
-      id_mitra: id_mitra,
+      id_mitra,
+    })
+  }
+
+  const pindahPanggil = () => {
+    navigation.navigate('LokasiScreen', { 
+      namatoko, foto_akun,
     })
   }
 
@@ -160,17 +166,15 @@ const EtalaseScreen = ({ route }) => {
                   </View>
                 </View>
               ) : (
-                <View style={{flexDirection: 'column-reverse'}}>
                   <View style={styles.panggil}>
                     <View>
                         <Text style={{fontWeight:'bold', color: Ijo, width: 180}}>Minat sama produknya? Yuk panggil mitra!</Text>
                     </View>
                     <Pressable style={{padding: 10, backgroundColor: Ijo, borderRadius: 10}} 
-                    onPress={() => navigation.navigate('LokasiScreen')}>
+                    onPress={pindahPanggil}>
                         <Text style={{fontWeight:'bold', color:Putih}}>Panggil Mitra</Text>
                     </Pressable>
                   </View>
-                </View>
               )
             }
     </View>
@@ -231,11 +235,9 @@ const styles = StyleSheet.create({
       alignSelf:'center',
       bottom: 0,
       padding: 10,
-      borderRadius: 10,
       position: 'absolute',
-      width: '95%',
-      borderColor: Ijo,
-      borderWidth: 2,
+      width: '100%',
+      padding: 20,
     },
     mangkal:{
       flexDirection: 'row',
