@@ -10,26 +10,23 @@ import { getAuth } from "firebase/auth";
 import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "firebase/firestore";
 import { app } from '../../Firebase/config';
 import { useNavigation } from '@react-navigation/native';
+import Garis from '../Components/Garis'
 
 const { height, width } = Dimensions.get('window')
 
 ataspreorder = () => {
   return(
-    <View style={{padding: 10}}>
-        <View style={{flexDirection: 'row', justifyContent:'space-between', alignItems:'center', }}>
-            <Image source={KollLong} style={{width: 80, height:50}} /> 
-            <PencarianBar/>
-        </View>
+    <View>
         <View style={styles.bungkus}>
-            <Text style={{textAlign: 'center', fontSize:20, fontWeight:'bold',color: Ijo}}>Kapan Harus Pre-Order?</Text>
+            <Text style={{textAlign: 'center', fontSize:18, fontWeight:'bold',color: Ijo}}>Bagaimana Mekanisme Pre-Order?</Text>
             <Text style={{textAlign:'center', fontSize: 16 }}>
-              Pre-Order yang dilakukan setelah pukul 18.00 WIB akan 
-              dikirim lusa. Sementara Pre-Order yang dipesan sebelum 
-              waktu tersebut akan dikirim keesokan harinya.
+              Produk pre-order diantar keesokan harinya dengan pembayaran COD.
             </Text>
         </View>
+        <Garis/>
         <View style={{marginBottom:10, marginLeft: 10}}>
-            <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>Produk Pre-Order</Text>
+            <Text style={{fontSize: 16, fontWeight: 'bold', color: IjoTua}}>Produk Pre-Order</Text>
+            <Text>Produk ini perlu dipesan satu hari sebelum</Text>
         </View>
     </View>
   )
@@ -161,7 +158,7 @@ const styles = StyleSheet.create({
     margin: 10
   },
   bawah:{
-    marginTop: height * 0.1,
+    marginTop: height * 0.25,
     width: '100%',
     height: 98,
   }

@@ -32,9 +32,9 @@ const Keranjang = () => {
                   </View>
                   { !items.length ?
                     (
-                      <View style={{width: 85}}>
+                      <View style={{width: 120}}>
                         <Text style={{fontStyle:'italic', color: Putih}}>
-                          Pilih produk pelangan
+                          Pilih produk kamu
                         </Text>
                       </View>
                     ):(

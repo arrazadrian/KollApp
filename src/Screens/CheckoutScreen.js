@@ -1,16 +1,50 @@
-import { ScrollView, StyleSheet, Text, View, Image, TextInput, Pressable, Dimensions } from 'react-native'
-import React from 'react'
-import { Abu, Ijo, IjoTua, Kuning, Putih } from '../Utils/Warna'
+import { ScrollView, StyleSheet, Text, View, Image, TextInput, Pressable, Dimensions, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Abu, Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
 import { Location } from '../assets/Images/Index'
 import MapView, { Marker } from 'react-native-maps';
+import Garis from '../Components/Garis';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { pilihProdukKeranjang, totalHarga } from '../features/keranjangSlice';
 
 const { height, width } = Dimensions.get('window')
 
-const CheckoutScreen = ({ navigation }) => {
+const CheckoutScreen = () => {
+
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const items = useSelector(pilihProdukKeranjang)
+  const [kelompokProduk, setKelompokProduk] = useState([]);
+  
+  const [catatan, setCatatan] = useState("");
+
+  useEffect(() => {
+    const kelompok = items.reduce((results, item) => {
+      (results[item.item.id] = results[item.item.id] || []).push(item.item);
+      return results;
+    }, {});
+
+    const jikakosong = () => {
+      if(!items.length){
+        navigation.goBack();
+      }
+    };
+    
+    setKelompokProduk(kelompok);
+    jikakosong();
+
+  }, [items]);
+
+  const subtotalhargaKeranjang = useSelector(totalHarga)
+  const hargalayanan =  1500
+  const hargatotalsemua = subtotalhargaKeranjang + hargalayanan
+
   return (
     <View style={styles.latar}>
+      <View style={{flex: 8}}>
       <ScrollView>
-        <View style={styles.lokasi}>
+        <View style={styles.bagian}>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
               <Text style={styles.judul}>Lokasi Antar</Text>
               <Text style={{fontSize: 18, fontWeight:'bold', color: Ijo, textDecorationLine:'underline'}}
@@ -18,7 +52,7 @@ const CheckoutScreen = ({ navigation }) => {
                   >Ubah</Text>
             </View>
             <View style={{flexDirection:'row', alignItems:'center', marginBottom:10}}>
-              <Image source={Location} style={styles.location} />
+              <Image source={Location} style={styles.locationlogo} />
               <Text style={styles.deskripsi}>Jl. Skripsi Cepat Lulus No.1</Text>
             </View>
             <MapView style={styles.peta}/>
@@ -26,48 +60,71 @@ const CheckoutScreen = ({ navigation }) => {
                   style={styles.input} 
                   placeholder='Beri catatan lokasi...'
                   multiline={true}
+                  value={catatan}
+                  onChangeText={catatan => setCatatan(catatan)}
             />
         </View>
 
-        <Text style={styles.judul}>Jenis Layanan</Text>
-        <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-          <Text style={styles.deskripsi}>Pre-Order</Text>
-          <Text style={styles.harga}>
-              <Text>Rp</Text>
-              <Text>2000</Text>
-          </Text>
+        <Garis/>
+
+        <View style={styles.bagian}>
+
+        <Text style={styles.judul}>Produk Pesanan</Text>
+        {Object.entries(kelompokProduk).map(([key, items]) => (
+            <View key={key}>
+              <View style={styles.card}>
+                <View style={{flexDirection:'row', alignItems:'center'}}>
+                    <View style={{flexDirection:'row', marginTop: 5, alignItems:'center', paddingRight: 10}}>
+                        <Text style={{fontSize: 14}}>{items.length}</Text>
+                        <Text style={{fontSize: 14}}> x</Text>
+                    </View>
+                    <Image source={{uri: items[0]?.image}} style={styles.foto}/>
+                    <View>
+                        <Text style={styles.produk} numberOfLines={1}>{items[0]?.namaproduk}</Text>
+                        <Text style={styles.produk}>Rp{items[0]?.harga}</Text>
+                    </View>
+                </View>
+                <View style={{flexDirection:'row', marginTop: 5, alignItems:'center', paddingRight: 10}}>
+                    <Text style={styles.harga}>Rp{items.length*items[0]?.harga}</Text>
+                </View>
+            </View>
+          </View>
+            ))}
         </View>
-        <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-          <Text style={styles.deskripsi}>Jasa Aplikasi</Text>
-          <Text style={styles.harga}>
-              <Text>Rp</Text>
-              <Text>1000</Text>
-          </Text>
-        </View>
-        <Text style={styles.judul}>Deskripsi Pesanan</Text>
-        <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-          <Text style={styles.deskripsi}>
-              <Text>2x         </Text>
-              <Text>Ikan Mujair</Text>
-          </Text>
-          <Text style={styles.harga}>
-              <Text>Rp</Text>
-              <Text>24000</Text>
-          </Text>
-        </View>
-      </ScrollView>
-        <View style={styles.simpulan}>
-          <View style={styles.total}>
-                <Text style={styles.judul}>Total Harga:</Text>
+        
+        <Garis/>
+
+        <View style={styles.bagian}>
+            <Text style={styles.judul}>Rangkuman Transaksi</Text>
+            <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                <Text style={styles.deskripsi}>Subtotal</Text>
                 <Text style={styles.judul}>
                     <Text>Rp</Text>
-                    <Text>27000</Text>
+                    <Text>{subtotalhargaKeranjang}</Text>
                 </Text>
+            </View>
+            <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                <Text style={styles.deskripsi}>Biaya Layanan</Text>
+                <Text style={styles.judul}>
+                    <Text>Rp</Text>
+                    <Text>{hargalayanan}</Text>
+                </Text>
+            </View>
+        </View>
+      </ScrollView>
+      </View>
+      <View style={styles.simpulan}>
+          <View style={styles.total}>
+              <Text style={styles.judul}>Total Harga:</Text>
+              <Text style={styles.harga}>
+                  <Text>Rp</Text>
+                  <Text>{hargatotalsemua}</Text>
+              </Text>
           </View>
           <Pressable style={styles.pesan}>
               <Text style={{color: Putih, fontSize:18, fontWeight:'bold', textAlign:'center'}}>Pesan</Text>
           </Pressable>
-        </View>
+      </View>
     </View>
   )
 }
@@ -76,14 +133,11 @@ export default CheckoutScreen
 
 const styles = StyleSheet.create({
     latar:{
-        backgroundColor: Kuning,
         flex: 1,
-        padding: 10,
+        backgroundColor: Kuning,
     },
-    lokasi:{
-        padding: 15,
-        backgroundColor: Putih,
-        borderRadius: 10,
+    bagian:{
+        padding: 10,
     },  
     peta:{
         width: '100%',
@@ -101,23 +155,41 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: IjoTua,
     },
-    deskripsiPut:{
-        fontSize: 18,
-        color: Putih,
+    card:{
+      backgroundColor: Putih,
+      padding: 10,
+      flexDirection: 'row',
+      borderRadius: 10,
+      marginVertical: 4,
+      justifyContent:'space-between',
     },
+    foto:{
+      width: width * 0.15,
+      height: width * 0.15,
+      borderColor: Ijo,
+      borderWidth: 1,
+      borderRadius: 10,
+      marginRight: 10,
+    },
+    produk:{
+      fontSize: 14,
+      width: width * 0.3,
+  },
     harga:{
         fontSize: 18,
         color: IjoTua,
         fontWeight: 'bold',
     },
-    location:{
+    locationlogo:{
         width: 20,
         height: 20,
         marginRight: 10,
     },
     input:{
         backgroundColor: Abu,
-        padding: 8,
+        padding: 5,
+        paddingStart: 10,
+        paddingEnd: 10,
         borderRadius: 10,
         fontSize: 16,
     },
@@ -136,11 +208,10 @@ const styles = StyleSheet.create({
         backgroundColor: Ijo,
     },
     simpulan:{
+        flex: 1,
         padding: 20,
-        position:'absolute',
         width: width,
         height: height * 0.16,
-        backgroundColor: Putih,
-        bottom: 0,
+        backgroundColor: IjoMint,
     },
 })

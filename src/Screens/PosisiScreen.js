@@ -56,7 +56,7 @@ const PosisiScreen = ({ route }) => {
                 <Text style={{color: Putih, fontSize:12}}>Waktu keliling: 10.00 - 15.00</Text>
               </View>
           </View>
-          <Pressable style={styles.tombolpanggil}>
+          <Pressable style={styles.tombolpanggil} onPress={()=> navigation.goBack()}>
             <Text style={{color: Putih, fontWeight: 'bold',  fontSize: 16}}>Lihat Produk</Text>
           </Pressable> 
       </View>
@@ -80,13 +80,13 @@ const styles = StyleSheet.create({
     backgroundColor: IjoTua,
     padding: 20,
     height: height* 0.28,
-    borderTopLeftRadius: 20,
-    borderTopEndRadius: 20,
+    borderTopLeftRadius: 10,
+    borderTopEndRadius: 10,
   },
   gambar:{
     width: height * 0.15,
     height: height * 0.15,
-    borderRadius: 20,
+    borderRadius: 10,
     marginRight: 15,
   },
   tombolproduk:{

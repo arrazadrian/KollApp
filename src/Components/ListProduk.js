@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
       borderColor: Ijo,
       borderWidth: 1,
       padding: 10,
-      height: height * 0.28,
+      height: height * 0.27,
       width: width * 0.3,
       marginBottom: 10,
     },

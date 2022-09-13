@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Image, Dimensions, Pressable, FlatList, Activit
 import React, { useState, useRef, useEffect } from 'react'
 import { Hitam, Ijo, IjoMint, IjoTua, Kuning, Putih} from '../Utils/Warna';
 import ListProduk from '../Components/ListProduk';
+import Garis from '../Components/Garis';
 import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "firebase/firestore";
 import { app } from '../../Firebase/config';
 import { KategoriPre } from '../assets/Images/Index';
@@ -17,6 +18,13 @@ const EtalaseScreen = ({ route }) => {
   const[loading, setLoading] = useState(true);
   const componentMounted = useRef(true);
 
+  const pindahMangkal = () => {
+    navigation.navigate('PosisiScreen', { 
+      namamitra, namatoko, foto_akun, 
+      mangkal, tempat_mangkal,
+    })
+  }
+  
   const pindahPreorder = () => {
     navigation.navigate('PreorderScreen', { 
       id_mitra: id_mitra,
@@ -67,8 +75,9 @@ const EtalaseScreen = ({ route }) => {
     namamitra, namatoko, foto_akun, tempat_mangkal, mangkal, id_mitra
      } = route.params;
 
-  return (
-    <View style={styles.latar}>
+  const atasetalase = () => {
+    return(
+    <View>
       <View style={styles.atas}>
           <View style={{
               flexDirection:'row', alignItems:'center', 
@@ -83,10 +92,38 @@ const EtalaseScreen = ({ route }) => {
                 <Image source={{uri: foto_akun}} style={styles.gambartoko}/>
               </View>
           </View>
-          <Pressable style={styles.lokasi}>
+          <Pressable style={styles.lokasi} onPress={pindahMangkal}>
               <Text style={{color: Ijo, textAlign:'center', fontWeight: 'bold'}}>Lokasi Mangkal</Text>
           </Pressable>
       </View>
+      <Garis/>
+      <View style={{marginVertical:10, marginLeft: 10}}>
+                <Text style={styles.judul}>Daftar Produk Utama</Text> 
+                <Text>Produk ini tersedia di gerobak mitra</Text> 
+      </View>
+    </View>
+    )
+  }
+
+  const bawahetalase = () => {
+    return(
+      <View>
+        <View style={{marginBottom:10, marginLeft: 10}}>
+            <Text style={styles.judul}>Tidak menemukan produk?</Text>
+        </View>
+        <Pressable style={styles.preorder} onPress={pindahPreorder}>
+          <View style={{width: 200}}>
+              <Text style={{fontSize: 16, fontWeight: 'bold', color: IjoTua}}>Pre-Order</Text>
+              <Text>Lihat produk pre-order yang bisa dipesan</Text>
+          </View>
+          <Image source={KategoriPre} style={styles.gambarpre} />
+        </Pressable>
+      </View>
+    )
+  }
+
+  return (
+    <View style={styles.latar}>
       <View>
         { loading ?
           (
@@ -103,27 +140,15 @@ const EtalaseScreen = ({ route }) => {
               data={produkutama}
               renderItem= {({item}) => <ListProduk item={item} />}
               keyExtractor={(item) => item.id}
-              ListHeaderComponent={ 
-              <View style={{marginVertical:10, marginLeft: 10}}>
-                <Text style={styles.judul}>Daftar Produk</Text> 
-              </View>
-              }
-              ListFooterComponent={
-                <View>
-                  <View style={{marginBottom:10, marginLeft: 10}}>
-                      <Text style={styles.judul}>Tidak menemukan produk?</Text>
-                  </View>
-                  <Pressable style={styles.preorder} onPress={pindahPreorder}>
-                    <View style={{width: 200}}>
-                        <Text style={{fontSize: 18, fontWeight: 'bold', color: IjoTua}}>Pre-Order</Text>
-                        <Text>Lihat produk pre-order yang bisa dipesan</Text>
-                    </View>
-                    <Image source={KategoriPre} style={styles.gambarpre} />
-                  </Pressable>
-                </View>
-              }
+              ListHeaderComponent={atasetalase}
+              ListFooterComponent={bawahetalase}
             />
-            { mangkal ? 
+          </View>
+          )
+          
+        }
+      </View>
+      { mangkal ? 
               (
                 <View style={{flexDirection: 'column-reverse'}}>
                   <View style={styles.mangkal}>
@@ -148,11 +173,6 @@ const EtalaseScreen = ({ route }) => {
                 </View>
               )
             }
-            
-          </View>
-          )
-        }
-      </View>
     </View>
   )
 }
@@ -163,7 +183,6 @@ const styles = StyleSheet.create({
     latar:{
       flex: 1,
       backgroundColor: Kuning, 
-      padding: 10, 
     },
     gambartoko:{
       width: height * 0.1,
@@ -173,6 +192,7 @@ const styles = StyleSheet.create({
       borderWidth: 2,
     },
     gambarpre:{
+      left: 15,
       height: 80,
       width: 80,
     },
@@ -183,13 +203,12 @@ const styles = StyleSheet.create({
       backgroundColor: Putih,
     },
     atas:{
-      backgroundColor: IjoMint,
+      backgroundColor: Kuning,
       padding: 10,
-      borderRadius: 15,
     },
     judul:{
-      fontSize: 18,
-      color: Ijo,
+      fontSize: 16,
+      color: IjoTua,
       fontWeight: 'bold',
     },
     preorder:{
@@ -209,13 +228,14 @@ const styles = StyleSheet.create({
       backgroundColor: IjoMint,
       alignItems:'center',
       justifyContent:'space-between',
+      alignSelf:'center',
+      bottom: 0,
       padding: 10,
       borderRadius: 10,
       position: 'absolute',
       width: '95%',
       borderColor: Ijo,
       borderWidth: 2,
-      margin: 10
     },
     mangkal:{
       flexDirection: 'row',
