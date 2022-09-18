@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Dimensions, Pressable, FlatList, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions, Pressable, FlatList, ActivityIndicator, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useState, useRef, useEffect } from 'react'
 import { Hitam, Ijo, IjoMint, IjoTua, Kuning, Putih} from '../Utils/Warna';
 import ListProduk from '../Components/ListProduk';
@@ -7,8 +7,28 @@ import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "f
 import { app } from '../../Firebase/config';
 import { KategoriPre } from '../assets/Images/Index';
 import { useNavigation } from '@react-navigation/native';
+import { jeniskategori } from '../Data/jeniskategori';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateKategori } from '../features/kategoriSlice';
+import ProdukKosong from '../Components/ProdukKosong'
+
 
 const { height, width } = Dimensions.get('window')
+
+const kosongproduk = () => {
+  return(
+  <View style={{alignItems:'center', paddingBottom:40}}>
+    <ProdukKosong/>
+    <Text style={{
+      fontSize: 16, color: IjoTua, textAlign:'center',
+      width: width*0.8,
+    }}>
+      Kamu tidak punya produk kategori ini. Kembali ke beranda dan 
+      ketuk bagian produk utama unuk membuatnya.
+    </Text>
+  </View>
+  )
+}
 
 const EtalaseScreen = ({ route }) => {
 
@@ -17,6 +37,8 @@ const EtalaseScreen = ({ route }) => {
   const[produkutama,setProdukUtama] = useState();
   const[loading, setLoading] = useState(true);
   const componentMounted = useRef(true);
+
+  const { pilkategori } = useSelector(state => state.kategori);
 
   const pindahMangkal = () => {
     navigation.navigate('PosisiScreen', { 
@@ -45,43 +67,74 @@ const EtalaseScreen = ({ route }) => {
         const docRef = doc(db, "mitra", id_mitra);
         const colRef = collection(docRef, "produk")
 
-        const q = query(colRef, where("jenis", "==", "Produk utama"), orderBy("waktudibuat","desc"));
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          const { image, harga, namaproduk, deskproduk, kuantitas, satuan, kategori} = doc.data();
-          list.push({
-            id: doc.id,
-            namaproduk,
-            deskproduk,
-            image,
-            harga,
-            kuantitas,
-            satuan,
-            kategori,
+        if ( pilkategori == "Semua Produk" ) {
+          const q = query(colRef, where("jenis", "==", "Produk utama"), orderBy("namaproduk"));
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            const {image, harga, namaproduk, deskproduk, kuantitas, satuan, kategori} = doc.data();
+            list.push({
+              id: doc.id,
+              namaproduk,
+              deskproduk,
+              image,
+              harga,
+              kuantitas,
+              satuan,
+              kategori,
+            });
           });
-        });
-
-        if (componentMounted.current){ // (5) is component still mounted?
-          setProdukUtama(list); // (1) write data to state
-          setLoading(false); // (2) write some value to state
+          } else {
+            const qq = query(colRef, where("jenis", "==", "Produk utama"), where("kategori", "==", pilkategori), orderBy("namaproduk"));
+            const querySnapshot = await getDocs(qq);
+            querySnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+              const {image, harga, namaproduk, deskproduk, kuantitas, satuan, kategori} = doc.data();
+              list.push({
+                id: doc.id,
+                namaproduk,
+                deskproduk,
+                image,
+                harga,
+                kuantitas,
+                satuan,
+                kategori,
+              });
+            });
+          }
+  
+          if (componentMounted.current){ // (5) is component still mounted?
+            setProdukUtama(list); // (1) write data to state
+            setLoading(false); // (2) write some value to state
+          }
+          return () => { // This code runs when component is unmounted
+              componentMounted.current = false; // (4) set it to false when we leave the page
+          }
+  
+        } catch(err){
+          console.log(err);
         }
-        return () => { // This code runs when component is unmounted
-            componentMounted.current = false; // (4) set it to false when we leave the page
-        }
-
-      } catch(err){
-        console.log(err);
       }
-    }
-    fetchProdukUtama();
-  },[])
+      fetchProdukUtama();
+    },[pilkategori])
 
   const { 
     namamitra, namatoko, foto_akun, tempat_mangkal, mangkal, id_mitra
      } = route.params;
 
   const atasetalase = () => {
+    const[pilkategori, setPilkategori]= useState("Semua Produk")
+    const dispatch = useDispatch();
+
+  useEffect(() => {
+    pilihKategori();
+  }, [pilkategori]);
+
+  const pilihKategori = () => {
+    dispatch(updateKategori({pilkategori}));
+    console.log("Kategori yg dipilih: " + pilkategori)
+  };
+
     return(
     <View>
       <View style={styles.atas}>
@@ -92,7 +145,7 @@ const EtalaseScreen = ({ route }) => {
               <View>
                 <Text style={{color: IjoTua, fontSize:20, fontWeight: 'bold'}}>{namatoko}</Text>
                 <Text style={{color: IjoTua, fontSize:14, fontWeight: 'bold'}}>200m | 20 menit </Text>
-                <Text style={{color: Ijo, fontSize:14, fontWeight: 'bold'}}>Waktu Keliling: 10.00 - 15.00</Text>
+                <Text style={{color: Ijo, fontSize:14, fontWeight: 'bold'}}>Waktu Operasional: 10.00 - 15.00</Text>
               </View>
               <View>
                 <Image source={{uri: foto_akun}} style={styles.gambartoko}/>
@@ -102,10 +155,27 @@ const EtalaseScreen = ({ route }) => {
               <Text style={{color: Ijo, textAlign:'center', fontWeight: 'bold'}}>Lokasi Mangkal</Text>
           </Pressable>
       </View>
-      <Garis/>
-      <View style={{marginVertical:10, marginLeft: 10}}>
-                <Text style={styles.judul}>Daftar Produk Utama</Text> 
-                <Text>Produk ini tersedia di gerobak mitra</Text> 
+      <View style={{marginVertical:10}}>
+          <View style={{paddingHorizontal: 10}}>
+              <Text style={styles.judul}>Daftar Produk Utama</Text> 
+              <Text>Produk ini tersedia di gerobak mitra</Text> 
+          </View>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{paddingStart: 10, paddingEnd: 10, marginTop: 10}}>
+            {jeniskategori.map((item, index) => (
+              <TouchableOpacity key={index}
+                style={{backgroundColor: pilkategori == item.nama ? IjoMint : Putih, ...styles.kartuKategori}}
+                onPress={() =>setPilkategori(item.nama)}
+                >
+                <View style={ styles.kategoripilihan}>
+                    <Image source={item.image} style={styles.gambar} />
+                </View>
+                <Text style={{color: pilkategori == item.nama ? Ijo : IjoTua,...styles.nama}}>{item.nama}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
       </View>
     </View>
     )
@@ -115,7 +185,9 @@ const EtalaseScreen = ({ route }) => {
     return(
       <View>
         <View style={{marginBottom:10, marginLeft: 10}}>
+            <Garis/>
             <Text style={styles.judul}>Tidak menemukan produk?</Text>
+            <Text>Aku juga punya produk pre-order loh</Text> 
         </View>
         <Pressable style={styles.preorder} onPress={pindahPreorder}>
           <View style={{width: 200}}>
@@ -148,6 +220,7 @@ const EtalaseScreen = ({ route }) => {
               keyExtractor={(item) => item.id}
               ListHeaderComponent={atasetalase}
               ListFooterComponent={bawahetalase}
+              ListEmptyComponent={kosongproduk}
             />
           </View>
           )
@@ -207,7 +280,7 @@ const styles = StyleSheet.create({
       backgroundColor: Putih,
     },
     atas:{
-      backgroundColor: Kuning,
+      backgroundColor: IjoMint,
       padding: 10,
     },
     judul:{
@@ -238,6 +311,7 @@ const styles = StyleSheet.create({
       position: 'absolute',
       width: '100%',
       padding: 20,
+      elevation: 5,
     },
     mangkal:{
       flexDirection: 'row',
@@ -249,5 +323,31 @@ const styles = StyleSheet.create({
       position: 'absolute',
       width: '95%',
       margin: 10
+    },
+    nama:{
+      fontSize: 14,
+      fontWeight: 'bold',
+      width: 60,
+    },  
+    gambar:{
+      width: width*0.1,
+      height: width*0.1,
+    },
+    kartuKategori:{
+      flexDirection: 'row',
+      alignSelf:'center',
+      marginRight: 10,
+      marginBottom: 10,
+      padding: 5,
+      borderRadius: 50,
+      justifyContent:'flex-start',
+      alignItems:'center',
+    },
+    kategoripilihan:{
+      alignItems:'center',
+      padding: 5, 
+      borderRadius: 50, 
+      marginRight: 10,
+      backgroundColor: Putih,
     },
 })
