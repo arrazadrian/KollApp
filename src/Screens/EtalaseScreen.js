@@ -167,7 +167,11 @@ const EtalaseScreen = ({ route }) => {
             {jeniskategori.map((item, index) => (
               <TouchableOpacity key={index}
                 style={{backgroundColor: pilkategori == item.nama ? IjoMint : Putih, ...styles.kartuKategori}}
-                onPress={() =>setPilkategori(item.nama)}
+                onPress={() => {
+                    setPilkategori(item.nama)
+                    console.log(index)
+                  }
+                }
                 >
                 <View style={ styles.kategoripilihan}>
                     <Image source={item.image} style={styles.gambar} />
