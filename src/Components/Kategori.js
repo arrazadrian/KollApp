@@ -28,12 +28,7 @@ const Kategori = () => {
         {jeniskategori.map((item, index) => (
         <TouchableOpacity key={index}
             style={{backgroundColor: pilkategori == item.nama ? IjoMint : Putih, ...styles.kartuKategori}}
-            onPress={() => {
-                setPilkategori(item.nama)
-                console.log(item.nama)
-                console.log(index)
-            }}
-            >
+            onPress={() => setPilkategori(item.nama)}>
             <View style={ styles.kategoripilihan}>
                 <Image source={item.image} style={styles.gambar} />
             </View>
