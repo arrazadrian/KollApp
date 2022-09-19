@@ -7,10 +7,9 @@ import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "f
 import { app } from '../../Firebase/config';
 import { KategoriPre } from '../assets/Images/Index';
 import { useNavigation } from '@react-navigation/native';
-import { jeniskategori } from '../Data/jeniskategori';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateKategori } from '../features/kategoriSlice';
+import { useSelector } from 'react-redux';
 import ProdukKosong from '../Components/ProdukKosong'
+import Kategori from '../Components/Kategori';
 
 
 const { height, width } = Dimensions.get('window')
@@ -123,18 +122,6 @@ const EtalaseScreen = ({ route }) => {
      } = route.params;
 
   const atasetalase = () => {
-    const[pilkategori, setPilkategori]= useState("Semua Produk")
-    const dispatch = useDispatch();
-
-  useEffect(() => {
-    pilihKategori();
-  }, [pilkategori]);
-
-  const pilihKategori = () => {
-    dispatch(updateKategori({pilkategori}));
-    console.log("Kategori yg dipilih: " + pilkategori)
-  };
-
     return(
     <View>
       <View style={styles.atas}>
@@ -160,26 +147,7 @@ const EtalaseScreen = ({ route }) => {
               <Text style={styles.judul}>Daftar Produk Utama</Text> 
               <Text>Produk ini tersedia di gerobak mitra</Text> 
           </View>
-          <ScrollView
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{paddingStart: 10, paddingEnd: 10, marginTop: 10}}>
-            {jeniskategori.map((item, index) => (
-              <TouchableOpacity key={index}
-                style={{backgroundColor: pilkategori == item.nama ? IjoMint : Putih, ...styles.kartuKategori}}
-                onPress={() => {
-                    setPilkategori(item.nama)
-                    console.log(index)
-                  }
-                }
-                >
-                <View style={ styles.kategoripilihan}>
-                    <Image source={item.image} style={styles.gambar} />
-                </View>
-                <Text style={{color: pilkategori == item.nama ? Ijo : IjoTua,...styles.nama}}>{item.nama}</Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
+          <Kategori/>
       </View>
     </View>
     )
@@ -209,7 +177,7 @@ const EtalaseScreen = ({ route }) => {
       <View>
         { loading ?
           (
-          <View style={{justifyContent:'center', alignItems:'center', flex: 1}}>
+          <View style={{justifyContent:'center', alignItems:'center', alignSelf:'center',flex: 1}}>
             <ActivityIndicator size="large" color={IjoTua}/>
           </View>
           ):(
@@ -327,31 +295,5 @@ const styles = StyleSheet.create({
       position: 'absolute',
       width: '95%',
       margin: 10
-    },
-    nama:{
-      fontSize: 14,
-      fontWeight: 'bold',
-      width: 60,
-    },  
-    gambar:{
-      width: width*0.1,
-      height: width*0.1,
-    },
-    kartuKategori:{
-      flexDirection: 'row',
-      alignSelf:'center',
-      marginRight: 10,
-      marginBottom: 10,
-      padding: 5,
-      borderRadius: 50,
-      justifyContent:'flex-start',
-      alignItems:'center',
-    },
-    kategoripilihan:{
-      alignItems:'center',
-      padding: 5, 
-      borderRadius: 50, 
-      marginRight: 10,
-      backgroundColor: Putih,
     },
 })
