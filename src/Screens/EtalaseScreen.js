@@ -14,6 +14,33 @@ import Kategori from '../Components/Kategori';
 
 const { height, width } = Dimensions.get('window')
 
+
+const bawahetalase = ({navigation}) => {
+
+  const pindahPreorder = () => {
+    navigation.navigate('PreorderScreen', { 
+      id_mitra,
+    })
+  }
+
+  return(
+    <View>
+      <View style={{marginBottom:10, marginLeft: 10}}>
+          <Garis/>
+          <Text style={styles.judul}>Tidak menemukan produk?</Text>
+          <Text>Yuk lihat produk pre-order mitra</Text> 
+      </View>
+      <Pressable style={styles.preorder} onPress={pindahPreorder}>
+        <View style={{width: 200}}>
+            <Text style={{fontSize: 16, fontWeight: 'bold', color: IjoTua}}>Pre-Order</Text>
+            <Text>Lihat produk pre-order yang bisa dipesan</Text>
+        </View>
+        <Image source={KategoriPre} style={styles.gambarpre} />
+      </Pressable>
+    </View>
+  )
+}
+
 const kosongproduk = () => {
   return(
   <View style={{alignItems:'center', paddingBottom:40}}>
@@ -30,6 +57,10 @@ const kosongproduk = () => {
 
 const EtalaseScreen = ({ route }) => {
 
+  const { 
+    namamitra, namatoko, foto_akun, tempat_mangkal, mangkal, id_mitra, waktu_buka, waktu_tutup
+     } = route.params;
+
   const navigation = useNavigation();
 
   const[produkutama,setProdukUtama] = useState();
@@ -42,12 +73,6 @@ const EtalaseScreen = ({ route }) => {
     navigation.navigate('PosisiScreen', { 
       namamitra, namatoko, foto_akun, 
       mangkal, tempat_mangkal,
-    })
-  }
-  
-  const pindahPreorder = () => {
-    navigation.navigate('PreorderScreen', { 
-      id_mitra,
     })
   }
 
@@ -116,10 +141,6 @@ const EtalaseScreen = ({ route }) => {
       fetchProdukUtama();
     },[pilkategori])
 
-  const { 
-    namamitra, namatoko, foto_akun, tempat_mangkal, mangkal, id_mitra, waktu_buka, waktu_tutup
-     } = route.params;
-
   const atasetalase = () => {
     return(
     <View>
@@ -149,25 +170,6 @@ const EtalaseScreen = ({ route }) => {
           <Kategori/>
       </View>
     </View>
-    )
-  }
-
-  const bawahetalase = () => {
-    return(
-      <View>
-        <View style={{marginBottom:10, marginLeft: 10}}>
-            <Garis/>
-            <Text style={styles.judul}>Tidak menemukan produk?</Text>
-            <Text>Aku juga punya produk pre-order loh</Text> 
-        </View>
-        <Pressable style={styles.preorder} onPress={pindahPreorder}>
-          <View style={{width: 200}}>
-              <Text style={{fontSize: 16, fontWeight: 'bold', color: IjoTua}}>Pre-Order</Text>
-              <Text>Lihat produk pre-order yang bisa dipesan</Text>
-          </View>
-          <Image source={KategoriPre} style={styles.gambarpre} />
-        </Pressable>
-      </View>
     )
   }
 
