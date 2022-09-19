@@ -22,7 +22,7 @@ const kosongproduk = () => {
       fontSize: 16, color: IjoTua, textAlign:'center',
       width: width*0.7,
     }}>
-      Maaf, mintra tidak memilik produk kategori ini
+      Maaf, mitra tidak memilik produk kategori ini
     </Text>
   </View>
   )
