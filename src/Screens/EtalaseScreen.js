@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, Dimensions, Pressable, FlatList, ActivityIndicator, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useState, useRef, useEffect } from 'react'
-import { Hitam, Ijo, IjoMint, IjoTua, Kuning, Putih} from '../Utils/Warna';
+import { Ijo, IjoMint, IjoTua, Kuning, Putih} from '../Utils/Warna';
 import ListProduk from '../Components/ListProduk';
 import Garis from '../Components/Garis';
 import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "firebase/firestore";
@@ -20,10 +20,9 @@ const kosongproduk = () => {
     <ProdukKosong/>
     <Text style={{
       fontSize: 16, color: IjoTua, textAlign:'center',
-      width: width*0.8,
+      width: width*0.7,
     }}>
-      Kamu tidak punya produk kategori ini. Kembali ke beranda dan 
-      ketuk bagian produk utama unuk membuatnya.
+      Maaf, mintra tidak memilik produk kategori ini
     </Text>
   </View>
   )
@@ -118,7 +117,7 @@ const EtalaseScreen = ({ route }) => {
     },[pilkategori])
 
   const { 
-    namamitra, namatoko, foto_akun, tempat_mangkal, mangkal, id_mitra
+    namamitra, namatoko, foto_akun, tempat_mangkal, mangkal, id_mitra, waktu_buka, waktu_tutup
      } = route.params;
 
   const atasetalase = () => {
@@ -132,7 +131,7 @@ const EtalaseScreen = ({ route }) => {
               <View>
                 <Text style={{color: IjoTua, fontSize:20, fontWeight: 'bold'}}>{namatoko}</Text>
                 <Text style={{color: IjoTua, fontSize:14, fontWeight: 'bold'}}>200m | 20 menit </Text>
-                <Text style={{color: Ijo, fontSize:14, fontWeight: 'bold'}}>Waktu Operasional: 10.00 - 15.00</Text>
+                <Text style={{color: Ijo, fontSize:14, fontWeight: 'bold'}}>Waktu Operasional: {waktu_buka} - {waktu_tutup}</Text>
               </View>
               <View>
                 <Image source={{uri: foto_akun}} style={styles.gambartoko}/>

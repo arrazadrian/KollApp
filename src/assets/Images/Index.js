@@ -28,7 +28,9 @@ import IkanMujaer from './IkanMujaer.png'
 import meetup from './meetup.png'
 import Gerobak from './Gerobak.png'
 import Location from './Location.png'
+import Kosong from './kosong.png'
 import Bawah from './Bawah.png'
+
 
 export { Awan, Logo, Splash, LogoPutih, Header1, 
         Header2, Header3, DPkartu, KollLong, Halaman,
@@ -37,4 +39,4 @@ export { Awan, Logo, Splash, LogoPutih, Header1,
         Kategori05, Kategori06, Kategori07, Kategori08,
         Kategori09, KategoriPre, IkanMujaer,
         meetup,Bag, Gerobak, Location, Bawah, LogoKoll,
-        LogoQR }
+        LogoQR, Kosong }

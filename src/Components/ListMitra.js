@@ -12,12 +12,14 @@ const ListMitra = ({ item }) => {
 
   const pindahDetail = () => {
     navigation.navigate('EtalaseScreen', { 
+      id_mitra: item.id,
       namatoko: item.namatoko,
       namalengkap: item.namalengkap,
       foto_akun: item.foto_akun,
       tempat_mangkal: item.tempat_mangkal,
       mangkal: item.mangkal,
-      id_mitra: item.id,
+      waktu_buka: item.waktu_buka,
+      waktu_tutup: item.waktu_tutup,
     })
   }
 

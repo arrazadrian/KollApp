@@ -1,45 +1,46 @@
 import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { jeniskategori } from '../Data/jeniskategori'
-import { Hitam, Ijo, IjoMint, IjoTua, Kuning, Putih} from '../Utils/Warna';
+import { Ijo, IjoMint, IjoTua, Putih} from '../Utils/Warna';
 import { useDispatch } from 'react-redux';
 import { updateKategori } from '../features/kategoriSlice';
 
 const { height, width } = Dimensions.get('window')
 
+
 const Kategori = () => {
     const[pilkategori, setPilkategori]= useState("Semua Produk")
     const dispatch = useDispatch();
 
-  useEffect(() => {
-    pilihKategori();
-  }, [pilkategori]);
+    useEffect(() => {
+        const pilihKategori = () => {
+            dispatch(updateKategori({pilkategori}));
+            console.log("Kategori yg dipilih: " + pilkategori)
+        };
+        pilihKategori();
+    }, [pilkategori]);
 
-  const pilihKategori = () => {
-    dispatch(updateKategori({pilkategori}));
-    console.log("Kategori yg dipilih: " + pilkategori)
-  };
   return (
     <ScrollView
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
-    contentContainerStyle={{paddingStart: 10, paddingEnd: 10, marginTop: 10}}>
-    {jeniskategori.map((item, index) => (
-      <TouchableOpacity key={index}
-        style={{backgroundColor: pilkategori == item.nama ? IjoMint : Putih, ...styles.kartuKategori}}
-        onPress={() => {
-            setPilkategori(item.nama)
-            console.log(index)
-          }
-        }
-        >
-        <View style={ styles.kategoripilihan}>
-            <Image source={item.image} style={styles.gambar} />
-        </View>
-        <Text style={{color: pilkategori == item.nama ? Ijo : IjoTua,...styles.nama}}>{item.nama}</Text>
-      </TouchableOpacity>
-    ))}
-  </ScrollView>
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{paddingStart: 10, paddingEnd: 10, marginTop: 10}}>
+        {jeniskategori.map((item, index) => (
+        <TouchableOpacity key={index}
+            style={{backgroundColor: pilkategori == item.nama ? IjoMint : Putih, ...styles.kartuKategori}}
+            onPress={() => {
+                setPilkategori(item.nama)
+                console.log(item.nama)
+                console.log(index)
+            }}
+            >
+            <View style={ styles.kategoripilihan}>
+                <Image source={item.image} style={styles.gambar} />
+            </View>
+            <Text style={{color: pilkategori == item.nama ? Ijo : IjoTua,...styles.nama}}>{item.nama}</Text>
+        </TouchableOpacity>
+        ))}
+    </ScrollView> 
   )
 }
 
