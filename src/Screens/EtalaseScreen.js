@@ -173,14 +173,12 @@ const EtalaseScreen = ({ route }) => {
 
   return (
     <View style={styles.latar}>
-      <View>
         { loading ?
           (
           <View style={{justifyContent:'center', alignItems:'center', alignSelf:'center',flex: 1}}>
             <ActivityIndicator size="large" color={IjoTua}/>
           </View>
           ):(
-          <View>
             <FlatList
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{paddingBottom:80}} 
@@ -193,11 +191,8 @@ const EtalaseScreen = ({ route }) => {
               ListFooterComponent={bawahetalase}
               ListEmptyComponent={kosongproduk}
             />
-          </View>
           )
-          
         }
-      </View>
       { mangkal ? 
               (
                 <View style={{flexDirection: 'column-reverse'}}>
