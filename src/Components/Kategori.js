@@ -13,12 +13,14 @@ const Kategori = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const pilihKategori = () => {
-            dispatch(updateKategori({pilkategori}));
-            console.log("Kategori yg dipilih: " + pilkategori)
-        };
         pilihKategori();
     }, [pilkategori]);
+
+
+    const pilihKategori = () => {
+      dispatch(updateKategori({pilkategori}));
+      console.log("Kategori yg dipilih: " + pilkategori)
+  };
 
   return (
     <ScrollView
