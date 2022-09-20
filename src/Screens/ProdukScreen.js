@@ -1,140 +1,193 @@
-import { Pressable, StyleSheet, Text, View, Image, ScrollView, FlatList } from 'react-native'
-import React, { useState } from 'react'
-import { Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
-import { Bawah, KollLong, KategoriPre} from '../assets/Images/Index'
-import PencarianBar from '../Components/PencarianBar'
-import { daftarproduk } from '../Data/daftarproduk'
-import { jeniskategori } from '../Data/jeniskategori'
-import LogoKategori from '../Components/LogoKategori'
-import ListProduk from '../Components/ListProduk'
-import PanggilMitra from '../Components/PanggilMitra'
-import { useNavigation } from '@react-navigation/native'
+import {StyleSheet, Text, View, Image, FlatList, ActivityIndicator, Dimensions } from 'react-native';
+import React, {useEffect, useState, useRef} from 'react';
+import { Ijo, IjoTua, Kuning, Putih, IjoMint } from '../Utils/Warna';
+import ListProduk from '../Components/ListProduk';
+import { Bawah } from '../assets/Images/Index.js';
+import Keranjang from '../Components/Keranjang';
+import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "firebase/firestore";
+import { app } from '../../Firebase/config';
+import { useNavigation } from '@react-navigation/native';
+import Kategori from '../Components/Kategori';
+import ProdukKosong from '../Components/ProdukKosong';
+import GarisBatas from '../Components/GarisBatas';
+import { useDispatch, useSelector } from 'react-redux';
 
+const { height, width } = Dimensions.get('window')
 
-headerList = () => {
+const atasutama = () => {
+  return(
+    <View style={{paddingTop: 5}}>
+        <Kategori/>
+        <GarisBatas/>
+        <View style={{marginBottom:10, marginLeft: 10}}>
+            <Text style={{fontSize: 18, fontWeight: 'bold', color: Ijo}}>Daftar Produk Utama</Text>
+            <Text>Kualitas dan kesegaran produk terjamin</Text>
+        </View>
+    </View>
+  )
+}
+
+const kosongutama = () => {
+  return(
+  <View style={{alignItems:'center'}}>
+    <ProdukKosong/>
+    <Text style={{
+      fontSize: 16, color: IjoTua, textAlign:'center',
+      width: width*0.8,
+    }}>
+      Maaf, mitra tidak punya produk utama kategori ini
+    </Text>
+  </View>
+  )
+}
+
+const ProdukScreen = ({ route }) => {
+
+  const[produkutama,setProdukutama] = useState();
+  const[loading, setLoading] = useState(true);
+  const componentMounted = useRef(true);
 
   const navigation = useNavigation();
 
-    return(
-    <View style={{padding: 10}}>
-      <View style={{flexDirection: 'row', justifyContent:'space-between', alignItems:'center', }}>
-        <Image source={KollLong} style={{width: 80, height:50}} /> 
-        <PencarianBar/>
-      </View>
-      <View style={{marginBottom:10, marginLeft: 10}}>
-          <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>Kategori</Text>
-      </View>
-  
-      <FlatList
-          numColumns={3}
-          data={jeniskategori}
-          renderItem= {({item}) => <LogoKategori item={item} />}
-          keyExtractor={ jeniskategori => jeniskategori.id}
-          ListFooterComponent ={
-            <View>
-                <View style={{paddingHorizontal: 10, paddingVertical:10}}> 
-                 <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>
-                    Tidak menemukan produk?
-                  </Text>
-                </View>  
-                <Pressable style={styles.preorder} onPress={() => navigation.navigate('PreorderScreen')}>
-                    <View>
-                        <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>Pre-Order</Text>
-                        <Text>Lihat produk pre-order yang bisa dipesan</Text>
-                    </View>
-                    <Image source={KategoriPre} style={styles.gambar} />
-                </Pressable>
-            </View>
-          }
-      />
-  
-      <View style={{marginBottom:10, marginLeft: 10}}>
-          <Text style={{fontSize: 20, fontWeight: 'bold', color: Ijo}}>Daftar Produk</Text>
-      </View>
-    </View>
-    )
-  }
+  const { pilkategori } = useSelector(state => state.kategori);
 
-const ProdukScreen = () => {
-    return (
-        <View style={styles.latar}>
-                    <View>
-                      <FlatList
-                          numColumns={3}
-                          data={daftarproduk}
-                          renderItem= {({item}) => <ListProduk item={item} />}
-                          keyExtractor={ daftarproduk => daftarproduk.id}
-                          ListHeaderComponent={headerList}
-                          ListEmptyComponent={<Text>Produk utama masih kosong</Text>}
-                          ListFooterComponent={
-                          <View>
-                            <Image source={Bawah} style={styles.bawah}/>
-                          </View>
-                          }
-                      />
-                    </View>
-                
-              
-              <View style={{flexDirection: 'column-reverse'}}>
-                  <PanggilMitra/>
-              </View>
-        </View>
+  useEffect(()=>{
+    const fetchProdukutama = async() => {
+      try{
+        const list = []; 
+        const db = getFirestore(app);
+        const docRef = doc(db, "mitra", id_mitra);
+        const colRef = collection(docRef, "produk")
+
+        if ( pilkategori == "Semua Produk" ) {
+          const q = query(colRef, where("jenis", "==", "Produk utama"), orderBy("namaproduk"));
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            const {image, harga, namaproduk, deskproduk, kuantitas, satuan, kategori} = doc.data();
+            list.push({
+              id: doc.id,
+              namaproduk,
+              deskproduk,
+              image,
+              harga,
+              kuantitas,
+              satuan,
+              kategori,
+            });
+          });
+          } else {
+            const qq = query(colRef, where("jenis", "==", "Produk utama"), where("kategori", "==", pilkategori), orderBy("namaproduk"));
+            const querySnapshot = await getDocs(qq);
+            querySnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+              const {image, harga, namaproduk, deskproduk, kuantitas, satuan, kategori} = doc.data();
+              list.push({
+                id: doc.id,
+                namaproduk,
+                deskproduk,
+                image,
+                harga,
+                kuantitas,
+                satuan,
+                kategori,
+              });
+            });
+          }
+  
+          if (componentMounted.current){ // (5) is component still mounted?
+            setProdukutama(list); // (1) write data to state
+            setLoading(false); // (2) write some value to state
+          }
+          return () => { // This code runs when component is unmounted
+              componentMounted.current = false; // (4) set it to false when we leave the page
+          }
+  
+        } catch(err){
+          console.log(err);
+        }
+      }
+    fetchProdukutama();
+  },[pilkategori])
+
+  const { 
+    id_mitra
+     } = route.params;
+
+  return (
+    <View style={styles.latar}>
+    { loading ?
+      (
+        <View style={{justifyContent:'center', alignItems:'center', flex: 1}}>
+           <ActivityIndicator size="large" color={IjoTua}/>
+      </View>
+      ):(
+      <View>
+        <FlatList
+                numColumns={3}
+                data={produkutama}
+                renderItem= {({item}) => <ListProduk item={item} />}
+                keyExtractor={ produkutama => produkutama.id}
+                columnWrapperStyle={{justifyContent:'space-evenly'}}
+                ListHeaderComponent={atasutama}
+                ListEmptyComponent={kosongutama}
+                ListFooterComponent={
+                <View>
+                  <Image source={Bawah} style={styles.bawah}/>
+                </View>
+                }
+            /> 
+          <View style={{flexDirection:'column-reverse'}}>
+              <Keranjang/>
+          </View>
+      </View>
       )
+    }
+    </View>
+  )
 }
 
 export default ProdukScreen
 
 const styles = StyleSheet.create({
-    latar:{
-        flex: 1,
-        backgroundColor: Kuning,
-      },
-      panggil:{
-        flexDirection: 'row',
-        backgroundColor: IjoMint,
-        alignItems:'center',
-        justifyContent:'space-between',
-        padding: 10,
-        borderRadius: 10,
-        position: 'absolute',
-        width: '95%',
-        borderColor: Ijo,
-        borderWidth: 3,
-        margin: 10
-      },
-      pesan:{
-        flexDirection: 'row',
-        backgroundColor: Ijo,
-        alignItems:'center',
-        justifyContent:'space-between',
-        padding: 10,
-        borderRadius: 10,
-        position: 'absolute',
-        width: '95%',
-        borderColor: IjoTua,
-        borderWidth: 3,
-        margin: 10
-      },
-      preorder:{
-        flexDirection: 'row',
-        backgroundColor: Putih,
-        borderRadius: 10,
-        height: 100,
-        padding: 20,
-        marginHorizontal: 10,
-        borderWidth: 1,
-        borderColor: Ijo,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 10,
-        elevation: 5,
-      },
-      bawah:{
-        width: '100%',
-        height: 98,
-      },
-      gambar:{
-        height: 95,
-        width: 95,
-      }
+  latar:{
+    backgroundColor: Kuning,
+    flex: 1,
+  },
+  bungkus:{
+    backgroundColor: IjoMint,
+    borderRadius: 10,
+    margin: 10,
+    padding: 20,
+  },
+  input:{
+    backgroundColor: Putih,
+    marginBottom: 10,
+    padding: 8,
+    borderRadius: 10,
+    fontSize: 18,
+    flexWrap: 'wrap',
+  },
+  judulisi:{
+    fontSize: 16,
+    color: IjoTua,
+  },
+  pesan:{
+    flexDirection: 'row',
+    backgroundColor: Ijo,
+    alignItems:'center',
+    justifyContent:'space-between',
+    padding: 10,
+    borderRadius: 10,
+    position: 'absolute',
+    width: '95%',
+    borderColor: IjoTua,
+    borderWidth: 3,
+    margin: 10
+  },
+  bawah:{
+    marginTop: height * 0.4,
+    width: '100%',
+    height: 98,
+  }
 })

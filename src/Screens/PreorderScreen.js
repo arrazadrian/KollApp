@@ -1,34 +1,50 @@
-import {StyleSheet, Text, View, Image, Pressable, FlatList, ActivityIndicator, Dimensions } from 'react-native'
-import React, {useEffect, useState, useRef} from 'react'
-import { Ijo, IjoTua, Kuning, Putih, IjoMint } from '../Utils/Warna'
-import PencarianBar from '../Components/PencarianBar'
-import ListPreOrder from '../Components/ListPreOrder'
-import { Bag, Bawah, KollLong } from '../assets/Images/Index.js';
-import { daftarpreproduk } from '../Data/daftarpreproduk'
-import Keranjang from '../Components/Keranjang'
-import { getAuth } from "firebase/auth";
+import {StyleSheet, Text, View, Image, FlatList, ActivityIndicator, Dimensions } from 'react-native';
+import React, {useEffect, useState, useRef} from 'react';
+import { Ijo, IjoTua, Kuning, Putih, IjoMint } from '../Utils/Warna';
+import ListPreOrder from '../Components/ListPreOrder';
+import { Bawah } from '../assets/Images/Index.js';
+import Keranjang from '../Components/Keranjang';
 import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "firebase/firestore";
 import { app } from '../../Firebase/config';
 import { useNavigation } from '@react-navigation/native';
-import GarisBatas from '../Components/GarisBatas'
+import GarisBatas from '../Components/GarisBatas';
+import Kategori from '../Components/Kategori';
+import ProdukKosong from '../Components/ProdukKosong'
+import { useSelector } from 'react-redux';
 
 const { height, width } = Dimensions.get('window')
 
-ataspreorder = () => {
+const ataspreorder = () => {
   return(
     <View>
         <View style={styles.bungkus}>
-            <Text style={{textAlign: 'center', fontSize:18, fontWeight:'bold',color: Ijo}}>Bagaimana Mekanisme Pre-Order?</Text>
-            <Text style={{textAlign:'center', fontSize: 16 }}>
-              Produk pre-order diantar keesokan harinya dengan pembayaran COD.
+            <Text style={{textAlign: 'center', fontSize:16, fontWeight:'bold',color: Ijo}}>Bagaimana Mekanisme Pre-Order?</Text>
+            <Text style={{textAlign:'center', fontSize: 12 }}>
+              Produk pre-order akan diantar paling lambat 2 x 24 jam setelah pemesanan dan dibayar dengan metode COD.
             </Text>
         </View>
         <GarisBatas/>
+        <Kategori/>
+        <GarisBatas/>
         <View style={{marginBottom:10, marginLeft: 10}}>
-            <Text style={{fontSize: 16, fontWeight: 'bold', color: IjoTua}}>Produk Pre-Order</Text>
-            <Text>Produk ini perlu dipesan satu hari sebelum</Text>
+            <Text style={{fontSize: 18, fontWeight: 'bold', color: Ijo}}>Daftar Produk Pre-Order</Text>
+            <Text>Kualitas dan kesegaran produk terjamin</Text>
         </View>
     </View>
+  )
+}
+
+const kosongpre = () => {
+  return(
+  <View style={{alignItems:'center'}}>
+    <ProdukKosong/>
+    <Text style={{
+      fontSize: 16, color: IjoTua, textAlign:'center',
+      width: width*0.8,
+    }}>
+      Maaf, mitra tidak punya produk pre-order kategori ini
+    </Text>
+  </View>
   )
 }
 
@@ -41,46 +57,66 @@ const PreorderScreen = ({ route }) => {
 
   const navigation = useNavigation();
 
+  const { pilkategori } = useSelector(state => state.kategori);
+
   useEffect(()=>{
     const fetchProdukPreOrder = async() => {
       try{
         const list = []; 
-        const auth = getAuth();
         const db = getFirestore(app);
         const docRef = doc(db, "mitra", id_mitra);
         const colRef = collection(docRef, "produk")
 
-        const q = query(colRef, where("jenis", "==", "Produk pre-order"), orderBy("waktudibuat","desc"));
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          const { image, harga, namaproduk, deskproduk, kuantitas, satuan, kategori} = doc.data();
-          list.push({
-            id: doc.id,
-            namaproduk,
-            deskproduk,
-            image,
-            harga,
-            kuantitas,
-            satuan,
-            kategori,
+        if ( pilkategori == "Semua Produk" ) {
+          const q = query(colRef, where("jenis", "==", "Produk pre-order"), orderBy("namaproduk"));
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            const {image, harga, namaproduk, deskproduk, kuantitas, satuan, kategori} = doc.data();
+            list.push({
+              id: doc.id,
+              namaproduk,
+              deskproduk,
+              image,
+              harga,
+              kuantitas,
+              satuan,
+              kategori,
+            });
           });
-        });
-
-        if (componentMounted.current){ // (5) is component still mounted?
-          setProdukpreorder(list); // (1) write data to state
-          setLoading(false); // (2) write some value to state
+          } else {
+            const qq = query(colRef, where("jenis", "==", "Produk pre-order"), where("kategori", "==", pilkategori), orderBy("namaproduk"));
+            const querySnapshot = await getDocs(qq);
+            querySnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+              const {image, harga, namaproduk, deskproduk, kuantitas, satuan, kategori} = doc.data();
+              list.push({
+                id: doc.id,
+                namaproduk,
+                deskproduk,
+                image,
+                harga,
+                kuantitas,
+                satuan,
+                kategori,
+              });
+            });
+          }
+  
+          if (componentMounted.current){ // (5) is component still mounted?
+            setProdukpreorder(list); // (1) write data to state
+            setLoading(false); // (2) write some value to state
+          }
+          return () => { // This code runs when component is unmounted
+              componentMounted.current = false; // (4) set it to false when we leave the page
+          }
+  
+        } catch(err){
+          console.log(err);
         }
-        return () => { // This code runs when component is unmounted
-            componentMounted.current = false; // (4) set it to false when we leave the page
-        }
-
-      } catch(err){
-        console.log(err);
       }
-    }
     fetchProdukPreOrder();
-  },[])
+  },[pilkategori])
 
   const { 
     id_mitra
@@ -102,7 +138,7 @@ const PreorderScreen = ({ route }) => {
                 keyExtractor={ produkpreorder => produkpreorder.id}
                 columnWrapperStyle={{justifyContent:'space-evenly'}}
                 ListHeaderComponent={ataspreorder}
-                ListEmptyComponent={<Text>Produk pre-order tidak tersedia</Text>}
+                ListEmptyComponent={kosongpre}
                 ListFooterComponent={
                 <View>
                   <Image source={Bawah} style={styles.bawah}/>

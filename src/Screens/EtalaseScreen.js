@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, Image, Pressable, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable, Dimensions, Touchable, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Ijo, IjoMint, IjoTua, Kuning, Putih} from '../Utils/Warna';
-import { DPkartu, Gerobak, KategoriPre, Location } from '../assets/Images/Index.js'
+import { Gerobak, KategoriPre } from '../assets/Images/Index.js'
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import GarisBatas from '../Components/GarisBatas';
@@ -13,8 +13,20 @@ const EtalaseScreen = ({ route }) => {
   const navigation = useNavigation();
 
   const { 
-    namamitra, namatoko, foto_akun, tempat_mangkal, mangkal,
+    namamitra, namatoko, foto_akun, tempat_mangkal, mangkal, id_mitra, waktu_buka, waktu_tutup,
      } = route.params;
+
+  const pindahUtama = () => {
+    navigation.navigate('ProdukScreen', { 
+      id_mitra: id_mitra,
+    })
+  }
+
+  const pindahPreorder = () => {
+    navigation.navigate('PreorderScreen', { 
+      id_mitra: id_mitra,
+    })
+  }
 
   return (
     <View style={styles.latar}>
@@ -49,25 +61,26 @@ const EtalaseScreen = ({ route }) => {
       <View style={styles.kotak}>
           <View style={{flexDirection:'row', alignItems:'center', marginBottom: 10}}>
               <View>
-                <Image source={{uri: foto_akun}} style={styles.fototoko}/>
+                  <Image source={{uri: foto_akun}} style={styles.fototoko}/>
               </View>
               <View>
-                <Text style={{color: Putih, fontSize:20, fontWeight: 'bold'}}>{namatoko}</Text>
-                <Text style={{color: Putih, fontSize:14}}>200m | 20 menit </Text>
-                <Text style={{color: Putih, fontSize:12}}>Waktu keliling: 10.00 - 15.00</Text>
+                  <Text style={{color: Putih, fontSize:20, fontWeight: 'bold'}}>{namatoko}</Text>
+                  <Text style={{color: Putih, fontSize:12}}>Waktu Operasional: {waktu_buka} - {waktu_tutup}</Text>
               </View>
           </View>
           <GarisBatas/>
           <Text style={{color: Putih, fontSize:18, fontWeight: 'bold', marginBottom: 10}}>Produk Mitra</Text>
           <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between', marginBottom: 10}}>
-              <Pressable style={styles.tombolproduk}>
-                <Image source={Gerobak} style={styles.gambar}/>
-                <Text style={styles.tulisanproduk}>Produk Utama</Text>
-              </Pressable>
-              <Pressable style={styles.tombolproduk}>
-              <Image source={KategoriPre} style={styles.gambar}/>
-                <Text style={styles.tulisanproduk}>Produk Pre-Order</Text>
-              </Pressable>
+              <TouchableOpacity style={styles.tombolproduk}
+                onPress={pindahUtama}>
+                    <Image source={Gerobak} style={styles.gambar}/>
+                    <Text style={styles.tulisanproduk}>Produk Utama</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.tombolproduk}
+                onPress={pindahPreorder}>
+                    <Image source={KategoriPre} style={styles.gambar}/>
+                    <Text style={styles.tulisanproduk}>Produk Pre-Order</Text>
+              </TouchableOpacity>
           </View>
           <Pressable style={styles.tombolpanggil} onPress={()=> navigation.goBack()}>
             <Text style={{color: Putih, fontWeight: 'bold',  fontSize: 16}}>Panggil Mitra</Text>
