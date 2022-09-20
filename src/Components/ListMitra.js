@@ -29,7 +29,7 @@ const ListMitra = ({ item }) => {
       <View style={styles.deskripsi}>
         <View >
             <Text style={{fontSize: 20, fontWeight: 'bold', color:IjoTua}}>{item.namatoko}</Text>
-            <Text>200m | 20 menit</Text>
+            <Text style={{fontSize: 12}}>Operasional: {item.waktu_buka} - {item.waktu_tutup} WIB</Text>
             { item.mangkal ? 
               (
                 <View style={styles.mangkal}>
