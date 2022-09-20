@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Abu, Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
 import { Location } from '../assets/Images/Index'
 import MapView, { Marker } from 'react-native-maps';
-import Garis from '../Components/Garis';
+import GarisBatas from '../Components/GarisBatas';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { pilihProdukKeranjang, totalHarga } from '../features/keranjangSlice';
@@ -65,7 +65,7 @@ const CheckoutScreen = () => {
             />
         </View>
 
-        <Garis/>
+        <GarisBatas/>
 
         <View style={styles.bagian}>
 
@@ -92,7 +92,7 @@ const CheckoutScreen = () => {
             ))}
         </View>
         
-        <Garis/>
+        <GarisBatas/>
 
         <View style={styles.bagian}>
             <Text style={styles.judul}>Rangkuman Transaksi</Text>

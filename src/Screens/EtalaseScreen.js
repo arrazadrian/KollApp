@@ -57,9 +57,9 @@ const EtalaseScreen = ({ route }) => {
                 <Text style={{color: Putih, fontSize:12}}>Waktu keliling: 10.00 - 15.00</Text>
               </View>
           </View>
-          <Garis/>
-          <Text style={{color: Putih, fontSize:18, fontWeight: 'bold'}}>Produk Mitra</Text>
-          <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between',}}>
+          <GarisBatas/>
+          <Text style={{color: Putih, fontSize:18, fontWeight: 'bold', marginBottom: 10}}>Produk Mitra</Text>
+          <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between', marginBottom: 10}}>
               <Pressable style={styles.tombolproduk}>
                 <Image source={Gerobak} style={styles.gambar}/>
                 <Text style={styles.tulisanproduk}>Produk Utama</Text>
@@ -110,10 +110,10 @@ const styles = StyleSheet.create({
     height: height * 0.12,
   },
   tombolproduk:{
-    width: width * 0.4,
+    width: width * 0.43,
     height: height * 0.16,
-    backgroundColor: Putih,
-    borderRadius: 5,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    borderRadius: 10,
     alignItems: 'center',
     justifyContent:'center',
     alignSelf:'center',
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   tulisanproduk:{
     fontSize: 14,
     fontWeight:'bold',
-    color: IjoTua,
+    color: Putih,
   },  
   tombolpanggil:{
     borderRadius: 10,
