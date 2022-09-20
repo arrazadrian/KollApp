@@ -1,7 +1,6 @@
 import HomeScreen from "./HomeScreen";
 import SekitarScreen from "./SekitarScreen";
 import EtalaseScreen from "./EtalaseScreen";
-import PosisiScreen from "./PosisiScreen";
 import PembelianScreen from "./PembelianScreen";
 import PreorderScreen from "./PreorderScreen";
 import ProdukScreen from "./ProdukScreen";
@@ -15,7 +14,6 @@ import AkunScreen from "./AkunScreen";
 import EditAkunScreen from "./EditAkunScreen";
 import SignInScreen from "./SignInScreen";
 import SignUpScreen from "./SignUpScreen";
-import KategoriScreen from "./KategoriScreen";
 import LokasiScreen from "./LokasiScreen";
 import LoadingScreen from "./LoadingScreen";
 import LangsungScreen from "./LangsungScreen";
@@ -24,8 +22,8 @@ import DetailScreen from "./DetailScreen";
 export {
      HomeScreen, PembelianScreen, 
      RiwayatScreen, AkunScreen, SignInScreen, SignUpScreen, 
-     KategoriScreen, SekitarScreen, EditAkunScreen,
-     LangsungScreen, PosisiScreen, PreorderScreen,
+     SekitarScreen, EditAkunScreen,
+     LangsungScreen, PreorderScreen,
      LokasiScreen, LoadingScreen, CheckoutScreen,
      FLocScreen, OtwScreen, ProsesScreen, ReceiptScreen,
      ProdukScreen, DetailScreen, EtalaseScreen,

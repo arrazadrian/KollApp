@@ -10,7 +10,7 @@ import { getAuth } from "firebase/auth";
 import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "firebase/firestore";
 import { app } from '../../Firebase/config';
 import { useNavigation } from '@react-navigation/native';
-import Garis from '../Components/Garis'
+import GarisBatas from '../Components/GarisBatas'
 
 const { height, width } = Dimensions.get('window')
 
@@ -23,7 +23,7 @@ ataspreorder = () => {
               Produk pre-order diantar keesokan harinya dengan pembayaran COD.
             </Text>
         </View>
-        <Garis/>
+        <GarisBatas/>
         <View style={{marginBottom:10, marginLeft: 10}}>
             <Text style={{fontSize: 16, fontWeight: 'bold', color: IjoTua}}>Produk Pre-Order</Text>
             <Text>Produk ini perlu dipesan satu hari sebelum</Text>

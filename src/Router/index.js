@@ -11,7 +11,6 @@ import {
   EtalaseScreen,
   FLocScreen,
   HomeScreen,
-  KategoriScreen,
   LangsungScreen,
   LoadingScreen,
   LokasiScreen,
@@ -20,7 +19,6 @@ import {
   PreorderScreen,
   ProdukScreen,
   ProsesScreen,
-  PosisiScreen,
   ReceiptScreen,
   RiwayatScreen, 
   SekitarScreen, 
@@ -61,9 +59,7 @@ export const AppUtama = () => {
         <HomeStack.Screen name="SekitarScreen" component={SekitarScreen} options={{ title: "Mitra Akftif Sekitarmu", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>
         <HomeStack.Screen name="LangsungScreen" component={LangsungScreen} options={{ title: "Temu Langsung", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
         
-        <HomeStack.Screen name="EtalaseScreen" component={EtalaseScreen} options={{ title: "Produk Mitra", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
-        <HomeStack.Screen name="PosisiScreen" component={PosisiScreen} options={{ headerShown: false }}  />
-        <HomeStack.Screen name="KategoriScreen" component={KategoriScreen} options={{ title: "Produk", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+        <HomeStack.Screen name="EtalaseScreen" component={EtalaseScreen} options={{ title: "Detail Mitra", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
         <HomeStack.Screen name="ProdukScreen" component={ProdukScreen} options={{ title: "Produk", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
         <HomeStack.Screen name="DetailScreen" component={DetailScreen} options={{ headerShown: false   }}  />
         <HomeStack.Screen name="LokasiScreen" component={LokasiScreen} options={{ title: "Tentukan Lokasi Tujuan", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
@@ -111,8 +107,6 @@ export const Gerbang = () => {
 const DalamMitra = () => {
   return(
     <Stack.Navigator initialRouteName="PosisiScreen">
-      <Stack.Screen name="PosisiScreen" component={PosisiScreen} options={{ title: "Posisi Mitra", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
-      <Stack.Screen name="KategoriScreen" component={KategoriScreen} options={{ title: "Produk", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
       <Stack.Screen name="ProdukScreen" component={ProdukScreen} options={{ title: "Produk", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
       <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ headerShown: false   }}  />
       <Stack.Screen name="LokasiScreen" component={LokasiScreen} options={{ title: "Tentukan Lokasi Tujuan", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />

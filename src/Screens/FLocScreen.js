@@ -3,7 +3,7 @@ import React from 'react'
 import { IjoTua, Kuning, Putih } from '../Utils/Warna'
 import FindLoc from '../Components/FindLoc'
 import MapView from 'react-native-maps'
-import Garis from '../Components/Garis'
+import GarisBatas from '../Components/GarisBatas'
 
 const FLocScreen = () => {
   return (
@@ -11,7 +11,7 @@ const FLocScreen = () => {
       <MapView style={styles.peta}/>
       <View style={styles.pencarian}>
         <Text style={styles.judul}>Lokasi Saya</Text>
-        <Garis/>
+        <GarisBatas/>
         <TextInput 
         placeholder='Cari Lokasi...'/>
       </View>
