@@ -44,7 +44,7 @@ const EtalaseScreen = ({ route }) => {
               longitude: tempat_mangkal.longitude,
             }}
               title={namatoko}
-              description="Lokasi Mitra"
+              description="Lokasi mangkal"
               pinColor={'tomato'}
             />
           <Marker 
@@ -82,9 +82,20 @@ const EtalaseScreen = ({ route }) => {
                     <Text style={styles.tulisanproduk}>Produk Pre-Order</Text>
               </TouchableOpacity>
           </View>
-          <Pressable style={styles.tombolpanggil} onPress={()=> navigation.goBack()}>
-            <Text style={{color: Putih, fontWeight: 'bold',  fontSize: 16}}>Panggil Mitra</Text>
-          </Pressable> 
+          { mangkal ? (
+              <View style={{ borderColor:Ijo, borderWidth: 0.5, borderRadius: 10, padding: 10, width:'100%', alignSelf:'center', alignItems:'center'}}>
+                  <Text style={{color: Ijo, fontStyle:'italic', fontSize: 16, textAlign:'center'}}>Maaf, mitra yang mangkal tidak bisa dipanggil</Text>
+              </View> 
+            ):(
+              <Pressable style={styles.tombolpanggil} onPress={()=> navigation.goBack()}>
+                  <Text style={{color: Putih, fontWeight: 'bold',  fontSize: 16}}>Panggil Mitra</Text>
+              </Pressable> 
+            )
+          }
+      </View>
+      <View style={styles.lokmang}>
+            <Text style={{color: Ijo, fontSize:12, textAlign:'center'}}>Lokasi Mangkal</Text>
+            <Text style={{color: Ijo, fontSize:14, fontWeight: 'bold', textAlign:'center'}}>Jl. Cepat Lulus</Text>
       </View>
     </View>
   )
@@ -124,13 +135,12 @@ const styles = StyleSheet.create({
   },
   tombolproduk:{
     width: width * 0.43,
-    height: height * 0.16,
     backgroundColor: 'rgba(0,0,0,0.2)',
     borderRadius: 10,
     alignItems: 'center',
     justifyContent:'center',
     alignSelf:'center',
-    padding: 5,
+    padding: 10,
   },
   tulisanproduk:{
     fontSize: 14,
@@ -154,5 +164,16 @@ const styles = StyleSheet.create({
   peta:{
     width: '100%',
     height: height* 0.5,
+  },
+  lokmang:{
+    position: 'absolute',
+    alignSelf: 'center',
+    top: height* 0.02,
+    width: '80%',
+    backgroundColor: Putih,
+    padding: 10,
+    borderColor: Ijo,
+    borderWidth: 1,
+    borderRadius: 10,
   },
 })

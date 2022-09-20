@@ -1,13 +1,11 @@
 import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, StatusBar, Alert } from 'react-native'
 import React, {useState, useEffect} from 'react'
-import PencarianBar from '../Components/PencarianBar'
 import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
 import { Logo, PanggilMitra, TemuLangsung, Location } from '../assets/Images/Index.js';
-import CarouselHome from '../Components/CarouselHome'
-import { tigaGambar } from '../Data/data.js';
 import { app } from '../../Firebase/config';
 import {  getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { useDispatch } from 'react-redux'
 
 const { height, width } = Dimensions.get('window')
 
@@ -16,6 +14,8 @@ const HomeScreen = ({navigation, item}) => {
   const [namaakun, setNamaakun] = useState('Loading...')
   const auth = getAuth();
   const db = getFirestore(app)
+
+  const dispatch = useDispatch();
 
   useEffect(() =>{
     async function getuserHome(){
