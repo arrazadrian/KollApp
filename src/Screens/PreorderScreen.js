@@ -2,6 +2,7 @@ import {StyleSheet, Text, View, Image, FlatList, ActivityIndicator, Dimensions }
 import React, {useEffect, useState, useRef} from 'react';
 import { Ijo, IjoTua, Kuning, Putih, IjoMint } from '../Utils/Warna';
 import ListPreOrder from '../Components/ListPreOrder';
+import ListProduk from '../Components/ListProduk';
 import { Bawah, KategoriPre } from '../assets/Images/Index.js';
 import Keranjang from '../Components/Keranjang';
 import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "firebase/firestore";
@@ -11,6 +12,7 @@ import GarisBatas from '../Components/GarisBatas';
 import Kategori from '../Components/Kategori';
 import ProdukKosong from '../Components/ProdukKosong'
 import { useSelector } from 'react-redux';
+import MitraTutup from '../Components/MitraTutup';
 
 const { height, width } = Dimensions.get('window')
 
@@ -61,6 +63,10 @@ const PreorderScreen = ({ route }) => {
   const navigation = useNavigation();
 
   const { pilkategori } = useSelector(state => state.kategori);
+
+  const { 
+    id_mitra, status_sekarang
+     } = route.params;
 
   useEffect(()=>{
     const fetchProdukPreOrder = async() => {
@@ -121,10 +127,6 @@ const PreorderScreen = ({ route }) => {
     fetchProdukPreOrder();
   },[pilkategori])
 
-  const { 
-    id_mitra
-     } = route.params;
-
   return (
     <View style={styles.latar}>
     { loading ?
@@ -137,7 +139,13 @@ const PreorderScreen = ({ route }) => {
         <FlatList
                 numColumns={3}
                 data={produkpreorder}
-                renderItem= {({item}) => <ListPreOrder item={item} />}
+                renderItem= {
+                  status_sekarang == "Tidak Aktif" ? (
+                    ({item}) => <ListProduk item={item} />
+                    ): (
+                    ({item}) => <ListPreOrder item={item} />
+                  )
+                }
                 keyExtractor={ produkpreorder => produkpreorder.id}
                 columnWrapperStyle={{justifyContent:'space-evenly'}}
                 ListHeaderComponent={ataspreorder}
@@ -148,9 +156,13 @@ const PreorderScreen = ({ route }) => {
                 </View>
                 }
             /> 
-          <View style={{flexDirection:'column-reverse'}}>
-              <Keranjang/>
-          </View>
+          { status_sekarang == "Tidak Aktif" ? 
+           (
+              <MitraTutup/>
+              ):( 
+              <PanggilMitra/>
+            )
+          }  
       </View>
       )
     }

@@ -11,6 +11,7 @@ import Kategori from '../Components/Kategori';
 import ProdukKosong from '../Components/ProdukKosong';
 import GarisBatas from '../Components/GarisBatas';
 import { useDispatch, useSelector } from 'react-redux';
+import MitraTutup from '../Components/MitraTutup';
 
 const { height, width } = Dimensions.get('window')
 
@@ -60,6 +61,11 @@ const ProdukScreen = ({ route }) => {
   const navigation = useNavigation();
 
   const { pilkategori } = useSelector(state => state.kategori);
+
+
+  const { 
+    id_mitra, status_sekarang
+     } = route.params;
 
   useEffect(()=>{
     const fetchProdukutama = async() => {
@@ -120,10 +126,6 @@ const ProdukScreen = ({ route }) => {
     fetchProdukutama();
   },[pilkategori])
 
-  const { 
-    id_mitra
-     } = route.params;
-
   return (
     <View style={styles.latar}>
     { loading ?
@@ -147,15 +149,13 @@ const ProdukScreen = ({ route }) => {
                 </View>
                 }
             /> 
-          <View style={{flexDirection:'column-reverse'}}>
-              {/* { status_sekarang == "Tidak Aktif" ? (
-                  <PanggilMitra/>
-                  ):( 
-                  <PanggilMitra/>
-                  )
-              } */}
-                <PanggilMitra/>
-          </View>
+           { status_sekarang == "Tidak Aktif" ? 
+           (
+              <MitraTutup/>
+              ):( 
+              <PanggilMitra/>
+            )
+            }               
       </View>
       )
     }

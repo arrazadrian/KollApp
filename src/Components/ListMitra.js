@@ -39,7 +39,7 @@ const ListMitra = ({ item }) => {
             ): item.mangkal ? 
               (
                 <View style={styles.mangkal}>
-                  <Text style={{fontSize: 12, fontWeight: 'bold', color: Putih}}>Lagi Mangkal</Text> 
+                  <Text style={{fontSize: 12, fontWeight: 'bold', color: "#DDC238"}}>Lagi Mangkal</Text> 
                 </View>
               ):(
                 <View style={styles.siap}>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     mangkal:{
-      backgroundColor: IjoTua, 
+      backgroundColor: Kuning, 
       borderRadius: 5,
       marginTop: 5,
       width: 100,
@@ -94,7 +94,11 @@ const styles = StyleSheet.create({
       alignItems:'center',
     },
     tutup:{
+      backgroundColor: "#FAEAED", 
+      borderRadius: 5,
       marginTop: 5,
       width: 100,
+      padding: 5, 
+      alignItems:'center',
     },
 })

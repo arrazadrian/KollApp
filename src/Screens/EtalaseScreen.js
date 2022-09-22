@@ -19,12 +19,14 @@ const EtalaseScreen = ({ route }) => {
   const pindahUtama = () => {
     navigation.navigate('ProdukScreen', { 
       id_mitra: id_mitra,
+      status_sekarang: status_sekarang,
     })
   }
 
   const pindahPreorder = () => {
     navigation.navigate('PreorderScreen', { 
       id_mitra: id_mitra,
+      status_sekarang: status_sekarang,
     })
   }
 
@@ -85,7 +87,7 @@ const EtalaseScreen = ({ route }) => {
           </View>
           { status_sekarang == "Tidak Aktif" ?(
               <View style={{ borderColor:Ijo, borderWidth: 0.5, borderRadius: 10, padding: 10, width:'100%', alignSelf:'center', alignItems:'center'}}>
-                  <Text style={{color: Ijo, fontStyle:'italic', fontSize: 16, textAlign:'center'}}>Maaf, mitra sedang tidak berjualan namun kamu tetap bisa pre-order</Text>
+                  <Text style={{color: Ijo, fontStyle:'italic', fontSize: 16, textAlign:'center'}}>Maaf, mitra sedang tidak berjualan</Text>
               </View> 
           ): mangkal ? (
               <View style={{ borderColor:Ijo, borderWidth: 0.5, borderRadius: 10, padding: 10, width:'100%', alignSelf:'center', alignItems:'center'}}>
