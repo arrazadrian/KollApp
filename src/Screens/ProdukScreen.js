@@ -2,7 +2,7 @@ import {StyleSheet, Text, View, Image, FlatList, ActivityIndicator, Dimensions }
 import React, {useEffect, useState, useRef} from 'react';
 import { Ijo, IjoTua, Kuning, Putih, IjoMint } from '../Utils/Warna';
 import ListProduk from '../Components/ListProduk';
-import { Bawah } from '../assets/Images/Index.js';
+import { Bawah, Gerobak } from '../assets/Images/Index.js';
 import Keranjang from '../Components/Keranjang';
 import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "firebase/firestore";
 import { app } from '../../Firebase/config';
@@ -17,6 +17,16 @@ const { height, width } = Dimensions.get('window')
 const atasutama = () => {
   return(
     <View style={{paddingTop: 5}}>
+        <View style={styles.bungkus}>
+          <Image source={Gerobak} style={styles.gambar}/>
+          <View style={{width:'70%'}}>
+              <Text style={{fontSize:14, fontWeight:'bold',color: Ijo}}>Cara belanjanya bagaimana?</Text>
+              <Text style={{textAlign:'justify', fontSize: 12 }}>
+                Produk utama bisa didapatkan dengan metode panggil mitra dan temu langsung.
+              </Text>
+          </View>
+        </View>
+        <GarisBatas/>
         <Kategori/>
         <GarisBatas/>
         <View style={{marginBottom:10, marginLeft: 10}}>
@@ -158,7 +168,13 @@ const styles = StyleSheet.create({
     backgroundColor: IjoMint,
     borderRadius: 10,
     margin: 10,
-    padding: 20,
+    flexDirection: 'row',
+    alignItems:'center',
+  },
+  gambar:{
+    width: width * 0.25,
+    height: width * 0.25,
+    marginLeft: 5,
   },
   input:{
     backgroundColor: Putih,
@@ -186,7 +202,7 @@ const styles = StyleSheet.create({
     margin: 10
   },
   bawah:{
-    marginTop: height * 0.4,
+    marginTop: height * 0.2,
     width: '100%',
     height: 98,
   }

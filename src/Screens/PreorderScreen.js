@@ -2,7 +2,7 @@ import {StyleSheet, Text, View, Image, FlatList, ActivityIndicator, Dimensions }
 import React, {useEffect, useState, useRef} from 'react';
 import { Ijo, IjoTua, Kuning, Putih, IjoMint } from '../Utils/Warna';
 import ListPreOrder from '../Components/ListPreOrder';
-import { Bawah } from '../assets/Images/Index.js';
+import { Bawah, KategoriPre } from '../assets/Images/Index.js';
 import Keranjang from '../Components/Keranjang';
 import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "firebase/firestore";
 import { app } from '../../Firebase/config';
@@ -18,10 +18,13 @@ const ataspreorder = () => {
   return(
     <View>
         <View style={styles.bungkus}>
-            <Text style={{textAlign: 'center', fontSize:16, fontWeight:'bold',color: Ijo}}>Bagaimana Mekanisme Pre-Order?</Text>
-            <Text style={{textAlign:'center', fontSize: 12 }}>
-              Produk pre-order akan diantar paling lambat 2 x 24 jam setelah pemesanan dan dibayar dengan metode COD.
-            </Text>
+          <Image source={KategoriPre} style={styles.gambar}/>
+          <View style={{width:'70%'}}>
+              <Text style={{textAlign:'justify', fontSize:14, fontWeight:'bold',color: Ijo}}>Bagaimana mekanisme pre-order?</Text>
+              <Text style={{textAlign:'justify', fontSize: 12 }}>
+                Produk pre-order akan diantar paling lambat 2 x 24 jam setelah pemesanan dan dibayar dengan metode COD.
+              </Text>
+          </View>
         </View>
         <GarisBatas/>
         <Kategori/>
@@ -166,7 +169,13 @@ const styles = StyleSheet.create({
     backgroundColor: IjoMint,
     borderRadius: 10,
     margin: 10,
-    padding: 20,
+    paddingVertical: 10,
+    flexDirection: 'row',
+    alignItems:'center',
+  },
+  gambar:{
+    width: width * 0.25,
+    height: width * 0.25,
   },
   input:{
     backgroundColor: Putih,
@@ -194,7 +203,7 @@ const styles = StyleSheet.create({
     margin: 10
   },
   bawah:{
-    marginTop: height * 0.25,
+    marginTop: height * 0.2,
     width: '100%',
     height: 98,
   }
