@@ -3,7 +3,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import { Ijo, IjoTua, Kuning, Putih, IjoMint } from '../Utils/Warna';
 import ListProduk from '../Components/ListProduk';
 import { Bawah, Gerobak } from '../assets/Images/Index.js';
-import Keranjang from '../Components/Keranjang';
+import PanggilMitra from '../Components/PanggilMitra';
 import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "firebase/firestore";
 import { app } from '../../Firebase/config';
 import { useNavigation } from '@react-navigation/native';
@@ -22,7 +22,7 @@ const atasutama = () => {
           <View style={{width:'70%'}}>
               <Text style={{fontSize:14, fontWeight:'bold',color: Ijo}}>Cara belanjanya bagaimana?</Text>
               <Text style={{textAlign:'justify', fontSize: 12 }}>
-                Produk utama bisa didapatkan dengan metode panggil mitra dan temu langsung.
+                Produk utama bisa didapatkan dengan metode panggil mitra atau temu langsung.
               </Text>
           </View>
         </View>
@@ -148,7 +148,13 @@ const ProdukScreen = ({ route }) => {
                 }
             /> 
           <View style={{flexDirection:'column-reverse'}}>
-              <Keranjang/>
+              {/* { status_sekarang == "Tidak Aktif" ? (
+                  <PanggilMitra/>
+                  ):( 
+                  <PanggilMitra/>
+                  )
+              } */}
+                <PanggilMitra/>
           </View>
       </View>
       )
@@ -187,19 +193,6 @@ const styles = StyleSheet.create({
   judulisi:{
     fontSize: 16,
     color: IjoTua,
-  },
-  pesan:{
-    flexDirection: 'row',
-    backgroundColor: Ijo,
-    alignItems:'center',
-    justifyContent:'space-between',
-    padding: 10,
-    borderRadius: 10,
-    position: 'absolute',
-    width: '95%',
-    borderColor: IjoTua,
-    borderWidth: 3,
-    margin: 10
   },
   bawah:{
     marginTop: height * 0.2,

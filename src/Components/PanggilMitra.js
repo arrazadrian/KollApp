@@ -6,9 +6,8 @@ import { Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
 const PanggilMitra = () => {
   return (
     <View style={styles.panggil}>
-        <View>
-            <Text style={{fontWeight:'bold', color: Ijo}}>Menemukan produk yang kamu mau?</Text>
-            <Text style={{fontWeight:'bold', color: Ijo}}>Yuk panggil mitra!</Text>
+        <View style={{width: '70%'}}>
+            <Text style={{fontWeight:'bold', color: Ijo}}>Menemukan produk yang kamu mau? Yuk panggil mitra!</Text>
         </View>
         <Pressable style={{padding: 10, backgroundColor: Ijo, borderRadius: 10}} onPress={() => navigation.navigate('LokasiScreen')}>
             <Text style={{fontWeight:'bold', color:Putih}}>Panggil Mitra</Text>
@@ -28,7 +27,6 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         position: 'absolute',
-        width: '95%',
         borderColor: Ijo,
         borderWidth: 3,
         margin: 10

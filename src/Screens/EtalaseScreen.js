@@ -13,7 +13,7 @@ const EtalaseScreen = ({ route }) => {
   const navigation = useNavigation();
 
   const { 
-    namamitra, namatoko, foto_akun, tempat_mangkal, mangkal, id_mitra, waktu_buka, waktu_tutup,
+    namalengkap, namatoko, foto_akun, tempat_mangkal, mangkal, id_mitra, waktu_buka, waktu_tutup, status_sekarang,
      } = route.params;
 
   const pindahUtama = () => {
@@ -65,6 +65,7 @@ const EtalaseScreen = ({ route }) => {
               </View>
               <View>
                   <Text style={{color: Putih, fontSize:20, fontWeight: 'bold'}}>{namatoko}</Text>
+                  <Text style={{color: Putih, fontSize:14}}>Dikelola oleh {namalengkap}</Text>
                   <Text style={{color: Putih, fontSize:12}}>Waktu Operasional: {waktu_buka} - {waktu_tutup}</Text>
               </View>
           </View>
@@ -82,7 +83,11 @@ const EtalaseScreen = ({ route }) => {
                     <Text style={styles.tulisanproduk}>Produk Pre-Order</Text>
               </TouchableOpacity>
           </View>
-          { mangkal ? (
+          { status_sekarang == "Tidak Aktif" ?(
+              <View style={{ borderColor:Ijo, borderWidth: 0.5, borderRadius: 10, padding: 10, width:'100%', alignSelf:'center', alignItems:'center'}}>
+                  <Text style={{color: Ijo, fontStyle:'italic', fontSize: 16, textAlign:'center'}}>Maaf, mitra sedang tidak berjualan namun kamu tetap bisa pre-order</Text>
+              </View> 
+          ): mangkal ? (
               <View style={{ borderColor:Ijo, borderWidth: 0.5, borderRadius: 10, padding: 10, width:'100%', alignSelf:'center', alignItems:'center'}}>
                   <Text style={{color: Ijo, fontStyle:'italic', fontSize: 16, textAlign:'center'}}>Maaf, mitra yang mangkal tidak bisa dipanggil</Text>
               </View> 

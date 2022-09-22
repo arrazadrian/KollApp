@@ -10,7 +10,7 @@ const ListMitra = ({ item }) => {
 
   const navigation = useNavigation();
 
-  const pindahDetail = () => {
+  const pindahEtalase = () => {
     navigation.navigate('EtalaseScreen', { 
       id_mitra: item.id,
       namatoko: item.namatoko,
@@ -20,17 +20,23 @@ const ListMitra = ({ item }) => {
       mangkal: item.mangkal,
       waktu_buka: item.waktu_buka,
       waktu_tutup: item.waktu_tutup,
+      status_sekarang: item.status_sekarang,
     })
   }
 
   return (
-    <Pressable style={styles.card} onPress={pindahDetail}>
+    <Pressable style={styles.card} onPress={pindahEtalase}>
       <Image source={{uri: item.foto_akun}} style={styles.foto}/>
       <View style={styles.deskripsi}>
         <View >
             <Text style={{fontSize: 20, fontWeight: 'bold', color:IjoTua}}>{item.namatoko}</Text>
             <Text style={{fontSize: 12}}>Operasional: {item.waktu_buka} - {item.waktu_tutup} WIB</Text>
-            { item.mangkal ? 
+            { 
+            item.status_sekarang == "Tidak Aktif" ? (
+              <View style={styles.tutup}>
+                <Text style={{fontSize: 12, color: 'red'}}>Sedang Tutup</Text> 
+              </View>
+            ): item.mangkal ? 
               (
                 <View style={styles.mangkal}>
                   <Text style={{fontSize: 12, fontWeight: 'bold', color: Putih}}>Lagi Mangkal</Text> 
@@ -86,5 +92,9 @@ const styles = StyleSheet.create({
       width: 100,
       padding: 5, 
       alignItems:'center',
-    }
+    },
+    tutup:{
+      marginTop: 5,
+      width: 100,
+    },
 })
