@@ -14,9 +14,10 @@ const EtalaseScreen = ({ route }) => {
   const navigation = useNavigation();
 
   const { geo } = useSelector(state => state.posisi);
+  const { namapelanggan } = useSelector(state => state.pelanggan);
 
   const { 
-    namalengkap, namatoko, foto_akun, geo_mangkal, alamat, mangkal, id_mitra, waktu_buka, waktu_tutup, status_sekarang,
+    namalengkap_mitra, namatoko, foto_akun, geo_mangkal, alamat, mangkal, id_mitra, waktu_buka, waktu_tutup, status_sekarang,
      } = route.params;
 
   const pindahUtama = () => {
@@ -38,42 +39,54 @@ const EtalaseScreen = ({ route }) => {
       <View>
           <MapView style={styles.peta} 
             initialRegion={{
-              latitude: geo_mangkal.lat,
-              longitude: geo_mangkal.lng,
-              latitudeDelta: 0.005,
-              longitudeDelta: 0.005,
+              latitude: (geo_mangkal.lat + geo.lat)/2,
+              longitude: (geo_mangkal.lng + geo.lng)/2,
+              latitudeDelta: 0.02,
+              longitudeDelta: 0.02,
           }}>
           <Marker 
             coordinate={{
               latitude: geo_mangkal.lat,
               longitude: geo_mangkal.lng,
             }}
-              title={namatoko}
-              description="Lokasi mangkal"
-              pinColor={'tomato'}
+            title={namatoko}
+            description="Lokasi Mangkal"
+            pinColor={'tomato'}
+            identifier="mitra"
             />
           <Marker 
             coordinate={{
               latitude: geo.lat,
               longitude: geo.lng
             }}
-              title="Nama Pelanggan"
-              description="Lokasi Kamu"
-              pinColor={'tan'}
-            />
+            title={namapelanggan}
+            description="Lokasi Kamu"
+            pinColor={'tan'}
+            identifier="pelanggan"
+          />
           </MapView>
       </View>
       <View style={styles.kotak}>
           <View style={{flexDirection:'row', alignItems:'center', marginBottom: 10}}>
-              <View>
+              <View style={{width: '30%'}}>
                   <Image source={{uri: foto_akun}} style={styles.fototoko}/>
               </View>
-              <View>
-                  <Text style={{color: Putih, fontSize:20, fontWeight: 'bold'}}>{namatoko}</Text>
-                  <Text style={{color: Putih, fontSize:14}}>Dikelola oleh {namalengkap}</Text>
-                  <Text style={{color: Putih, fontSize:12}}>Waktu Operasional: {waktu_buka} - {waktu_tutup}</Text>
+              <View style={{width:'70%'}}>
+                  <Text style={{color: IjoMint, fontSize:22, fontWeight: 'bold'}}>{namatoko}</Text>
+                  <Text style={{color: Putih, fontSize:13, fontWeight:'bold'}} numberOfLines={2}>{alamat}</Text>
               </View>
           </View>
+          <GarisBatas/>
+            <View style={{flexDirection:'row'}}>
+              <View style={{flex: 1}}>
+                  <Text style={{color: Putih, fontSize:12, textAlign:'center'}}>Pengelola</Text>
+                  <Text style={{color: Putih, fontSize:14, fontWeight:'bold', textAlign:'center'}}>{namalengkap_mitra}</Text>
+              </View>
+              <View style={{flex: 1}}>
+                  <Text style={{color: Putih, fontSize:12, textAlign:'center'}}>Jam Buka</Text>
+                  <Text style={{color: Putih, fontSize:14, fontWeight:'bold', textAlign:'center'}}>{waktu_buka} - {waktu_tutup}</Text>
+              </View>
+            </View>
           <GarisBatas/>
           <Text style={{color: Putih, fontSize:18, fontWeight: 'bold', marginBottom: 10}}>Produk Mitra</Text>
           <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between', marginBottom: 10}}>
@@ -103,10 +116,6 @@ const EtalaseScreen = ({ route }) => {
             )
           }
       </View>
-      <View style={styles.lokmang}>
-            <Text style={{color: Ijo, fontSize:12, textAlign:'center'}}>Lokasi Mangkal</Text>
-            <Text style={{color: Ijo, fontSize:14, fontWeight: 'bold', textAlign:'center'}}>{alamat}</Text>
-      </View>
     </View>
   )
 }
@@ -126,14 +135,14 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: IjoTua,
     padding: 20,
-    height: height* 0.5,
+    height: height* 0.6,
     borderTopLeftRadius: 10,
     borderTopEndRadius: 10,
     elevation: 1,
   },
   fototoko:{
-    width: height * 0.10,
-    height: height * 0.10,
+    width: height * 0.12,
+    height: height * 0.12,
     borderRadius: 10,
     borderColor: Ijo,
     borderWidth: 2,
@@ -173,17 +182,6 @@ const styles = StyleSheet.create({
   },
   peta:{
     width: '100%',
-    height: height* 0.5,
-  },
-  lokmang:{
-    position: 'absolute',
-    alignSelf: 'center',
-    top: height* 0.02,
-    width: '80%',
-    backgroundColor: Putih,
-    padding: 10,
-    borderColor: Ijo,
-    borderWidth: 1,
-    borderRadius: 10,
+    height: height* 0.4,
   },
 })

@@ -14,7 +14,7 @@ const ListMitra = ({ item }) => {
     navigation.navigate('EtalaseScreen', { 
       id_mitra: item.id,
       namatoko: item.namatoko,
-      namalengkap: item.namalengkap,
+      namalengkap_mitra: item.namalengkap,
       foto_akun: item.foto_akun,
       geo_mangkal: item.geo,
       alamat: item.alamat,
@@ -31,7 +31,7 @@ const ListMitra = ({ item }) => {
       <View style={styles.deskripsi}>
         <View >
             <Text style={{fontSize: 20, fontWeight: 'bold', color:IjoTua}}>{item.namatoko}</Text>
-            <Text style={{fontSize: 12}}>Operasional: {item.waktu_buka} - {item.waktu_tutup} WIB</Text>
+            <Text style={{fontSize: 12}}>Jam Buka: {item.waktu_buka} - {item.waktu_tutup} WIB</Text>
             { 
             item.status_sekarang == "Tidak Aktif" ? (
               <View style={styles.tutup}>
@@ -63,8 +63,6 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         marginHorizontal: 15,
         borderRadius: 10,
-        borderWidth: 1,
-        borderColor: Ijo,
         padding: 10,
     },
     foto:{

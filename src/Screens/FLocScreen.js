@@ -137,7 +137,7 @@ const FLocScreen = () => {
     { alamat && 
       <View style={styles.bawah}>
           <View style={styles.kotak}>
-            <Text style={[styles.alamatjelas, {fontWeight: 'normal'}]}>Lokasi Pin</Text>
+            <Text style={[styles.alamatjelas, {fontWeight: 'normal'}]}>Lokasi Kamu</Text>
             <Text style={styles.alamatjelas}>{alamat}</Text>
             <Text style={[styles.alamatjelas, {fontWeight: 'normal', fontSize: 12, fontStyle:'italic'}]}>Catatan: Pastikan lokasi tersebut sudah benar</Text>
           </View> 

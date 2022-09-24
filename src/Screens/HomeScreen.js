@@ -10,9 +10,10 @@ import { updateUID } from '../features/pelangganSlice';
 
 const { height, width } = Dimensions.get('window')
 
-const HomeScreen = ({navigation, item}) => {
+const HomeScreen = ({navigation}) => {
 
-  const [namaakun, setNamaakun] = useState('Loading...')
+  const [namapelanggan, setNamapelanggan] = useState('Loading...')
+  const [kodeUID, setKodeUID] = useState('')
   const auth = getAuth();
   const db = getFirestore(app)
 
@@ -23,7 +24,8 @@ const HomeScreen = ({navigation, item}) => {
     async function getuserHome(){
       try{
         const unsubscribe = onSnapshot(doc(db, "pelanggan", auth.currentUser.uid ), (doc) => {
-        setNamaakun(doc.data().namalengkap);
+        setKodeUID(auth.currentUser.uid);
+        setNamapelanggan(doc.data().namalengkap);
         console.log('getuserHome jalan (Home Screen)')
           // Respond to data
           // ...
@@ -33,7 +35,7 @@ const HomeScreen = ({navigation, item}) => {
         Alert.alert('There is an error.', err.message)
       }
     }
-    //dispatch(updateUID({ }))
+    dispatch(updateUID({kodeUID,namapelanggan}))
     getuserHome();
   },[])
 
@@ -46,7 +48,7 @@ const HomeScreen = ({navigation, item}) => {
         </View>
         <View>
           <Text style={{color:Ijo, fontSize:18}}>Selamat datang!</Text>
-          <Text style={{color:Ijo, fontSize:20, fontWeight:'bold'}}>{namaakun}</Text>
+          <Text style={{color:Ijo, fontSize:20, fontWeight:'bold'}}>{namapelanggan}</Text>
         </View>
       </View>
       <ScrollView>
