@@ -9,7 +9,7 @@ export default function GarisBatas() {
 
 const styles = StyleSheet.create({
     garis:{
-        borderColor: 'rgba(0,0,0,0.05)',
+        borderColor: 'rgba(0,0,0,0.08)',
         borderWidth: 1,
         marginVertical: 5,
       },
