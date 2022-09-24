@@ -6,6 +6,7 @@ import { app } from '../../Firebase/config';
 import {  getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux'
+import { updateUID } from '../features/pelangganSlice';
 
 const { height, width } = Dimensions.get('window')
 
@@ -32,6 +33,7 @@ const HomeScreen = ({navigation, item}) => {
         Alert.alert('There is an error.', err.message)
       }
     }
+    //dispatch(updateUID({ }))
     getuserHome();
   },[])
 
