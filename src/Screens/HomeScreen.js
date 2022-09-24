@@ -5,7 +5,7 @@ import { Logo, PanggilMitra, TemuLangsung, Location } from '../assets/Images/Ind
 import { app } from '../../Firebase/config';
 import {  getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const { height, width } = Dimensions.get('window')
 
@@ -15,6 +15,7 @@ const HomeScreen = ({navigation, item}) => {
   const auth = getAuth();
   const db = getFirestore(app)
 
+  const { alamat } = useSelector(state => state.posisi);
   const dispatch = useDispatch();
 
   useEffect(() =>{
@@ -57,10 +58,22 @@ const HomeScreen = ({navigation, item}) => {
                           Ubah
                           </Text>
                     </View>
-                    <View style={{marginVertical:5, flexDirection:'row', alignItems:'center'}}>
-                      <Image source={Location} style={styles.location} />
-                      <Text style={styles.deskripsi}>Jl. Skripsi Cepat Lulus No.1</Text>
-                    </View>
+                    {alamat ? (
+                      <Pressable style={{marginVertical:5, flexDirection:'row', alignItems:'center', width: width * 0.8}}
+                      onPress={() => navigation.navigate('FLocScreen')}
+                      >
+                        <Image source={Location} style={styles.location} />
+                        <Text style={styles.deskripsi} numberOfLines={2}>{alamat}</Text>
+                      </Pressable>
+                    ):(
+                      <Pressable style={{marginVertical:5, flexDirection:'row', alignItems:'center'}}
+                      onPress={() => navigation.navigate('FLocScreen')}
+                      >
+                        <Image source={Location} style={styles.location} />
+                        <Text style={styles.deskripsi}>Tentukan lokasi kamu saat ini...</Text>
+                      </Pressable>
+                    )}
+                   
                   </View>
                   <View style={styles.bungkus}>
                     <Text style={styles.judul}>Siap Melayani!</Text>
@@ -119,7 +132,7 @@ const styles = StyleSheet.create({
     color: IjoTua,
   },
   deskripsi:{
-    fontSize: 18,
+    fontSize: 14,
     color: Ijo,
   },
   judulButton:{

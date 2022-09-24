@@ -1,21 +1,152 @@
-import { StyleSheet, Text, View, ScrollView, TextInput } from 'react-native'
-import React from 'react'
-import { IjoTua, Kuning, Putih } from '../Utils/Warna'
+import { StyleSheet, Text, View, Pressable, Dimensions } from 'react-native'
+import React, {useState} from 'react'
+import { IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
 import FindLoc from '../Components/FindLoc'
-import MapView from 'react-native-maps'
+import MapView, { Marker } from 'react-native-maps'
 import GarisBatas from '../Components/GarisBatas'
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { GOOGLE_MAPS_APIKEY } from "@env";
+import { updatePosisi } from '../features/posisiSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
+
+const { width, height } = Dimensions.get('window')
 
 const FLocScreen = () => {
+
+  const navigation = useNavigation();
+
+  const { geo, alamat } = useSelector(state => state.posisi);
+  const geofire = require('geofire-common');
+
+  const dispatch = useDispatch();
+
+  const [show, setShow] = useState(false)
+
+  const [pin,setPin] = useState ({
+    latitude: geo?.lat || -6.561355,
+    longitude: geo?.lng || 106.731703,
+    latitudeDelta: 0.005, 
+    longitudeDelta: 0.005,
+  });
+
+  const [region,setRegion] = useState ({
+    latitude: geo?.lat || -6.561355,
+    longitude: geo?.lng || 106.731703,
+    latitudeDelta: 0.005, 
+    longitudeDelta: 0.005,
+  });
+  
+  const awal = {
+    lat: -6.561355,
+    lng: 106.731703,
+  }
+
   return (
     <View style={styles.latar}>
-      <MapView style={styles.peta}/>
-      <View style={styles.pencarian}>
-        <Text style={styles.judul}>Lokasi Saya</Text>
+    <MapView style={styles.peta}
+      region={{
+        latitude: region.latitude,
+        longitude: region.longitude,
+        latitudeDelta: 0.005, 
+        longitudeDelta: 0.005,
+      }}
+    >
+      { (geo?.lat || show) &&
+        <Marker 
+          coordinate={{latitude: pin?.latitude, longitude: pin?.longitude}}
+          // draggable={true}
+          // onDragStart={(data, details=null) => {
+          //    console.log('mulai')
+          // }}
+          // onDragEnd={
+          //   e => console.log(e.nativeEvent)
+            // (data, details=null) => {
+            // console.log(data, details)
+            // setRegion({
+            //   latitude: coordinate.latitude,
+            //   longitude: coordinate.longitude,
+            //   latitudeDelta: 0.01, 
+            //   longitudeDelta: 0.01,
+            // })
+            // setPin({
+            //   latitude: coordinate.latitude,
+            //   longitude: coordinate.longitude,
+            //   latitudeDelta: 0.01, 
+            //   longitudeDelta: 0.01,
+            // })
+            // dispatch(updatePosisi({
+            //   geo: details.geometry.location,
+            //   alamat: data.description,
+            //   geohash: geofire.geohashForLocation([coordinate.latitude,coordinate.longitude])
+            // }))
+            //  }
+            //}
+            />
+      }
+    </MapView>
+
+    <View style={styles.pencarian}>
+        <Text style={styles.judul}>Lokasi kamu dimana?</Text>
         <GarisBatas/>
-        <TextInput 
-        placeholder='Cari Lokasi...'/>
-      </View>
+        <GooglePlacesAutocomplete
+          placeholder='Cari lokasi kamu...'
+          fetchDetails={true}
+          GooglePlacesSearchQuery={{
+            rankby: "distance"
+          }}
+          styles={{
+            container: { flex: 0, width:"100%", zIndex: 1 },
+            textInput:{fontSize: 16},
+            listView: {backgroundColor:'white'}
+          }}
+          query={{
+            key: GOOGLE_MAPS_APIKEY,
+            language: 'id',
+            components: "country:id",
+            radius: 25 * 1000,
+            location: `${awal.lat},${awal.lng}`
+          }}
+          enablePoweredByContainer={false}
+          minLength={5}
+          nearbyPlacesAPI="GooglePlacesSearch"
+          debounce={500}
+          onPress={(data, details=null) => {
+            // console.log(data, details)
+            setShow(true)
+            setRegion({
+              latitude: details.geometry.location.lat,
+              longitude: details.geometry.location.lng,
+              latitudeDelta: 0.01, 
+              longitudeDelta: 0.01,
+            })
+            setPin({
+              latitude: details.geometry.location.lat,
+              longitude: details.geometry.location.lng,
+              latitudeDelta: 0.01, 
+              longitudeDelta: 0.01,
+            })
+            dispatch(updatePosisi({
+              geo: details.geometry.location,
+              alamat: data.description,
+              geohash: geofire.geohashForLocation([details.geometry.location.lat,details.geometry.location.lng])
+            }))
+          }}
+        />
     </View>
+    { alamat && 
+      <View style={styles.bawah}>
+          <View style={styles.kotak}>
+            <Text style={[styles.alamatjelas, {fontWeight: 'normal'}]}>Lokasi Pin</Text>
+            <Text style={styles.alamatjelas}>{alamat}</Text>
+            <Text style={[styles.alamatjelas, {fontWeight: 'normal', fontSize: 12, fontStyle:'italic'}]}>Catatan: Pastikan lokasi tersebut sudah benar</Text>
+          </View> 
+          <Pressable style={styles.komfirmasi} onPress={() => navigation.goBack()}>
+            <Text style={{fontSize: 18, fontWeight:'bold', color: Putih, textAlign:'center'}}>Kembali</Text>
+          </Pressable>
+      </View>
+    }
+  </View>
   )
 }
 
@@ -39,9 +170,36 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: IjoTua,
+    paddingLeft: 10,
   },
   peta:{
     width: '100%',
     height: '100%',
+  },
+  alamatjelas:{
+    color: IjoTua,
+    fontSize: 14,
+    fontWeight:'bold',
+    textAlign: 'center',
+  },
+  kotak:{
+    padding: 10,
+    backgroundColor: IjoMint,
+    marginBottom: 20,
+    borderRadius: 10,
+    width: width * 0.9,
+  },
+  komfirmasi:{
+    backgroundColor: IjoTua,
+    paddingHorizontal: 40,
+    paddingVertical: 10,
+    borderRadius: 20,
+  },
+  bawah:{
+    position: 'absolute',
+    bottom: 50,
+    alignItems:'center',
+    justifyContent:'center',
+    alignSelf:'center',
   },
 })
