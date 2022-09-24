@@ -5,6 +5,7 @@ import { Gerobak, KategoriPre } from '../assets/Images/Index.js'
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import GarisBatas from '../Components/GarisBatas';
+import { useSelector } from 'react-redux';
 
 const { height, width } = Dimensions.get('window')
 
@@ -12,8 +13,10 @@ const EtalaseScreen = ({ route }) => {
 
   const navigation = useNavigation();
 
+  const { geo } = useSelector(state => state.posisi);
+
   const { 
-    namalengkap, namatoko, foto_akun, tempat_mangkal, mangkal, id_mitra, waktu_buka, waktu_tutup, status_sekarang,
+    namalengkap, namatoko, foto_akun, geo_mangkal, alamat, mangkal, id_mitra, waktu_buka, waktu_tutup, status_sekarang,
      } = route.params;
 
   const pindahUtama = () => {
@@ -35,15 +38,15 @@ const EtalaseScreen = ({ route }) => {
       <View>
           <MapView style={styles.peta} 
             initialRegion={{
-              latitude: tempat_mangkal.latitude,
-              longitude: tempat_mangkal.longitude,
+              latitude: geo_mangkal.lat,
+              longitude: geo_mangkal.lng,
               latitudeDelta: 0.005,
               longitudeDelta: 0.005,
           }}>
           <Marker 
             coordinate={{
-              latitude: tempat_mangkal.latitude,
-              longitude: tempat_mangkal.longitude,
+              latitude: geo_mangkal.lat,
+              longitude: geo_mangkal.lng,
             }}
               title={namatoko}
               description="Lokasi mangkal"
@@ -51,8 +54,8 @@ const EtalaseScreen = ({ route }) => {
             />
           <Marker 
             coordinate={{
-              latitude: -6.179503,
-              longitude: 106.864818
+              latitude: geo.lat,
+              longitude: geo.lng
             }}
               title="Nama Pelanggan"
               description="Lokasi Kamu"
@@ -102,7 +105,7 @@ const EtalaseScreen = ({ route }) => {
       </View>
       <View style={styles.lokmang}>
             <Text style={{color: Ijo, fontSize:12, textAlign:'center'}}>Lokasi Mangkal</Text>
-            <Text style={{color: Ijo, fontSize:14, fontWeight: 'bold', textAlign:'center'}}>Jl. Cepat Lulus</Text>
+            <Text style={{color: Ijo, fontSize:14, fontWeight: 'bold', textAlign:'center'}}>{alamat}</Text>
       </View>
     </View>
   )

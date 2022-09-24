@@ -2,8 +2,9 @@ import { Pressable, StyleSheet, Text, View, ActivityIndicator, FlatList } from '
 import React, { useEffect, useRef, useState } from 'react'
 import ListMitra from '../Components/ListMitra'
 import { Ijo, Kuning, Hitam, Putih, IjoTua } from '../Utils/Warna'
-import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "firebase/firestore";
+import { getFirestore, collection, query, where, getDocs, doc, orderBy, startAt, endAt } from "firebase/firestore";
 import { app } from '../../Firebase/config';
+import { useSelector } from 'react-redux';
 
 
 const SekitarScreen = ({ navigation }) => {
@@ -12,47 +13,51 @@ const SekitarScreen = ({ navigation }) => {
   const[loading, setLoading] = useState(true);
   const componentMounted = useRef(true);
 
+  const { geo, alamat, geohash } = useSelector(state => state.posisi);
+  const geofire = require('geofire-common');
+
   useEffect(()=>{
     const fetchSekitar = async() => {
       try{
         const list = []; 
-        const db = getFirestore(app);
-        const colRef = collection(db, "mitra")
+        const lokasi_pelanggan = [geo.lat, geo.lng];
+        const radiusInM = 1 * 1000;
 
-        const q = query(colRef, where("status_sekarang", "==", "Tidak Aktif"));
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          const { 
-            email, foto_akun, id_mitra, namalengkap, namatoko, phone, status_sekarang, tempat_mangkal, mangkal, waktu_buka, waktu_tutup,
-          } = doc.data();
+        const db = getFirestore(app);
+        const colRef = collection(db, "mitra");
+
+        const bounds = geofire.geohashQueryBounds(lokasi_pelanggan, radiusInM);
+        for (const b of bounds) {
+          const q = query(
+            collection(db, "mitra"),
+            orderBy("geohash"),
+            startAt(b[0]),
+            endAt(b[1])
+          );
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach((doc) => {
+          const { alamat, email, foto_akun, geo, geohash, id_mitra, mangkal, namalengkap,
+                   namatoko, phone, status_sekarang, waktu_buka, waktu_tutup } = doc.data();
           list.push({
             id: doc.id,
-            id_mitra,
-            email,
-            foto_akun,
-            namalengkap,
-            namatoko,
-            phone,
-            status_sekarang,
-            tempat_mangkal,
-            mangkal,
-            waktu_buka,
-            waktu_tutup,
+            alamat, email, foto_akun, geo, geohash,
+            id_mitra, mangkal, namalengkap, namatoko,
+            phone, status_sekarang, waktu_buka, waktu_tutup,
+            });
           });
-        });
+        };
 
-        if (componentMounted.current){ // (5) is component still mounted?
-          setSekitar(list); // (1) write data to state
-          setLoading(false); // (2) write some value to state
-        }
-        return () => { // This code runs when component is unmounted
-            componentMounted.current = false; // (4) set it to false when we leave the page
-        }
+          if (componentMounted.current){ // (5) is component still mounted?
+            setSekitar(list); // (1) write data to state
+            setLoading(false); // (2) write some value to state
+          }
+          return () => { // This code runs when component is unmounted
+              componentMounted.current = false; // (4) set it to false when we leave the page
+          }
 
-      } catch(err){
+        } catch(err){
         console.log(err);
-      }
+        }
     }
     fetchSekitar();
   },[])

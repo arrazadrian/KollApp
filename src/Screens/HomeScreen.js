@@ -70,7 +70,7 @@ const HomeScreen = ({navigation, item}) => {
                       onPress={() => navigation.navigate('FLocScreen')}
                       >
                         <Image source={Location} style={styles.location} />
-                        <Text style={styles.deskripsi}>Tentukan lokasi kamu saat ini...</Text>
+                        <Text style={[styles.deskripsi,{fontSize: 18}]}>Tentukan lokasi kamu saat ini...</Text>
                       </Pressable>
                     )}
                    
