@@ -80,7 +80,7 @@ const SekitarScreen = ({ navigation }) => {
           ListEmptyComponent=
           {
             <View style={{flex: 1, alignItems:'center', justifyContent:'center'}}> 
-              <Text>Saat ini tidak ada mitra aktif di sekitar kamu</Text>
+              <Text>Maaf, layanan koll belum ada di daerah kamu</Text>
             </View> 
           }
       />

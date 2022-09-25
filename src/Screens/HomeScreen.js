@@ -83,18 +83,34 @@ const HomeScreen = ({navigation}) => {
                     <Text style={styles.judul}>Siap Melayani!</Text>
                     <Text style={styles.deskripsi}>Yuk pilih kebutuhanmu</Text>
                   </View>
-                  <Pressable onPress={() => navigation.navigate('SekitarScreen')}>
-                      <View style={styles.homeButton}>
-                        <View>
-                            <Text style={styles.judulButton}>Panggil Mitra</Text>
-                            <Text style={styles.deskripsiButton}>Mitra akan mendatangimu</Text>
+
+                  {!alamat ? (
+                    <Pressable onPress={() => navigation.navigate('SekitarScreen')}
+                      disabled={!alamat}
+                    >
+                        <View style={[styles.homeButton, {opacity:0.6}]}>
+                          <View style={{flex: 2}}>
+                              <Text style={styles.judulButton}>Panggil Mitra</Text>
+                              <Text style={styles.deskripsiButton}>Tulis dulu yuk lokasi mu</Text>
+                          </View>
+                          <Image source={PanggilMitra} style={styles.imageButton} />
                         </View>
-                        <Image source={PanggilMitra} style={styles.imageButton} />
-                      </View>
-                  </Pressable>
+                    </Pressable>
+                  ):(
+                    <Pressable onPress={() => navigation.navigate('SekitarScreen')}
+                    >
+                        <View style={styles.homeButton}>
+                          <View style={{flex: 2}}>
+                              <Text style={styles.judulButton}>Panggil Mitra</Text>
+                              <Text style={styles.deskripsiButton}>Mitra akan mendatangimu</Text>
+                          </View>
+                          <Image source={PanggilMitra} style={styles.imageButton} />
+                        </View>
+                    </Pressable>
+                  )}
                   <Pressable onPress={() => navigation.navigate('LangsungScreen')}>
                       <View style={styles.homeButton}>
-                        <View>
+                        <View style={{flex: 2}}>
                           <Text style={styles.judulButton}>Temu Langsung</Text>
                           <Text style={styles.deskripsiButton}>Ketemu langsung belanja</Text>
                         </View>
@@ -136,7 +152,7 @@ const styles = StyleSheet.create({
     color: IjoTua,
   },
   deskripsi:{
-    fontSize: 14,
+    fontSize: 16,
     color: Ijo,
   },
   judulButton:{
@@ -167,5 +183,6 @@ const styles = StyleSheet.create({
   imageButton:{
     width: width * 0.27,
     height: width * 0.27,
+    flex: 1,
   }
 })
