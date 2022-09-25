@@ -65,7 +65,7 @@ const PreorderScreen = ({ route }) => {
   const { pilkategori } = useSelector(state => state.kategori);
 
   const { 
-    id_mitra, status_sekarang
+    id_mitra, status_sekarang, namalengkap_mitra, namatoko,
      } = route.params;
 
   useEffect(()=>{
@@ -160,7 +160,7 @@ const PreorderScreen = ({ route }) => {
            (
               <MitraTutup/>
               ):( 
-              <PanggilMitra/>
+              <Keranjang id_mitra = {id_mitra} namalengkap_mitra={namalengkap_mitra} namatoko={namatoko}/>
             )
           }  
       </View>
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     margin: 10
   },
   bawah:{
-    marginTop: height * 0.2,
+    marginTop: height * 0.1,
     width: '100%',
     height: 98,
   }

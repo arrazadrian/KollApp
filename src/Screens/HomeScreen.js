@@ -20,7 +20,7 @@ const HomeScreen = ({navigation}) => {
   const { alamat } = useSelector(state => state.posisi);
   const dispatch = useDispatch();
 
-  useEffect(() =>{
+  useEffect(() =>{ 
     async function getuserHome(){
       try{
         const unsubscribe = onSnapshot(doc(db, "pelanggan", auth.currentUser.uid ), (doc) => {

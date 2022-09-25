@@ -6,17 +6,20 @@ import MapView, { Marker } from 'react-native-maps';
 import GarisBatas from '../Components/GarisBatas';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { pilihProdukKeranjang, totalHarga } from '../features/keranjangSlice';
+import { kosongkanKeranjang, pilihProdukKeranjang, totalHarga } from '../features/keranjangSlice';
+import { buatTransaksiPO } from '../../API/firebasemethod';
 
 const { height, width } = Dimensions.get('window')
 
-const CheckoutScreen = () => {
+const CheckoutScreen = ({ route }) => {
+
+  const { alamat, geo } = useSelector(state => state.posisi);
+  const { namapelanggan } = useSelector(state => state.pelanggan);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const items = useSelector(pilihProdukKeranjang)
-  const [kelompokProduk, setKelompokProduk] = useState([]);
-  
+  const [kelompokProduk, setKelompokProduk] = useState([]); 
   const [catatan, setCatatan] = useState("");
 
   useEffect(() => {
@@ -36,9 +39,39 @@ const CheckoutScreen = () => {
 
   }, [items]);
 
-  const subtotalhargaKeranjang = useSelector(totalHarga)
-  const hargalayanan =  1500
-  const hargatotalsemua = subtotalhargaKeranjang + hargalayanan
+  const { 
+    id_mitra, namalengkap_mitra, namatoko
+     } = route.params;
+
+  const subtotalhargaKeranjang = useSelector(totalHarga);
+  const hargalayanan =  1500;
+  const hargatotalsemua = subtotalhargaKeranjang + hargalayanan;
+
+  const handlePesanPO = () => {
+    let jumlah_kuantitas = items.length;
+      if (!alamat) {
+        Alert.alert('Alamat masih kosong','Isi alamat dengan benar.');
+      } else if (!items) {
+        Alert.alert('Tidak ada belnjaan','Isi email dengan benar.');
+      } else {
+        buatTransaksiPO(
+          alamat,
+          geo,
+          catatan,
+          id_mitra, 
+          namalengkap_mitra,
+          namatoko,
+          namapelanggan,
+          kelompokProduk,
+          subtotalhargaKeranjang,
+          hargalayanan,
+          hargatotalsemua,
+          jumlah_kuantitas,
+        );
+        dispatch(kosongkanKeranjang());
+        navigation.navigate("HomeScreen");
+      };
+  };
 
   return (
     <View style={styles.latar}>
@@ -53,9 +86,28 @@ const CheckoutScreen = () => {
             </View>
             <View style={{flexDirection:'row', alignItems:'center', marginBottom:10}}>
               <Image source={Location} style={styles.locationlogo} />
-              <Text style={styles.deskripsi}>Jl. Skripsi Cepat Lulus No.1</Text>
+              <Text style={styles.deskripsi} numberOfLines={2}>{alamat}</Text>
             </View>
-            <MapView style={styles.peta}/>
+            <MapView style={styles.peta}
+              initialRegion={{
+                latitude: geo.lat,
+                longitude: geo.lng,
+                latitudeDelta: 0.005,
+                longitudeDelta: 0.005,
+              }}
+            >
+            <Marker 
+              coordinate={{
+                latitude: geo.lat,
+                longitude: geo.lng,
+              }}
+              title={namapelanggan}
+              description="Lokasi Kamu"
+              pinColor={'tomato'}
+              identifier="pelanggan"
+            />
+
+            </MapView>
             <TextInput 
                   style={styles.input} 
                   placeholder='Beri catatan lokasi...'
@@ -97,14 +149,14 @@ const CheckoutScreen = () => {
         <View style={styles.bagian}>
             <Text style={styles.judul}>Rangkuman Transaksi</Text>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Text style={styles.deskripsi}>Subtotal</Text>
+                <Text>Subtotal</Text>
                 <Text style={styles.judul}>
                     <Text>Rp</Text>
                     <Text>{subtotalhargaKeranjang}</Text>
                 </Text>
             </View>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Text style={styles.deskripsi}>Biaya Layanan</Text>
+                <Text>Biaya Layanan</Text>
                 <Text style={styles.judul}>
                     <Text>Rp</Text>
                     <Text>{hargalayanan}</Text>
@@ -121,7 +173,9 @@ const CheckoutScreen = () => {
                   <Text>{hargatotalsemua}</Text>
               </Text>
           </View>
-          <Pressable style={styles.pesan}>
+          <Pressable style={styles.pesan} 
+            onPress={handlePesanPO}
+          >
               <Text style={{color: Putih, fontSize:18, fontWeight:'bold', textAlign:'center'}}>Pesan</Text>
           </Pressable>
       </View>
@@ -137,7 +191,8 @@ const styles = StyleSheet.create({
         backgroundColor: Kuning,
     },
     bagian:{
-        padding: 10,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
     },  
     peta:{
         width: '100%',
@@ -152,8 +207,9 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     deskripsi:{
-        fontSize: 16,
+        fontSize: 14,
         color: IjoTua,
+        width: width * 0.8,
     },
     card:{
       backgroundColor: Putih,

@@ -195,3 +195,36 @@ async function uploadgambarakun(uri) {
     Alert.alert('Ada error pada foto akun!', err.message);
   }
 };
+
+// API 7: buatTransaksiPO
+// MEMBUAT TRANSAKSI PO. 
+
+export const buatTransaksiPO = async (alamat, geo, catatan, id_mitra, namalengkap_mitra, namatoko, namapelanggan, kelompokProduk, subtotalhargaKeranjang, hargalayanan, hargatotalsemua, jumlah_kuantitas) => {  
+  const auth = getAuth();
+  const db = getFirestore(app);
+  try{
+    addDoc(collection(db, "transaksi"), {
+      alamat_pelanggan: alamat,
+      geo_alamat: geo,
+      catatan: catatan,
+      id_mitra: id_mitra, 
+      namamitra: namalengkap_mitra,
+      namatoko: namatoko,
+      namapelanggan: namapelanggan,
+      id_pelanggan: auth.currentUser.uid,
+      waktu_dipesan: serverTimestamp(),
+      jenislayanan: 'Pre-Order',
+      status_transaksi: 'Dalam Proses',
+      produk: kelompokProduk,
+      hargasubtotal: subtotalhargaKeranjang,
+      hargalayanan: hargalayanan,
+      hargatotalsemua: hargatotalsemua,
+      jumlah_kuantitas: jumlah_kuantitas,
+    });
+    Alert.alert(
+      'Pre-Order Berhasil Dibuat','Produk akan diantar paling lambat 2x24 jam.'
+    );
+  } catch(err){
+    console.log('Ada Error Membuat Tranksaksi.', error);
+  };
+};

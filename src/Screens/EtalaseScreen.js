@@ -24,6 +24,8 @@ const EtalaseScreen = ({ route }) => {
     navigation.navigate('ProdukScreen', { 
       id_mitra: id_mitra,
       status_sekarang: status_sekarang,
+      namalengkap_mitra: namalengkap_mitra, 
+      namatoko: namatoko,
     })
   }
 
@@ -31,6 +33,8 @@ const EtalaseScreen = ({ route }) => {
     navigation.navigate('PreorderScreen', { 
       id_mitra: id_mitra,
       status_sekarang: status_sekarang,
+      namalengkap_mitra: namalengkap_mitra, 
+      namatoko: namatoko,
     })
   }
 
