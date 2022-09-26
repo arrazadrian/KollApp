@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, Pressable, Dimensions } from 'react-native'
 import React from 'react'
 import { Ijo, IjoMint, IjoTua, Putih } from '../Utils/Warna'
-import { DPkartu } from '../assets/Images/Index'
+import { DPkartu, Gerobak, KategoriPre, TemuLangsung } from '../assets/Images/Index'
 import { useNavigation } from '@react-navigation/native'
 
 const { width, height } = Dimensions.get('window')
@@ -14,7 +14,14 @@ const ProsesCard = ({ item }) => {
   return (
     
     <Pressable style={styles.card}>
-      <Image source={DPkartu} style={styles.foto} />
+    { item.jenislayanan == 'Temu Langsung' ? (
+      <Image source={TemuLangsung} style={styles.foto} />      
+      ): item.jenislayanan == 'Panggil Mitra' ? (
+        <Image source={Gerobak} style={styles.foto} />      
+      ) : (
+        <Image source={KategoriPre} style={styles.foto} />
+      )
+    }
       <View>
         <Text style={{fontSize:18, fontWeight:'bold', color:IjoTua}}>
             Sayur Aa Anri
