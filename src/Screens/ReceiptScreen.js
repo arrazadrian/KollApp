@@ -79,7 +79,7 @@ const ReceiptScreen = ({route}) => {
         <View>
             <View style={styles.bagian}>
                 <Text  style={styles.subjudul}>Alamat Tujuan</Text>
-                <View style={{flexDirection:'row', alignItems:'center'}}>
+                <View style={{flexDirection:'row', alignItems:'center', width:'90%'}}>
                   < Image source={Location} style={styles.location} />
                     <Text>{alamat_pelanggan}</Text>
                 </View>
