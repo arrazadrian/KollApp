@@ -12,7 +12,6 @@ const ProsesCard = ({ item }) => {
   const navigation = useNavigation();
 
   return (
-    
     <Pressable style={styles.card}>
     { item.jenislayanan == 'Temu Langsung' ? (
       <Image source={TemuLangsung} style={styles.foto} />      
@@ -24,28 +23,24 @@ const ProsesCard = ({ item }) => {
     }
       <View>
         <Text style={{fontSize:18, fontWeight:'bold', color:IjoTua}}>
-            Sayur Aa Anri
+            {item.namatoko}
         </Text>
 
-      {/* { item.jenislayanan == 'Panggil Mitra' ? (
+      { item.jenislayanan == 'Panggil Mitra' ? (
           <Text style={{fontSize:16, fontWeight:'bold', color:Ijo}}>
               Sedang menuju lokasi kamu
           </Text>      
         ):(
           <View>
-            <Text style={{fontSize:16, fontWeight:'bold', color:Ijo}}>
-                Pre-Order kamu akan disiapkan disiapkan
+            <Text style={{fontSize:14, color:Ijo}}>
+                Pre-Order kamu sudah masuk
             </Text>  
-            <Text style={{fontSize:16, fontWeight:'bold', color:Ijo}}>
-                Tanggal sampai: 8 Februari 2022
+            <Text style={{fontSize:14, color:Ijo, fontWeight:'bold'}}>
+               Rp{item.hargatotalsemua} | {item.jumlah_kuantitas} produk
             </Text>  
           </View>
         )
-      } */}
-
-        <Text style={{fontSize:16, fontWeight:'bold', color:Ijo}}>
-            Sedang menuju lokasi kamu
-        </Text>
+      }
       </View>
     </Pressable>
   )

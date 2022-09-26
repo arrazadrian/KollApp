@@ -61,10 +61,6 @@ const RiwayatCard = ({ item }) => {
         <View style={{flexDirection:'row'}}>
           <Text>{moment(item.waktu_selesai.toDate()).calendar()}</Text>
         </View>
-        <View style={{flexDirection:'row'}}>
-          <Text style={{fontSize: 12}}>Layanan: </Text>
-          <Text style={{color:Ijo, fontSize: 12}}>{item.jenislayanan}</Text>
-        </View>
       </View>
     </Pressable>
   )

@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, Pressable, Dimensions, FlatList, Image, ScrollView } from 'react-native'
 import React, {useEffect, useState, useRef} from 'react'
-import { Ijo, IjoTua, Kuning, Putih,  } from '../Utils/Warna'
+import { Ijo, IjoMint, IjoTua, Kuning, Putih,  } from '../Utils/Warna'
 import { KollLong } from '../assets/Images/Index';
 import ListReceipt from '../Components/ListReceipt';
 import moment from 'moment';
 import localization from 'moment/locale/id';
+import GarisBatas from '../Components/GarisBatas';
 
 
 const { width, height } = Dimensions.get('window')
@@ -20,8 +21,6 @@ const ReceiptScreen = ({route}) => {
 
   return (
     <View style={styles.latar}>
-      <View style={styles.kertas}>
-      <View>
         <View style={{flexDirection:'row', alignItems:'flex-end', justifyContent:'center', marginBottom: 10}}>
           <View>
               <Image source={KollLong} style={styles.logo}/>
@@ -35,7 +34,7 @@ const ReceiptScreen = ({route}) => {
               </Text>
           </View>
         </View>
-        <View style={{marginBottom: 10}}>
+        <View style={styles.bagian}>
             <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
                 <Text style={styles.subjudul}>Jenis Layanan</Text>
                 <Text>{jenislayanan}</Text>
@@ -46,9 +45,9 @@ const ReceiptScreen = ({route}) => {
             </View>
         </View>
 
-        <View style={{borderBottomWidth:1, borderColor: Ijo}}/>
+        <GarisBatas/>
     
-        <View style={{ marginVertical: 10 }}>
+        <View style={styles.bagian}>
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                   <Text style={styles.subjudul}>Nama Mitra</Text>
                   <Text>{namamitra}</Text>
@@ -59,8 +58,8 @@ const ReceiptScreen = ({route}) => {
               </View>
         </View>
     
-        <View style={{borderBottomWidth:1, borderColor: Ijo, marginBottom:10}}/>
-        </View>
+      <GarisBatas/>
+      <View style={[styles.bagian, {paddingVertical: 0, marginVertical: 10, height: height* 0.45}]}>
         <Text  style={styles.subjudul}>Daftar Produk</Text>
         <ScrollView>
           {Object.entries(produk).map(([key, items]) => (
@@ -72,36 +71,30 @@ const ReceiptScreen = ({route}) => {
                     </Text>
                     <Text style={styles.harga}>
                         <Text>Rp</Text>
-                        <Text>{items[0]?.harga}</Text>
+                        <Text>{items[0]?.harga * items.length}</Text>
                     </Text>
                 </View>
               </View>
           ))}
         </ScrollView>
-        <View style={{borderBottomWidth:1, borderColor: Ijo, marginBottom: 10}}/>
-        <View>
-              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                  <Text style={styles.subjudul}>Sub Total</Text>
-                  <Text>{hargasubtotal}</Text>
-              </View>
-              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                  <Text style={styles.subjudul}>Biaya Layanan</Text>
-                  <Text>{hargalayanan}</Text>
-              </View>
-              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                  <Text style={styles.subjudul}>Total Harga</Text>
-                  <Text style={styles.subjudul}>{hargatotalsemua}</Text>
-              </View>
+      </View>
+        <View style={styles.bawah}>
+            <GarisBatas/>
+            <View style={styles.bagian}>
+                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                    <Text style={styles.subjudul}>Sub Total</Text>
+                    <Text>{hargasubtotal}</Text>
+                </View>
+                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                    <Text style={styles.subjudul}>Biaya Layanan</Text>
+                    <Text>{hargalayanan}</Text>
+                </View>
+                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                    <Text style={styles.subjudul}>Total Harga</Text>
+                    <Text style={styles.subjudul}>{hargatotalsemua}</Text>
+                </View>
+            </View>
         </View>
-      </View>
-      <View style={{flex: 1, justifyContent:'center'}}>
-        <Text style={{color: Putih, textAlign: 'center', fontSize: 16, fontStyle:'italic'}}>
-          Terima Kasih sudah berbelanja.
-        </Text>
-        <Text style={{color: Putih, textAlign: 'center', fontSize: 16, fontStyle:'italic'}}>
-          Butuh sayur? Koll aja!
-        </Text>
-      </View>
     </View>
   )
 }
@@ -110,17 +103,9 @@ export default ReceiptScreen
 
 const styles = StyleSheet.create({
   latar: {
-    backgroundColor: IjoTua,
     flex: 1,
-    padding: 20,
-  },
-  kertas:{
-    flex: 7,
     backgroundColor: Kuning,
-    borderRadius: 10,
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-    paddingTop: 10,
+    paddingTop: 20,
   },
   logo:{
      width: width*0.29,
@@ -135,10 +120,21 @@ const styles = StyleSheet.create({
   deskripsi:{
     fontSize: 16,
     color: IjoTua,
-},
+  },
   harga:{
     fontSize: 16,
     color: IjoTua,
     fontWeight: 'bold',
-},
+  },
+  bawah:{
+    position:'absolute',
+    width: width,
+    bottom: 0,
+    backgroundColor:IjoMint,
+    paddingBottom: 10,
+  },
+  bagian:{
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
 }) 
