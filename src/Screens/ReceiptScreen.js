@@ -17,7 +17,7 @@ const ReceiptScreen = ({route}) => {
   const { 
     hargalayanan, hargasubtotal, hargatotalsemua, id_mitra, id_pelanggan, id_transaksi,  jenislayanan,
     jumlah_kuantitas, namamitra, namatoko, namapelanggan, produk, waktu_selesai, waktu_dipesan, alamat_pelanggan,
-    status_transaksi,
+    status_transaksi, catatan,
      } = route.params;
 
   return (
@@ -78,11 +78,22 @@ const ReceiptScreen = ({route}) => {
         { alamat_pelanggan &&
         <View>
             <View style={styles.bagian}>
-              <Text  style={styles.subjudul}>Alamat Tujuan</Text>
-              <View style={{flexDirection:'row', alignItems:'center'}}>
-                < Image source={Location} style={styles.location} />
-                  <Text>{alamat_pelanggan}</Text>
-              </View>
+                <Text  style={styles.subjudul}>Alamat Tujuan</Text>
+                <View style={{flexDirection:'row', alignItems:'center'}}>
+                  < Image source={Location} style={styles.location} />
+                    <Text>{alamat_pelanggan}</Text>
+                </View>
+                {catatan ?(
+                  <View style={styles.catatan}>
+                    <Text style={{fontWeight:'bold'}}>Catatan lokasi</Text>
+                    <Text style={{fontStyle:'italic'}}>{catatan}</Text>
+                  </View>
+                ):(
+                  <View style={styles.catatan}>
+                    <Text style={{fontStyle:'italic'}}>Tanpa catatan lokasi...</Text>
+                  </View>
+                ) 
+                }
             </View>
             <GarisBatas/>
         </View>
@@ -154,6 +165,14 @@ const styles = StyleSheet.create({
     width: width * 0.05,
     height: width * 0.05,
     marginRight:5,
+  },
+  catatan:{
+      borderColor: Ijo,
+      borderWidth:1,
+      borderRadius: 10,
+      padding: 10,
+      width: '100%',
+      marginTop: 10,
   },
   harga:{
     fontSize: 16,

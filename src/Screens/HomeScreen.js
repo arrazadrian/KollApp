@@ -37,7 +37,7 @@ const HomeScreen = ({navigation}) => {
     }
     dispatch(updateUID({kodeUID,namapelanggan}))
     getuserHome();
-  },[])
+  },[namapelanggan])
 
 
   return (
