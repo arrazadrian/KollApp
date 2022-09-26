@@ -11,8 +11,31 @@ const ProsesCard = ({ item }) => {
 
   const navigation = useNavigation();
 
+  const pindahDetail = () => {
+    navigation.navigate('ReceiptScreen', { 
+      alamat_pelanggan: item?.alamat_pelanggan,
+      hargalayanan: item.hargalayanan,
+      hargasubtotal: item.hargasubtotal,
+      hargatotalsemua: item.hargatotalsemua,
+      id_mitra: item.id_mitra,
+      id_pelanngan: item.id_mitra,
+      jenislayanan: item.jenislayanan,
+      jumlah_kuantitas: item.jumlah_kuantitas,
+      namamitra: item.namamitra,
+      namatoko: item.namatoko,
+      namapelanggan: item.namapelanggan,
+      produk: item.produk,
+      status_transaksi: item.status_transaksi,
+      waktu_selesai: item?.waktu_selesai,
+      waktu_dipesan: item?.waktu_dipesan,
+      id_transaksi: item.id,
+    })
+  }
+
   return (
-    <Pressable style={styles.card}>
+    <Pressable style={styles.card}
+    onPress={pindahDetail}
+    >
     { item.jenislayanan == 'Temu Langsung' ? (
       <Image source={TemuLangsung} style={styles.foto} />      
       ): item.jenislayanan == 'Panggil Mitra' ? (
