@@ -56,7 +56,7 @@ const ProsesCard = ({ item }) => {
         ):(
           <View>
             <Text style={{fontSize:14, color:Ijo}}>
-                Pre-Order kamu sudah masuk
+                Pre-Order kamu dalam proses
             </Text>  
             <Text style={{fontSize:14, color:Ijo, fontWeight:'bold'}}>
                Rp{item.hargatotalsemua} | {item.jumlah_kuantitas} produk

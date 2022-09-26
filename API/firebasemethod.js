@@ -130,7 +130,7 @@ export async function updateakunDenganfoto(fotoakun, namaakun, phoneakun){
             phone: phoneakun,
           });
           Alert.alert(
-            'Data Akun Berhasil Diperbarui','Foto lama kamu juga sudah yang terbaru.'
+            'Data akun berhasil diperbarui','Foto lama kamu juga sudah yang terbaru.'
           );
         } catch (err) {
           Alert.alert('Ada error untuk memperbarui data akun dengan ganti foto!', err.message);
@@ -143,7 +143,7 @@ export async function updateakunDenganfoto(fotoakun, namaakun, phoneakun){
             phone: phoneakun,
           });
           Alert.alert(
-            'Data Akun Berhasil Diperbarui','Data akunmu sudah terbarui.'
+            'Data akun berhasil diperbarui','Data akunmu sudah terbarui.'
           );
         } catch (err) {
           Alert.alert('Ada error untuk memperbarui data akun foto terbaru!', err.message);
@@ -222,7 +222,7 @@ export const buatTransaksiPO = async (alamat, geo, catatan, id_mitra, namalengka
       jumlah_kuantitas: jumlah_kuantitas,
     });
     Alert.alert(
-      'Pre-Order Berhasil Dibuat','Produk akan diantar paling lambat 2x24 jam.'
+      'Pre-Order berhasil dibuat','Produk akan diantar paling lambat 2x24 jam.'
     );
   } catch(err){
     console.log('Ada Error Membuat Tranksaksi.', error);

@@ -24,7 +24,7 @@ const ReceiptScreen = ({route}) => {
     <View style={styles.latar}>
       <ScrollView style={{marginBottom: height* 0.15}}>
 
-        <View style={{flexDirection:'row', alignItems:'flex-end', justifyContent:'center', marginBottom: 10}}>
+        <View style={{flexDirection:'row', alignItems:'flex-end', justifyContent:'center', marginBottom: 10, paddingTop: 20}}>
           <View>
               <Image source={KollLong} style={styles.logo}/>
           </View>
@@ -74,16 +74,20 @@ const ReceiptScreen = ({route}) => {
         </View>
       
         <GarisBatas/>
-
-        <View style={styles.bagian}>
-          <Text  style={styles.subjudul}>Alamat Tujuan</Text>
-          <View style={{flexDirection:'row', alignItems:'center'}}>
-            < Image source={Location} style={styles.location} />
-              <Text>{alamat_pelanggan}</Text>
-          </View>
+              
+        { alamat_pelanggan &&
+        <View>
+            <View style={styles.bagian}>
+              <Text  style={styles.subjudul}>Alamat Tujuan</Text>
+              <View style={{flexDirection:'row', alignItems:'center'}}>
+                < Image source={Location} style={styles.location} />
+                  <Text>{alamat_pelanggan}</Text>
+              </View>
+            </View>
+            <GarisBatas/>
         </View>
+        }
 
-        <GarisBatas/>
 
         <View style={styles.bagian}>
           <Text  style={styles.subjudul}>Daftar Produk</Text>
@@ -130,7 +134,6 @@ const styles = StyleSheet.create({
   latar: {
     flex: 1,
     backgroundColor: Kuning,
-    paddingTop: 20,
     height: height,
   },
   logo:{
