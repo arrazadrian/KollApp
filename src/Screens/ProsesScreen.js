@@ -1,10 +1,13 @@
-import { StyleSheet, Text, View, FlatList, ActivityIndicator} from 'react-native'
+import { StyleSheet, Text, View, FlatList, ActivityIndicator, Image, Dimensions} from 'react-native'
 import React, { useState, useEffect, useRef } from 'react'
 import { Ijo, Kuning, Hitam, Putih, IjoTua } from '../Utils/Warna'
 import ProsesCard from '../Components/ProsesCard'
 import { getAuth } from "firebase/auth";
 import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "firebase/firestore";
 import { app } from '../../Firebase/config';
+import { Receipt } from '../assets/Images/Index';
+
+const { width, height } = Dimensions.get('window')
 
 
 const ProsesScreen = () => {
@@ -82,6 +85,7 @@ const ProsesScreen = () => {
     }
     fetchProses();
   },[])
+  //Tambah parameter "proses" untuk auto update
 
   return (
     <View style={styles.latar}>
@@ -98,6 +102,12 @@ const ProsesScreen = () => {
           keyExtractor={(item) => item.id}
           ListFooterComponent={<View style={{height:10}}></View>}
           ListHeaderComponent={<View style={{height:10}}></View>}
+          ListEmptyComponent={ 
+            <View style={{justifyContent:'center', alignItems:'center'}}>
+              <Image style={styles.kertas} source={Receipt}/>
+              <Text style={{textAlign:'center'}}>Tidak ada transaksi dalam proses</Text> 
+            </View>
+          }
       />
       )}
     </View>
@@ -108,7 +118,12 @@ export default ProsesScreen
 
 const styles = StyleSheet.create({
   latar:{
-    backgroundColor: Kuning,
-    flex: 1,
-  }
+      backgroundColor: Kuning,
+      flex: 1,
+  },
+  kertas:{
+    width: width * 0.3,
+    height: width * 0.3,
+    marginTop: height * 0.25,
+  },
 })

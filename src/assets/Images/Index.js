@@ -24,6 +24,7 @@ import Kategori08 from './Kategori08.png'
 import Kategori09 from './Kategori09.png'
 import KategoriPre from './KategoriPre.png'
 import Bag from './Bag.png'
+import Receipt from './Receipt.png'
 import IkanMujaer from './IkanMujaer.png'
 import meetup from './meetup.png'
 import Gerobak from './Gerobak.png'
@@ -39,4 +40,4 @@ export { Awan, Logo, Splash, LogoPutih, Header1,
         Kategori05, Kategori06, Kategori07, Kategori08,
         Kategori09, KategoriPre, IkanMujaer,
         meetup,Bag, Gerobak, Location, Bawah, LogoKoll,
-        LogoQR, Kosong }
+        LogoQR, Kosong, Receipt }
