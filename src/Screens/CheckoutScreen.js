@@ -14,7 +14,7 @@ const { height, width } = Dimensions.get('window')
 const CheckoutScreen = ({ route }) => {
 
   const { alamat, geo } = useSelector(state => state.posisi);
-  const { namapelanggan } = useSelector(state => state.pelanggan);
+  const { namapelanggan, phonepelanggan } = useSelector(state => state.pelanggan);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const CheckoutScreen = ({ route }) => {
   }, [items]);
 
   const { 
-    id_mitra, namalengkap_mitra, namatoko
+    id_mitra, namalengkap_mitra, namatoko, phonemitra,
      } = route.params;
 
   const subtotalhargaKeranjang = useSelector(totalHarga);
@@ -61,7 +61,9 @@ const CheckoutScreen = ({ route }) => {
           id_mitra, 
           namalengkap_mitra,
           namatoko,
+          phonemitra,
           namapelanggan,
+          phonepelanggan,
           kelompokProduk,
           subtotalhargaKeranjang,
           hargalayanan,

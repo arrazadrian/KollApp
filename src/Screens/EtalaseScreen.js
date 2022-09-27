@@ -17,7 +17,7 @@ const EtalaseScreen = ({ route }) => {
   const { namapelanggan } = useSelector(state => state.pelanggan);
 
   const { 
-    namalengkap_mitra, namatoko, foto_akun, geo_mangkal, alamat, mangkal, id_mitra, waktu_buka, waktu_tutup, status_sekarang,
+    namalengkap_mitra, namatoko, foto_akun, geo_mangkal, alamat, mangkal, id_mitra, waktu_buka, waktu_tutup, status_sekarang, phone,
      } = route.params;
 
   const pindahUtama = () => {
@@ -26,6 +26,7 @@ const EtalaseScreen = ({ route }) => {
       status_sekarang: status_sekarang,
       namalengkap_mitra: namalengkap_mitra, 
       namatoko: namatoko,
+      phone: phone,
     })
   }
 
@@ -35,6 +36,7 @@ const EtalaseScreen = ({ route }) => {
       status_sekarang: status_sekarang,
       namalengkap_mitra: namalengkap_mitra, 
       namatoko: namatoko,
+      phone: phone,
     })
   }
 

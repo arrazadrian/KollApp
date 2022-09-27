@@ -199,7 +199,7 @@ async function uploadgambarakun(uri) {
 // API 7: buatTransaksiPO
 // MEMBUAT TRANSAKSI PO. 
 
-export const buatTransaksiPO = async (alamat, geo, catatan, id_mitra, namalengkap_mitra, namatoko, namapelanggan, kelompokProduk, subtotalhargaKeranjang, hargalayanan, hargatotalsemua, jumlah_kuantitas) => {  
+export const buatTransaksiPO = async (alamat, geo, catatan, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, phonepelanggan, kelompokProduk, subtotalhargaKeranjang, hargalayanan, hargatotalsemua, jumlah_kuantitas) => {  
   const auth = getAuth();
   const db = getFirestore(app);
   try{
@@ -210,7 +210,9 @@ export const buatTransaksiPO = async (alamat, geo, catatan, id_mitra, namalengka
       id_mitra: id_mitra, 
       namamitra: namalengkap_mitra,
       namatoko: namatoko,
+      phonemitra: phonemitra,
       namapelanggan: namapelanggan,
+      phonepelanggan: phonepelanggan,
       id_pelanggan: auth.currentUser.uid,
       waktu_dipesan: serverTimestamp(),
       jenislayanan: 'Pre-Order',
