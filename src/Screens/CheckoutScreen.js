@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, Image, TextInput, Pressable, Dimensions, TouchableOpacity } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, Image, TextInput, Pressable, Dimensions, TouchableOpacity, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Abu, Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
 import { Location } from '../assets/Images/Index'
@@ -53,6 +53,8 @@ const CheckoutScreen = ({ route }) => {
         Alert.alert('Alamat masih kosong','Isi alamat dengan benar.');
       } else if (!items) {
         Alert.alert('Tidak ada belnjaan','Isi email dengan benar.');
+      } else if (!phonemitra || !phonepelanggan) {
+        Alert.alert('Ada nomor telepon kosong','Aantara pelanggan atau mitra.');
       } else {
         buatTransaksiPO(
           alamat,
@@ -70,6 +72,7 @@ const CheckoutScreen = ({ route }) => {
           hargatotalsemua,
           jumlah_kuantitas,
         );
+
         dispatch(kosongkanKeranjang());
         navigation.navigate("HomeScreen");
       };

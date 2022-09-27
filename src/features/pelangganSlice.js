@@ -11,7 +11,7 @@ const pelangganSlice = createSlice({
         updateUID: (state, action) => {
             state.kodeUID = action.payload.kodeUID;
             state.namapelanggan = action.payload.namapelanggan;
-            state.phone = action.payload.phonepelanggan;
+            state.phonepelanggan = action.payload.phonepelanggan;
         },
         resetPelanggan: (state) => {
             state.kodeUID = null;

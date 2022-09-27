@@ -29,6 +29,8 @@ const ProsesCard = ({ item }) => {
       waktu_selesai: item?.waktu_selesai,
       waktu_dipesan: item?.waktu_dipesan,
       catatan: item?.catatan,
+      phonemitra: item.phonemitra, 
+      phonepelanggan: item.phonepelanggan,
       id_transaksi: item.id,
     })
   }

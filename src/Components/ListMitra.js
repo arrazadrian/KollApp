@@ -15,6 +15,7 @@ const ListMitra = ({ item }) => {
       id_mitra: item.id,
       namatoko: item.namatoko,
       namalengkap_mitra: item.namalengkap,
+      phone: item.phone,
       foto_akun: item.foto_akun,
       geo_mangkal: item.geo,
       alamat: item.alamat,

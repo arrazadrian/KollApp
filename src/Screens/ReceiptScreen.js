@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View, Pressable, Dimensions, FlatList, Image, ScrollView } from 'react-native'
 import React, {useEffect, useState, useRef} from 'react'
+import * as Linking from 'expo-linking';
 import { Ijo, IjoMint, IjoTua, Kuning, Putih,  } from '../Utils/Warna'
 import { KollLong, Location } from '../assets/Images/Index';
 import ListReceipt from '../Components/ListReceipt';
 import moment from 'moment';
 import localization from 'moment/locale/id';
 import GarisBatas from '../Components/GarisBatas';
+import { Call, Chat } from '../assets/Icons/Index';
 
 
 const { width, height } = Dimensions.get('window')
@@ -17,12 +19,20 @@ const ReceiptScreen = ({route}) => {
   const { 
     hargalayanan, hargasubtotal, hargatotalsemua, id_mitra, id_pelanggan, id_transaksi,  jenislayanan,
     jumlah_kuantitas, namamitra, namatoko, namapelanggan, produk, waktu_selesai, waktu_dipesan, alamat_pelanggan,
-    status_transaksi, catatan,
+    status_transaksi, catatan, phonemitra, phonepelanggan,
      } = route.params;
+
+  const telepon = () => {
+    Linking.openURL(`tel:${phonemitra}`);
+  };
+
+  const sms = () => {
+    Linking.openURL(`sms:${phonemitra}`);
+  };
 
   return (
     <View style={styles.latar}>
-      <ScrollView style={{marginBottom: height* 0.15}}>
+      <ScrollView style={{marginBottom: height* 0.15}} showsVerticalScrollIndicator={false}>
 
         <View style={{flexDirection:'row', alignItems:'flex-end', justifyContent:'center', marginBottom: 10, paddingTop: 20}}>
           <View>
@@ -46,30 +56,46 @@ const ReceiptScreen = ({route}) => {
                 <Text style={styles.subjudul}>ID Transaksi</Text>
                 <Text>{id_transaksi}</Text>
             </View>
+            <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                  <Text style={styles.subjudul}>Status Transaksi</Text>
+                  <Text>{status_transaksi}</Text>
+            </View>
+            { waktu_selesai ? 
+                (
+                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                    <Text style={styles.subjudul}>Selesai Transaksi</Text>
+                    <Text>{moment(waktu_selesai.toDate()).calendar()}</Text>
+                </View>
+                ):(
+                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                    <Text style={styles.subjudul}>Waktu Pemesanan</Text>
+                    <Text>{moment(waktu_dipesan.toDate()).calendar()}</Text>
+                </View>
+                )
+              }
         </View>
 
         <GarisBatas/>
       
         <View style={styles.bagian}>
-              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                  <Text style={styles.subjudul}>Nama Mitra</Text>
-                  <Text>{namamitra}</Text>
-              </View>
-              { waktu_dipesan &&
-                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text style={styles.subjudul}>Waktu Pemesanan</Text>
-                    <Text>{moment(waktu_dipesan.toDate()).calendar()}</Text>
+              <View style={{flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+                <View>
+                    <Text style={styles.subjudul}>Nama Mitra</Text>
+                    <Text style={[styles.subjudul, {color: Ijo, fontSize: 20}]}>{namamitra}</Text>
                 </View>
-              }
-              { waktu_selesai &&
-                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text style={styles.subjudul}>Waktu Transaksi</Text>
-                    <Text>{moment(waktu_selesai.toDate()).calendar()}</Text>
-                </View>
-              }
-              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                  <Text style={styles.subjudul}>Status Transaksi</Text>
-                  <Text>{status_transaksi}</Text>
+                { status_transaksi == "Dalam Proses" ? (
+                  <View style={{flexDirection: 'row'}}>
+                    <Pressable onPress={telepon}>
+                        <Image style={styles.aksi} source={Call}/>
+                    </Pressable>
+                    <Pressable onPress={sms}>
+                        <Image style={styles.aksi} source={Chat}/>
+                    </Pressable>
+                  </View>
+                ):(
+                  <View/>
+                )
+                }
               </View>
         </View>
       
@@ -101,21 +127,23 @@ const ReceiptScreen = ({route}) => {
 
 
         <View style={styles.bagian}>
-          <Text  style={styles.subjudul}>Daftar Produk</Text>
-            {Object.entries(produk).map(([key, items]) => (
-                <View key={key}>
-                  <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                      <Text style={styles.deskripsi}>
-                          <Text>{items.length}x   </Text>
-                          <Text>{items[0]?.namaproduk}</Text>
-                      </Text>
-                      <Text style={styles.harga}>
-                          <Text>Rp</Text>
-                          <Text>{items[0]?.harga * items.length}</Text>
-                      </Text>
+          <View style={{marginBottom: height* 0.15}}>
+            <Text  style={styles.subjudul}>Daftar Produk</Text>
+              {Object.entries(produk).map(([key, items]) => (
+                  <View key={key}>
+                    <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                        <Text style={styles.deskripsi}>
+                            <Text>{items.length}x   </Text>
+                            <Text>{items[0]?.namaproduk}</Text>
+                        </Text>
+                        <Text style={styles.harga}>
+                            <Text>Rp</Text>
+                            <Text>{items[0]?.harga * items.length}</Text>
+                        </Text>
+                    </View>
                   </View>
-                </View>
-            ))}
+              ))}
+          </View>
         </View>
 
       </ScrollView>
@@ -160,6 +188,11 @@ const styles = StyleSheet.create({
   deskripsi:{
     fontSize: 16,
     color: IjoTua,
+  },
+  aksi:{
+    width: width * 0.1,
+    height: width * 0.1,
+    marginHorizontal: 5,
   },
   location:{
     width: width * 0.05,

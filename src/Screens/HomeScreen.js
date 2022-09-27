@@ -37,9 +37,10 @@ const HomeScreen = ({navigation}) => {
         Alert.alert('There is an error.', err.message)
       }
     }
-    dispatch(updateUID({kodeUID,namapelanggan,phonepelanggan}))
     getuserHome();
-  },[namapelanggan])
+    dispatch(updateUID({kodeUID,namapelanggan,phonepelanggan}))
+    console.log('nomor kamu adalah ' + phonepelanggan)
+  },[namapelanggan, phonepelanggan])
 
 
   return (
