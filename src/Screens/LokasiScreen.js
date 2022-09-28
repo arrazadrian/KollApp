@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, Image, Pressable, TextInput, ScrollView, Dimensions } from 'react-native'
 import React from 'react'
-import { Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
+import { Abu, Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
 import { DPkartu } from '../assets/Images/Index'
 import MapView from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const { height, width } = Dimensions.get('window')
 
@@ -14,6 +15,9 @@ const LokasiScreen = ({ route }) => {
     const { 
         namatoko, foto_akun,
          } = route.params;
+
+    const { alamat } = useSelector(state => state.posisi);
+
 
   return (
     <View>
@@ -39,11 +43,10 @@ const LokasiScreen = ({ route }) => {
                         onPress={() => navigation.navigate('FLocScreen')}
                         >Ubah</Text>
                     </View>
-                        <Text style={{fontSize: 18, flexWrap:'wrap'}}>Jl. Menuju Skripsi No 1</Text>
+                        <Text style={{fontSize: 18, flexWrap:'wrap'}}>{alamat}</Text>
                 </View>
                 <View style={{marginBottom: 10}}>
-                    <Text style={{fontSize: 18, fontWeight:'bold', color: IjoTua}}>Beri catatan</Text>
-                    <TextInput placeholder='Deskripsikan lokasi...' multiline={true} style={styles.input}/>
+                    <TextInput placeholder='Beri catatan lokasi...' multiline={true} style={styles.input}/>
                 </View>
                 <Pressable style={styles.panggil}
                 onPress={() => navigation.navigate('LoadingScreen')}
@@ -82,12 +85,12 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     input:{
-        backgroundColor: Putih,
-        fontSize: 16,
+        backgroundColor: Abu,
+        padding: 5,
+        paddingStart: 10,
+        paddingEnd: 10,
         borderRadius: 10,
-        flexWrap: 'wrap',
-        padding: 10,
-        marginVertical: 5,
+        fontSize: 16,
     },
     panggil:{
         backgroundColor: Ijo,

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Pressable, Dimensions, Touchable, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable, Dimensions, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Ijo, IjoMint, IjoTua, Kuning, Putih} from '../Utils/Warna';
 import { Gerobak, KategoriPre } from '../assets/Images/Index.js'
@@ -28,7 +28,7 @@ const EtalaseScreen = ({ route }) => {
       namatoko: namatoko,
       phone: phone,
     })
-  }
+  };
 
   const pindahPreorder = () => {
     navigation.navigate('PreorderScreen', { 
@@ -38,7 +38,17 @@ const EtalaseScreen = ({ route }) => {
       namatoko: namatoko,
       phone: phone,
     })
-  }
+  };
+
+  const pindahPanggil = () => {
+    navigation.navigate('LokasiScreen', { 
+      id_mitra: id_mitra,
+      status_sekarang: status_sekarang,
+      namalengkap_mitra: namalengkap_mitra, 
+      namatoko: namatoko,
+      phone: phone,
+    })
+  };
 
   return (
     <View style={styles.latar}>
@@ -116,7 +126,7 @@ const EtalaseScreen = ({ route }) => {
                   <Text style={{color: Ijo, fontStyle:'italic', fontSize: 16, textAlign:'center'}}>Maaf, mitra yang mangkal tidak bisa dipanggil</Text>
               </View> 
             ):(
-              <Pressable style={styles.tombolpanggil} onPress={()=> navigation.goBack()}>
+              <Pressable style={styles.tombolpanggil} onPress={pindahPanggil}>
                   <Text style={{color: Putih, fontWeight: 'bold',  fontSize: 16}}>Panggil Mitra</Text>
               </Pressable> 
             )
