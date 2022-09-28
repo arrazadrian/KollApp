@@ -230,3 +230,35 @@ export const buatTransaksiPO = async (alamat, geo, catatan, id_mitra, namalengka
     console.log('Ada Error Membuat Tranksaksi.', error);
   };
 };
+
+// API 7: buatTransaksiPM
+// MEMBUAT TRANSAKSI PM.
+
+export const buatTransaksiPM = async (alamat, geo, catatan, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, phonepelanggan, kelompokProduk, subtotalhargaKeranjang, hargalayanan, hargatotalsemua, jumlah_kuantitas) => {  
+  const auth = getAuth();
+  const db = getFirestore(app);
+  try{
+    addDoc(collection(db, "transaksi"), {
+      alamat_pelanggan: alamat,
+      geo_alamat: geo,
+      catatan: catatan,
+      id_mitra: id_mitra, 
+      namamitra: namalengkap_mitra,
+      namatoko: namatoko,
+      phonemitra: phonemitra,
+      namapelanggan: namapelanggan,
+      phonepelanggan: phonepelanggan,
+      id_pelanggan: auth.currentUser.uid,
+      waktu_dipesan: serverTimestamp(),
+      jenislayanan: 'Panggil Mitra',
+      status_transaksi: 'Dalam Proses',
+      // produk: kelompokProduk,
+      // hargasubtotal: subtotalhargaKeranjang,
+      // hargalayanan: hargalayanan,
+      // hargatotalsemua: hargatotalsemua,
+      // jumlah_kuantitas: jumlah_kuantitas,
+    });
+  } catch(err){
+    console.log('Ada Error Membuat Tranksaksi.', error);
+  };
+};

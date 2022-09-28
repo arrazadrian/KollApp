@@ -85,9 +85,9 @@ const CheckoutScreen = ({ route }) => {
         <View style={styles.bagian}>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
               <Text style={styles.judul}>Lokasi Antar</Text>
-              <Text style={{fontSize: 18, fontWeight:'bold', color: Ijo, textDecorationLine:'underline'}}
+              {/* <Text style={{fontSize: 18, fontWeight:'bold', color: Ijo, textDecorationLine:'underline'}}
                   onPress={() => navigation.navigate('FLocScreen')}
-                  >Ubah</Text>
+                  >Ubah</Text> */}
             </View>
             <View style={{flexDirection:'row', alignItems:'center', marginBottom:10}}>
               <Image source={Location} style={styles.locationlogo} />
