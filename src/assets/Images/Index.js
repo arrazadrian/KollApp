@@ -28,6 +28,7 @@ import Receipt from './Receipt.png'
 import IkanMujaer from './IkanMujaer.png'
 import meetup from './meetup.png'
 import Gerobak from './Gerobak.png'
+import noMitra from './noMitra.png'
 import Location from './Location.png'
 import Kosong from './kosong.png'
 import Bawah from './Bawah.png'
@@ -38,6 +39,6 @@ export { Awan, Logo, Splash, LogoPutih, Header1,
         LatarSignIn, TemuLangsung, PanggilMitra,
         Kategori01, Kategori02, Kategori03, Kategori04,
         Kategori05, Kategori06, Kategori07, Kategori08,
-        Kategori09, KategoriPre, IkanMujaer,
+        Kategori09, KategoriPre, IkanMujaer, noMitra,
         meetup,Bag, Gerobak, Location, Bawah, LogoKoll,
         LogoQR, Kosong, Receipt }

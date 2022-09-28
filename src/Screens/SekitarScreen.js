@@ -1,11 +1,13 @@
-import { Pressable, StyleSheet, Text, View, ActivityIndicator, FlatList } from 'react-native'
+import { Pressable, StyleSheet, Text, View, ActivityIndicator, FlatList, Image, Dimensions } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import ListMitra from '../Components/ListMitra'
 import { Ijo, Kuning, Hitam, Putih, IjoTua } from '../Utils/Warna'
 import { getFirestore, collection, query, where, getDocs, doc, orderBy, startAt, endAt } from "firebase/firestore";
 import { app } from '../../Firebase/config';
 import { useSelector } from 'react-redux';
+import { noMitra } from '../assets/Images/Index';
 
+const { height, width } = Dimensions.get('window')
 
 const SekitarScreen = ({ navigation }) => {
 
@@ -80,9 +82,10 @@ const SekitarScreen = ({ navigation }) => {
           ListEmptyComponent=
           {
             <View style={{flex: 1, alignItems:'center', justifyContent:'center'}}> 
-              <Text>Maaf, layanan koll belum ada di daerah kamu</Text>
+              <Image source={noMitra} style={styles.kosong}/>
+              <Text style={styles.maaf}>Mohon maaf, layanan Koll belum ada di daerah kamu</Text>
             </View> 
-          }
+          } 
       />
       )}
     </View>
@@ -95,5 +98,19 @@ const styles = StyleSheet.create({
   latar:{
     flex: 1,
     backgroundColor: Kuning,
+  },
+  kosong:{
+    height: height * 0.25,
+    width: width * 0.9,
+    borderRadius: 20,
+    marginBottom: 10,
+    marginTop: height * 0.2,
+  },
+  maaf:{
+    color: Ijo, 
+    fontWeight:'bold',
+    textAlign:'center',
+    paddingHorizontal: 20,
+    fontSize: 16,
   },
 })
