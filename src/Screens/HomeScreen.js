@@ -59,7 +59,7 @@ const HomeScreen = ({navigation}) => {
                   <View>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                         <Text style={styles.judul}>Lokasi Kamu</Text>
-                        <Text style={{color:Ijo,fontSize:18,fontWeight:'bold', textDecorationLine:'underline'}}
+                        <Text style={{color:Ijo,fontSize:16,fontWeight:'bold', textDecorationLine:'underline'}}
                         onPress={() => navigation.navigate('FLocScreen')}
                         >
                           Ubah

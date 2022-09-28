@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, Image, Pressable, TextInput, ScrollView, Dimensions } from 'react-native'
 import React from 'react'
 import { Abu, Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
-import { DPkartu } from '../assets/Images/Index'
-import MapView from 'react-native-maps';
+import { DPkartu, Location } from '../assets/Images/Index'
+import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
@@ -16,12 +16,31 @@ const LokasiScreen = ({ route }) => {
         namatoko, foto_akun,
          } = route.params;
 
-    const { alamat } = useSelector(state => state.posisi);
+    const { alamat, geo } = useSelector(state => state.posisi);
+    const { namapelanggan } = useSelector(state => state.pelanggan);
 
 
   return (
     <View>
-        <MapView style={styles.peta}/>
+       <MapView style={styles.peta} 
+            initialRegion={{
+              latitude: geo.lat,
+              longitude:  geo.lng,
+              latitudeDelta: 0.002,
+              longitudeDelta: 0.002,
+          }}
+          >
+          <Marker 
+            coordinate={{
+              latitude: geo.lat,
+              longitude: geo.lng
+            }}
+            title={namapelanggan}
+            description="Lokasi Kamu"
+            pinColor={'tan'}
+            identifier="pelanggan"
+          />
+          </MapView>
         <View style={styles.bungkus}>
                 <View style={styles.atas}>
                     <View>
@@ -29,32 +48,41 @@ const LokasiScreen = ({ route }) => {
                     </View> 
                     <View>
                         <Text style={{fontSize: 20, fontWeight:'bold'}}>{namatoko}</Text>
-                        <Text>
-                            <Text>200m</Text>
-                            <Text> | </Text>
-                            <Text>20 menit</Text>
+                        <Text style={{fontSize: 12, fontStyle:'italic', width:'80%'}}>
+                            Mitra akan sampai di lokasi kamu paling lambat 40 menit
                         </Text>
                     </View>
                 </View>
                 <View style={{marginBottom: 10}}>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                         <Text style={{fontSize: 18, fontWeight:'bold', color: IjoTua}}>Tujuan Lokasi</Text>
-                        <Text style={{fontSize: 18, fontWeight:'bold', color: Ijo, textDecorationLine:'underline'}}
+                        <Text style={{fontSize: 16, fontWeight:'bold', color: Ijo, textDecorationLine:'underline'}}
                         onPress={() => navigation.navigate('FLocScreen')}
                         >Ubah</Text>
                     </View>
-                        <Text style={{fontSize: 18, flexWrap:'wrap'}}>{alamat}</Text>
+                    <Pressable style={{marginVertical:5, flexDirection:'row', alignItems:'center', width: width * 0.8}}
+                      onPress={() => navigation.navigate('FLocScreen')}
+                    >
+                        <Image source={Location} style={styles.location} />
+                        <Text style={styles.deskripsi} numberOfLines={2}>{alamat}</Text>
+                    </Pressable>
                 </View>
                 <View style={{marginBottom: 10}}>
-                    <TextInput placeholder='Beri catatan lokasi...' multiline={true} style={styles.input}/>
+                    <TextInput placeholder='Beri catatan lokasi...' style={styles.input}/>
                 </View>
-                <Pressable style={styles.panggil}
-                onPress={() => navigation.navigate('LoadingScreen')}
-                >
-                    <Text style={{fontSize: 18, color:Putih, fontWeight:'bold'}}>Panggil</Text>
-                </Pressable>     
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.batal}
+                         onPress={() => navigation.goBack()}
+                    >
+                            Batal
+                    </Text>
+                    <Pressable style={styles.panggil}
+                        onPress={() => navigation.navigate('LoadingScreen')}
+                        >
+                        <Text style={{fontSize: 18, color:Putih, fontWeight:'bold'}}>Panggil</Text>
+                    </Pressable>     
+                </View>
         </View>
-        
     </View>
   )
 }
@@ -63,12 +91,12 @@ export default LokasiScreen
 
 const styles = StyleSheet.create({
     peta:{
-        width: '100%',
-        height: '50%',
+        width: width,
+        height: height * 0.6,
       },
     bungkus:{
-        width: '100%',
-        height: '50%',
+        width: width,
+        height: height * 0.5,
         backgroundColor: Kuning,
         padding: 20,
     },
@@ -84,6 +112,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10,
     },
+    location:{
+        width:20,
+        height:20,
+        marginRight:5,
+      },
     input:{
         backgroundColor: Abu,
         padding: 5,
@@ -93,13 +126,28 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     panggil:{
+        flex: 1,
         backgroundColor: Ijo,
-        borderRadius: 20,
-        width: '100%',
+        borderRadius: 10,
         padding: 8,
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
         marginTop: 10,
-    }
+    },
+    batal:{
+        flex: 1,
+        fontSize: 18,
+        textAlign:'center',
+        color: Ijo,
+        fontWeight:'bold',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        marginTop: 10,
+    },
+    deskripsi:{
+        fontSize: 16,
+        color: Ijo,
+    },
 })
