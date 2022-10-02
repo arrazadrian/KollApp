@@ -43,9 +43,9 @@ const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.latar}> 
       <View style={styles.container}>
-        <View>
+        <Pressable onPress={() => navigation.navigate('OtwScreen')}>
           <Image source={Logo} style={styles.logopojok} />
-        </View>
+        </Pressable>
         <View>
           <Text style={{color:Ijo, fontSize:18}}>Selamat datang!</Text>
           <Text style={{color:Ijo, fontSize:20, fontWeight:'bold'}}>{namapelanggan}</Text>

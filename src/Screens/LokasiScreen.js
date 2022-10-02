@@ -19,7 +19,7 @@ const LokasiScreen = ({ route }) => {
          } = route.params;
 
     const { alamat, geo } = useSelector(state => state.posisi);
-    const { namapelanggan, phonepelanggan } = useSelector(state => state.pelanggan);
+    const { namapelanggan } = useSelector(state => state.pelanggan);
     const [catatan, setCatatan] = useState("");
 
     const handlePanggil = async () => {
@@ -33,7 +33,6 @@ const LokasiScreen = ({ route }) => {
             namatoko,
             phone,
             namapelanggan,
-            phonepelanggan,
         );
     console.log('id Transaksi isinya: ' + kode_transaksi);
         navigation.replace('LoadingScreen',{

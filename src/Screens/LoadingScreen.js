@@ -36,7 +36,9 @@ const LoadingScreen = ({ navigation, route }) => {
   useEffect(() => {
     const lihatRespon =  () => {
       if(panggilan == "Diterima"){
-          navigation.replace('OtwScreen');
+          navigation.replace('OtwScreen',{
+            id_transaksi: id_transaksi,
+          });
       } else if(panggilan == "Ditolak"){
           navigation.replace('HomeScreen');
           Alert.alert(
@@ -51,7 +53,6 @@ const LoadingScreen = ({ navigation, route }) => {
     const waktuNunggu = setTimeout(  () =>{
       clearTimeout(waktuNunggu);
       noRespon(id_transaksi);
-      //navigation.replace('HomeScreen');
       Alert.alert(
         'Mitra tidak merespon','Mohon maaf, sepertinya mitra sedang sibuk saat ini.',
         [
@@ -63,7 +64,7 @@ const LoadingScreen = ({ navigation, route }) => {
           },
         ]
       );
-    }, 60000);
+    }, 120000);
     // 1 minute =  60 seconds = 60000 miliseconds
     // 10 minutes = 600000 ms
     return() => clearTimeout(waktuNunggu); 
