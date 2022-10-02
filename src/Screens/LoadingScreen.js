@@ -42,22 +42,24 @@ const LoadingScreen = ({ navigation, route }) => {
           Alert.alert(
             'Mitra menolak panggilan','Mohon maaf, sepertinya mitra sedang sibuk saat ini.'
           );
-      } else {
-        const waktuNunggu = setTimeout( async () =>{
-          await clearTimeout(waktuNunggu); 
-          noRespon(id_transaksi);
-          navigation.replace('HomeScreen');
-          Alert.alert(
-            'Mitra tidak merespon','Mohon maaf, sepertinya mitra sedang sibuk saat ini.'
-          );
-        }, 10000);
-        // 1 minute =  60 seconds = 60000 miliseconds
-        // 10 minutes = 600000 ms
-        return() => clearTimeout(waktuNunggu); 
-      }
+      } 
     } 
     lihatRespon();
   },[panggilan]);
+
+  useEffect(()=>{
+    const waktuNunggu = setTimeout(  () =>{
+      clearTimeout(waktuNunggu);
+      noRespon(id_transaksi);
+      navigation.replace('HomeScreen');
+      Alert.alert(
+        'Mitra tidak merespon','Mohon maaf, sepertinya mitra sedang sibuk saat ini.'
+      );
+    }, 10000);
+    // 1 minute =  60 seconds = 60000 miliseconds
+    // 10 minutes = 600000 ms
+    return() => clearTimeout(waktuNunggu); 
+  },[]);
   
   return (
     <View style={styles.latar}>
