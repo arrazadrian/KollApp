@@ -238,7 +238,7 @@ export const buatTransaksiPM = async (alamat, geo, catatan, id_mitra, namalengka
   const auth = getAuth();
   const db = getFirestore(app);
   try{
-    addDoc(collection(db, "transaksi"), {
+  const docRef = await addDoc(collection(db, "transaksi"), {
       alamat_pelanggan: alamat,
       geo_alamat: geo,
       catatan: catatan,
@@ -258,6 +258,10 @@ export const buatTransaksiPM = async (alamat, geo, catatan, id_mitra, namalengka
       // hargalayanan: hargalayanan,
       // hargatotalsemua: hargatotalsemua,
       // jumlah_kuantitas: jumlah_kuantitas,
+    }); 
+    console.log("ID dokumennya: ", docRef.id)
+    navigation.navigate('LoadingScreen', {
+        id_transaksi: docRef.id,
     });
   } catch(err){
     console.log('Ada Error Membuat Tranksaksi.', error);

@@ -5,15 +5,19 @@ import { Gerobak } from '../assets/Images/Index'
 import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
 
 
-const LoadingScreen = ({ navigation }) => {
+const LoadingScreen = ({ navigation, route }) => {
 
   const [panggilan, setPanggilan] = useState("Menunggu Respon");
   const db = getFirestore(app);
 
+  const { 
+    id_transaksi
+     } = route.params;
+
   useEffect(() =>{ 
     async function getStatusPM(){
       try{
-        const unsubscribe = onSnapshot(doc(db, "transaksi", auth.currentUser.uid ), (doc) => {
+        const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (doc) => {
         setPanggilan(doc.data().panggilan);
           // Respond to data
           // ...
@@ -41,12 +45,14 @@ const LoadingScreen = ({ navigation }) => {
           Alert.alert(
             'Mitra tidak merespon','Mohon maaf, sepertinya mitra sedang sibuk saat ini.'
           );
-        }, 90000);
+        }, 600000);
+        // 1 minute =  60 seconds = 60000 miliseconds
+        // 10 minutes = 600000 ms
         return() => clearTimeout(waktuNunggu); 
       }
     }
     lihatRespon();
-  },[]);
+  },[panggilan]);
   
   return (
     <View style={styles.latar}>

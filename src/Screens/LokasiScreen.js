@@ -33,8 +33,7 @@ const LokasiScreen = ({ route }) => {
             phone,
             namapelanggan,
             phonepelanggan,
-            );
-        navigation.navigate('LoadingScreen');
+        );
     };
 
 
