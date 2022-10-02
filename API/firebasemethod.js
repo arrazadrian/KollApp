@@ -265,3 +265,23 @@ export const buatTransaksiPM = async (alamat, geo, catatan, id_mitra, namalengka
     console.log('Ada Error Membuat Tranksaksi.', error);
   };
 };
+
+// API 8: noRespon
+// UPDATE PANGGILAN PM JADI TIDAK ADA RESPON
+
+export const noRespon = async (id_transaksi) => {
+  const db = getFirestore(app);
+  const docrefproduk = doc(db, "transaksi", id_transaksi);
+  getDoc(docrefproduk).then(docSnap => {
+    if (docSnap.exists()) {
+      try {
+          updateDoc(docrefproduk, { 
+            panggilan: "Tidak ada respon", 
+            status_transaksi:  "Tidak ada respon",  
+          });
+      } catch (err) {
+        Alert.alert('Ada error pada no respon PM!', err);
+      }
+    }
+  })
+};

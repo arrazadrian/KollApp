@@ -1,9 +1,12 @@
-import { StyleSheet, Text, View, Image, ActivityIndicator, Alert } from 'react-native'
+import { StyleSheet, Text, View, Image, ActivityIndicator, Alert, Dimensions } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { Ijo, Kuning } from '../Utils/Warna'
 import { Gerobak } from '../assets/Images/Index'
 import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { app } from '../../Firebase/config';
+import { noRespon } from '../../API/firebasemethod';
 
+const { height, width } = Dimensions.get('window')
 
 const LoadingScreen = ({ navigation, route }) => {
 
@@ -41,6 +44,7 @@ const LoadingScreen = ({ navigation, route }) => {
           );
       } else {
         const waktuNunggu = setTimeout( () =>{
+          noRespon(id_transaksi);
           navigation.replace('HomeScreen');
           Alert.alert(
             'Mitra tidak merespon','Mohon maaf, sepertinya mitra sedang sibuk saat ini.'
@@ -75,8 +79,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     gerobak:{
-        width: 200,
-        height: 130,
+        width: width * 0.5,
+        height: height * 0.2,
         marginBottom: 10,
     }
 })
