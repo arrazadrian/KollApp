@@ -12,14 +12,14 @@ const OtwScreen = () => {
       <View style={styles.bungkus}>
           <Image source={DPkartu} style={styles.foto} />
           <View>
-          <Text style={{fontSize:20, fontWeight:'bold', color:IjoTua}}>
-            Sayur Aa Anri
+            <Text style={{fontSize:20, fontWeight:'bold', color:IjoTua}}>
+              Sayur Aa Anri
             </Text>
-          <Text style={{color: Ijo}}>Sedang menuju lokasi</Text>
-          <View style={{flexDirection:'row'}}>
-          <Image source={Call} style={styles.icon} />
-          <Image source={Chat} style={styles.icon} />
-          </View>
+            <Text style={{color: Ijo}}>Sedang menuju lokasi</Text>
+            <View style={{flexDirection:'row'}}>
+                <Image source={Call} style={styles.icon} />
+                <Image source={Chat} style={styles.icon} />
+            </View>
           </View>
       </View>
     </View>

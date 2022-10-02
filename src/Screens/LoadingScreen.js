@@ -51,9 +51,17 @@ const LoadingScreen = ({ navigation, route }) => {
     const waktuNunggu = setTimeout(  () =>{
       clearTimeout(waktuNunggu);
       noRespon(id_transaksi);
-      navigation.replace('HomeScreen');
+      //navigation.replace('HomeScreen');
       Alert.alert(
-        'Mitra tidak merespon','Mohon maaf, sepertinya mitra sedang sibuk saat ini.'
+        'Mitra tidak merespon','Mohon maaf, sepertinya mitra sedang sibuk saat ini.',
+        [
+          {
+            text: 'Tutup',
+            onPress: () => {
+              navigation.replace('HomeScreen')
+            }
+          },
+        ]
       );
     }, 10000);
     // 1 minute =  60 seconds = 60000 miliseconds

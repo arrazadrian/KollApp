@@ -14,7 +14,7 @@ const { height, width } = Dimensions.get('window')
 const CheckoutScreen = ({ route }) => {
 
   const { alamat, geo } = useSelector(state => state.posisi);
-  const { namapelanggan, phonepelanggan } = useSelector(state => state.pelanggan);
+  const { namapelanggan } = useSelector(state => state.pelanggan);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ const CheckoutScreen = ({ route }) => {
         Alert.alert('Alamat masih kosong','Isi alamat dengan benar.');
       } else if (!items) {
         Alert.alert('Tidak ada belnjaan','Isi email dengan benar.');
-      } else if (!phonemitra || !phonepelanggan) {
+      } else if (!phonemitra) {
         Alert.alert('Ada nomor telepon kosong','Aantara pelanggan atau mitra.');
       } else {
         buatTransaksiPO(
@@ -65,7 +65,6 @@ const CheckoutScreen = ({ route }) => {
           namatoko,
           phonemitra,
           namapelanggan,
-          phonepelanggan,
           kelompokProduk,
           subtotalhargaKeranjang,
           hargalayanan,

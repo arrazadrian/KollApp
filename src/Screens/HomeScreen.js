@@ -14,7 +14,6 @@ const HomeScreen = ({navigation}) => {
 
   const [namapelanggan, setNamapelanggan] = useState('Loading...')
   const [kodeUID, setKodeUID] = useState('')
-  const [phonepelanggan, setPhonepelanggan] = useState('')
   const auth = getAuth();
   const db = getFirestore(app)
 
@@ -27,7 +26,6 @@ const HomeScreen = ({navigation}) => {
         const unsubscribe = onSnapshot(doc(db, "pelanggan", auth.currentUser.uid ), (doc) => {
         setKodeUID(auth.currentUser.uid);
         setNamapelanggan(doc.data().namalengkap);
-        setPhonepelanggan(doc.data().phone);
         console.log('getuserHome jalan (Home Screen)')
           // Respond to data
           // ...
@@ -38,9 +36,8 @@ const HomeScreen = ({navigation}) => {
       }
     }
     getuserHome();
-    dispatch(updateUID({kodeUID,namapelanggan,phonepelanggan}))
-    console.log('nomor kamu adalah ' + phonepelanggan)
-  },[namapelanggan, phonepelanggan])
+    dispatch(updateUID({kodeUID,namapelanggan}))
+  },[namapelanggan])
 
 
   return (

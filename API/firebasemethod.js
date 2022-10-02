@@ -199,36 +199,46 @@ async function uploadgambarakun(uri) {
 // API 7: buatTransaksiPO
 // MEMBUAT TRANSAKSI PO. 
 
-export const buatTransaksiPO = async (alamat, geo, catatan, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, phonepelanggan, kelompokProduk, subtotalhargaKeranjang, hargalayanan, hargatotalsemua, jumlah_kuantitas) => {  
+export const buatTransaksiPO = async (alamat, geo, catatan, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, kelompokProduk, subtotalhargaKeranjang, hargalayanan, hargatotalsemua, jumlah_kuantitas) => {  
   const auth = getAuth();
   const db = getFirestore(app);
-  try{
-    addDoc(collection(db, "transaksi"), {
-      alamat_pelanggan: alamat,
-      geo_alamat: geo,
-      catatan: catatan,
-      id_mitra: id_mitra, 
-      namamitra: namalengkap_mitra,
-      namatoko: namatoko,
-      phonemitra: phonemitra,
-      namapelanggan: namapelanggan,
-      phonepelanggan: phonepelanggan,
-      id_pelanggan: auth.currentUser.uid,
-      waktu_dipesan: serverTimestamp(),
-      jenislayanan: 'Pre-Order',
-      status_transaksi: 'Dalam Proses',
-      produk: kelompokProduk,
-      hargasubtotal: subtotalhargaKeranjang,
-      hargalayanan: hargalayanan,
-      hargatotalsemua: hargatotalsemua,
-      jumlah_kuantitas: jumlah_kuantitas,
-    });
-    Alert.alert(
-      'Pre-Order berhasil dibuat','Produk akan diantar paling lambat 2x24 jam.'
-    );
-  } catch(err){
-    console.log('Ada Error Membuat Tranksaksi.', error);
-  };
+
+  const docRef = doc(db, "pelanggan", auth.currentUser.uid);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    let phonepelanggan = docSnap.data().phone;
+    try{
+      addDoc(collection(db, "transaksi"), {
+        alamat_pelanggan: alamat,
+        geo_alamat: geo,
+        catatan: catatan,
+        id_mitra: id_mitra, 
+        namamitra: namalengkap_mitra,
+        namatoko: namatoko,
+        phonemitra: phonemitra,
+        namapelanggan: namapelanggan,
+        phonepelanggan: phonepelanggan,
+        id_pelanggan: auth.currentUser.uid,
+        waktu_dipesan: serverTimestamp(),
+        jenislayanan: 'Pre-Order',
+        status_transaksi: 'Dalam Proses',
+        produk: kelompokProduk,
+        hargasubtotal: subtotalhargaKeranjang,
+        hargalayanan: hargalayanan,
+        hargatotalsemua: hargatotalsemua,
+        jumlah_kuantitas: jumlah_kuantitas,
+      });
+      Alert.alert(
+        'Pre-Order berhasil dibuat','Produk akan diantar paling lambat 2x24 jam.'
+      );
+    } catch(err){
+      console.log('Ada Error Membuat Tranksaksi.', error);
+    };
+  } else {
+    // doc.data() will be undefined in this case
+    console.log("No such document!");
+  }
 };
 
 // API 7: buatTransaksiPM
