@@ -1,22 +1,52 @@
 import { StyleSheet, Text, View, Image, ActivityIndicator, Alert } from 'react-native'
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Ijo, Kuning } from '../Utils/Warna'
 import { Gerobak } from '../assets/Images/Index'
+import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
+
 
 const LoadingScreen = ({ navigation }) => {
-  useEffect(() => {
-    setTimeout( () =>{
-      if(menjawab)
-      tidakRespon();
-    }, 90000)
-}, [navigation]);
 
-const tidakRespon = () => {
-  navigation.replace('HomeScreen');
-  Alert.alert(
-    'Mitra tidak merespon','Mohon maaf, sepertinya mitra sedang sibuk.'
-  );
-};
+  const [panggilan, setPanggilan] = useState("Menunggu Respon");
+  const db = getFirestore(app);
+
+  useEffect(() =>{ 
+    async function getStatusPM(){
+      try{
+        const unsubscribe = onSnapshot(doc(db, "transaksi", auth.currentUser.uid ), (doc) => {
+        setPanggilan(doc.data().panggilan);
+          // Respond to data
+          // ...
+        });
+        //unsubscribe();
+      } catch (err){
+        Alert.alert('Ada error sama status PM.', err.message)
+      }
+    }
+    getStatusPM();
+  },[]);
+
+  useEffect(() => {
+    const lihatRespon = () => {
+      if(panggilan == "Diterima"){
+          navigation.navigate('OtwScreen');
+      } else if(panggilan == "Ditolak"){
+          navigation.navigate('HomeScreen');
+          Alert.alert(
+            'Mitra menolak panggilan','Mohon maaf, sepertinya mitra sedang sibuk saat ini.'
+          );
+      } else {
+        const waktuNunggu = setTimeout( () =>{
+          navigation.navigate('HomeScreen');
+          Alert.alert(
+            'Mitra tidak merespon','Mohon maaf, sepertinya mitra sedang sibuk saat ini.'
+          );
+        }, 90000);
+        return() => clearTimeout(waktuNunggu); 
+      }
+    }
+    lihatRespon();
+  },[]);
   
   return (
     <View style={styles.latar}>

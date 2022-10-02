@@ -252,6 +252,7 @@ export const buatTransaksiPM = async (alamat, geo, catatan, id_mitra, namalengka
       waktu_dipesan: serverTimestamp(),
       jenislayanan: 'Panggil Mitra',
       status_transaksi: 'Dalam Proses',
+      panggilan: "Menunggu Respon",
       // produk: kelompokProduk,
       // hargasubtotal: subtotalhargaKeranjang,
       // hargalayanan: hargalayanan,

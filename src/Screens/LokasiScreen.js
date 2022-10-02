@@ -34,8 +34,7 @@ const LokasiScreen = ({ route }) => {
             namapelanggan,
             phonepelanggan,
             );
-        navigation.navigate('HomeScreen');
-        // harusnya Loadingscreen
+        navigation.navigate('LoadingScreen');
     };
 
 
