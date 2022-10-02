@@ -22,8 +22,9 @@ const LokasiScreen = ({ route }) => {
     const { namapelanggan, phonepelanggan } = useSelector(state => state.pelanggan);
     const [catatan, setCatatan] = useState("");
 
-    const handlePanggil = () => {
-     const id_transaksi = buatTransaksiPM(
+    const handlePanggil = async () => {
+
+     const kode_transaksi = await buatTransaksiPM(
             alamat, 
             geo, 
             catatan,
@@ -34,8 +35,9 @@ const LokasiScreen = ({ route }) => {
             namapelanggan,
             phonepelanggan,
         );
+    console.log('id Transaksi isinya: ' + kode_transaksi);
         navigation.replace('LoadingScreen',{
-            id_transaksi: id_transaksi,
+            id_transaksi: kode_transaksi,
         })
     };
 
