@@ -23,7 +23,7 @@ const LokasiScreen = ({ route }) => {
     const [catatan, setCatatan] = useState("");
 
     const handlePanggil = () => {
-        buatTransaksiPM(
+     const id_transaksi = buatTransaksiPM(
             alamat, 
             geo, 
             catatan,
@@ -34,6 +34,9 @@ const LokasiScreen = ({ route }) => {
             namapelanggan,
             phonepelanggan,
         );
+        navigation.replace('LoadingScreen',{
+            id_transaksi: id_transaksi,
+        })
     };
 
 

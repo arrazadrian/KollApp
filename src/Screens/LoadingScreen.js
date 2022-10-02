@@ -33,15 +33,15 @@ const LoadingScreen = ({ navigation, route }) => {
   useEffect(() => {
     const lihatRespon = () => {
       if(panggilan == "Diterima"){
-          navigation.navigate('OtwScreen');
+          navigation.replace('OtwScreen');
       } else if(panggilan == "Ditolak"){
-          navigation.navigate('HomeScreen');
+          navigation.replace('HomeScreen');
           Alert.alert(
             'Mitra menolak panggilan','Mohon maaf, sepertinya mitra sedang sibuk saat ini.'
           );
       } else {
         const waktuNunggu = setTimeout( () =>{
-          navigation.navigate('HomeScreen');
+          navigation.replace('HomeScreen');
           Alert.alert(
             'Mitra tidak merespon','Mohon maaf, sepertinya mitra sedang sibuk saat ini.'
           );

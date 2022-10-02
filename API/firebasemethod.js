@@ -260,9 +260,7 @@ export const buatTransaksiPM = async (alamat, geo, catatan, id_mitra, namalengka
       // jumlah_kuantitas: jumlah_kuantitas,
     }); 
     console.log("ID dokumennya: ", docRef.id)
-    navigation.navigate('LoadingScreen', {
-        id_transaksi: docRef.id,
-    });
+    return docRef.id;
   } catch(err){
     console.log('Ada Error Membuat Tranksaksi.', error);
   };
