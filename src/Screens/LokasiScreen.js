@@ -91,10 +91,13 @@ const LokasiScreen = ({ route }) => {
                         <View style={{flex: 1.5}}>
                             <Image source={{uri: foto_akun}} style={styles.foto}/>
                         </View> 
-                        <View style={{flex: 4.5}}>
-                            <Text style={{fontSize: 20, fontWeight:'bold'}}>{namatoko}</Text>
+                        <View style={{flex: 4}}>
+                            <Text style={{fontSize: 16, fontWeight:'bold', color:IjoTua}}>{namatoko}</Text>
+                            <Text style={{fontSize: 12, fontWeight:'bold'}}>
+                                Biaya pemanggilan: Rp5000
+                            </Text>
                             <Text style={{fontSize: 12, fontStyle:'italic'}}>
-                                Mitra akan sampai di lokasi kamu paling lambat 40 menit
+                                Estimasi waktu mitra sampai akan tampil setelah mitra menerima panggilan
                             </Text>
                         </View>
                     </View>
@@ -131,8 +134,8 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     foto:{
-        width: width * 0.18,
-        height: width * 0.18,
+        width: width * 0.2,
+        height: width * 0.2,
         borderRadius: 5,
     },
     atas:{
