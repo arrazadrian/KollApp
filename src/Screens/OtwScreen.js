@@ -29,9 +29,9 @@ const OtwScreen = ({ navigation, route }) => {
 
       <View style={styles.bungkus}>
         <View style={{ flexDirection:'row', marginBottom: 10, justifyContent:'space-between', alignItems:'center' }}>
-            <View>
-              <Text style={{fontSize:20, fontWeight:'bold', color:IjoTua}}>
-                Sayur Aa Anri
+            <View style={{flex: 6}}>
+              <Text style={{fontSize:20, fontWeight:'bold', color:IjoTua}} numberOfLines={1}>
+                Sayur Segar Dramga
               </Text>
               <View style={{flexDirection:'row'}}>
                   <Image source={Call} style={styles.icon} />
@@ -76,9 +76,11 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 20,
     },
     foto:{
+        flex: 2,
         width: width * 0.2,
         height: width * 0.2,
         borderRadius: 10,
+        marginLeft: 20,
     },
     icon:{
         width: width * 0.10,
