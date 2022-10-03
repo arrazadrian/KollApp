@@ -1,9 +1,9 @@
 import { Image, StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native'
 import React from 'react'
 import MapView, { Marker } from 'react-native-maps'
-import { Ijo, IjoMint, IjoTua, Kuning } from '../Utils/Warna'
+import { Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
 import { DPkartu } from '../assets/Images/Index'
-import { Call, Chat } from '../assets/Icons/Index'
+import { Call, Chat, Sampai, LagiJalan } from '../assets/Icons/Index'
 import GarisBatas from '../Components/GarisBatas';
 
 
@@ -19,6 +19,23 @@ const OtwScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.latar}>
+          <View>
+            <Image source={Sampai} style={styles.gambar}/>
+            <Text style={styles.tulisan}>Mitra sedang menuju lokasi kamu</Text>
+          </View>
+      {/* { panggilan == "Diterima" ?
+        (
+          <View>
+            <Image source={LagiJalan} style={styles.gambar}/>
+            <Text style={styles.tulisan}>Mitra sedang menuju lokasi kamu</Text>
+          </View>
+        ):(
+          <View>
+            <Image source={Sampai} style={styles.gambar}/>
+            <Text style={styles.tulisan}>Mitra sudah sampai loh, selamat berbelanja!</Text>
+          </View>
+        )
+      } */}
 
       <View style={styles.bungkus}>
         <View style={{ flexDirection:'row', marginBottom: 10, justifyContent:'space-between', alignItems:'center' }}>
@@ -76,4 +93,14 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         marginRight: 20,
     },
+    gambar:{
+      width: width * 0.7,
+      height: height * 0.5,
+      borderRadius: 20,
+    },
+    tulisan:{
+      color: Putih,
+      textAlign:'center',
+      fontSize: 16,
+    }
 })

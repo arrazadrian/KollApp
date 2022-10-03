@@ -32,6 +32,8 @@ import noMitra from './noMitra.png'
 import Location from './Location.png'
 import Kosong from './kosong.png'
 import Bawah from './Bawah.png'
+import Sampai from './Sampai.png'
+import LagiJalan from './LagiJalan.png'
 
 
 export { Awan, Logo, Splash, LogoPutih, Header1, 
@@ -41,4 +43,4 @@ export { Awan, Logo, Splash, LogoPutih, Header1,
         Kategori05, Kategori06, Kategori07, Kategori08,
         Kategori09, KategoriPre, IkanMujaer, noMitra,
         meetup,Bag, Gerobak, Location, Bawah, LogoKoll,
-        LogoQR, Kosong, Receipt }
+        LogoQR, Kosong, Receipt, Sampai, LagiJalan }
