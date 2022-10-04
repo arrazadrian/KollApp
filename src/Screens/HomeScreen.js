@@ -1,12 +1,16 @@
-import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, StatusBar, Alert } from 'react-native'
+import { Platform, StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, StatusBar, Alert } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
-import { Logo, PanggilMitra, TemuLangsung, Location } from '../assets/Images/Index.js';
+import { Logo, PanggilMitra, TemuLangsung, Pinkecil } from '../assets/Images/Index.js';
 import { app } from '../../Firebase/config';
 import {  getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux'
 import { updateUID } from '../features/pelangganSlice';
+import { GOOGLE_MAPS_APIKEY } from "@env";
+
+import * as Location from 'expo-location';
+import { updatePosisi } from '../features/posisiSlice';
 
 const { height, width } = Dimensions.get('window')
 
@@ -17,8 +21,11 @@ const HomeScreen = ({navigation}) => {
   const auth = getAuth();
   const db = getFirestore(app)
 
-  const { alamat } = useSelector(state => state.posisi);
+  const { geo, alamat, geohash } = useSelector(state => state.posisi);
   const dispatch = useDispatch();
+
+  const geofire = require('geofire-common');
+
 
   useEffect(() =>{ 
     async function getuserHome(){
@@ -36,8 +43,51 @@ const HomeScreen = ({navigation}) => {
       }
     }
     getuserHome();
-    dispatch(updateUID({kodeUID,namapelanggan}))
+    dispatch(updateUID({kodeUID,namapelanggan}));
   },[namapelanggan])
+
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+      // console.log("Lat: " +location.coords.latitude);
+      // console.log("Lng: " +location.coords.longitude);
+
+      fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.coords.latitude},${location.coords.longitude}
+        &location_type=ROOFTOP&result_type=street_address&key=${GOOGLE_MAPS_APIKEY}`
+      ).then((res) => res.json())
+      .then((data) => {
+        //console.log(data.results[0].formatted_address);
+        dispatch(updatePosisi({
+          geo: {lat:location.coords.latitude, lng:location.coords.longitude},
+          alamat: data.results[0].formatted_address,
+          geohash: geofire.geohashForLocation([location.coords.latitude,location.coords.longitude])
+        }));
+      })
+    })();
+  }, []); 
+  
+  // console.log(geo);
+  // console.log(alamat);
+  // console.log(geohash);
+
+  let text = 'Waiting..';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
 
 
   return (
@@ -66,14 +116,14 @@ const HomeScreen = ({navigation}) => {
                       <Pressable style={{marginVertical:5, flexDirection:'row', alignItems:'center', width: width * 0.8}}
                       onPress={() => navigation.navigate('FLocScreen')}
                       >
-                        <Image source={Location} style={styles.location} />
+                        <Image source={Pinkecil} style={styles.sampingalamat} />
                         <Text style={styles.deskripsi} numberOfLines={2}>{alamat}</Text>
                       </Pressable>
                     ):(
                       <Pressable style={{marginVertical:5, flexDirection:'row', alignItems:'center'}}
                       onPress={() => navigation.navigate('FLocScreen')}
                       >
-                        <Image source={Location} style={styles.location} />
+                        <Image source={Pinkecil} style={styles.sampingalamat} />
                         <Text style={[styles.deskripsi,{fontSize: 18}]}>Tentukan lokasi kamu saat ini...</Text>
                       </Pressable>
                     )}
@@ -141,7 +191,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Kuning,
   },
-  location:{
+  sampingalamat:{
     width:20,
     height:20,
     marginRight:5,
