@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image,  TextInput, ScrollView, Dimensions, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { Abu, Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
-import { DPkartu, Location } from '../assets/Images/Index'
+import { DPkartu, Pinkecil } from '../assets/Images/Index'
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -72,7 +72,7 @@ const LokasiScreen = ({ route }) => {
                         >Ubah</Text> */}
                     </View>
                     <View style={{marginVertical:5, flexDirection:'row', alignItems:'center', width: width * 0.8}}>
-                        <Image source={Location} style={styles.location} />
+                        <Image source={Pinkecil} style={styles.location} />
                         <Text style={styles.deskripsi} numberOfLines={2}>{alamat}</Text>
                     </View>
                 </View>
