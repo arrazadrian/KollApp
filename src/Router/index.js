@@ -15,7 +15,6 @@ import {
   LoadingScreen,
   LokasiScreen,
   OtwScreen,
-  PembelianScreen, 
   PreorderScreen,
   ProdukScreen,
   ProsesScreen,
