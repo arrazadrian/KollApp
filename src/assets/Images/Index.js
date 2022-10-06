@@ -34,6 +34,7 @@ import Kosong from './kosong.png'
 import Bawah from './Bawah.png'
 import Tiba from './Tiba.png'
 import Perjalanan from './Perjalanan.png'
+import TerimaKasihPM from './TerimaKasihPM.png'
 import Load1 from './Load1.png'
 import Load2 from './Load2.png'
 import Load3 from './Load3.png'
@@ -46,5 +47,5 @@ export { Awan, Logo, Splash, LogoPutih, Header1,
         Kategori05, Kategori06, Kategori07, Kategori08,
         Kategori09, KategoriPre, IkanMujaer, noMitra,
         meetup,Bag, Gerobak, Pinkecil, Bawah, LogoKoll,
-        LogoQR, Kosong, Receipt, Tiba, Perjalanan,
+        LogoQR, Kosong, Receipt, Tiba, Perjalanan, TerimaKasihPM,
         Load1, Load2, Load3 }

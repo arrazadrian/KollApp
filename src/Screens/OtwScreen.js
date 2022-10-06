@@ -4,7 +4,7 @@ import MapView, { Marker } from 'react-native-maps'
 import { Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
 import { DPkartu } from '../assets/Images/Index'
 import { Call, Chat } from '../assets/Icons/Index'
-import { Tiba, Perjalanan, Load1, Load2, Load3 } from '../assets/Images/Index'
+import { Perjalanan, Tiba, TerimaKasihPM, Load1, Load2, Load3 } from '../assets/Images/Index'
 import GarisBatas from '../Components/GarisBatas';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
@@ -128,7 +128,7 @@ const OtwScreen = ({ navigation, route }) => {
         </View>
         ) : (
           <View>
-            <Image source={Perjalanan} style={styles.gambar}/>
+            <Image source={TerimaKasihPM} style={styles.gambar}/>
             <Image source={Load3} style={styles.load}/>
             <Text style={styles.tulisan}>Transaksi selesai, lihat detailnya di halaman riwayat</Text>
           </View>
