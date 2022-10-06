@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View, Dimensions, Pressable } from 'react-native'
+import { Image, StyleSheet, Text, View, Dimensions, Pressable, Alert } from 'react-native'
 import React, { useState } from 'react'
 import MapView, { Marker } from 'react-native-maps'
 import { Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
@@ -9,71 +9,102 @@ import GarisBatas from '../Components/GarisBatas';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { app } from '../../Firebase/config';
-
+import * as Linking from 'expo-linking';
+import { batalPMolehPelanggan } from '../../API/firebasemethod'
 
 
 const { height, width } = Dimensions.get('window')
 
 const OtwScreen = ({ navigation, route }) => {
 
-  const db = getFirestore(app)
+  // const db = getFirestore(app)
 
-  // const [panggilan, setPanggilan] = useState("Diterima")
+  // // const [panggilan, setPanggilan] = useState("Diterima")
   
-  const [namatoko, setNamatoko] = useState();
-  const [phonemitra, setPhonemitra] = useState();
-  const [alamat_pelanggan, setAlamat_pelanggan] = useState();
-  const [estimasi_waktu, setEstimasi_waktu] = useState();
-  const [jarak, setJarak] = useState();
+  // const [namatoko, setNamatoko] = useState();
+  // const [phonemitra, setPhonemitra] = useState();
+  // const [alamat_pelanggan, setAlamat_pelanggan] = useState();
+  // const [estimasi_waktu, setEstimasi_waktu] = useState();
+  // const [jarak, setJarak] = useState();
 
-  const telepon = () => {
-    Linking.openURL(`tel:${phonemitra}`);
-  };
+  // const telepon = () => {
+  //   Linking.openURL(`tel:${phonemitra}`);
+  // };
 
-  const sms = () => {
-    Linking.openURL(`sms:${phonemitra}`);
-  };
+  // const sms = () => {
+  //   Linking.openURL(`sms:${phonemitra}`);
+  // };
 
   // const { 
   //   id_transaksi
   //    } = route.params;
 
-  //   useEffect(() =>{ 
-  //   async function getPanggilan(){
+  // useEffect(() =>{ 
+  //   async function getStatusPM(){
   //     try{
   //       const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (doc) => {
   //       setPanggilan(doc.data().panggilan);
-  //       console.log('getPanggilan jalan (Home Screen)')
   //         // Respond to data
   //         // ...
   //       });
   //       //unsubscribe();
   //     } catch (err){
-  //       Alert.alert('There is an error.', err.message)
+  //       Alert.alert('Ada error sama status PM.', err.message)
   //     }
   //   }
-  //   getPanggilan();
-  // },[panggilan])
+  //   getStatusPM();
+  // },[]);
 
-    useEffect(() =>{ 
-    async function getDetailTransaksi(){
-      const docRef = doc(db, "transaksi", id_transaksi);
-      const docSnap = await getDoc(docRef);
+  // useEffect(() => {
+  //   const lihatRespon =  () => {
+  //     if(panggilan == "Dibatalkan Mitra"){
+  //         navigation.replace('HomeScreen');
+  //         Alert.alert(
+  //           'Mitra membatalkan panggilan','Mohon maaf, sepertinya mitra sedang ada kendala saat ini.'
+  //         );
+  //     } 
+  //   } 
+  //   lihatRespon();
+  // },[panggilan]);
+
+  //   useEffect(() =>{ 
+  //   async function getDetailTransaksi(){
+  //     const docRef = doc(db, "transaksi", id_transaksi);
+  //     const docSnap = await getDoc(docRef);
       
-      if (docSnap.exists()) {
-        setNamatoko(docSnap.data().namatoko);
-        setPhonemitra(docSnap.data().phonemitra);
-        setAlamat_pelanggan(docSnap.data().alamat_pelanggan);
-        setEstimasi_waktu(docSnap.data().estimasi_waktu);
-        setJarak(docSnap.data().jarak);
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    }
-    getDetailTransaksi();
-  },[])
+  //     if (docSnap.exists()) {
+  //       setNamatoko(docSnap.data().namatoko);
+  //       setPhonemitra(docSnap.data().phonemitra);
+  //       setAlamat_pelanggan(docSnap.data().alamat_pelanggan);
+  //       setEstimasi_waktu(docSnap.data().estimasi_waktu);
+  //       setJarak(docSnap.data().jarak);
+  //     } else {
+  //       // doc.data() will be undefined in this case
+  //       console.log("No such document!");
+  //     }
+  //   }
+  //   getDetailTransaksi();
+  // },[])
 
+  const handleBatal =()=> {
+    Alert.alert('Anda yakin ingin membatalkan panggilan?','Mitra yang sedang di jalan bisa kecewa loh.',
+          [
+            {
+              text: 'Tutup',
+              onPress: () => {
+                console.log('Tutup dipencet')
+              }
+            },
+            {
+              text: 'Yakin',
+              onPress: () =>{
+                batalPMolehPelanggan();
+                navigation.navigate('HomeScreen')
+              },
+            }
+          ]
+          )
+  }
 
   return (
     <View style={styles.latar}>
@@ -99,7 +130,7 @@ const OtwScreen = ({ navigation, route }) => {
           <View>
             <Image source={Perjalanan} style={styles.gambar}/>
             <Image source={Load3} style={styles.load}/>
-            <Text style={styles.tulisan}>Terima kasih sudah berbelanja bersama kami</Text>
+            <Text style={styles.tulisan}>Transaksi selesai, lihat detailnya di halaman riwayat</Text>
           </View>
         )
       } */}
@@ -126,18 +157,22 @@ const OtwScreen = ({ navigation, route }) => {
             <Text numberOfLines={3}>{alamat_pelanggan}</Text>
         </View>
 
-        {/* { panggilan == "Diterima" &&
+        { panggilan == "Diterima" &&
           <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textDecorationLine:'underline', textAlign:'center'}}
-          
+            onPress={handleBatal}
           >
             Batalkan Pesanan
+          </Text>
+        }
+
+        {/* { panggilan == "Selesai" &&
+          <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textDecorationLine:'underline', textAlign:'center'}}
+            onPress={() => navigation.navigate("HomeScreen")}
+          >
+            Tutup
           </Text>
         } */}
-          <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textDecorationLine:'underline', textAlign:'center'}}
-          
-          >
-            Batalkan Pesanan
-          </Text>
+
       </View>
       <Pressable style={styles.kembali} onPress={()=> navigation.navigate('HomeScreen')}>
             <Ionicons name="chevron-back-circle-outline" size={40} color={Putih} />

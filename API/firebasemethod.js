@@ -305,3 +305,24 @@ export const noRespon = async (id_transaksi) => {
     }
   })
 };
+
+// API 9: batalPMolehPelanggan
+// Pelanggan membatalkan panggilan saat otw
+
+export const batalPMolehPelanggan = async (id_transaksi) => {
+  const db = getFirestore(app);
+  const docrefproduk = doc(db, "transaksi", id_transaksi);
+  getDoc(docrefproduk).then(docSnap => {
+    if (docSnap.exists()) {
+      try {
+          updateDoc(docrefproduk, { 
+            panggilan: "Dibatalkan Pelanggan", 
+            status_transaksi: "Dibatalkan Pelanggan",
+            waktu_pembatalan: serverTimestamp(),  
+          });
+      } catch (err) {
+        Alert.alert('Ada error merima PM!', err);
+      }
+    }
+  })
+};
