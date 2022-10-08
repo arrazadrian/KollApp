@@ -17,74 +17,74 @@ const { height, width } = Dimensions.get('window')
 
 const OtwScreen = ({ navigation, route }) => {
 
-  // const db = getFirestore(app)
+  const db = getFirestore(app)
 
-  // // const [panggilan, setPanggilan] = useState("Diterima")
+  // const [panggilan, setPanggilan] = useState("Diterima")
   
-  // const [namatoko, setNamatoko] = useState();
-  // const [phonemitra, setPhonemitra] = useState();
-  // const [alamat_pelanggan, setAlamat_pelanggan] = useState();
-  // const [estimasi_waktu, setEstimasi_waktu] = useState();
-  // const [jarak, setJarak] = useState();
+  const [namatoko, setNamatoko] = useState();
+  const [phonemitra, setPhonemitra] = useState();
+  const [alamat_pelanggan, setAlamat_pelanggan] = useState();
+  const [estimasi_waktu, setEstimasi_waktu] = useState();
+  const [jarak, setJarak] = useState();
 
-  // const telepon = () => {
-  //   Linking.openURL(`tel:${phonemitra}`);
-  // };
+  const telepon = () => {
+    Linking.openURL(`tel:${phonemitra}`);
+  };
 
-  // const sms = () => {
-  //   Linking.openURL(`sms:${phonemitra}`);
-  // };
+  const sms = () => {
+    Linking.openURL(`sms:${phonemitra}`);
+  };
 
-  // const { 
-  //   id_transaksi
-  //    } = route.params;
+  const { 
+    id_transaksi
+     } = route.params;
 
-  // useEffect(() =>{ 
-  //   async function getStatusPM(){
-  //     try{
-  //       const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (doc) => {
-  //       setPanggilan(doc.data().panggilan);
-  //         // Respond to data
-  //         // ...
-  //       });
-  //       //unsubscribe();
-  //     } catch (err){
-  //       Alert.alert('Ada error sama status PM.', err.message)
-  //     }
-  //   }
-  //   getStatusPM();
-  // },[]);
+  useEffect(() =>{ 
+    async function getStatusPM(){
+      try{
+        const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (doc) => {
+        setPanggilan(doc.data().panggilan);
+          // Respond to data
+          // ...
+        });
+        //unsubscribe();
+      } catch (err){
+        Alert.alert('Ada error sama status PM.', err.message)
+      }
+    }
+    getStatusPM();
+  },[]);
 
-  // useEffect(() => {
-  //   const lihatRespon =  () => {
-  //     if(panggilan == "Dibatalkan Mitra"){
-  //         navigation.replace('HomeScreen');
-  //         Alert.alert(
-  //           'Mitra membatalkan panggilan','Mohon maaf, sepertinya mitra sedang ada kendala saat ini.'
-  //         );
-  //     } 
-  //   } 
-  //   lihatRespon();
-  // },[panggilan]);
+  useEffect(() => {
+    const lihatRespon =  () => {
+      if(panggilan == "Dibatalkan Mitra"){
+          navigation.replace('HomeScreen');
+          Alert.alert(
+            'Mitra membatalkan panggilan','Mohon maaf, sepertinya mitra sedang ada kendala saat ini.'
+          );
+      } 
+    } 
+    lihatRespon();
+  },[panggilan]);
 
-  //   useEffect(() =>{ 
-  //   async function getDetailTransaksi(){
-  //     const docRef = doc(db, "transaksi", id_transaksi);
-  //     const docSnap = await getDoc(docRef);
+    useEffect(() =>{ 
+    async function getDetailTransaksi(){
+      const docRef = doc(db, "transaksi", id_transaksi);
+      const docSnap = await getDoc(docRef);
       
-  //     if (docSnap.exists()) {
-  //       setNamatoko(docSnap.data().namatoko);
-  //       setPhonemitra(docSnap.data().phonemitra);
-  //       setAlamat_pelanggan(docSnap.data().alamat_pelanggan);
-  //       setEstimasi_waktu(docSnap.data().estimasi_waktu);
-  //       setJarak(docSnap.data().jarak);
-  //     } else {
-  //       // doc.data() will be undefined in this case
-  //       console.log("No such document!");
-  //     }
-  //   }
-  //   getDetailTransaksi();
-  // },[])
+      if (docSnap.exists()) {
+        setNamatoko(docSnap.data().namatoko);
+        setPhonemitra(docSnap.data().phonemitra);
+        setAlamat_pelanggan(docSnap.data().alamat_pelanggan);
+        setEstimasi_waktu(docSnap.data().estimasi_waktu);
+        setJarak(docSnap.data().jarak);
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    }
+    getDetailTransaksi();
+  },[])
 
   const handleBatal =()=> {
     Alert.alert('Anda yakin ingin membatalkan panggilan?','Mitra yang sedang di jalan bisa kecewa loh.',
@@ -108,17 +108,12 @@ const OtwScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.latar}>
+      { panggilan == "Diterima" ? (
         <View>
           <Image source={Perjalanan} style={styles.gambar}/>
           <Image source={Load1} style={styles.load}/>
           <Text style={styles.tulisan}>Mitra sedang menuju lokasi kamu</Text>
           <Text style={styles.tulisan}>Estimasi sampai {estimasi_waktu} dalam jarak {jarak}</Text>
-        </View>
-      {/* { panggilan == "Diterima" ? (
-        <View>
-          <Image source={Perjalanan} style={styles.gambar}/>
-          <Image source={Load1} style={styles.load}/>
-          <Text style={styles.tulisan}>Mitra sedang menuju lokasi kamu</Text>
         </View>
         ): panggilan == "Sudah Sampai" ? (
         <View>
@@ -133,7 +128,7 @@ const OtwScreen = ({ navigation, route }) => {
             <Text style={styles.tulisan}>Transaksi selesai, lihat detailnya di halaman riwayat</Text>
           </View>
         )
-      } */}
+      }
 
       <View style={styles.bungkus}>
         <View style={{ flexDirection:'row', marginBottom: 10, alignItems:'center' }}>
@@ -165,13 +160,13 @@ const OtwScreen = ({ navigation, route }) => {
           </Text>
         }
 
-        {/* { panggilan == "Selesai" &&
+        { panggilan == "Selesai" &&
           <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textDecorationLine:'underline', textAlign:'center'}}
             onPress={() => navigation.navigate("HomeScreen")}
           >
             Tutup
           </Text>
-        } */}
+        }
 
       </View>
       <Pressable style={styles.kembali} onPress={()=> navigation.navigate('HomeScreen')}>
