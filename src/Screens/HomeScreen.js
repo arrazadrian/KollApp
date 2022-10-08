@@ -49,6 +49,8 @@ const HomeScreen = ({navigation}) => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
+
+  //Dapetin Lokasi Pelanggan saat ini
   useEffect(() => {
     (async () => {
       
@@ -68,10 +70,10 @@ const HomeScreen = ({navigation}) => {
         &location_type=ROOFTOP&result_type=street_address&key=${GOOGLE_MAPS_APIKEY}`
       ).then((res) => res.json())
       .then((data) => {
-        //console.log(data.results[0].formatted_address);
+       // console.log(data)
         dispatch(updatePosisi({
           geo: {lat:location.coords.latitude, lng:location.coords.longitude},
-          alamat: data.results[0].formatted_address,
+          alamat: data.results[0]?.formatted_address,
           geohash: geofire.geohashForLocation([location.coords.latitude,location.coords.longitude])
         }));
       })
