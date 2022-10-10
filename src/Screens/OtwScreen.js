@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View, Dimensions, Pressable, Alert } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import MapView, { Marker } from 'react-native-maps'
 import { Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
 import { DPkartu } from '../assets/Images/Index'
@@ -19,7 +19,7 @@ const OtwScreen = ({ navigation, route }) => {
 
   const db = getFirestore(app)
 
-  // const [panggilan, setPanggilan] = useState("Diterima")
+  const [panggilan, setPanggilan] = useState("Diterima")
   
   const [namatoko, setNamatoko] = useState();
   const [phonemitra, setPhonemitra] = useState();
@@ -110,8 +110,8 @@ const OtwScreen = ({ navigation, route }) => {
     <View style={styles.latar}>
       { panggilan == "Diterima" ? (
         <View>
-          <Image source={Perjalanan} style={styles.gambar}/>
-          <Image source={Load1} style={styles.load}/>
+          <Image source={TerimaKasihPM} style={styles.gambar}/>
+          <Image source={Load3} style={styles.load}/>
           <Text style={styles.tulisan}>Mitra sedang menuju lokasi kamu</Text>
           <Text style={styles.tulisan}>Estimasi sampai {estimasi_waktu} dalam jarak {jarak}</Text>
         </View>

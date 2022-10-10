@@ -35,40 +35,91 @@ const ProsesCard = ({ item }) => {
     })
   }
 
+  const pindahOtw = () => {
+    navigation.navigate('OtwScreen', { 
+      alamat_pelanggan: item.alamat_pelanggan,
+      geo_alamat: item.geo_alamat,
+      id_mitra: item.id_mitra,
+      id_pelanngan: item.id_mitra,
+      jenislayanan: item.jenislayanan,
+      jumlah_kuantitas: item.jumlah_kuantitas,
+      namamitra: item.namamitra,
+      namatoko: item.namatoko,
+      phonemitra: item.phonemitra,
+      namapelanggan: item.namapelanggan,
+      phonepelanggan: item.phonepelanggan,
+      status_transaksi: item?.status_transaksi,
+      waktu_selesai: item?.waktu_selesai,
+      waktu_dipesan: item?.waktu_dipesan,
+      catatan: item?.catatan,
+      id_transaksi: item.id,
+      panggilan: item.panggilan,
+      estimasi_waktu: item.estimasi_waktu,
+      jarak: item.jarak,
+    })
+  }
   return (
-    <Pressable style={styles.card}
-    onPress={pindahDetail}
-    >
-    { item.jenislayanan == 'Temu Langsung' ? (
-      <Image source={TemuLangsung} style={styles.foto} />      
-      ): item.jenislayanan == 'Panggil Mitra' ? (
-        <Image source={Gerobak} style={styles.foto} />      
-      ) : (
-        <Image source={KategoriPre} style={styles.foto} />
-      )
-    }
-      <View>
-        <Text style={{fontSize:18, fontWeight:'bold', color:IjoTua}}>
-            {item.namatoko}
-        </Text>
-
-      { item.jenislayanan == 'Panggil Mitra' ? (
-          <Text style={{fontSize:16, fontWeight:'bold', color:Ijo}}>
-              Sedang menuju lokasi kamu
-          </Text>      
-        ):(
+    <View>
+      { item.jenislayanan == "Panggil Mitra" ? 
+        (
+        <Pressable style={styles.card}
+        onPress={pindahOtw}
+        >
+        { item.jenislayanan == 'Temu Langsung' ? (
+          <Image source={TemuLangsung} style={styles.foto} />      
+          ): item.jenislayanan == 'Panggil Mitra' ? (
+            <Image source={Gerobak} style={styles.foto} />      
+          ) : (
+            <Image source={KategoriPre} style={styles.foto} />
+          )
+        }
           <View>
-            <Text style={{fontSize:14, color:Ijo}}>
-                Pre-Order kamu dalam proses
-            </Text>  
-            <Text style={{fontSize:14, color:Ijo, fontWeight:'bold'}}>
-               Rp{item.hargatotalsemua} | {item.jumlah_kuantitas} produk
-            </Text>  
+            <Text style={{fontSize:18, fontWeight:'bold', color:IjoTua}}>
+                {item.namatoko} 
+            </Text>
+            { item.panggilan == "Diterima" ? 
+            (
+            <Text style={{fontSize:16, fontWeight:'bold', color:Ijo}}>
+                Sedang menuju lokasi kamu
+            </Text>      
+            ):(
+            <Text style={{fontSize:16, fontWeight:'bold', color:Ijo}}>
+                Sudah sampai lokasi kamu
+            </Text>      
+            ) 
+
+            }
           </View>
+        </Pressable>
+        ):(
+          <Pressable style={styles.card}
+          onPress={pindahDetail}
+          >
+          { item.jenislayanan == 'Temu Langsung' ? (
+            <Image source={TemuLangsung} style={styles.foto} />      
+            ): item.jenislayanan == 'Panggil Mitra' ? (
+              <Image source={Gerobak} style={styles.foto} />      
+            ) : (
+              <Image source={KategoriPre} style={styles.foto} />
+            )
+          }
+            <View>
+              <Text style={{fontSize:18, fontWeight:'bold', color:IjoTua}}>
+                  {item.namatoko}
+              </Text>
+              <View>
+                <Text style={{fontSize:14, color:Ijo}}>
+                    Pre-Order kamu dalam proses
+                </Text>  
+                <Text style={{fontSize:14, color:Ijo, fontWeight:'bold'}}>
+                  Rp{item.hargatotalsemua} | {item.jumlah_kuantitas} produk
+                </Text>  
+              </View>
+            </View>
+          </Pressable>
         )
       }
-      </View>
-    </Pressable>
+    </View>
   )
 }
 
