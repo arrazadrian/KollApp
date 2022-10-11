@@ -1,6 +1,6 @@
-import { Platform, StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, StatusBar, Alert } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, StatusBar, Alert } from 'react-native'
 import React, {useState, useEffect} from 'react'
-import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
+import { Abu, Ijo, IjoMint, IjoTua, Kuning, Putih} from '../Utils/Warna';
 import { Logo, PanggilMitra, TemuLangsung, Pinkecil } from '../assets/Images/Index.js';
 import { app } from '../../Firebase/config';
 import {  getAuth } from "firebase/auth";
@@ -8,9 +8,10 @@ import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux'
 import { updateUID } from '../features/pelangganSlice';
 import { GOOGLE_MAPS_APIKEY } from "@env";
-
+import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Location from 'expo-location';
 import { updatePosisi } from '../features/posisiSlice';
+import GarisBatas from '../Components/GarisBatas';
 
 const { height, width } = Dimensions.get('window')
 
@@ -96,7 +97,7 @@ const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.latar}> 
       <View style={styles.container}>
-        <Pressable onPress={() => navigation.navigate('OtwScreen')}>
+        <Pressable onPress={() => navigation.navigate('RatingScreen')}>
           <Image source={Logo} style={styles.logopojok} />
         </Pressable>
         <View>
@@ -106,70 +107,54 @@ const HomeScreen = ({navigation}) => {
       </View>
       <ScrollView>
           <View style={{paddingHorizontal: 20}}>
-                  <View>
+                  <View style={{flex: 1}}>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                        <Text style={styles.judul}>Lokasi Kamu</Text>
-                        <Text style={{color:Ijo,fontSize:16,fontWeight:'bold', textDecorationLine:'underline'}}
-                        onPress={() => navigation.navigate('FLocScreen')}
-                        >
-                          Ubah
-                          </Text>
+                        <Text style={[styles.judul,{fontSize: 16}]}>Lokasi Kamu</Text>
                     </View>
                     {alamat ? (
-                      <Pressable style={{marginVertical:5, flexDirection:'row', alignItems:'center', width: width * 0.8}}
+                      <Pressable style={{marginBottom:15, flexDirection:'row', alignItems:'center'}}
                       onPress={() => navigation.navigate('FLocScreen')}
                       >
-                        <Image source={Pinkecil} style={styles.sampingalamat} />
-                        <Text style={styles.deskripsi} numberOfLines={2}>{alamat}</Text>
+                        <View style={{flexDirection:'row', alignItems:'center', width: width * 0.8, marginRight: 20}}>
+                          <Image source={Pinkecil} style={styles.sampingalamat} />
+                          <Text style={styles.deskripsi} numberOfLines={2}>{alamat}</Text>
+                        </View>
+                        <Ionicons name="chevron-forward-outline" size={15} color={IjoMint}/>
                       </Pressable>
                     ):(
-                      <Pressable style={{marginVertical:5, flexDirection:'row', alignItems:'center'}}
+                      <Pressable style={{marginBottom:15, flexDirection:'row', alignItems:'center'}}
                       onPress={() => navigation.navigate('FLocScreen')}
                       >
-                        <Image source={Pinkecil} style={styles.sampingalamat} />
-                        <Text style={[styles.deskripsi,{fontSize: 18}]}>Tentukan lokasi kamu saat ini...</Text>
+                        <View style={{flexDirection:'row', alignItems:'center', width: width * 0.8, marginRight: 20}}>
+                          <Image source={Pinkecil} style={styles.sampingalamat} />
+                          <Text style={[styles.deskripsi,{fontSize: 18}]}>Tentukan lokasi kamu saat ini...</Text>
+                        </View>
+                        <Ionicons name="chevron-forward-outline" size={15} color={IjoMint}/>
                       </Pressable>
                     )}
-                   
                   </View>
                   <View style={styles.bungkus}>
-                    <Text style={styles.judul}>Siap Melayani!</Text>
-                    <Text style={styles.deskripsi}>Yuk pilih kebutuhanmu</Text>
+                    <Text style={[styles.judul,{textAlign:'center'}]}>Siap Melayani!</Text>
+                    <Text style={[styles.deskripsi,{fontSize: 16, textAlign:'center'}]}>Yuk pilih kebutuhanmu</Text>
                   </View>
-
-                  {!alamat ? (
-                    <Pressable onPress={() => navigation.navigate('SekitarScreen')}
-                      disabled={!alamat}
-                    >
-                        <View style={[styles.homeButton, {opacity:0.6}]}>
-                          <View style={{flex: 2}}>
-                              <Text style={styles.judulButton}>Panggil Mitra</Text>
-                              <Text style={styles.deskripsiButton}>Tulis dulu yuk lokasi mu</Text>
+                  <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                      <Pressable onPress={() => navigation.navigate('SekitarScreen')}>
+                          <View style={styles.homeButton}>
+                            <Image source={PanggilMitra} style={styles.imageButton} />
+                            <View>
+                                <Text style={styles.judulButton}>Panggil Mitra</Text>
+                            </View>
                           </View>
-                          <Image source={PanggilMitra} style={styles.imageButton} />
-                        </View>
-                    </Pressable>
-                  ):(
-                    <Pressable onPress={() => navigation.navigate('SekitarScreen')}
-                    >
-                        <View style={styles.homeButton}>
-                          <View style={{flex: 2}}>
-                              <Text style={styles.judulButton}>Panggil Mitra</Text>
-                              <Text style={styles.deskripsiButton}>Mitra akan mendatangimu</Text>
+                      </Pressable>
+                      <Pressable onPress={() => navigation.navigate('LangsungScreen')}>
+                          <View style={styles.homeButton}>
+                            <Image source={TemuLangsung} style={styles.imageButton} />
+                            <View>
+                              <Text style={styles.judulButton}>Temu Langsung</Text>
+                            </View>
                           </View>
-                          <Image source={PanggilMitra} style={styles.imageButton} />
-                        </View>
-                    </Pressable>
-                  )}
-                  <Pressable onPress={() => navigation.navigate('LangsungScreen')}>
-                      <View style={styles.homeButton}>
-                        <View style={{flex: 2}}>
-                          <Text style={styles.judulButton}>Temu Langsung</Text>
-                          <Text style={styles.deskripsiButton}>Ketemu langsung belanja</Text>
-                        </View>
-                        <Image source={TemuLangsung} style={styles.imageButton} />
-                      </View>
-                  </Pressable>
+                      </Pressable>
+                  </View>
           </View>
       </ScrollView>
     </View>
@@ -205,17 +190,13 @@ const styles = StyleSheet.create({
     color: IjoTua,
   },
   deskripsi:{
-    fontSize: 16,
+    fontSize: 14,
     color: Ijo,
   },
   judulButton:{
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: 'bold',
     color: Ijo,
-  },
-  deskripsiButton:{
-    fontSize: 16,
-    color: IjoTua,
   },
   bungkus:{
     marginBottom:10,
@@ -223,19 +204,17 @@ const styles = StyleSheet.create({
   },
   homeButton:{
     backgroundColor: Putih,
-    flexDirection: 'row',
-    height: 120,
-    width: '100%',
+    height: height * 0.2,
+    width: width * 0.42,
     marginBottom: 10,
     borderRadius: 10,
     justifyContent: 'space-around',
     alignItems: 'center',
     elevation: 5,
-    padding: 10
+    padding: 10,
   },
   imageButton:{
-    width: width * 0.27,
-    height: width * 0.27,
-    flex: 1,
+    width: width * 0.28,
+    height: width * 0.28,
   }
 })

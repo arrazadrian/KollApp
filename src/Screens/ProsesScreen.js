@@ -96,7 +96,7 @@ const ProsesScreen = () => {
       ):(
       <FlatList
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom:80}} 
+          contentContainerStyle={{paddingBottom:10}} 
           data={proses}
           renderItem= {({item}) => <ProsesCard item={item} />}
           keyExtractor={(item) => item.id}

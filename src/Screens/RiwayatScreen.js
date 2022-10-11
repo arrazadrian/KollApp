@@ -76,7 +76,7 @@ const RiwayatScreen = () => {
       ):(
       <FlatList
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom:80}} 
+          contentContainerStyle={{paddingBottom:10}} 
           data={riwayat}
           renderItem= {({item}) => <RiwayatCard item={item} />}
           keyExtractor={(item) => item.id}

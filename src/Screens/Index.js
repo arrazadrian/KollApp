@@ -17,6 +17,7 @@ import LokasiScreen from "./LokasiScreen";
 import LoadingScreen from "./LoadingScreen";
 import LangsungScreen from "./LangsungScreen";
 import DetailScreen from "./DetailScreen";
+import RatingScreen from "./RatingScreen";
 
 export {
      HomeScreen,  
@@ -25,5 +26,5 @@ export {
      LangsungScreen, PreorderScreen,
      LokasiScreen, LoadingScreen, CheckoutScreen,
      FLocScreen, OtwScreen, ProsesScreen, ReceiptScreen,
-     ProdukScreen, DetailScreen, EtalaseScreen,
+     ProdukScreen, DetailScreen, EtalaseScreen, RatingScreen,
     };

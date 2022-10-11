@@ -110,8 +110,8 @@ const OtwScreen = ({ navigation, route }) => {
     <View style={styles.latar}>
       { panggilan == "Diterima" ? (
         <View>
-          <Image source={TerimaKasihPM} style={styles.gambar}/>
-          <Image source={Load3} style={styles.load}/>
+          <Image source={Perjalanan} style={styles.gambar}/>
+          <Image source={Load1} style={styles.load}/>
           <Text style={styles.tulisan}>Mitra sedang menuju lokasi kamu</Text>
           <Text style={styles.tulisan}>Estimasi sampai {estimasi_waktu} dalam jarak {jarak}</Text>
         </View>
