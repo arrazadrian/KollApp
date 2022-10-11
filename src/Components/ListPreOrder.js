@@ -34,15 +34,23 @@ const ListPreOrder = ({item}) => {
       harga: item.harga,
       satuan: item.satuan,
       kuantitas: item.kuantitas,
+      tersedia: item.tersedia,
     })
   }
 
   return (
     <View>
        <View style={styles.container}>
+        {item.tersedia ? (
         <Pressable onPress={pindahDetail}>
             <Image source={{uri: item.image}} style={styles.gambar}/> 
         </Pressable>
+        ):(
+        <Pressable style={{justifyContent:'center', alignItems:'center'}} onPress={pindahDetail}>
+            <Image source={{uri: item.image}} style={styles.gambarhabis}/> 
+            <Text style={styles.habis}>Stok Habis</Text>
+        </Pressable>
+        )}
         <View>
             <Text 
             style={{fontSize:18, fontWeight:'bold'}}
@@ -54,36 +62,39 @@ const ListPreOrder = ({item}) => {
             >{item.namaproduk}</Text> 
             <Text>{item.kuantitas} {item.satuan}</Text> 
         </View>
-      <View style={{flexDirection:'row', marginTop: 5, justifyContent:'space-around', alignItems:'center'}}>
-        <TouchableOpacity
-          style={{        
-            height: width * 0.07,
-            width: width * 0.07,
-            borderRadius: 20,
-            backgroundColor: !items.length ? (Abu) : (IjoTua),
-            alignItems:'center',
-            justifyContent:'center',
-          }}
-          disabled={!items.length}
-          onPress={buangProduk}
-        > 
-          <Text style={styles.logoTombol}>-</Text>
-        </TouchableOpacity>
-        <Text style={{fontSize: 20}}>{items.length}</Text>
-        <TouchableOpacity
-          style={{
-            height: width * 0.07,
-            width: width * 0.07,
-            borderRadius: 20,
-            backgroundColor: IjoTua,
-            alignItems:'center',
-            justifyContent:'center',
-          }}
-          onPress={tambahProduk}
-        >
-          <Text style={styles.logoTombol}>+</Text>
-        </TouchableOpacity>
-      </View>
+      { item.tersedia && 
+          <View style={{flexDirection:'row', marginTop: 5, justifyContent:'space-around', alignItems:'center'}}>
+            <TouchableOpacity
+              style={{        
+                height: width * 0.07,
+                width: width * 0.07,
+                borderRadius: 20,
+                backgroundColor: !items.length ? (Abu) : (IjoTua),
+                alignItems:'center',
+                justifyContent:'center',
+              }}
+              disabled={!items.length}
+              onPress={buangProduk}
+            > 
+              <Text style={styles.logoTombol}>-</Text>
+            </TouchableOpacity>
+            <Text style={{fontSize: 20}}>{items.length}</Text>
+            <TouchableOpacity
+              style={{
+                height: width * 0.07,
+                width: width * 0.07,
+                borderRadius: 20,
+                backgroundColor: IjoTua,
+                alignItems:'center',
+                justifyContent:'center',
+              }}
+              onPress={tambahProduk}
+            >
+              <Text style={styles.logoTombol}>+</Text>
+            </TouchableOpacity>
+          </View>
+      
+      }
       </View> 
     </View>
   )
@@ -110,9 +121,23 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         resizeMode: 'cover',
     },
+    gambarhabis: {
+      width: width * 0.25,
+      height: width * 0.25,
+      borderRadius: 10,
+      alignSelf: 'center',
+      resizeMode: 'cover',
+      opacity: 0.3,
+  },
     logoTombol:{
         color: Putih,
         fontWeight: 'bold',
         fontSize: 16,
-    }
+    },
+    habis:{
+      position:'absolute',
+      fontSize: 14,
+      fontWeight:'bold',
+      color:'tomato',
+    },
 })

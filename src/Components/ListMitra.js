@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, Dimensions, Pressable} from 'react-native'
 import React from 'react'
 import { DPkartu } from '../assets/Images/Index.js'
-import { Abu, Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna.js'
+import { Abu, Ijo, IjoMint, IjoTua, Kuning, Pink, Putih } from '../Utils/Warna.js'
 import { useNavigation } from '@react-navigation/native'
 
 const { width, height } = Dimensions.get('window')
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
       alignItems:'center',
     },
     tutup:{
-      backgroundColor: "#FAEAED", 
+      backgroundColor: Pink, 
       borderRadius: 5,
       marginTop: 5,
       width: 100,

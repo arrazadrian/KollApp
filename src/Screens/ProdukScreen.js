@@ -80,7 +80,7 @@ const ProdukScreen = ({ route }) => {
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-            const {image, harga, namaproduk, deskproduk, kuantitas, satuan, kategori} = doc.data();
+            const {image, harga, namaproduk, deskproduk, kuantitas, satuan, kategori, tersedia} = doc.data();
             list.push({
               id: doc.id,
               namaproduk,
@@ -90,6 +90,7 @@ const ProdukScreen = ({ route }) => {
               kuantitas,
               satuan,
               kategori,
+              tersedia,
             });
           });
           } else {
@@ -97,7 +98,7 @@ const ProdukScreen = ({ route }) => {
             const querySnapshot = await getDocs(qq);
             querySnapshot.forEach((doc) => {
               // doc.data() is never undefined for query doc snapshots
-              const {image, harga, namaproduk, deskproduk, kuantitas, satuan, kategori} = doc.data();
+              const {image, harga, namaproduk, deskproduk, kuantitas, satuan, kategori, tersedia} = doc.data();
               list.push({
                 id: doc.id,
                 namaproduk,
@@ -107,6 +108,7 @@ const ProdukScreen = ({ route }) => {
                 kuantitas,
                 satuan,
                 kategori,
+                tersedia,
               });
             });
           }

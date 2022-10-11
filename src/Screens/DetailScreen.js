@@ -1,17 +1,29 @@
 import { StyleSheet, Text, View, Image, Pressable, Dimensions } from 'react-native'
 import React from 'react'
 import { IkanMujaer } from '../assets/Images/Index'
-import { Ijo, IjoMint, IjoTua, Kuning } from '../Utils/Warna'
+import { Ijo, IjoMint, IjoTua, Kuning, Pink } from '../Utils/Warna'
 
 const { height, width } = Dimensions.get('window')
 
 const DetailScreen = ({ navigation, route }) => {
 
-  const { namaproduk, deskproduk, image, harga, satuan, kuantitas } = route.params;
+  const { namaproduk, deskproduk, image, harga, satuan, kuantitas, tersedia } = route.params;
 
   return (
     <View style={styles.latar}>
-      <Image source={{ uri: image}} style={styles.gambar}/>
+      {tersedia ? 
+      (
+      <View>
+        <Image source={{ uri: image}} style={styles.gambar}/>
+      </View>
+      ):(
+      <View style={{alignItems:'center'}}>
+        <Image source={{ uri: image}} style={styles.gambar}/>
+        <View style={styles.bungkushabis}>
+           <Text style={styles.habis}>Stok Habis</Text>
+        </View>
+      </View>
+      )}
       <View style={{paddingHorizontal: width * 0.1}}>
         <Text style={styles.subjudul}>{namaproduk}</Text>
         <Text style={styles.deskripsi}>{deskproduk}</Text>
@@ -68,6 +80,19 @@ const styles = StyleSheet.create({
         color: Ijo,
         fontWeight:'bold',
         fontSize: 20,
-        
+    },
+    bungkushabis:{
+        position:'absolute',
+        padding: 8,
+        backgroundColor: Pink,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        width: width * 0.5,
+    },
+    habis:{
+        fontSize:16,
+        fontWeight:'bold',
+        color:'tomato',
+        textAlign:'center',
     },
 })

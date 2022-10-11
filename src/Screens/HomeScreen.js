@@ -33,7 +33,7 @@ const HomeScreen = ({navigation}) => {
         const unsubscribe = onSnapshot(doc(db, "pelanggan", auth.currentUser.uid ), (doc) => {
         setKodeUID(auth.currentUser.uid);
         setNamapelanggan(doc.data().namalengkap);
-        console.log(doc.data())
+        //console.log(doc.data())
         console.log('getuserHome jalan (Home Screen)')
           // Respond to data
           // ...

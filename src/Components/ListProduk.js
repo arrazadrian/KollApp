@@ -16,6 +16,7 @@ const ListProduk = ({item}) => {
       harga: item.harga,
       satuan: item.satuan,
       kuantitas: item.kuantitas,
+      tersedia: item.tersedia,
     })
   }
 
@@ -23,9 +24,18 @@ const ListProduk = ({item}) => {
     <View style={styles.container}>
       <Pressable
         onPress={pindahDetail}>
+        { item.tersedia ? 
+        (
         <View>
           <Image source={{uri: item.image}} style={styles.gambar} />
         </View>
+        ):(
+        <View style={{justifyContent:'center', alignItems:'center'}}>
+          <Image source={{uri: item.image}} style={styles.gambarhabis} />
+          <Text style={styles.habis}>Stok Habis</Text>
+        </View>
+        )
+        }
         <View style={{paddingLeft:5}}>
           <Text 
           style={{fontSize:18, fontWeight:'bold'}}
@@ -62,5 +72,20 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       resizeMode: 'cover',
       marginBottom: 10,
-    }
+    },
+    gambarhabis: {
+      width:  height * 0.13,
+      height: height * 0.13,
+      borderRadius: 10,
+      alignSelf: 'center',
+      resizeMode: 'cover',
+      marginBottom: 10,
+      opacity: 0.3,
+    },
+    habis:{
+      position:'absolute',
+      fontSize: 14,
+      fontWeight:'bold',
+      color:'tomato',
+    },
 })
