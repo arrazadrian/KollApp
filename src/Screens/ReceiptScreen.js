@@ -1,13 +1,14 @@
-import { StyleSheet, Text, View, Pressable, Dimensions, FlatList, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, Pressable, Dimensions, TouchableOpacity, Image, ScrollView } from 'react-native'
 import React, {useEffect, useState, useRef} from 'react'
 import * as Linking from 'expo-linking';
-import { Ijo, IjoMint, IjoTua, Kuning, Putih,  } from '../Utils/Warna'
+import { Ijo, IjoMint, IjoTua, Kuning, Hitam, Putih } from '../Utils/Warna'
 import { KollLong, Location } from '../assets/Images/Index';
 import ListReceipt from '../Components/ListReceipt';
 import moment from 'moment';
 import localization from 'moment/locale/id';
 import GarisBatas from '../Components/GarisBatas';
 import { Call, Chat } from '../assets/Icons/Index';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 const { width, height } = Dimensions.get('window')
@@ -29,6 +30,55 @@ const ReceiptScreen = ({route}) => {
   const sms = () => {
     Linking.openURL(`sms:${phonemitra}`);
   };
+
+  const [ pilih, setPilih ] = useState();
+  const [ nilai, setNilai ] = useState([1,2,3,4,5]);
+  const [ ekspresi, setEkspresi ] = useState();
+
+  const NilaiBintang = () => {
+      return(
+          <View style={{flexDirection:'row', marginBottom: 10}}>
+              {
+                  nilai.map((item, key) => {
+                      return(
+                          <TouchableOpacity
+                              activeOpacity={0.7}
+                              key={item}
+                              onPress={()=> setPilih(item)}
+                          >
+                             { item <= pilih ? 
+                              (
+                              <Ionicons name="star" size={40} color={Ijo} style={{marginHorizontal:5}}/>
+                              ):(
+                              <Ionicons name="star" size={40} color={Hitam} style={{marginHorizontal:5, opacity: 0.2}}/>
+                              )
+                             }
+                          </TouchableOpacity>
+                      )
+                  })
+              }
+          </View>
+      )
+  };
+
+
+  useEffect(() =>{
+      function getEkspresi(){
+          if(pilih == 5){
+              setEkspresi("Sangat menyenangkan!!!");
+          } else if (pilih == 4){
+              setEkspresi("Keren banget kerjanya");
+          } else if (pilih == 3){
+              setEkspresi("Lumayanlah layanannya");
+          } else if (pilih == 2){
+              setEkspresi("Kurang memuaskan...")
+          } else if (pilih == 1){
+              setEkspresi("Nyebelin!!!")
+          };
+      };
+      getEkspresi();
+  },[pilih]);
+
 
   return (
     <View style={styles.latar}>
@@ -73,6 +123,21 @@ const ReceiptScreen = ({route}) => {
                 </View>
                 )
               }
+        </View>
+
+        <GarisBatas/>
+        
+        <View style={{alignItems:'center'}}> 
+            <Text style={[styles.subjudul, {textAlign:'center'}]}>Beri penilaian layanan mitra kali ini</Text>
+            <NilaiBintang/>
+            { pilih &&
+              <View style={{alignItems:'center'}}>
+                  <Text style={styles.ekspresi}>{ekspresi}</Text>
+                  <TouchableOpacity style={styles.kirim}>
+                      <Text style={{color: Putih, fontSize: 16, fontWeight:'bold', textAlign:'center'}}>Kirim</Text>
+                  </TouchableOpacity>
+              </View>
+            }
         </View>
 
         <GarisBatas/>
@@ -227,4 +292,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
   },
+  ekspresi:{
+    fontSize: 18,
+    color: Ijo,
+    fontWeight:'bold',
+    marginBottom: 10,
+  },
+  kirim:{
+    backgroundColor: Ijo,
+    padding: 10,
+    width: width * 0.3,
+    borderRadius: 20,
+    marginBottom: 10,
+},
+
 }) 
