@@ -10,11 +10,13 @@ import GarisBatas from '../Components/GarisBatas';
 import { Call, Chat } from '../assets/Icons/Index';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { kirimRating } from '../../API/firebasemethod';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { app } from '../../Firebase/config';
 
 
 const { width, height } = Dimensions.get('window')
 
-const ReceiptScreen = ({route}) => {
+const ReceiptScreen = ({navigation, route}) => {
 
   moment.updateLocale('id', localization)
 
@@ -31,6 +33,8 @@ const ReceiptScreen = ({route}) => {
   const sms = () => {
     Linking.openURL(`sms:${phonemitra}`);
   };
+
+  const [ adarating, setAdarating ] = useState(rating);
 
   const [ pilih, setPilih ] = useState();
   const [ nilai, setNilai ] = useState([1,2,3,4,5]);
@@ -80,9 +84,28 @@ const ReceiptScreen = ({route}) => {
       getEkspresi();
   },[pilih]);
 
+  const db = getFirestore(app)
+
+  //Untuk mendapatkan foto dan nama mitra,
+  useEffect(() => {
+    async function getStatus(){
+    const docRef = doc(db, "transaksi", id_transaksi);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+        setAdarating(docSnap.data()?.rating)
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    };
+    };
+    getStatus();
+  },[adarating]);
+
   const kirimNilai = () => {
       kirimRating(pilih, id_mitra, id_transaksi);
       Alert.alert('Nilai sudah masuk','Terima kasih atas penilaian anda.');
+      navigation.goBack();
   };
 
 
@@ -133,8 +156,9 @@ const ReceiptScreen = ({route}) => {
 
         <GarisBatas/>
         
-        { !rating &&
-          <View style={{alignItems:'center'}}> 
+        { !adarating &&
+          <View> 
+            <View style={{alignItems:'center'}}>
               <Text style={[styles.subjudul, {textAlign:'center'}]}>Beri penilaian layanan mitra kali ini</Text>
               <NilaiBintang/>
               { pilih &&
@@ -145,10 +169,11 @@ const ReceiptScreen = ({route}) => {
                     </TouchableOpacity>
                 </View>
               }
+            </View>
+            <GarisBatas/>
           </View>
         }
 
-        <GarisBatas/>
       
         <View style={styles.bagian}>
               <View style={{flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>

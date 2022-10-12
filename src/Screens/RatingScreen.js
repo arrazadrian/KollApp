@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, StatusBar, Alert, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, StatusBar, Alert, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { Hitam, Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -93,18 +93,26 @@ const RatingScreen = ({ navigation, route }) => {
     };
     return (
         <View style={styles.latar}>
-            <Image source={foto_akun} style={styles.foto}/>
-            <Text style={styles.nama}>{namatoko}</Text>
-            <Text style={{color: Putih, fontSize: 14, marginBottom: 10}}>
-                Beri penilaian layanan mitra kali ini
-            </Text>
-            <NilaiBintang/>
-            <Text style={styles.ekspresi}>{ekspresi}</Text>
-       {  pilih &&   
-            <TouchableOpacity style={styles.kirim} onPress={kirimNilai}>
-                <Text style={{color: Putih, fontSize: 16, fontWeight:'bold', textAlign:'center'}}>Kirim</Text>
-            </TouchableOpacity>
-        }
+            { foto_akun ? 
+                (
+                <View>
+                    <Image source={{uri: foto_akun}} style={styles.foto}/>
+                    <Text style={styles.nama}>{namatoko}</Text>
+                    <Text style={{color: Putih, fontSize: 14, marginBottom: 10}}>
+                        Beri penilaian layanan mitra kali ini
+                    </Text>
+                    <NilaiBintang/>
+                    <Text style={styles.ekspresi}>{ekspresi}</Text>
+                    { pilih &&   
+                        <TouchableOpacity style={styles.kirim} onPress={kirimNilai}>
+                            <Text style={{color: Putih, fontSize: 16, fontWeight:'bold', textAlign:'center'}}>Kirim</Text>
+                        </TouchableOpacity>
+                    }
+                </View>
+                ):(
+                <ActivityIndicator size="large" color={Putih}/>
+                )
+            }
         </View>
   )
 }
