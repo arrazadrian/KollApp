@@ -56,29 +56,32 @@ const HomeScreen = ({navigation}) => {
   useEffect(() => {
     (async () => {
       
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        return;
+      if(alamat == null){
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          setErrorMsg('Permission to access location was denied');
+          return;
+        }
+  
+        let location = await Location.getCurrentPositionAsync({});
+        setLocation(location);
+        // console.log("Lat: " +location.coords.latitude);
+        // console.log("Lng: " +location.coords.longitude);
+  
+        fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.coords.latitude},${location.coords.longitude}
+          &location_type=ROOFTOP&result_type=street_address&key=${GOOGLE_MAPS_APIKEY}`
+        ).then((res) => res.json())
+        .then((data) => {
+         // console.log(data)
+          dispatch(updatePosisi({
+            geo: {lat:location.coords.latitude, lng:location.coords.longitude},
+            alamat: data.results[0]?.formatted_address,
+            geohash: geofire.geohashForLocation([location.coords.latitude,location.coords.longitude])
+          }));
+        })
       }
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-      // console.log("Lat: " +location.coords.latitude);
-      // console.log("Lng: " +location.coords.longitude);
-
-      fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.coords.latitude},${location.coords.longitude}
-        &location_type=ROOFTOP&result_type=street_address&key=${GOOGLE_MAPS_APIKEY}`
-      ).then((res) => res.json())
-      .then((data) => {
-       // console.log(data)
-        dispatch(updatePosisi({
-          geo: {lat:location.coords.latitude, lng:location.coords.longitude},
-          alamat: data.results[0]?.formatted_address,
-          geohash: geofire.geohashForLocation([location.coords.latitude,location.coords.longitude])
-        }));
-      })
     })();
   }, []); 
   

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, Keyboard, StatusBar, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, Keyboard, StatusBar, Dimensions, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { Ijo, IjoTua, Putih } from '../Utils/Warna';
 import { useNavigation } from '@react-navigation/native';

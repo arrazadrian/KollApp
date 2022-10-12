@@ -14,7 +14,7 @@ const LoadingScreen = ({ navigation, route }) => {
   const db = getFirestore(app);
 
   const { 
-    id_transaksi
+    id_transaksi, id_mitra,
      } = route.params;
 
   useEffect(() =>{ 
@@ -38,6 +38,7 @@ const LoadingScreen = ({ navigation, route }) => {
       if(panggilan == "Diterima"){
           navigation.replace('OtwScreen',{
             id_transaksi: id_transaksi,
+            id_mitra: id_mitra,
           });
       } else if(panggilan == "Ditolak"){
           navigation.replace('HomeScreen');

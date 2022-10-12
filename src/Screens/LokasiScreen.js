@@ -37,6 +37,7 @@ const LokasiScreen = ({ route }) => {
     console.log('id Transaksi isinya: ' + kode_transaksi);
         navigation.replace('LoadingScreen',{
             id_transaksi: kode_transaksi,
+            id_mitra: id_mitra,
         })
     };
 

@@ -2,16 +2,45 @@ import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, Statu
 import React, {useState, useEffect} from 'react'
 import { Hitam, Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
 import Ionicons from '@expo/vector-icons/Ionicons';
-
+import { useNavigationState } from '@react-navigation/native';
+import { kirimRating } from '../../API/firebasemethod';
+import { getFirestore, doc, getDoc, onSnapshot, collection, query, where, orderBy } from 'firebase/firestore';
+import { app } from '../../Firebase/config';
 
 const { height, width } = Dimensions.get('window')
 
 
-const RatingScreen = () => {
+const RatingScreen = ({ navigation, route }) => {
+
+    const { 
+        id_transaksi, id_mitra,
+         } = route.params;
 
     const [ pilih, setPilih ] = useState();
     const [ nilai, setNilai ] = useState([1,2,3,4,5]);
     const [ ekspresi, setEkspresi ] = useState();
+
+    const [ namatoko, setNamatoko ] = useState();
+    const [ foto_akun, setFoto_akun ] = useState();
+
+    const db = getFirestore(app)
+    
+    //Untuk mendapatkan foto dan nama mitra,
+    useEffect(() => {
+        async function getStatus(){
+        const docRef = doc(db, "mitra", id_mitra);
+        const docSnap = await getDoc(docRef);
+        
+        if (docSnap.exists()) {
+            setNamatoko(docSnap.data().namatoko)
+            setFoto_akun(docSnap.data().foto_akun)
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        };
+        };
+        getStatus();
+    },[]);
 
     const NilaiBintang = () => {
         return(
@@ -57,19 +86,25 @@ const RatingScreen = () => {
         getEkspresi();
     },[pilih]);
 
-
+    const kirimNilai = () => {
+        kirimRating(pilih, id_mitra, id_transaksi);
+        Alert.alert('Nilai sudah masuk','Terima kasih atas penilaian anda.');
+        navigation.replace('HomeScreen');
+    };
     return (
         <View style={styles.latar}>
-            <View style={styles.foto}/>
-            <Text style={styles.nama}>Sayur Hijau Dramaga</Text>
+            <Image source={foto_akun} style={styles.foto}/>
+            <Text style={styles.nama}>{namatoko}</Text>
             <Text style={{color: Putih, fontSize: 14, marginBottom: 10}}>
                 Beri penilaian layanan mitra kali ini
             </Text>
             <NilaiBintang/>
             <Text style={styles.ekspresi}>{ekspresi}</Text>
-            <TouchableOpacity style={styles.kirim}>
+       {  pilih &&   
+            <TouchableOpacity style={styles.kirim} onPress={kirimNilai}>
                 <Text style={{color: Putih, fontSize: 16, fontWeight:'bold', textAlign:'center'}}>Kirim</Text>
             </TouchableOpacity>
+        }
         </View>
   )
 }

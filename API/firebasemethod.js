@@ -307,7 +307,7 @@ export const noRespon = async (id_transaksi) => {
 };
 
 // API 9: batalPMolehPelanggan
-// Pelanggan membatalkan panggilan saat otw
+//  PELANGGAN MEMBATALKAN PANGGILAN SAAT OTW
 
 export const batalPMolehPelanggan = async (id_transaksi) => {
   const db = getFirestore(app);
@@ -325,4 +325,51 @@ export const batalPMolehPelanggan = async (id_transaksi) => {
       }
     }
   })
+};
+
+// API 10: kirimRating
+// PELANGGAN MENILAI MITRA
+
+export const kirimRating = async (pilih, id_mitra, id_transaksi) => {
+  const db = getFirestore(app);
+  const docrefmitra = doc(db, "mitra", id_mitra);
+  const docreftransaksi = doc(db, "transaksi", id_transaksi);
+  
+  const docSnap = await getDoc(docrefmitra);
+
+  if(docSnap.exists()){
+    //Pambilang -> jml_lama
+    let jml_sekarang = docSnap.data().jml_nilai + pilih;
+    //Penyebut -> n_lama
+    let n_sekarang =  docSnap.data().nilai_masuk + 1;
+    //Hasil -> rating_lama
+    let rating_sekarang = jml_sekarang/n_sekarang;
+    
+    getDoc(docrefmitra).then(docSnap => {
+      if (docSnap.exists()) {
+        try {
+            updateDoc(docrefmitra, { 
+              rating: rating_sekarang, 
+              jml_nilai: jml_sekarang,
+              nilai_masuk: n_sekarang,  
+            });
+        } catch (err) {
+          Alert.alert('Ada error kirim rating mitra!', err);
+        }
+      }
+    }); 
+
+    getDoc(docreftransaksi).then(docSnap => {
+      if (docSnap.exists()) {
+        try {
+            updateDoc(docreftransaksi, { 
+              rating: rating_sekarang, 
+            });
+        } catch (err) {
+          Alert.alert('Ada error kirim rating transaksi!', err);
+        }
+      }
+    }); 
+
+  }
 };

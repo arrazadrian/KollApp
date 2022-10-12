@@ -36,7 +36,7 @@ const OtwScreen = ({ navigation, route }) => {
   };
 
   const { 
-    id_transaksi
+    id_transaksi, id_mitra,
      } = route.params;
 
   useEffect(() =>{ 
@@ -109,23 +109,23 @@ const OtwScreen = ({ navigation, route }) => {
   return (
     <View style={styles.latar}>
       { panggilan == "Diterima" ? (
-        <View>
+        <View style={{paddingHorizontal: 20}}>
           <Image source={Perjalanan} style={styles.gambar}/>
           <Image source={Load1} style={styles.load}/>
           <Text style={styles.tulisan}>Mitra sedang menuju lokasi kamu</Text>
           <Text style={styles.tulisan}>Estimasi sampai {estimasi_waktu} dalam jarak {jarak}</Text>
         </View>
         ): panggilan == "Sudah Sampai" ? (
-        <View>
+        <View style={{paddingHorizontal: 20}}>
           <Image source={Tiba} style={styles.gambar}/>
           <Image source={Load2} style={styles.load}/>
           <Text style={styles.tulisan}>Mitra sudah sampai lokasi kamu, yuk belanja!</Text>
         </View>
         ) : (
-          <View>
+          <View style={{paddingHorizontal: 20}}>
             <Image source={TerimaKasihPM} style={styles.gambar}/>
             <Image source={Load3} style={styles.load}/>
-            <Text style={styles.tulisan}>Transaksi selesai, lihat detailnya di halaman riwayat</Text>
+            <Text style={styles.tulisan}>Transaksi sudah selesai, lihat detailnya di halaman riwayat</Text>
           </View>
         )
       }
@@ -162,9 +162,12 @@ const OtwScreen = ({ navigation, route }) => {
 
         { panggilan == "Selesai" &&
           <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textDecorationLine:'underline', textAlign:'center'}}
-            onPress={() => navigation.navigate("HomeScreen")}
+            onPress={() => navigation.navigate("RatingScreen",{
+              id_mitra: id_mitra,
+              id_transaksi:id_transaksi,
+            })}
           >
-            Tutup
+            Beri Penilaian
           </Text>
         }
 

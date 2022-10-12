@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable, Dimensions, TouchableOpacity, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, Pressable, Dimensions, TouchableOpacity, Image, ScrollView, Alert } from 'react-native'
 import React, {useEffect, useState, useRef} from 'react'
 import * as Linking from 'expo-linking';
 import { Ijo, IjoMint, IjoTua, Kuning, Hitam, Putih } from '../Utils/Warna'
@@ -9,6 +9,7 @@ import localization from 'moment/locale/id';
 import GarisBatas from '../Components/GarisBatas';
 import { Call, Chat } from '../assets/Icons/Index';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { kirimRating } from '../../API/firebasemethod';
 
 
 const { width, height } = Dimensions.get('window')
@@ -20,7 +21,7 @@ const ReceiptScreen = ({route}) => {
   const { 
     hargalayanan, hargasubtotal, hargatotalsemua, id_mitra, id_pelanggan, id_transaksi,  jenislayanan,
     jumlah_kuantitas, namamitra, namatoko, namapelanggan, produk, waktu_selesai, waktu_dipesan, alamat_pelanggan,
-    status_transaksi, catatan, phonemitra, phonepelanggan,
+    status_transaksi, catatan, phonemitra, phonepelanggan, rating,
      } = route.params;
 
   const telepon = () => {
@@ -79,6 +80,11 @@ const ReceiptScreen = ({route}) => {
       getEkspresi();
   },[pilih]);
 
+  const kirimNilai = () => {
+      kirimRating(pilih, id_mitra, id_transaksi);
+      Alert.alert('Nilai sudah masuk','Terima kasih atas penilaian anda.');
+  };
+
 
   return (
     <View style={styles.latar}>
@@ -127,18 +133,20 @@ const ReceiptScreen = ({route}) => {
 
         <GarisBatas/>
         
-        <View style={{alignItems:'center'}}> 
-            <Text style={[styles.subjudul, {textAlign:'center'}]}>Beri penilaian layanan mitra kali ini</Text>
-            <NilaiBintang/>
-            { pilih &&
-              <View style={{alignItems:'center'}}>
-                  <Text style={styles.ekspresi}>{ekspresi}</Text>
-                  <TouchableOpacity style={styles.kirim}>
-                      <Text style={{color: Putih, fontSize: 16, fontWeight:'bold', textAlign:'center'}}>Kirim</Text>
-                  </TouchableOpacity>
-              </View>
-            }
-        </View>
+        { !rating &&
+          <View style={{alignItems:'center'}}> 
+              <Text style={[styles.subjudul, {textAlign:'center'}]}>Beri penilaian layanan mitra kali ini</Text>
+              <NilaiBintang/>
+              { pilih &&
+                <View style={{alignItems:'center'}}>
+                    <Text style={styles.ekspresi}>{ekspresi}</Text>
+                    <TouchableOpacity style={styles.kirim} onPress={kirimNilai}>
+                        <Text style={{color: Putih, fontSize: 16, fontWeight:'bold', textAlign:'center'}}>Kirim</Text>
+                    </TouchableOpacity>
+                </View>
+              }
+          </View>
+        }
 
         <GarisBatas/>
       
