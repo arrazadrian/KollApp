@@ -156,7 +156,7 @@ const ReceiptScreen = ({navigation, route}) => {
 
         <GarisBatas/>
         
-        { !adarating &&
+        { !adarating && status_transaksi == "Selesai" &&
           <View> 
             <View style={{alignItems:'center'}}>
               <Text style={[styles.subjudul, {textAlign:'center'}]}>Beri penilaian layanan mitra kali ini</Text>

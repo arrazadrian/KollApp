@@ -95,12 +95,16 @@ const RatingScreen = ({ navigation, route }) => {
         <View style={styles.latar}>
             { foto_akun ? 
                 (
-                <View>
-                    <Image source={{uri: foto_akun}} style={styles.foto}/>
-                    <Text style={styles.nama}>{namatoko}</Text>
-                    <Text style={{color: Putih, fontSize: 14, marginBottom: 10}}>
-                        Beri penilaian layanan mitra kali ini
-                    </Text>
+                <View style={{justifyContent:'center'}}>
+                    <View style={{flexDirection:'row'}}>
+                        <Image source={{uri: foto_akun}} style={styles.foto}/>
+                        <View>
+                            <Text style={styles.nama}>{namatoko}</Text>
+                            <Text style={{color: Putih, fontSize: 14,marginBottom: 10, width: width * 0.5}}>
+                                Beri penilaian layanan mitra kali ini
+                            </Text>
+                        </View>
+                    </View>
                     <NilaiBintang/>
                     <Text style={styles.ekspresi}>{ekspresi}</Text>
                     { pilih &&   
@@ -124,34 +128,37 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: IjoTua,
         justifyContent:'center',
-        alignItems:'center',
+        paddingHorizontal: 20,
     },
     foto:{
-        width: width * 0.32,
-        height: width * 0.32,
+        width: width * 0.25,
+        height: width * 0.25,
         backgroundColor: Putih,
         borderRadius: 10,
         borderColor: Ijo,
         borderWidth: 2,
         marginBottom: 10,
+        marginRight: 10,
     },
     nama:{
         fontSize: 24,
         fontWeight:'bold',
         color: IjoMint,
         marginBottom: 5,
+        width: width * 0.6,
     },
     ekspresi:{
         fontSize: 18,
         color: Kuning,
         fontWeight:'bold',
+        textAlign:'center',
+        marginBottom: 20,
     },
     kirim:{
-        position:'absolute',
         backgroundColor: Ijo,
         padding: 10,
         width: width * 0.5,
         borderRadius: 20,
-        bottom: height * 0.1,
+        alignSelf:'center',
     },
 })

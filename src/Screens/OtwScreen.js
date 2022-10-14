@@ -1,7 +1,7 @@
-import { Image, StyleSheet, Text, View, Dimensions, Pressable, Alert } from 'react-native'
+import { Image, StyleSheet, Text, View, Dimensions, Pressable, Alert, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import MapView, { Marker } from 'react-native-maps'
-import { Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
+import { Ijo, IjoMint, IjoTua, Kuning, Putih, Hitam } from '../Utils/Warna'
 import { DPkartu } from '../assets/Images/Index'
 import { Call, Chat } from '../assets/Icons/Index'
 import { Perjalanan, Tiba, TerimaKasihPM, Load1, Load2, Load3 } from '../assets/Images/Index'
@@ -22,8 +22,10 @@ const OtwScreen = ({ navigation, route }) => {
   const [panggilan, setPanggilan] = useState("Diterima")
   
   const [namatoko, setNamatoko] = useState();
+  const [namamitra, setNamamitra] = useState();
   const [phonemitra, setPhonemitra] = useState();
   const [alamat_pelanggan, setAlamat_pelanggan] = useState();
+  const [catatan, setCatatan] = useState();
   const [estimasi_waktu, setEstimasi_waktu] = useState();
   const [jarak, setJarak] = useState();
 
@@ -74,8 +76,10 @@ const OtwScreen = ({ navigation, route }) => {
       
       if (docSnap.exists()) {
         setNamatoko(docSnap.data().namatoko);
+        setNamamitra(docSnap.data().namamitra);
         setPhonemitra(docSnap.data().phonemitra);
         setAlamat_pelanggan(docSnap.data().alamat_pelanggan);
+        setCatatan(docSnap.data().catatan);
         setEstimasi_waktu(docSnap.data().estimasi_waktu);
         setJarak(docSnap.data().jarak);
       } else {
@@ -106,76 +110,178 @@ const OtwScreen = ({ navigation, route }) => {
           )
   }
 
+  const [ pilihlayanan, setPilihlayanan ] = useState();
+  const [ nilailayanan, setNilailayanan ] = useState([1,2,3,4,5]);
+  const [ pilihproduk, setPilihproduk ] = useState();
+  const [ nilaiproduk, setNilaiproduk ] = useState([1,2,3,4,5]);
+
+  const NilaiBintangLayanan = () => {
+    return(
+        <View style={{flexDirection:'row', marginBottom: 10}}>
+            {
+                nilailayanan.map((item, key) => {
+                    return(
+                        <TouchableOpacity
+                            activeOpacity={0.7}
+                            key={item}
+                            onPress={()=> setPilihlayanan(item)}
+                        >
+                           { item <= pilihlayanan ? 
+                            (
+                            <Ionicons name="star" size={22} color="orange" style={{marginHorizontal:3}}/>
+                            ):(
+                            <Ionicons name="star" size={22} color={Hitam} style={{marginHorizontal:3, opacity: 0.5}}/>
+                            )
+                           }
+                        </TouchableOpacity>
+                    )
+                })
+            }
+        </View>
+    )
+  };
+
+  const NilaiBintangProduk = () => {
+    return(
+        <View style={{flexDirection:'row', marginBottom: 10}}>
+            {
+                nilaiproduk.map((item, key) => {
+                    return(
+                        <TouchableOpacity
+                            activeOpacity={0.7}
+                            key={item}
+                            onPress={()=> setPilihproduk(item)}
+                        >
+                           { item <= pilihproduk ? 
+                            (
+                            <Ionicons name="star" size={22} color="orange" style={{marginHorizontal:3}}/>
+                            ):(
+                            <Ionicons name="star" size={22} color={Hitam} style={{marginHorizontal:3, opacity: 0.5}}/>
+                            )
+                           }
+                        </TouchableOpacity>
+                    )
+                })
+            }
+        </View>
+    )
+  };
+
   return (
-    <View style={styles.latar}>
+    <ScrollView style={styles.latar}>
+      <View style={styles.atas}>
+        <Pressable onPress={()=> navigation.navigate('HomeScreen')}>
+            <Ionicons name="chevron-back-outline" size={30} color={Putih} />
+        </Pressable>
+        <Text  style={{fontSize:20, fontWeight:'bold', color:Putih, textAlign:'center', alignSelf:'center'}} numberOfLines={1}>{namatoko}</Text>
+      </View>
       { panggilan == "Diterima" ? (
-        <View style={{paddingHorizontal: 20}}>
-          <Image source={Perjalanan} style={styles.gambar}/>
-          <Image source={Load1} style={styles.load}/>
-          <Text style={styles.tulisan}>Mitra sedang menuju lokasi kamu</Text>
-          <Text style={styles.tulisan}>Estimasi sampai {estimasi_waktu} dalam jarak {jarak}</Text>
-        </View>
+          <Image source={Perjalanan} style={styles.gambar}/>        
         ): panggilan == "Sudah Sampai" ? (
-        <View style={{paddingHorizontal: 20}}>
           <Image source={Tiba} style={styles.gambar}/>
-          <Image source={Load2} style={styles.load}/>
-          <Text style={styles.tulisan}>Mitra sudah sampai lokasi kamu, yuk belanja!</Text>
-        </View>
         ) : (
-          <View style={{paddingHorizontal: 20}}>
-            <Image source={TerimaKasihPM} style={styles.gambar}/>
-            <Image source={Load3} style={styles.load}/>
-            <Text style={styles.tulisan}>Transaksi sudah selesai, lihat detailnya di halaman riwayat</Text>
-          </View>
+          <Image source={TerimaKasihPM} style={styles.gambar}/>
         )
       }
+      <View style={styles.bagian}>
+          <View style={{ flexDirection:'row', marginBottom: 5, alignItems:'center' }}>
+              <View style={{flex: 2}}>
+                <Text>Nama Pengelola</Text>
+                <Text style={{fontSize:20, fontWeight:'bold', color:IjoTua}} numberOfLines={1}>
+                  {namamitra}
+                </Text>
+              </View>
+              <View style={{flexDirection:'row', flex: 1}}>
+                <Pressable onPress={telepon}>
+                    <Image source={Call} style={styles.icon} />
+                </Pressable>
+                <Pressable onPress={sms}>
+                    <Image source={Chat} style={styles.icon} />
+                </Pressable>
+              </View>
+          </View>
+      </View>
+      <GarisBatas/>
+      <View style={styles.bagian}>
+      <View style={{marginBottom: 15}}>
+        { panggilan == "Diterima" ? (
+            <View style={{flexDirection:'row', alignItems:'center'}}>
+              <View style={{flex: 1.5}}>
+                <Text style={[styles.tulisan, {textAlign:'left'}]}>Mitra dalam perjalanan</Text>
+                <Text style={{fontSize: 12}}>Estimasi sampai: 1 jam 20 menit</Text>
+              </View>  
+              <Image source={Load1} style={styles.load}/>
+            </View>      
+          ): panggilan == "Sudah Sampai" ? (
+            <View style={{flexDirection:'row', alignItems:'center'}}>
+              <View style={{flex: 1.5}}>
+                <Text style={[styles.tulisan, {textAlign:'left'}]}>Mitra sudah sampai</Text>
+                <Text style={{fontSize: 12}}>Selamat berbelanja</Text>
+              </View>  
+              <Image source={Load2} style={styles.load}/>
+            </View>      
+          ) : (
+            <View style={{flexDirection:'row', alignItems:'center'}}>
+              <View style={{flex: 1.5}}>
+                <Text style={[styles.tulisan, {textAlign:'left'}]}>Transaksi sudah selesai</Text>
+                <Text style={{fontSize: 12}}>Yuk bantu evaluasi mitra!</Text>
+              </View>  
+              <Image source={Load3} style={styles.load}/>
+            </View>     
+          )
+        }
+      </View>
 
-      <View style={styles.bungkus}>
-        <View style={{ flexDirection:'row', marginBottom: 10, alignItems:'center' }}>
-            <View style={{flex: 2}}>
-              <Text style={{fontSize:20, fontWeight:'bold', color:IjoTua}} numberOfLines={1}>
-                {namatoko}
+        { panggilan != "Selesai" ? 
+          (
+          <View>
+              <View style={{marginBottom: 10}}>
+                  <Text style={{fontSize:14, fontWeight:'bold', color:IjoTua}}>Tujuan Lokasi</Text>
+                  <Text numberOfLines={3}>{alamat_pelanggan}</Text>
+              </View>
+              <View style={styles.catatan}>
+                  <Text style={{fontSize:14, fontStyle:'italic', fontWeight:'bold', color:IjoTua}}>Catatan Lokasi</Text>
+                  <Text numberOfLines={3}>{catatan}</Text>
+              </View>
+          </View>
+          ):(
+          <View>
+              <Text style={{fontSize: 16, fontWeight:'bold', color: IjoTua, fontStyle:'italic', textAlign:'center'}}>
+                Berikan Penilaian Anda!
               </Text>
-            </View>
-            <View style={{flexDirection:'row', flex: 1}}>
-              <Pressable onPress={telepon}>
-                  <Image source={Call} style={styles.icon} />
-              </Pressable>
-              <Pressable onPress={sms}>
-                  <Image source={Chat} style={styles.icon} />
-              </Pressable>
-            </View>
-        </View>
-        <GarisBatas/>
-        <View style={{marginBottom: 20}}>
-            <Text style={{fontSize:14, fontWeight:'bold', color:IjoTua}}>Tujuan Lokasi</Text>
-            <Text numberOfLines={3}>{alamat_pelanggan}</Text>
-        </View>
+              <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
+                  <View style={{ alignItems:'center'}}>
+                      <Text style={{color: Ijo, fontSize: 24, fontWeight:'bold', textAlign: 'center'}}>Layanan</Text>
+                      <NilaiBintangLayanan/>
+                  </View>
+                  <View style={{ alignItems:'center'}}>
+                      <Text style={{color: Ijo, fontSize: 24, fontWeight:'bold', textAlign: 'center'}}>Produk</Text>
+                      <NilaiBintangProduk/>
+                  </View>
+              </View>
+              { pilihlayanan && pilihproduk &&
+                <TouchableOpacity style={styles.kirim}>
+                    <Text style={{color: Ijo, fontWeight:'bold', textAlign:'center'}}>Kirim Penilaian</Text>
+                </TouchableOpacity>
+              }
+          </View>
+          )
+        }
+      </View>
+
 
         { panggilan == "Diterima" &&
-          <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textDecorationLine:'underline', textAlign:'center'}}
-            onPress={handleBatal}
-          >
-            Batalkan Pesanan
-          </Text>
+          <TouchableOpacity style={styles.tombol} onPress={handleBatal}>
+              <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textAlign:'center'}}>Batalkan Pesanan</Text>
+          </TouchableOpacity>
         }
 
         { panggilan == "Selesai" &&
-          <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textDecorationLine:'underline', textAlign:'center'}}
-            onPress={() => navigation.navigate("RatingScreen",{
-              id_mitra: id_mitra,
-              id_transaksi:id_transaksi,
-            })}
-          >
-            Beri Penilaian
-          </Text>
+        <TouchableOpacity style={styles.tombol}  onPress={() => navigation.navigate("HomeScreen")}>
+          <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textAlign:'center'}}>Tutup</Text>
+        </TouchableOpacity>
         }
-
-      </View>
-      <Pressable style={styles.kembali} onPress={()=> navigation.navigate('HomeScreen')}>
-            <Ionicons name="chevron-back-circle-outline" size={40} color={Putih} />
-        </Pressable>
-    </View>
+    </ScrollView>
   )
 }
 
@@ -184,17 +290,19 @@ export default OtwScreen
 const styles = StyleSheet.create({
     latar:{
         flex: 1,
-        backgroundColor: IjoTua,
-    },
-    bungkus:{
         backgroundColor: Kuning,
-        position:'absolute',
-        bottom: 0,
-        width: width,
-        height: height * 0.35,
-        padding: 20,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
+    },
+    atas:{
+        paddingTop: 40,
+        flexDirection: 'row',
+        alignItems:'center',
+        paddingHorizontal: 10,
+        backgroundColor: Ijo,
+        paddingBottom: 10,
+    },
+    bagian:{
+        paddingHorizontal: 20,
+        marginVertical: 5,
     },
     foto:{
         flex: 2,
@@ -210,31 +318,49 @@ const styles = StyleSheet.create({
         marginLeft: 15,
     },
     gambar:{
-      width: width * 0.9,
-      height: height * 0.28,
-      alignSelf:'center',
-      marginBottom: 20,
-      marginTop: height * 0.17,
-      borderRadius: 10,
+        width: width,
+        height: height * 0.3,
+        alignSelf:'center',
+        marginBottom: 10,
     },
     load:{
-      width: width * 0.6,
-      height: height * 0.1,
-      alignSelf:'center',
-      marginBottom: 10,
-      borderRadius: 10,
+        width: width * 0.4,
+        height: height * 0.05,
+        alignSelf:'center',
+        borderRadius: 10,
+        flex: 1,
     },
     tulisan:{
-      color: Putih,
-      textAlign:'center',
-      fontSize: 16,
+        color: Ijo,
+        textAlign:'center',
+        fontSize: 16,
     },
-    kembali:{
-      borderRadius: 20,
-      position:'absolute',
-      top: height * 0.08,
-      left: width * 0.05,
-      justifyContent:'center',
-      alignItems:'center',
+    catatan:{
+        marginBottom: 20, 
+        backgroundColor: Putih, 
+        padding: 10, 
+        borderRadius: 10, 
+        borderColor: Ijo, 
+        borderWidth: 1,
+    },
+    // penilaian:{
+    //     borderRadius: 10, 
+    //     padding: 10,
+    // },
+    kirim:{
+        borderColor: Ijo,
+        borderWidth: 2,
+        width: '100%',
+        padding: 10,
+        borderRadius: 10,
+    },
+    tombol:{
+        width: '90%',
+        backgroundColor: IjoMint,
+        borderRadius: 10,
+        padding: 10,
+        alignSelf:'center',
+        marginTop: 40,
+        marginBottom: 20,
     },
 })
