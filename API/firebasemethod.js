@@ -330,7 +330,7 @@ export const batalPMolehPelanggan = async (id_transaksi) => {
 // API 10: kirimRating
 // PELANGGAN MENILAI MITRA
 
-export const kirimRating = async (pilih, id_mitra, id_transaksi) => {
+export const kirimRating = async (pilihlayanan, pilihproduk, id_mitra, id_transaksi) => {
   const db = getFirestore(app);
   const docrefmitra = doc(db, "mitra", id_mitra);
   const docreftransaksi = doc(db, "transaksi", id_transaksi);
@@ -338,19 +338,25 @@ export const kirimRating = async (pilih, id_mitra, id_transaksi) => {
   const docSnap = await getDoc(docrefmitra);
 
   if(docSnap.exists()){
-    //Pambilang -> jml_lama
-    let jml_sekarang = docSnap.data().jml_nilai + pilih;
-    //Penyebut -> n_lama
+    //Pambilang Layanan -> jml_nilai_layanan
+    let jml_nilai_layanan = docSnap.data().jml_nilai_layanan + pilihlayanan;
+    //Pambilang Produk -> jml_nilai_produk
+    let jml_nilai_produk = docSnap.data().jml_nilai_produk + pilihproduk;
+    //Penyebut atau pembagi -> n_sekarang
     let n_sekarang =  docSnap.data().nilai_masuk + 1;
-    //Hasil -> rating_lama
-    let rating_sekarang = jml_sekarang/n_sekarang;
+    //Hasil rating layanan -> rating_layanan
+    let rating_layanan = jml_nilai_layanan/n_sekarang;
+    //Hasil rating produk -> rating_produk
+    let rating_produk = jml_nilai_produk/n_sekarang;
     
     getDoc(docrefmitra).then(docSnap => {
       if (docSnap.exists()) {
         try {
             updateDoc(docrefmitra, { 
-              rating: rating_sekarang, 
-              jml_nilai: jml_sekarang,
+              rating_layanan: rating_layanan, 
+              rating_produk: rating_produk, 
+              jml_nilai_layanan: jml_nilai_layanan,
+              jml_nilai_produk: jml_nilai_produk,
               nilai_masuk: n_sekarang,  
             });
         } catch (err) {
@@ -363,7 +369,8 @@ export const kirimRating = async (pilih, id_mitra, id_transaksi) => {
       if (docSnap.exists()) {
         try {
             updateDoc(docreftransaksi, { 
-              rating: rating_sekarang, 
+              rating_layanan: pilihlayanan, 
+              rating_produk: pilihproduk, 
             });
         } catch (err) {
           Alert.alert('Ada error kirim rating transaksi!', err);
