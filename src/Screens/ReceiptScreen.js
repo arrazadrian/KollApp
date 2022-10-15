@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Pressable, Dimensions, TouchableOpacity, Image,
 import React, {useEffect, useState, useRef} from 'react'
 import * as Linking from 'expo-linking';
 import { Ijo, IjoMint, IjoTua, Kuning, Hitam, Putih } from '../Utils/Warna'
-import { KollLong, Location } from '../assets/Images/Index';
+import { KollLong, Pinkecil } from '../assets/Images/Index';
 import ListReceipt from '../Components/ListReceipt';
 import moment from 'moment';
 import localization from 'moment/locale/id';
@@ -23,7 +23,7 @@ const ReceiptScreen = ({navigation, route}) => {
   const { 
     hargalayanan, hargasubtotal, hargatotalsemua, id_mitra, id_pelanggan, id_transaksi,  jenislayanan,
     jumlah_kuantitas, namamitra, namatoko, namapelanggan, produk, waktu_selesai, waktu_dipesan, alamat_pelanggan,
-    status_transaksi, catatan, phonemitra, phonepelanggan, rating,
+    status_transaksi, catatan, phonemitra, phonepelanggan, rating_layanan, rating_produk,
      } = route.params;
 
   const telepon = () => {
@@ -34,84 +34,92 @@ const ReceiptScreen = ({navigation, route}) => {
     Linking.openURL(`sms:${phonemitra}`);
   };
 
-  const [ adarating, setAdarating ] = useState(rating);
 
-  const [ pilih, setPilih ] = useState();
-  const [ nilai, setNilai ] = useState([1,2,3,4,5]);
-  const [ ekspresi, setEkspresi ] = useState();
+  const [ pilihlayanan, setPilihlayanan ] = useState();
+  const [ nilailayanan, setNilailayanan ] = useState([1,2,3,4,5]);
+  const [ pilihproduk, setPilihproduk ] = useState();
+  const [ nilaiproduk, setNilaiproduk ] = useState([1,2,3,4,5]);
 
-  const NilaiBintang = () => {
-      return(
-          <View style={{flexDirection:'row', marginBottom: 10}}>
-              {
-                  nilai.map((item, key) => {
-                      return(
-                          <TouchableOpacity
-                              activeOpacity={0.7}
-                              key={item}
-                              onPress={()=> setPilih(item)}
-                          >
-                             { item <= pilih ? 
-                              (
-                              <Ionicons name="star" size={40} color={Ijo} style={{marginHorizontal:5}}/>
-                              ):(
-                              <Ionicons name="star" size={40} color={Hitam} style={{marginHorizontal:5, opacity: 0.2}}/>
-                              )
-                             }
-                          </TouchableOpacity>
-                      )
-                  })
-              }
-          </View>
-      )
+
+  const NilaiBintangLayanan = () => {
+    return(
+        <View style={{flexDirection:'row', marginBottom: 10}}>
+            {
+                nilailayanan.map((item, key) => {
+                    return(
+                        <TouchableOpacity
+                            activeOpacity={0.7}
+                            key={item}
+                            onPress={()=> setPilihlayanan(item)}
+                        >
+                           { item <= pilihlayanan ? 
+                            (
+                            <Ionicons name="star" size={22} color="orange" style={{marginHorizontal:3}}/>
+                            ):(
+                            <Ionicons name="star" size={22} color={Hitam} style={{marginHorizontal:3, opacity: 0.5}}/>
+                            )
+                           }
+                        </TouchableOpacity>
+                    )
+                })
+            }
+        </View>
+    )
   };
 
+  const NilaiBintangProduk = () => {
+    return(
+        <View style={{flexDirection:'row', marginBottom: 10}}>
+            {
+                nilaiproduk.map((item, key) => {
+                    return(
+                        <TouchableOpacity
+                            activeOpacity={0.7}
+                            key={item}
+                            onPress={()=> setPilihproduk(item)}
+                        >
+                           { item <= pilihproduk ? 
+                            (
+                            <Ionicons name="star" size={22} color="orange" style={{marginHorizontal:3}}/>
+                            ):(
+                            <Ionicons name="star" size={22} color={Hitam} style={{marginHorizontal:3, opacity: 0.5}}/>
+                            )
+                           }
+                        </TouchableOpacity>
+                    )
+                })
+            }
+        </View>
+    )
+  };
 
-  useEffect(() =>{
-      function getEkspresi(){
-          if(pilih == 5){
-              setEkspresi("Sangat menyenangkan!!!");
-          } else if (pilih == 4){
-              setEkspresi("Keren banget kerjanya");
-          } else if (pilih == 3){
-              setEkspresi("Lumayanlah layanannya");
-          } else if (pilih == 2){
-              setEkspresi("Kurang memuaskan...")
-          } else if (pilih == 1){
-              setEkspresi("Nyebelin!!!")
-          };
-      };
-      getEkspresi();
-  },[pilih]);
+    const kirimNilai = () => {
+      kirimRating(pilihlayanan, pilihproduk, id_mitra, id_transaksi);
+      Alert.alert('Nilai sudah masuk','Terima kasih atas penilaian anda.');
+      navigation.replace('HomeScreen');
+    };
 
   const db = getFirestore(app)
 
-  //Untuk mendapatkan foto dan nama mitra,
-  useEffect(() => {
-    async function getStatus(){
-    const docRef = doc(db, "transaksi", id_transaksi);
-    const docSnap = await getDoc(docRef);
+  // //Untuk mendapatkan foto dan nama mitra,
+  // useEffect(() => {
+  //   async function getStatus(){
+  //   const docRef = doc(db, "transaksi", id_transaksi);
+  //   const docSnap = await getDoc(docRef);
     
-    if (docSnap.exists()) {
-        setAdarating(docSnap.data()?.rating)
-    } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-    };
-    };
-    getStatus();
-  },[adarating]);
-
-  const kirimNilai = () => {
-      kirimRating(pilih, id_mitra, id_transaksi);
-      Alert.alert('Nilai sudah masuk','Terima kasih atas penilaian anda.');
-      navigation.goBack();
-  };
-
+  //   if (docSnap.exists()) {
+  //       setAdarating(docSnap.data()?.rating)
+  //   } else {
+  //       // doc.data() will be undefined in this case
+  //       console.log("No such document!");
+  //   };
+  //   };
+  //   getStatus();
+  // },[adarating]);
 
   return (
     <View style={styles.latar}>
-      <ScrollView style={{marginBottom: height* 0.15}} showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
 
         <View style={{flexDirection:'row', alignItems:'flex-end', justifyContent:'center', marginBottom: 10, paddingTop: 20}}>
           <View>
@@ -156,24 +164,6 @@ const ReceiptScreen = ({navigation, route}) => {
 
         <GarisBatas/>
         
-        { !adarating && status_transaksi == "Selesai" &&
-          <View> 
-            <View style={{alignItems:'center'}}>
-              <Text style={[styles.subjudul, {textAlign:'center'}]}>Beri penilaian layanan mitra kali ini</Text>
-              <NilaiBintang/>
-              { pilih &&
-                <View style={{alignItems:'center'}}>
-                    <Text style={styles.ekspresi}>{ekspresi}</Text>
-                    <TouchableOpacity style={styles.kirim} onPress={kirimNilai}>
-                        <Text style={{color: Putih, fontSize: 16, fontWeight:'bold', textAlign:'center'}}>Kirim</Text>
-                    </TouchableOpacity>
-                </View>
-              }
-            </View>
-            <GarisBatas/>
-          </View>
-        }
-
       
         <View style={styles.bagian}>
               <View style={{flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
@@ -181,7 +171,7 @@ const ReceiptScreen = ({navigation, route}) => {
                     <Text style={styles.subjudul}>Nama Mitra</Text>
                     <Text style={[styles.subjudul, {color: Ijo, fontSize: 20}]}>{namamitra}</Text>
                 </View>
-                { status_transaksi == "Dalam Proses" ? (
+                { status_transaksi == "Dalam Proses" &&
                   <View style={{flexDirection: 'row'}}>
                     <Pressable onPress={telepon}>
                         <Image style={styles.aksi} source={Call}/>
@@ -190,21 +180,46 @@ const ReceiptScreen = ({navigation, route}) => {
                         <Image style={styles.aksi} source={Chat}/>
                     </Pressable>
                   </View>
-                ):(
-                  <View/>
-                )
                 }
               </View>
         </View>
       
         <GarisBatas/>
-              
+        
+        {!rating_layanan && !rating_produk  && status_transaksi == "Selesai" &&
+        <View>
+            <View style={styles.bagian}>
+                    <View>
+                    <Text style={{fontSize: 16, fontWeight:'bold', color: IjoTua, fontStyle:'italic', textAlign:'center'}}>
+                      Berikan penilaian anda untuk mitra ini
+                    </Text>
+                    <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
+                        <View style={{ alignItems:'center'}}>
+                            <Text style={{color: Ijo, fontSize: 24, fontWeight:'bold', textAlign: 'center'}}>Layanan</Text>
+                            <NilaiBintangLayanan/>
+                        </View>
+                        <View style={{ alignItems:'center'}}>
+                            <Text style={{color: Ijo, fontSize: 24, fontWeight:'bold', textAlign: 'center'}}>Produk</Text>
+                            <NilaiBintangProduk/>
+                        </View>
+                    </View>
+                    { pilihlayanan && pilihproduk &&
+                      <TouchableOpacity style={styles.kirim} onPress={kirimNilai}>
+                          <Text style={{color: Ijo, fontWeight:'bold', textAlign:'center'}}>Kirim Penilaian</Text>
+                      </TouchableOpacity>
+                    }
+                  </View>
+            </View>
+        <GarisBatas/>
+        </View>
+        }
+          
         { alamat_pelanggan &&
         <View>
             <View style={styles.bagian}>
                 <Text  style={styles.subjudul}>Alamat Tujuan</Text>
                 <View style={{flexDirection:'row', alignItems:'center', width:'90%'}}>
-                  < Image source={Location} style={styles.location} />
+                  < Image source={Pinkecil} style={styles.location} />
                     <Text>{alamat_pelanggan}</Text>
                 </View>
                 {catatan ?(
@@ -225,7 +240,7 @@ const ReceiptScreen = ({navigation, route}) => {
 
 
         <View style={styles.bagian}>
-          <View style={{marginBottom: height* 0.15}}>
+          <View  style={{marginBottom: height* 0.15}}>
             <Text  style={styles.subjudul}>Daftar Produk</Text>
               {Object.entries(produk).map(([key, items]) => (
                   <View key={key}>
@@ -332,11 +347,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   kirim:{
-    backgroundColor: Ijo,
+    borderColor: Ijo,
+    borderWidth: 2,
+    width: '100%',
     padding: 10,
-    width: width * 0.3,
-    borderRadius: 20,
-    marginBottom: 10,
+    borderRadius: 10,
 },
 
 }) 

@@ -50,6 +50,10 @@ const OtwScreen = ({ navigation, route }) => {
       try{
         const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (doc) => {
         setPanggilan(doc.data().panggilan);
+        setHargasubtotal(doc.data()?.hargasubtotal);
+        setHargalayanan(doc.data()?.hargalayanan);
+        setHargatotalsemua(doc.data()?.hargatotalsemua);
+        setProduk(doc.data()?.produk);
           // Respond to data
           // ...
         });
@@ -72,7 +76,7 @@ const OtwScreen = ({ navigation, route }) => {
     } 
     lihatRespon();
   },[panggilan]);
-
+ 
     useEffect(() =>{ 
     async function getDetailTransaksi(){
       const docRef = doc(db, "transaksi", id_transaksi);
@@ -86,17 +90,13 @@ const OtwScreen = ({ navigation, route }) => {
         setCatatan(docSnap.data().catatan);
         setEstimasi_waktu(docSnap.data().estimasi_waktu);
         setJarak(docSnap.data().jarak);
-        setHargasubtotal(docSnap.data()?.hargasubtotal);
-        setHargalayanan(docSnap.data()?.hargalayanan);
-        setHargatotalsemua(docSnap.data()?.hargatotalsemua);
-        setProduk(docSnap.data()?.produk);
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
       }
     }
     getDetailTransaksi();
-  },[produk])
+  },[])
 
   const handleBatal =()=> {
     Alert.alert('Anda yakin ingin membatalkan panggilan?','Mitra yang sedang di jalan bisa kecewa loh.',
