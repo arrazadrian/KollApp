@@ -82,11 +82,15 @@ const ProsesCard = ({ item }) => {
             <Text style={{fontSize:16, fontWeight:'bold', color:Ijo}}>
                 Sedang menuju lokasi kamu
             </Text>      
-            ):(
+            ): item.panggilan == "Sudah Sampai" ?  (
             <Text style={{fontSize:16, fontWeight:'bold', color:Ijo}}>
                 Sudah sampai lokasi kamu
             </Text>      
-            ) 
+            ):(
+              <Text style={{fontSize:16, fontWeight:'bold', color:Ijo}}>
+                Menunggu respon mitra
+               </Text>  
+            )
 
             }
           </View>

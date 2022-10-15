@@ -128,26 +128,26 @@ const ReceiptScreen = ({navigation, route}) => {
         </View>
         <View style={styles.bagian}>
             <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
-                <Text style={styles.subjudul}>Jenis Layanan</Text>
+                <Text>Jenis Layanan</Text>
                 <Text>{jenislayanan}</Text>
             </View>
             <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
-                <Text style={styles.subjudul}>ID Transaksi</Text>
+                <Text>ID Transaksi</Text>
                 <Text>{id_transaksi}</Text>
             </View>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                  <Text style={styles.subjudul}>Status Transaksi</Text>
+                  <Text>Status Transaksi</Text>
                   <Text>{status_transaksi}</Text>
             </View>
             { waktu_selesai ? 
                 (
                 <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text style={styles.subjudul}>Selesai Transaksi</Text>
+                    <Text>Selesai Transaksi</Text>
                     <Text>{moment(waktu_selesai.toDate()).calendar()}</Text>
                 </View>
                 ):(
                 <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text style={styles.subjudul}>Waktu Pemesanan</Text>
+                    <Text>Waktu Pemesanan</Text>
                     <Text>{moment(waktu_dipesan.toDate()).calendar()}</Text>
                 </View>
                 )
@@ -248,11 +248,11 @@ const ReceiptScreen = ({navigation, route}) => {
       <View style={styles.bawah}>
           <View style={styles.bagian}>
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                  <Text style={styles.subjudul}>Sub Total</Text>
+                  <Text>Sub Total</Text>
                   <Text>Rp{hargasubtotal}</Text>
               </View>
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                  <Text style={styles.subjudul}>Biaya Layanan</Text>
+                  <Text>Biaya Layanan</Text>
                   <Text>Rp{hargalayanan}</Text>
               </View>
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>

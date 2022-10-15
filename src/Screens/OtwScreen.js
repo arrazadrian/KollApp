@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View, Dimensions, Pressable, Alert, ScrollView, TouchableOpacity } from 'react-native'
+import { Image, StyleSheet, Text, View, Dimensions, Pressable, Alert, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import MapView, { Marker } from 'react-native-maps'
 import { Ijo, IjoMint, IjoTua, Kuning, Putih, Hitam } from '../Utils/Warna'
@@ -28,6 +28,10 @@ const OtwScreen = ({ navigation, route }) => {
   const [catatan, setCatatan] = useState();
   const [estimasi_waktu, setEstimasi_waktu] = useState();
   const [jarak, setJarak] = useState();
+  const [hargasubtotal, setHargasubtotal] = useState();
+  const [hargalayanan, setHargalayanan] = useState();
+  const [hargatotalsemua, setHargatotalsemua] = useState();
+  const [produk, setProduk] = useState();
 
   const telepon = () => {
     Linking.openURL(`tel:${phonemitra}`);
@@ -82,13 +86,17 @@ const OtwScreen = ({ navigation, route }) => {
         setCatatan(docSnap.data().catatan);
         setEstimasi_waktu(docSnap.data().estimasi_waktu);
         setJarak(docSnap.data().jarak);
+        setHargasubtotal(docSnap.data()?.hargasubtotal);
+        setHargalayanan(docSnap.data()?.hargalayanan);
+        setHargatotalsemua(docSnap.data()?.hargatotalsemua);
+        setProduk(docSnap.data()?.produk);
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
       }
     }
     getDetailTransaksi();
-  },[])
+  },[produk])
 
   const handleBatal =()=> {
     Alert.alert('Anda yakin ingin membatalkan panggilan?','Mitra yang sedang di jalan bisa kecewa loh.',
@@ -214,7 +222,7 @@ const OtwScreen = ({ navigation, route }) => {
             <View style={{flexDirection:'row', alignItems:'center'}}>
                 <View style={{flex: 1.5}}>
                   <Text style={[styles.tulisan, {textAlign:'left'}]}>Mitra dalam perjalanan</Text>
-                  <Text style={{fontSize: 12}}>Estimasi sampai: 1 jam 20 menit</Text>
+                  <Text style={{fontSize: 12}}>Estimasi sampai: {estimasi_waktu}</Text>
                 </View>  
                 <Image source={Load1} style={styles.load}/>
               </View>      
@@ -286,50 +294,59 @@ const OtwScreen = ({ navigation, route }) => {
         <View>
           <GarisBatas/>
           <View style={styles.bagian}>
-              <Text style={{fontSize:16, fontWeight:'bold', color:IjoTua}}>Rincian Belanjaan</Text>
-              {/* {Object.entries(produk).map(([key, items]) => (
-                  <View key={key}>
-                    <View style={styles.card}>
-                      <View style={{flexDirection:'row', alignItems:'center'}}>
-                          <View style={{flexDirection:'row', marginTop: 5, alignItems:'center', paddingRight: 10}}>
-                              <Text style={{fontSize: 14}}>{items.length}</Text>
-                              <Text style={{fontSize: 14}}> x</Text>
-                          </View>
-                          <Image source={{uri: items[0]?.image}} style={styles.foto}/>
-                          <View>
-                              <Text style={styles.produk} numberOfLines={1}>{items[0]?.namaproduk}</Text>
-                              <Text style={styles.produk}>Rp{items[0]?.harga}</Text>
-                          </View>
+              <Text style={{fontSize:16, fontWeight:'bold', color:IjoTua, marginBottom: 10}}>Rincian Belanjaan</Text>
+              { !produk ? (
+                  <View style={{justifyContent:'center', alignItems:'center', flex: 1}}>
+                    <ActivityIndicator size="small" color={IjoTua}/>
+                  </View>
+              ):(
+              <View>
+                  {Object.entries(produk).map(([key, items]) => (
+                        <View key={key}>
+                          <View style={styles.card}>
+                            <View style={{flexDirection:'row', alignItems:'center'}}>
+                                <View style={{flexDirection:'row', marginTop: 5, alignItems:'center', paddingRight: 10}}>
+                                    <Text style={{fontSize: 14}}>{items.length}</Text>
+                                    <Text style={{fontSize: 14}}> x</Text>
+                                </View>
+                                <Image source={{uri: items[0]?.image}} style={styles.foto}/>
+                                <View>
+                                    <Text style={styles.produk} numberOfLines={1}>{items[0]?.namaproduk}</Text>
+                                    <Text style={styles.produk}>Rp{items[0]?.harga}</Text>
+                                </View>
+                            </View>
+                            <View style={{flexDirection:'row', marginTop: 5, alignItems:'center', paddingRight: 10}}>
+                                <Text style={styles.harga}>Rp{items.length*items[0]?.harga}</Text>
+                            </View>
+                        </View>
                       </View>
-                      <View style={{flexDirection:'row', marginTop: 5, alignItems:'center', paddingRight: 10}}>
-                          <Text style={styles.harga}>Rp{items.length*items[0]?.harga}</Text>
-                      </View>
-                  </View>
-                </View>
-              ))} */}
-              {/* <View>
-                  <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                      <Text>Subtotal</Text>
-                      <Text style={styles.harga}>
-                          <Text>Rp</Text>
-                          <Text>{hargasubtotal}</Text>
-                      </Text>
-                  </View>
-                  <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                      <Text>Biaya Layanan</Text>
-                      <Text style={styles.harga}>
-                          <Text>Rp</Text>
-                          <Text>{hargalayanan}</Text>
-                      </Text>
-                  </View>
-                  <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                      <Text>Total Harga</Text>
-                      <Text style={styles.harga}>
-                          <Text>Rp</Text>
-                          <Text>{hargatotalsemua}</Text>
-                      </Text>
-                  </View>
-              </View> */}
+                    ))} 
+                    <View style={{marginTop: 10}}>
+                        <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                            <Text>Subtotal</Text>
+                            <Text>
+                                <Text>Rp</Text>
+                                <Text>{hargasubtotal}</Text>
+                            </Text>
+                        </View>
+                        <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                            <Text>Biaya Layanan</Text>
+                            <Text>
+                                <Text>Rp</Text>
+                                <Text>{hargalayanan}</Text>
+                            </Text>
+                        </View>
+                        <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                            <Text>Total Harga</Text>
+                            <Text style={styles.harga}>
+                                <Text>Rp</Text>
+                                <Text>{hargatotalsemua}</Text>
+                            </Text>
+                        </View>
+                    </View>
+              </View>
+
+              ) }
           </View>
         </View>
       }    
