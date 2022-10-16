@@ -56,7 +56,7 @@ const ReceiptScreen = ({navigation, route}) => {
                             (
                             <Ionicons name="star" size={22} color="orange" style={{marginHorizontal:3}}/>
                             ):(
-                            <Ionicons name="star" size={22} color={Hitam} style={{marginHorizontal:3, opacity: 0.5}}/>
+                            <Ionicons name="star" size={22} color={Hitam} style={{marginHorizontal:3, opacity: 0.2}}/>
                             )
                            }
                         </TouchableOpacity>
@@ -67,7 +67,7 @@ const ReceiptScreen = ({navigation, route}) => {
     )
   };
 
-  const NilaiBintangProduk = () => {
+  const NilaiDaunProduk = () => {
     return(
         <View style={{flexDirection:'row', marginBottom: 10}}>
             {
@@ -80,9 +80,9 @@ const ReceiptScreen = ({navigation, route}) => {
                         >
                            { item <= pilihproduk ? 
                             (
-                            <Ionicons name="star" size={22} color="orange" style={{marginHorizontal:3}}/>
+                            <Ionicons name="leaf" size={22} color="green" style={{marginHorizontal:3}}/>
                             ):(
-                            <Ionicons name="star" size={22} color={Hitam} style={{marginHorizontal:3, opacity: 0.5}}/>
+                            <Ionicons name="leaf" size={22} color={Hitam} style={{marginHorizontal:3, opacity: 0.2}}/>
                             )
                            }
                         </TouchableOpacity>
@@ -200,7 +200,7 @@ const ReceiptScreen = ({navigation, route}) => {
                         </View>
                         <View style={{ alignItems:'center'}}>
                             <Text style={{color: Ijo, fontSize: 24, fontWeight:'bold', textAlign: 'center'}}>Produk</Text>
-                            <NilaiBintangProduk/>
+                            <NilaiDaunProduk/>
                         </View>
                     </View>
                     { pilihlayanan && pilihproduk &&

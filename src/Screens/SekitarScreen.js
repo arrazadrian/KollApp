@@ -1,11 +1,12 @@
 import { Pressable, StyleSheet, Text, View, ActivityIndicator, FlatList, Image, Dimensions } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import ListMitra from '../Components/ListMitra'
-import { Ijo, Kuning, Hitam, Putih, IjoTua } from '../Utils/Warna'
+import { Ijo, Kuning, Hitam, Putih, IjoTua, IjoMint } from '../Utils/Warna'
 import { getFirestore, collection, query, where, getDocs, doc, orderBy, startAt, endAt } from "firebase/firestore";
 import { app } from '../../Firebase/config';
 import { useSelector } from 'react-redux';
 import { noMitra } from '../assets/Images/Index';
+
 
 const { height, width } = Dimensions.get('window')
 
@@ -39,12 +40,13 @@ const SekitarScreen = ({ navigation }) => {
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
           const { alamat, email, foto_akun, geo, geohash, id_mitra, mangkal, namalengkap,
-                   namatoko, phone, status_sekarang, waktu_buka, waktu_tutup } = doc.data();
+                   namatoko, phone, status_sekarang, waktu_buka, waktu_tutup, rating_layanan, rating_produk } = doc.data();
           list.push({
             id: doc.id,
             alamat, email, foto_akun, geo, geohash,
             id_mitra, mangkal, namalengkap, namatoko,
             phone, status_sekarang, waktu_buka, waktu_tutup,
+            rating_layanan, rating_produk,
             });
           });
         };
@@ -71,22 +73,22 @@ const SekitarScreen = ({ navigation }) => {
           <ActivityIndicator size="large" color={IjoTua}/>
         </View>
       ):(
-      <FlatList
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom:80}} 
-          data={sekitar}
-          renderItem= {({item}) => <ListMitra item={item} />}
-          keyExtractor={(item) => item.id}
-          ListFooterComponent={<View style={{height:10}}></View>}
-          ListHeaderComponent={<View style={{height:10}}></View>}
-          ListEmptyComponent=
-          {
-            <View style={{flex: 1, alignItems:'center', justifyContent:'center'}}> 
-              <Image source={noMitra} style={styles.kosong}/>
-              <Text style={styles.maaf}>Mohon maaf, layanan Koll belum ada di daerah kamu</Text>
-            </View> 
-          } 
-      />
+        <FlatList
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{paddingBottom:80}} 
+            data={sekitar}
+            renderItem= {({item}) => <ListMitra item={item} />}
+            keyExtractor={(item) => item.id}
+            ListFooterComponent={<View style={{height:10}}></View>}
+            ListHeaderComponent={<View style={{height:10}}></View>}
+            ListEmptyComponent=
+            {
+              <View style={{flex: 1, alignItems:'center', justifyContent:'center'}}> 
+                <Image source={noMitra} style={styles.kosong}/>
+                <Text style={styles.maaf}>Mohon maaf, layanan Koll belum ada di daerah kamu</Text>
+              </View> 
+            } 
+        />
       )}
     </View>
   )
