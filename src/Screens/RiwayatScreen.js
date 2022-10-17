@@ -13,8 +13,6 @@ const { width, height } = Dimensions.get('window')
 const RiwayatScreen = () => {
 
   const[riwayat,setRiwayat] = useState();
-  const[loading, setLoading] = useState(true);
-  const componentMounted = useRef(true);
 
   useEffect(()=>{
     const fetchRiwayat = async() => {
@@ -54,26 +52,22 @@ const RiwayatScreen = () => {
           });
         });
 
-        if (componentMounted.current){ // (5) is component still mounted?
-          setRiwayat(list); // (1) write data to state
-          setLoading(false); // (2) write some value to state
-        }
-        return () => { // This code runs when component is unmounted
-            componentMounted.current = false; // (4) set it to false when we leave the page
-        }
+        setRiwayat(list); // (1) write data to state 
 
       } catch(err){
         console.log(err);
       }
     }
     fetchRiwayat();
+
+    return() => {console.log('Proses Unmonted')}
   },[])
   //Tambah parameter "riwayat" bila mau auto refresh
 
 
   return (
     <View style={styles.latar}>
-      {loading ? (
+      {!riwayat ? (
         <View style={{justifyContent:'center', alignItems:'center', flex: 1}}>
           <ActivityIndicator size="large" color={IjoTua}/>
         </View>

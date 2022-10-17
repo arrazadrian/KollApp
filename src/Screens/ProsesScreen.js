@@ -13,8 +13,6 @@ const { width, height } = Dimensions.get('window')
 const ProsesScreen = () => {
 
   const[proses,setProses] = useState();
-  const[loading, setLoading] = useState(true);
-  const componentMounted = useRef(true);
 
   useEffect(()=>{
     const fetchProses = async() => {
@@ -73,25 +71,21 @@ const ProsesScreen = () => {
           });
         });
 
-        if (componentMounted.current){ // (5) is component still mounted?
-          setProses(list); // (1) write data to state
-          setLoading(false); // (2) write some value to state
-        }
-        return () => { // This code runs when component is unmounted
-            componentMounted.current = false; // (4) set it to false when we leave the page
-        }
-
+        setProses(list); 
+      
       } catch(err){
         console.log(err);
-      }
+      };
     }
     fetchProses();
+
+    return() => {console.log('Proses Unmonted')}
   },[])
   //Tambah parameter "proses" untuk auto update
 
   return (
     <View style={styles.latar}>
-      {loading ? (
+      {!proses ? (
         <View style={{justifyContent:'center', alignItems:'center', flex: 1}}>
           <ActivityIndicator size="large" color={IjoTua}/>
         </View>

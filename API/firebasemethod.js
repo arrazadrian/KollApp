@@ -199,7 +199,7 @@ async function uploadgambarakun(uri) {
 // API 7: buatTransaksiPO
 // MEMBUAT TRANSAKSI PO. 
 
-export const buatTransaksiPO = async (alamat, geo, catatan, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, kelompokProduk, subtotalhargaKeranjang, hargalayanan, hargatotalsemua, jumlah_kuantitas) => {  
+export const buatTransaksiPO = async (alamat, geo, catatan_lokasi, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, kelompokProduk, catatan_produk, subtotalhargaKeranjang, hargalayanan, hargatotalsemua, jumlah_kuantitas) => {  
   const auth = getAuth();
   const db = getFirestore(app);
 
@@ -212,7 +212,7 @@ export const buatTransaksiPO = async (alamat, geo, catatan, id_mitra, namalengka
       addDoc(collection(db, "transaksi"), {
         alamat_pelanggan: alamat,
         geo_alamat: geo,
-        catatan: catatan,
+        catatan_lokasi: catatan_lokasi,
         id_mitra: id_mitra, 
         namamitra: namalengkap_mitra,
         namatoko: namatoko,
@@ -224,6 +224,7 @@ export const buatTransaksiPO = async (alamat, geo, catatan, id_mitra, namalengka
         jenislayanan: 'Pre-Order',
         status_transaksi: 'Dalam Proses',
         produk: kelompokProduk,
+        catatan_produk: catatan_produk,
         hargasubtotal: subtotalhargaKeranjang,
         hargalayanan: hargalayanan,
         hargatotalsemua: hargatotalsemua,
@@ -244,7 +245,7 @@ export const buatTransaksiPO = async (alamat, geo, catatan, id_mitra, namalengka
 // API 7: buatTransaksiPM
 // MEMBUAT TRANSAKSI PM.
 
-export const buatTransaksiPM = async (alamat, geo, catatan, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, kelompokProduk, subtotalhargaKeranjang, hargalayanan, hargatotalsemua, jumlah_kuantitas) => {  
+export const buatTransaksiPM = async (alamat, geo, catatan_lokasi, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, kelompokProduk, subtotalhargaKeranjang, hargalayanan, hargatotalsemua, jumlah_kuantitas) => {  
   const auth = getAuth();
   const db = getFirestore(app);
 
@@ -257,7 +258,7 @@ export const buatTransaksiPM = async (alamat, geo, catatan, id_mitra, namalengka
     const docRef = await addDoc(collection(db, "transaksi"), {
         alamat_pelanggan: alamat,
         geo_alamat: geo,
-        catatan: catatan,
+        catatan_lokasi: catatan_lokasi,
         id_mitra: id_mitra, 
         namamitra: namalengkap_mitra,
         namatoko: namatoko,

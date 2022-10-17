@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View, Dimensions, Pressable, Alert, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import MapView, { Marker } from 'react-native-maps'
 import { Ijo, IjoMint, IjoTua, Kuning, Putih, Hitam } from '../Utils/Warna'
 import { Call, Chat } from '../assets/Icons/Index'
@@ -10,7 +10,7 @@ import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { app } from '../../Firebase/config';
 import * as Linking from 'expo-linking';
 import { batalPMolehPelanggan, kirimRating } from '../../API/firebasemethod'
-
+import { useFocusEffect } from '@react-navigation/native';
 
 const { height, width } = Dimensions.get('window')
 
@@ -44,25 +44,44 @@ const OtwScreen = ({ navigation, route }) => {
     id_transaksi, id_mitra,
      } = route.params;
 
-  useEffect(() =>{ 
-    async function getStatusPM(){
-      try{
-        const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (doc) => {
-        setPanggilan(doc.data().panggilan);
-        setHargasubtotal(doc.data()?.hargasubtotal);
-        setHargalayanan(doc.data()?.hargalayanan);
-        setHargatotalsemua(doc.data()?.hargatotalsemua);
-        setProduk(doc.data()?.produk);
-          // Respond to data
-          // ...
-        });
-        //unsubscribe();
-      } catch (err){
-        Alert.alert('Ada error sama status PM.', err.message)
-      }
-    }
-    getStatusPM();
-  },[]);
+  // useEffect(() =>{ 
+  //   async function getStatusPM(){
+  //     try{
+  //       const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (doc) => {
+  //       setPanggilan(doc.data().panggilan);
+  //       setHargasubtotal(doc.data()?.hargasubtotal);
+  //       setHargalayanan(doc.data()?.hargalayanan);
+  //       setHargatotalsemua(doc.data()?.hargatotalsemua);
+  //       setProduk(doc.data()?.produk);
+  //         // Respond to data
+  //         // ...
+  //       });
+  //       //unsubscribe();
+  //     } catch (err){
+  //       Alert.alert('Ada error sama status PM.', err.message)
+  //     }
+  //   }
+  //   getStatusPM();
+  // },[]);
+
+  useFocusEffect(
+    useCallback(() => {
+          const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (doc) => {
+          setPanggilan(doc.data().panggilan);
+          setHargasubtotal(doc.data()?.hargasubtotal);
+          setHargalayanan(doc.data()?.hargalayanan);
+          setHargatotalsemua(doc.data()?.hargatotalsemua);
+          setProduk(doc.data()?.produk);
+            // Respond to data
+            // ...
+          });
+          //unsubscribe();
+          return () => {
+            console.log('Otw Unmounted') 
+            unsubscribe();
+          }
+    },[])
+  );
 
   useEffect(() => {
     const lihatRespon =  () => {
