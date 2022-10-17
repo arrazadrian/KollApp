@@ -38,6 +38,8 @@ import TerimaKasihPM from './TerimaKasihPM.png'
 import Load1 from './Load1.png'
 import Load2 from './Load2.png'
 import Load3 from './Load3.png'
+import Kasbon from './cap_kasbon.png'
+import Lunas from './cap_lunas.png'
 
 
 export { Awan, Logo, Splash, LogoPutih, Header1, 
@@ -48,4 +50,4 @@ export { Awan, Logo, Splash, LogoPutih, Header1,
         Kategori09, KategoriPre, IkanMujaer, noMitra,
         meetup,Bag, Gerobak, Pinkecil, Bawah, LogoKoll,
         LogoQR, Kosong, Receipt, Tiba, Perjalanan, TerimaKasihPM,
-        Load1, Load2, Load3 }
+        Load1, Load2, Load3, Kasbon, Lunas }
