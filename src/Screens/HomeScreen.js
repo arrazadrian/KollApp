@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, StatusBar, Alert } from 'react-native'
-import React, {useState, useEffect} from 'react'
+import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, StatusBar, Alert, ActivityIndicator } from 'react-native'
+import React, {useState, useEffect, useCallback} from 'react'
 import { Abu, Ijo, IjoMint, IjoTua, Kuning, Putih} from '../Utils/Warna';
 import { Logo, PanggilMitra, TemuLangsung, Pinkecil } from '../assets/Images/Index.js';
 import { app } from '../../Firebase/config';
@@ -12,6 +12,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Location from 'expo-location';
 import { updatePosisi } from '../features/posisiSlice';
 import GarisBatas from '../Components/GarisBatas';
+import { useFocusEffect } from '@react-navigation/native';
 
 const { height, width } = Dimensions.get('window')
 
@@ -28,25 +29,45 @@ const HomeScreen = ({navigation}) => {
   const geofire = require('geofire-common');
  
  
-  useEffect(() =>{ 
-    async function getuserHome(){
-      try{
-        const unsubscribe = onSnapshot(doc(db, "pelanggan", auth.currentUser.uid ), (doc) => {
-        setKodeUID(auth.currentUser.uid);
-        setNamapelanggan(doc.data().namalengkap);
-        //console.log(doc.data())
-        console.log('getuserHome jalan (Home Screen)')
-          // Respond to data
-          // ...
-        });
-        //unsubscribe();
-      } catch (err){
-        Alert.alert('There is an error.', err.message)
-      }
-    }
-    getuserHome();
-    dispatch(updateUID({kodeUID,namapelanggan}));
-  },[namapelanggan])
+  // useEffect(() =>{ 
+  //   async function getuserHome(){
+  //     try{
+  //       const unsubscribe = onSnapshot(doc(db, "pelanggan", auth.currentUser.uid ), (doc) => {
+  //       setKodeUID(auth.currentUser.uid);
+  //       setNamapelanggan(doc.data().namalengkap);
+  //       //console.log(doc.data())
+  //       console.log('getuserHome jalan (Home Screen)')
+  //         // Respond to data
+  //         // ...
+  //       });
+  //       //unsubscribe();
+  //     } catch (err){
+  //       Alert.alert('There is an error.', err.message)
+  //     }
+  //   }
+  //   getuserHome();
+  //   dispatch(updateUID({kodeUID,namapelanggan}));
+  // },[namapelanggan])
+ 
+  //Dapetin nama pelanggan dan uid buat home, putus listener kalo pindah halaman
+  useFocusEffect(
+    useCallback(() => {
+          const unsubscribe = onSnapshot(doc(db, "pelanggan", auth.currentUser.uid ), (doc) => {
+          setKodeUID(auth.currentUser.uid);
+          setNamapelanggan(doc.data().namalengkap);
+          //console.log(doc.data())
+          console.log('getuserHome jalan (Home Screen)')
+          dispatch(updateUID({kodeUID,namapelanggan}));
+            // Respond to data
+            // ...
+          });
+          //unsubscribe();
+          return () => {
+            console.log('Home Unmounted') 
+            unsubscribe();
+          }
+    },[namapelanggan])
+  );
 
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -74,11 +95,19 @@ const HomeScreen = ({navigation}) => {
         ).then((res) => res.json())
         .then((data) => {
          // console.log(data)
-          dispatch(updatePosisi({
-            geo: {lat:location.coords.latitude, lng:location.coords.longitude},
-            alamat: data.results[0]?.formatted_address,
-            geohash: geofire.geohashForLocation([location.coords.latitude,location.coords.longitude])
-          }));
+         if(!data.results[0]?.formatted_address){
+           dispatch(updatePosisi({
+             geo: {lat:location.coords.latitude, lng:location.coords.longitude},
+             alamat: "Nama jalan belum terdaftar",
+             geohash: geofire.geohashForLocation([location.coords.latitude,location.coords.longitude])
+           }));
+          } else {
+           dispatch(updatePosisi({
+             geo: {lat:location.coords.latitude, lng:location.coords.longitude},
+             alamat: data.results[0]?.formatted_address,
+             geohash: geofire.geohashForLocation([location.coords.latitude,location.coords.longitude])
+           }));
+         }
         })
       }
 
@@ -92,13 +121,22 @@ const HomeScreen = ({navigation}) => {
   let text = 'Waiting..';
   if (errorMsg) {
     text = errorMsg;
+    console.log(text);
   } else if (location) {
     text = JSON.stringify(location);
+    console.log(text);
   }
-
 
   return (
     <View style={styles.latar}> 
+    { !alamat ? 
+    (
+      <View style={{justifyContent:'center', alignItems:'center', flex: 1}}>
+           <ActivityIndicator size="large" color={IjoTua}/>
+           <Text style={{textAlign:'center', color: Ijo, fontSize: 18, marginTop: 10}}>Mencari lokasi kamu...</Text>
+      </View>
+    ):(
+    <View>
       <View style={styles.container}>
         <Pressable onPress={() => navigation.navigate('RatingScreen')}>
           <Image source={Logo} style={styles.logopojok} />
@@ -160,6 +198,8 @@ const HomeScreen = ({navigation}) => {
                   </View>
           </View>
       </ScrollView>
+    </View>
+    )}
     </View>
   )
 }

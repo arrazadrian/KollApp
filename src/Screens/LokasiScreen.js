@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image,  TextInput, ScrollView, Dimensions, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { Abu, Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
-import { DPkartu, Pinkecil } from '../assets/Images/Index'
+import { DPkartu, Gerobak, Pinkecil } from '../assets/Images/Index'
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -68,9 +68,6 @@ const LokasiScreen = ({ route }) => {
                 <View style={{marginBottom: 10}}>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                         <Text style={{fontSize: 18, fontWeight:'bold', color: IjoTua}}>Pastikan lokasi kamu benar</Text>
-                        {/* <Text style={{fontSize: 16, fontWeight:'bold', color: Ijo, textDecorationLine:'underline'}}
-                        onPress={() => navigation.navigate('FLocScreen')}
-                        >Ubah</Text> */}
                     </View>
                     <View style={{marginVertical:5, flexDirection:'row', alignItems:'center', width: width * 0.8}}>
                         <Image source={Pinkecil} style={styles.location} />
@@ -90,7 +87,13 @@ const LokasiScreen = ({ route }) => {
                 <View style={styles.kotak}>
                     <View style={styles.atas}>
                         <View style={{flex: 1.5}}>
-                            <Image source={{uri: foto_akun}} style={styles.foto}/>
+                            { foto_akun ?
+                                (
+                                <Image source={{uri: foto_akun}} style={styles.foto}/>
+                                ):(
+                                <Image source={Gerobak} style={styles.foto}/>
+                                )
+                            }
                         </View> 
                         <View style={{flex: 4}}>
                             <Text style={{fontSize: 16, fontWeight:'bold', color:IjoTua}}>{namatoko}</Text>
@@ -138,6 +141,7 @@ const styles = StyleSheet.create({
         width: width * 0.2,
         height: width * 0.2,
         borderRadius: 5,
+        backgroundColor:'tan',
     },
     atas:{
         flexDirection: 'row',

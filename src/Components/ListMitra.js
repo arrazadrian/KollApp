@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, Dimensions, Pressable} from 'react-native'
 import React from 'react'
-import { DPkartu } from '../assets/Images/Index.js'
+import { DPkartu, Gerobak } from '../assets/Images/Index.js'
 import { Abu, Ijo, IjoMint, IjoTua, Kuning, Pink, Putih } from '../Utils/Warna.js'
 import { useNavigation } from '@react-navigation/native'
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -30,7 +30,13 @@ const ListMitra = ({ item }) => {
 
   return (
     <Pressable style={styles.card} onPress={pindahEtalase}>
-      <Image source={{uri: item.foto_akun}} style={styles.foto}/>
+      { item.foto_akun ?
+        (
+        <Image source={{uri: item.foto_akun}} style={styles.foto}/>
+        ):(
+        <Image source={Gerobak} style={styles.foto}/>
+        )
+      }
       <View style={styles.deskripsi}>
         <View>
             <Text style={{fontSize: 20, fontWeight: 'bold', color:IjoTua}}>{item.namatoko}</Text>
@@ -82,6 +88,7 @@ const styles = StyleSheet.create({
         borderRadius: 10, 
         marginRight: 10,
         flex: 1.2,
+        backgroundColor:"tan",
     },
     deskripsi:{
         flexDirection: 'row',

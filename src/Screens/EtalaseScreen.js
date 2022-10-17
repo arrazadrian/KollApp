@@ -86,7 +86,13 @@ const EtalaseScreen = ({ route }) => {
       <View style={styles.kotak}>
           <View style={{flexDirection:'row', alignItems:'center', marginBottom: 10}}>
               <View style={{width: '30%'}}>
-                  <Image source={{uri: foto_akun}} style={styles.fototoko}/>
+              { foto_akun ?
+                (
+                <Image source={{uri: foto_akun}} style={styles.fototoko}/>
+                ):(
+                <Image source={Gerobak} style={styles.fototoko}/>
+                )
+              }
               </View>
               <View style={{width:'70%'}}>
                   <Text style={{color: IjoMint, fontSize:22, fontWeight: 'bold'}}>{namatoko}</Text>
@@ -164,6 +170,7 @@ const styles = StyleSheet.create({
     borderColor: Ijo,
     borderWidth: 2,
     marginRight: 10,
+    backgroundColor: "tan",
   },
   gambar:{
     width: height * 0.12,

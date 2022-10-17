@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View, SafeAreaView, Pressable, Image } from 'react-native'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Ijo, IjoTua, Kuning, Putih} from '../Utils/Warna';
 import { KollLong, Logo } from '../assets/Images/Index.js'
 import { handleSignOut } from '../../API/firebasemethod'
 import { app } from '../../Firebase/config';
 import {  getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useFocusEffect } from '@react-navigation/native'
 
 const AkunScreen = () => {
 
@@ -27,25 +27,45 @@ const AkunScreen = () => {
   const auth = getAuth();
   const db = getFirestore(app)
 
-  useEffect(() =>{
-    async function getuserAkun(){
-      try{
-        const unsubscribe = onSnapshot(doc(db, "pelanggan", auth.currentUser.uid ), (doc) => {
-        setNamaakun(doc.data().namalengkap);
-        setFotoakun(doc.data().foto_akun);
-        setPhoneakun(doc.data().phone);
-        setEmailakun(doc.data().email);
-        console.log('getuserAkun jalan (Akun Screen)')
-          // Respond to data
-          // ...
-        });
-        //unsubscribe();
-      } catch (err){
-        Alert.alert('There is an error.', err.message)
-      }
-    }
-    getuserAkun();
-  },[])
+  // useEffect(() =>{
+  //   async function getuserAkun(){
+  //     try{
+  //       const unsubscribe = onSnapshot(doc(db, "pelanggan", auth.currentUser.uid ), (doc) => {
+  //       setNamaakun(doc.data().namalengkap);
+  //       setFotoakun(doc.data().foto_akun);
+  //       setPhoneakun(doc.data().phone);
+  //       setEmailakun(doc.data().email);
+  //       console.log('getuserAkun jalan (Akun Screen)')
+  //         // Respond to data
+  //         // ...
+  //       });
+  //       //unsubscribe();
+  //     } catch (err){
+  //       Alert.alert('There is an error.', err.message)
+  //     }
+  //   }
+  //   getuserAkun();
+  // },[])
+
+  //Dapetin data pelanggan akun, putus listener kalo pindah halaman
+  useFocusEffect(
+    useCallback(() => {
+          const unsubscribe = onSnapshot(doc(db, "pelanggan", auth.currentUser.uid ), (doc) => {
+            setNamaakun(doc.data().namalengkap);
+            setFotoakun(doc.data().foto_akun);
+            setPhoneakun(doc.data().phone);
+            setEmailakun(doc.data().email);
+            console.log('getuserAkun jalan (Akun Screen)')
+            // Respond to data
+            // ...
+          });
+          //unsubscribe();
+          return () => {
+            console.log('Akun Unmounted') 
+            unsubscribe();
+          }
+    },[])
+  );
 
   return (
     <SafeAreaView style={styles.latar}>
