@@ -24,7 +24,7 @@ const ataspreorder = () => {
           <View style={{width:'70%'}}>
               <Text style={{textAlign:'justify', fontSize:14, fontWeight:'bold',color: Ijo}}>Bagaimana mekanisme pre-order?</Text>
               <Text style={{textAlign:'justify', fontSize: 12 }}>
-                Produk pre-order akan diantar paling lambat 2 x 24 jam setelah pemesanan dan dibayar dengan metode COD.
+                Produk pre-order akan diantar paling lambat 1 x 24 jam setelah pemesanan.
               </Text>
           </View>
         </View>
@@ -188,8 +188,9 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   gambar:{
-    width: width * 0.25,
-    height: width * 0.25,
+    width: width * 0.2,
+    height: width * 0.2,
+    marginLeft: 10, 
   },
   input:{
     backgroundColor: Putih,
@@ -217,7 +218,7 @@ const styles = StyleSheet.create({
     margin: 10
   },
   bawah:{
-    marginTop: height * 0.12,
+    marginTop: height * 0.15,
     width: '100%',
     height: 98,
   }

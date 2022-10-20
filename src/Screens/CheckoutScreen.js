@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, Text, View, Image, TextInput, Pressable, Dimensions, TouchableOpacity, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Abu, Ijo, IjoMint, IjoTua, Kuning, Putih } from '../Utils/Warna'
-import { Location } from '../assets/Images/Index'
+import { Pinkecil } from '../assets/Images/Index'
 import MapView, { Marker } from 'react-native-maps';
 import GarisBatas from '../Components/GarisBatas';
 import { useNavigation } from '@react-navigation/native';
@@ -89,7 +89,7 @@ const CheckoutScreen = ({ route }) => {
                   >Ubah</Text> */}
             </View>
             <View style={{flexDirection:'row', alignItems:'center', marginBottom:10}}>
-              <Image source={Location} style={styles.locationlogo} />
+              <Image source={Pinkecil} style={styles.locationlogo} />
               <Text style={styles.deskripsi} numberOfLines={2}>{alamat}</Text>
             </View>
             <MapView style={styles.peta}
@@ -154,18 +154,19 @@ const CheckoutScreen = ({ route }) => {
             <Text style={styles.judul}>Rangkuman Transaksi</Text>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                 <Text>Subtotal</Text>
-                <Text style={styles.judul}>
+                <Text style={[styles.judul, {fontWeight:'normal'}]}>
                     <Text>Rp</Text>
                     <Text>{subtotalhargaKeranjang}</Text>
                 </Text>
             </View>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                 <Text>Biaya Layanan</Text>
-                <Text style={styles.judul}>
+                <Text style={[styles.judul, {fontWeight:'normal', marginBottom: 0}]}>
                     <Text>Rp</Text>
                     <Text>{hargalayanan}</Text>
                 </Text>
             </View>
+            <Text style={{fontStyle:'italic', fontSize: 12 }}>*Termasuk ongkir dan pengemasan</Text>
         </View>
       </ScrollView>
       </View>
@@ -202,7 +203,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: height*(1/6),
         borderRadius: 20,
-        marginBottom: 10,
     },
     judul:{
         fontSize: 16,
@@ -216,12 +216,13 @@ const styles = StyleSheet.create({
         width: width * 0.8,
     },
     card:{
-      backgroundColor: Putih,
       padding: 10,
       flexDirection: 'row',
-      borderRadius: 10,
+      borderRadius: 3,
       marginVertical: 4,
       justifyContent:'space-between',
+      borderColor: Ijo,
+      borderWidth: 0.2,
     },
     foto:{
       width: width * 0.15,
@@ -250,7 +251,8 @@ const styles = StyleSheet.create({
         padding: 5,
         paddingStart: 10,
         paddingEnd: 10,
-        borderRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
         fontSize: 16,
     },
     total:{

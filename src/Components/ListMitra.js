@@ -58,12 +58,14 @@ const ListMitra = ({ item }) => {
                         </View>
                       )
                     } 
-                <View style={{flexDirection:'row', alignItems:'flex-end'}}>
-                  <Ionicons name="star" size={16} color="orange" />
-                  <Text style={{marginRight: 10}}>{item.rating_layanan.toFixed(1)}</Text>
-                  <Ionicons name="leaf" size={16} color="green" />
-                  <Text style={{marginRight: 10}}>{item.rating_produk.toFixed(1)}</Text>
-                </View>
+                { item.rating_layanan > 3 && item.rating_produk > 3 &&
+                  <View style={{flexDirection:'row', alignItems:'flex-end'}}>
+                    <Ionicons name="star" size={16} color="orange" />
+                    <Text style={{marginRight: 10}}>{item.rating_layanan.toFixed(1)}</Text>
+                    <Ionicons name="leaf" size={16} color="green" />
+                    <Text style={{marginRight: 10}}>{item.rating_produk.toFixed(1)}</Text>
+                  </View>
+                }
             </View>
         </View>   
       </View>

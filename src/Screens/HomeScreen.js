@@ -183,7 +183,7 @@ const HomeScreen = ({navigation}) => {
                           <View style={styles.homeButton}>
                             <Image source={PanggilMitra} style={styles.imageButton} />
                             <View>
-                                <Text style={styles.judulButton}>Panggil Mitra</Text>
+                                <Text style={styles.judulButton}>Pilih Mitra</Text>
                             </View>
                           </View>
                       </Pressable>
