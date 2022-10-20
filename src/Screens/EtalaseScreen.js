@@ -37,6 +37,7 @@ const EtalaseScreen = ({ route }) => {
       namalengkap_mitra: namalengkap_mitra, 
       namatoko: namatoko,
       phone: phone,
+      geo_mangkal: geo_mangkal,
     })
   };
 

@@ -17,6 +17,7 @@ const Keranjang = (props) => {
       namalengkap_mitra: props.namalengkap_mitra,
       namatoko: props.namatoko,
       phonemitra: props.phone,
+      geo_mangkal: props.geo_mangkal,
     })
   }
 

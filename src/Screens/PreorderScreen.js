@@ -65,7 +65,7 @@ const PreorderScreen = ({ route }) => {
   const { pilkategori } = useSelector(state => state.kategori);
 
   const { 
-    id_mitra, status_sekarang, namalengkap_mitra, namatoko, phone,
+    id_mitra, status_sekarang, namalengkap_mitra, namatoko, phone, geo_mangkal
      } = route.params;
 
   useEffect(()=>{
@@ -162,7 +162,7 @@ const PreorderScreen = ({ route }) => {
            (
               <MitraTutup/>
               ):( 
-              <Keranjang id_mitra = {id_mitra} namalengkap_mitra={namalengkap_mitra} namatoko={namatoko} phone={phone}/>
+              <Keranjang id_mitra = {id_mitra} namalengkap_mitra={namalengkap_mitra} namatoko={namatoko} phone={phone} geo_mangkal={geo_mangkal}/>
             )
           }  
       </View>

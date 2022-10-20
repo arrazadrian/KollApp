@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, StatusBar, Alert, ActivityIndicator } from 'react-native'
 import React, {useState, useEffect, useCallback} from 'react'
 import { Abu, Ijo, IjoMint, IjoTua, Kuning, Putih} from '../Utils/Warna';
-import { Logo, PanggilMitra, TemuLangsung, Pinkecil } from '../assets/Images/Index.js';
+import { Logo, PanggilMitra, TemuLangsung, Pinkecil, DompetKasbon } from '../assets/Images/Index.js';
 import { app } from '../../Firebase/config';
 import {  getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
@@ -73,46 +73,46 @@ const HomeScreen = ({navigation}) => {
   const [errorMsg, setErrorMsg] = useState(null);
 
 
-  //Dapetin Lokasi Pelanggan saat ini
-  useEffect(() => {
-    (async () => {
+  // //Dapetin Lokasi Pelanggan saat ini
+  // useEffect(() => {
+  //   (async () => {
       
-      if(alamat == null){
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted') {
-          setErrorMsg('Permission to access location was denied');
-          return;
-        }
+  //     if(alamat == null){
+  //       let { status } = await Location.requestForegroundPermissionsAsync();
+  //       if (status !== 'granted') {
+  //         setErrorMsg('Permission to access location was denied');
+  //         return;
+  //       }
   
-        let location = await Location.getCurrentPositionAsync({});
-        setLocation(location);
-        // console.log("Lat: " +location.coords.latitude);
-        // console.log("Lng: " +location.coords.longitude);
+  //       let location = await Location.getCurrentPositionAsync({});
+  //       setLocation(location);
+  //       // console.log("Lat: " +location.coords.latitude);
+  //       // console.log("Lng: " +location.coords.longitude);
   
-        fetch(
-          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.coords.latitude},${location.coords.longitude}
-          &location_type=ROOFTOP&result_type=street_address&key=${GOOGLE_MAPS_APIKEY}`
-        ).then((res) => res.json())
-        .then((data) => {
-         // console.log(data)
-         if(!data.results[0]?.formatted_address){
-           dispatch(updatePosisi({
-             geo: {lat:location.coords.latitude, lng:location.coords.longitude},
-             alamat: "Nama jalan belum terdaftar",
-             geohash: geofire.geohashForLocation([location.coords.latitude,location.coords.longitude])
-           }));
-          } else {
-           dispatch(updatePosisi({
-             geo: {lat:location.coords.latitude, lng:location.coords.longitude},
-             alamat: data.results[0]?.formatted_address,
-             geohash: geofire.geohashForLocation([location.coords.latitude,location.coords.longitude])
-           }));
-         }
-        })
-      }
+  //       fetch(
+  //         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.coords.latitude},${location.coords.longitude}
+  //         &location_type=ROOFTOP&result_type=street_address&key=${GOOGLE_MAPS_APIKEY}`
+  //       ).then((res) => res.json())
+  //       .then((data) => {
+  //        // console.log(data)
+  //        if(!data.results[0]?.formatted_address){
+  //          dispatch(updatePosisi({
+  //            geo: {lat:location.coords.latitude, lng:location.coords.longitude},
+  //            alamat: "Nama jalan belum terdaftar",
+  //            geohash: geofire.geohashForLocation([location.coords.latitude,location.coords.longitude])
+  //          }));
+  //         } else {
+  //          dispatch(updatePosisi({
+  //            geo: {lat:location.coords.latitude, lng:location.coords.longitude},
+  //            alamat: data.results[0]?.formatted_address,
+  //            geohash: geofire.geohashForLocation([location.coords.latitude,location.coords.longitude])
+  //          }));
+  //        }
+  //       })
+  //     }
 
-    })();
-  }, []); 
+  //   })();
+  // }, []); 
   
   // console.log(geo);
   // console.log(alamat);
@@ -196,6 +196,15 @@ const HomeScreen = ({navigation}) => {
                           </View>
                       </Pressable>
                   </View>
+                  <Pressable style={styles.kasbon}>
+                    <View>
+                      <Text style={styles.texttemu}>Catatan Kasbon</Text>
+                      <Text style={styles.deskripsi}
+                        numberOfLines={2}
+                      >Daftar pinjaman dengan mitra</Text>
+                    </View>
+                    <Image source={DompetKasbon} style={styles.gambardompet}/>
+                  </Pressable>
           </View>
       </ScrollView>
     </View>
@@ -259,5 +268,22 @@ const styles = StyleSheet.create({
   imageButton:{
     width: width * 0.28,
     height: width * 0.28,
-  }
+  },
+  kasbon:{
+    width: '100%',
+    height: height*0.1,
+    backgroundColor: Putih,
+    padding: 10,
+    marginBottom: 20,
+    borderRadius: 10,
+    elevation: 3,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  gambardompet:{
+    width: width*0.18,
+    height: width*0.13,
+    borderRadius: 10,
+  },
 })

@@ -8,6 +8,8 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { kosongkanKeranjang, pilihProdukKeranjang, totalHarga } from '../features/keranjangSlice';
 import { buatTransaksiPO } from '../../API/firebasemethod';
+import { GOOGLE_MAPS_APIKEY } from "@env";
+import { updateBobot } from '../features/bobotSlice';
 
 const { height, width } = Dimensions.get('window')
 
@@ -15,12 +17,17 @@ const CheckoutScreen = ({ route }) => {
 
   const { alamat, geo } = useSelector(state => state.posisi);
   const { namapelanggan } = useSelector(state => state.pelanggan);
+  const { hargalayanan } = useSelector(state => state.bobot);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const items = useSelector(pilihProdukKeranjang)
   const [kelompokProduk, setKelompokProduk] = useState([]); 
   const [catatan, setCatatan] = useState("");
+
+  const { 
+    id_mitra, namalengkap_mitra, namatoko, phonemitra, geo_mangkal,
+     } = route.params;
 
   useEffect(() => {
     const kelompok = items.reduce((results, item) => {
@@ -39,12 +46,33 @@ const CheckoutScreen = ({ route }) => {
 
   }, [items]);
 
-  const { 
-    id_mitra, namalengkap_mitra, namatoko, phonemitra,
-     } = route.params;
+     //Dapetin jarak dan waktu perjalanan mitra ke pelanggan 
+     useEffect(()=>{
+
+       (async () => {
+           fetch(
+               `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${geo_mangkal.lat},${geo_mangkal.lng}&destinations=${geo.lat},${geo.lng}
+               &key=${GOOGLE_MAPS_APIKEY}&mode=walking`
+           ).then((res) => res.json())
+           .then((data) => {
+               //console.log(data.rows[0].elements[0].duration.text);
+              console.log(data.rows[0].elements[0].distance.value);
+
+              let hasilbagi = Math.round(data.rows[0].elements[0].distance.value / 1000);
+
+              let hargalayanan = hasilbagi * 2500
+              // console.log(hargalayanan)
+              dispatch(updateBobot({
+                hargalayanan: hargalayanan,
+                }));
+
+           })
+       })();
+   },[]);
+
 
   const subtotalhargaKeranjang = useSelector(totalHarga);
-  const hargalayanan =  1500;
+  //Harga Layanan dari redux, declare di atas
   const hargatotalsemua = subtotalhargaKeranjang + hargalayanan;
 
   const handlePesanPO = () => {
