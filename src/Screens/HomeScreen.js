@@ -13,6 +13,8 @@ import * as Location from 'expo-location';
 import { updatePosisi } from '../features/posisiSlice';
 import GarisBatas from '../Components/GarisBatas';
 import { useFocusEffect } from '@react-navigation/native';
+import { resetBobot } from '../features/bobotSlice';
+import { kosongkanKeranjang } from '../features/keranjangSlice';
 
 const { height, width } = Dimensions.get('window')
 
@@ -137,18 +139,20 @@ const HomeScreen = ({navigation}) => {
       </View>
     ):(
     <View>
-      <View style={styles.container}>
-        <Pressable onPress={() => navigation.navigate('RatingScreen')}>
-          <Image source={Logo} style={styles.logopojok} />
-        </Pressable>
+      <View style={styles.atas}>
         <View>
-          <Text style={{color:Ijo, fontSize:18}}>Selamat datang!</Text>
+          <Text style={{color:Ijo, fontSize:18, marginBottom: -5}}>Selamat datang!</Text>
           <Text style={{color:Ijo, fontSize:20, fontWeight:'bold'}}>{namapelanggan}</Text>
         </View>
+        <Image source={Logo} style={styles.logopojok} />
       </View>
       <ScrollView>
           <View style={{paddingHorizontal: 20}}>
                   <View style={{flex: 1}}>
+                    <View style={styles.poin}>
+                      <Text style={[styles.judul,{fontSize: 16, opacity: 0.5}]}>Poin Koll</Text>
+                      <Text style={styles.angkapoin}>100</Text>
+                    </View>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                         <Text style={[styles.judul,{fontSize: 16}]}>Lokasi Kamu</Text>
                     </View>
@@ -175,11 +179,15 @@ const HomeScreen = ({navigation}) => {
                     )}
                   </View>
                   <View style={styles.bungkus}>
-                    <Text style={[styles.judul,{textAlign:'center'}]}>Siap Melayani!</Text>
-                    <Text style={[styles.deskripsi,{fontSize: 16, textAlign:'center'}]}>Yuk pilih kebutuhanmu</Text>
+                    <Text style={styles.judul}>Siap Melayani!</Text>
+                    <Text style={[styles.deskripsi,{fontSize: 16}]}>Yuk pilih kebutuhanmu</Text>
                   </View>
                   <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                      <Pressable onPress={() => navigation.navigate('SekitarScreen')}>
+                      <Pressable onPress={async () => {
+                        await dispatch(kosongkanKeranjang());
+                        await dispatch(resetBobot());
+                        navigation.navigate('SekitarScreen')
+                        }}>
                           <View style={styles.homeButton}>
                             <Image source={PanggilMitra} style={styles.imageButton} />
                             <View>
@@ -196,7 +204,7 @@ const HomeScreen = ({navigation}) => {
                           </View>
                       </Pressable>
                   </View>
-                  <Pressable style={styles.kasbon}>
+                  {/* <Pressable style={styles.kasbon}>
                     <View>
                       <Text style={styles.texttemu}>Catatan Kasbon</Text>
                       <Text style={styles.deskripsi}
@@ -204,7 +212,7 @@ const HomeScreen = ({navigation}) => {
                       >Daftar pinjaman dengan mitra</Text>
                     </View>
                     <Image source={DompetKasbon} style={styles.gambardompet}/>
-                  </Pressable>
+                  </Pressable> */}
           </View>
       </ScrollView>
     </View>
@@ -216,20 +224,33 @@ const HomeScreen = ({navigation}) => {
 export default HomeScreen
 
 const styles = StyleSheet.create({
-  container: {
+  atas: {
     paddingTop: StatusBar.currentHeight + 10,
-    marginBottom: 10,
+    marginBottom: 15,
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems:'center',
+    paddingHorizontal: 20,
+    justifyContent:'space-between',
   },
   logopojok:{
-    width: 50,
-    height: 50,
+    width: width * 0.13,
+    height: width * 0.13,
   },
   latar:{
     flex: 1,
     backgroundColor: Kuning,
+  },
+  poin:{
+    backgroundColor: IjoMint,
+    borderRadius: 10,
+    width: '100%',
+    padding: 10,
+    marginBottom: 20,
+  },
+  angkapoin:{
+    fontSize: 20,
+    color:Ijo,
+    fontWeight:'bold',
   },
   sampingalamat:{
     width:20,

@@ -42,7 +42,7 @@ const SekitarScreen = ({ navigation }) => {
           const { alamat, email, foto_akun, geo, geohash, id_mitra, mangkal, namalengkap,
                    namatoko, phone, status_sekarang, waktu_buka, waktu_tutup, rating_layanan, rating_produk } = doc.data();
           list.push({
-            id: doc.id,
+            id_mitra: doc.id,
             alamat, email, foto_akun, geo, geohash,
             id_mitra, mangkal, namalengkap, namatoko,
             phone, status_sekarang, waktu_buka, waktu_tutup,
@@ -78,7 +78,7 @@ const SekitarScreen = ({ navigation }) => {
             contentContainerStyle={{paddingBottom:80}} 
             data={sekitar}
             renderItem= {({item}) => <ListMitra item={item} />}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.id_mitra}
             ListFooterComponent={<View style={{height:10}}></View>}
             ListHeaderComponent={<View style={{height:10}}></View>}
             ListEmptyComponent=

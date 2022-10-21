@@ -53,7 +53,7 @@ const CheckoutScreen = ({ route }) => {
      //Dapetin jarak dan waktu perjalanan mitra ke pelanggan 
      useEffect(()=>{
         //gausah run kalo udah ada isi
-        if (hargalayanan) return;
+        if (hargalayanan != null) return;
        (async () => {
            fetch(
                `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${geo_mangkal.lat},${geo_mangkal.lng}&destinations=${geo.lat},${geo.lng}
@@ -82,32 +82,46 @@ const CheckoutScreen = ({ route }) => {
 
   const handlePesanPO = () => {
     let jumlah_kuantitas = items.length;
-      if (!alamat) {
-        Alert.alert('Alamat masih kosong','Isi alamat dengan benar.');
-      } else if (!items) {
-        Alert.alert('Tidak ada belnjaan','Isi email dengan benar.');
-      } else if (!phonemitra) {
-        Alert.alert('Ada nomor telepon kosong','Aantara pelanggan atau mitra.');
+      if(pembayaran == "Kasbon"){
+        navigation.navigate('AdaKasbonScreen', { 
+          catatan_lokasi: catatan_lokasi,
+          catatan_produk: catatan_produk,
+          pembayaran: pembayaran,
+          id_mitra: id_mitra, 
+          namamitra: namalengkap_mitra, 
+          namatoko: namatoko, 
+          phonemitra: phonemitra,
+        });
       } else {
-        buatTransaksiPO(
-          alamat,
-          geo,
-          catatan,
-          id_mitra, 
-          namalengkap_mitra,
-          namatoko,
-          phonemitra,
-          namapelanggan,
-          kelompokProduk,
-          subtotalhargaKeranjang,
-          hargalayanan,
-          hargatotalsemua,
-          jumlah_kuantitas,
-        );
-
-        dispatch(kosongkanKeranjang());
-        navigation.navigate("HomeScreen");
-      };
+        if (!alamat) {
+          Alert.alert('Alamat masih kosong','Isi alamat dengan benar.');
+        } else if (!items) {
+          Alert.alert('Tidak ada belnjaan','Isi email dengan benar.');
+        } else if (!phonemitra) {
+          Alert.alert('Ada nomor telepon kosong','Aantara pelanggan atau mitra.');
+        } else {
+          buatTransaksiPO(
+            alamat,
+            geo,
+            catatan_lokasi,
+            catatan_produk,
+            id_mitra, 
+            namalengkap_mitra,
+            namatoko,
+            phonemitra,
+            namapelanggan,
+            kelompokProduk,
+            subtotalhargaKeranjang,
+            hargalayanan,
+            hargatotalsemua,
+            jumlah_kuantitas,
+            pembayaran,
+          );
+  
+          dispatch(kosongkanKeranjang());
+          navigation.navigate("HomeScreen");
+        };
+      }
   };
 
   return (
@@ -196,7 +210,7 @@ const CheckoutScreen = ({ route }) => {
                 onValueChange={(itemValue, itemIndex) =>
                   setPembayaran(itemValue)
                 }>
-                <Picker.Item label="COD" value="Lunas" />
+                <Picker.Item label="COD" value="COD" />
                 <Picker.Item label="Kasbon" value="Kasbon" />
             </Picker>
             <Text style={styles.judul}>Rangkuman Transaksi</Text>
@@ -214,7 +228,7 @@ const CheckoutScreen = ({ route }) => {
                     <Text>{hargalayanan}</Text>
                 </Text>
             </View>
-            <Text style={{fontStyle:'italic', fontSize: 12, marginBottom: height * 0.05 }}>*Termasuk ongkir dan pengemasan</Text>
+            <Text style={{fontStyle:'italic', fontSize: 12, marginBottom: height * 0.05 }}>*Termasuk ongkir</Text>
         </View>
       </ScrollView>
       </View>

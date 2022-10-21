@@ -199,7 +199,7 @@ async function uploadgambarakun(uri) {
 // API 7: buatTransaksiPO
 // MEMBUAT TRANSAKSI PO. 
 
-export const buatTransaksiPO = async (alamat, geo, catatan_lokasi, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, kelompokProduk, catatan_produk, subtotalhargaKeranjang, hargalayanan, hargatotalsemua, jumlah_kuantitas) => {  
+export const buatTransaksiPO = async (alamat, geo, catatan_lokasi, id_mitra, namamitra, namatoko, phonemitra, namapelanggan, kelompokProduk, catatan_produk, subtotalhargaKeranjang, hargalayanan, hargatotalsemua, jumlah_kuantitas, pembayaran) => {  
   const auth = getAuth();
   const db = getFirestore(app);
 
@@ -207,18 +207,17 @@ export const buatTransaksiPO = async (alamat, geo, catatan_lokasi, id_mitra, nam
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    let phonepelanggan = docSnap.data().phone;
     try{
-      addDoc(collection(db, "transaksi"), {
+    const docRef = await addDoc(collection(db, "transaksi"), {
         alamat_pelanggan: alamat,
         geo_alamat: geo,
         catatan_lokasi: catatan_lokasi,
         id_mitra: id_mitra, 
-        namamitra: namalengkap_mitra,
+        namamitra: namamitra,
         namatoko: namatoko,
         phonemitra: phonemitra,
         namapelanggan: namapelanggan,
-        phonepelanggan: phonepelanggan,
+        phonepelanggan: docSnap.data().phone,
         id_pelanggan: auth.currentUser.uid,
         waktu_dipesan: serverTimestamp(),
         jenislayanan: 'Pre-Order',
@@ -229,12 +228,14 @@ export const buatTransaksiPO = async (alamat, geo, catatan_lokasi, id_mitra, nam
         hargalayanan: hargalayanan,
         hargatotalsemua: hargatotalsemua,
         jumlah_kuantitas: jumlah_kuantitas,
+        pembayaran: pembayaran,
       });
       Alert.alert(
-        'Pre-Order berhasil dibuat','Produk akan diantar paling lambat 2x24 jam.'
-      );
+        'Pre-Order berhasil dibuat','Produk akan diantar paling lambat 1x24 jam.'
+        );
+      return docRef.id
     } catch(err){
-      console.log('Ada Error Membuat Tranksaksi.', error);
+      console.log('Ada Error Membuat Tranksaksi.', err);
     };
   } else {
     // doc.data() will be undefined in this case
@@ -380,4 +381,69 @@ export const kirimRating = async (pilihlayanan, pilihproduk, id_mitra, id_transa
     }); 
 
   }
+};
+
+
+// API 11: buatKasbonBaru
+// MEMBUAT KASBON BARU. 
+
+export const buatKasbonBaru = async ( namamitra, namatoko, id_mitra, phonemitra, namapelanggan, hargatotalsemua, id_transaksi) => {  
+  const auth = getAuth();
+  const db = getFirestore(app);
+
+  const docRef = doc(db, "pelanggan", auth.currentUser.uid);
+  const docSnap = await getDoc(docRef);
+  try{
+    if(docSnap.exists()){
+    const docRef = await addDoc(collection(db, "kasbon"), {
+        id_mitra: id_mitra, 
+        namamitra: namamitra,
+        namatoko: namatoko,
+        phonemitra: phonemitra,
+        phonepelanggan: docSnap.data().phone,
+        id_pelanggan: auth.currentUser.uid,
+        namapelanggan: namapelanggan,
+        status_kasbon: "Belum Lunas",
+        waktu_dibuat: serverTimestamp(),
+        total_kasbon: hargatotalsemua,
+      });
+    const colRef = collection(docRef,"transaksi_kasbon")
+    addDoc(colRef,{
+      id_transaksi: id_transaksi,
+      waktu_transaksi: serverTimestamp(),
+      total_harga: hargatotalsemua,
+    });
+    }
+  } catch(err){
+    console.log('Ada Error Membuat Kasbon.', err);
+  };
+};
+
+// API 12: tambahTransaksiKasbon
+// MENAMBAH TRANSAKSI DALAM KASBON. 
+
+export const tambahTransaksiKasbon = async (id_kasbon, hargatotalsemua, id_transaksi) => {  
+  const db = getFirestore(app);
+  const docRef = doc(db, "kasbon", id_kasbon);
+  const docSnap = await getDoc(docRef);
+  const colRef = collection(docRef, "transaksi_kasbon");
+  try{
+    if(docSnap.exists()){
+        let total_kasbon = docSnap.data().total_kasbon + hargatotalsemua;
+
+        updateDoc(docRef, { 
+            total_kasbon: total_kasbon, 
+          });
+           
+        addDoc(colRef,{
+          id_transaksi: id_transaksi,
+          total_harga: hargatotalsemua,
+          waktu_transaksi: serverTimestamp(),
+        });
+    } else {
+      console.log("No such document!");
+    }
+  } catch(err){
+    console.log('Ada Error manambah tranksaksi kasbon.', err);
+  };
 };

@@ -14,7 +14,7 @@ const ListMitra = ({ item }) => {
 
   const pindahEtalase = () => {
     navigation.navigate('EtalaseScreen', { 
-      id_mitra: item.id,
+      id_mitra: item.id_mitra,
       namatoko: item.namatoko,
       namalengkap_mitra: item.namalengkap,
       phone: item.phone,

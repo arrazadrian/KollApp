@@ -17,12 +17,13 @@ import LokasiScreen from "./LokasiScreen";
 import LoadingScreen from "./LoadingScreen";
 import LangsungScreen from "./LangsungScreen";
 import DetailScreen from "./DetailScreen";
+import AdaKasbonScreen from "./AdaKasbonScreen"
 
 export {
      HomeScreen,  
      RiwayatScreen, AkunScreen, SignInScreen, SignUpScreen, 
      SekitarScreen, EditAkunScreen,
-     LangsungScreen, PreorderScreen,
+     LangsungScreen, PreorderScreen, AdaKasbonScreen,
      LokasiScreen, LoadingScreen, CheckoutScreen,
      FLocScreen, OtwScreen, ProsesScreen, ReceiptScreen,
      ProdukScreen, DetailScreen, EtalaseScreen, 

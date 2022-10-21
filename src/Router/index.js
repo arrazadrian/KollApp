@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TopTab from '../Components/TopTab.js';
 import { 
+  AdaKasbonScreen,
   AkunScreen, 
   CheckoutScreen,
   DetailScreen,
@@ -64,6 +65,7 @@ export const AppUtama = () => {
         <HomeStack.Screen name="LokasiScreen" component={LokasiScreen} options={{ headerShown: false }}  />
         <HomeStack.Screen name="PreorderScreen" component={PreorderScreen} options={{ title: "Pre-Order", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
         <HomeStack.Screen name="CheckoutScreen" component={CheckoutScreen} options={{ title: "Checkout", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+        <HomeStack.Screen name="AdaKasbonScreen" component={AdaKasbonScreen} options={{ title: "Kasbon Milik Pelanggan", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
         <HomeStack.Screen name="LoadingScreen" component={LoadingScreen} options={{ headerShown: false }}  />
         <HomeStack.Screen name="OtwScreen" component={OtwScreen} options={{ headerShown: false }}/>
         
