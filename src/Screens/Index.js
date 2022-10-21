@@ -17,7 +17,10 @@ import LokasiScreen from "./LokasiScreen";
 import LoadingScreen from "./LoadingScreen";
 import LangsungScreen from "./LangsungScreen";
 import DetailScreen from "./DetailScreen";
-import AdaKasbonScreen from "./AdaKasbonScreen"
+import AdaKasbonScreen from "./AdaKasbonScreen";
+import KasbonScreen from "./KasbonScreen";
+import LunasScreen from "./LunasScreen";
+import ReceiptKasbonScreen from "./ReceiptKasbonScreen";
 
 export {
      HomeScreen,  
@@ -27,4 +30,5 @@ export {
      LokasiScreen, LoadingScreen, CheckoutScreen,
      FLocScreen, OtwScreen, ProsesScreen, ReceiptScreen,
      ProdukScreen, DetailScreen, EtalaseScreen, 
+     KasbonScreen, LunasScreen, ReceiptKasbonScreen,
     };

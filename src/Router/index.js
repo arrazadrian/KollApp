@@ -19,6 +19,7 @@ import {
   PreorderScreen,
   ProdukScreen,
   ProsesScreen,
+  ReceiptKasbonScreen,
   ReceiptScreen,
   RiwayatScreen, 
   SekitarScreen, 
@@ -30,6 +31,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Ijo, Putih } from '../Utils/Warna.js';
 import { Provider } from 'react-redux';
 import { store } from '../../store.js';
+import TopTabKasbon from '../Components/TopTabKasbon.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -66,6 +68,8 @@ export const AppUtama = () => {
         <HomeStack.Screen name="PreorderScreen" component={PreorderScreen} options={{ title: "Pre-Order", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
         <HomeStack.Screen name="CheckoutScreen" component={CheckoutScreen} options={{ title: "Checkout", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
         <HomeStack.Screen name="AdaKasbonScreen" component={AdaKasbonScreen} options={{ title: "Kasbon Milik Pelanggan", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+        <HomeStack.Screen name="Kasbon" component={TopTabKasbon} options={{ headerShown: false }}/>
+        <HomeStack.Screen name="ReceiptKasbonScreen" component={ReceiptKasbonScreen} options={{ title: "Bukti Kasbon", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
         <HomeStack.Screen name="LoadingScreen" component={LoadingScreen} options={{ headerShown: false }}  />
         <HomeStack.Screen name="OtwScreen" component={OtwScreen} options={{ headerShown: false }}/>
         

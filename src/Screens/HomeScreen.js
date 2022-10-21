@@ -149,10 +149,18 @@ const HomeScreen = ({navigation}) => {
       <ScrollView>
           <View style={{paddingHorizontal: 20}}>
                   <View style={{flex: 1}}>
-                    <View style={styles.poin}>
-                      <Text style={[styles.judul,{fontSize: 16, opacity: 0.5}]}>Poin Koll</Text>
-                      <Text style={styles.angkapoin}>100</Text>
-                    </View>
+                    <Pressable style={styles.poin} onPress={() => {
+                      navigation.push('Kasbon')
+                      }}>
+                        <View>
+                            <Text style={[styles.judul,{fontSize: 16, opacity: 0.5}]}>Poin Koll</Text>
+                            <Text style={styles.angkapoin}>1000000</Text>
+                        </View>
+                        <View style={{ padding: 5, alignItems:'center', borderLeftColor: Ijo, borderLeftWidth: 1}}>
+                          <Image source={DompetKasbon} style={styles.gambardompet}/>
+                          <Text style={[styles.judul,{fontSize: 12, textAlign:'center'}]}>Kasbon</Text>
+                        </View>
+                    </Pressable>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                         <Text style={[styles.judul,{fontSize: 16}]}>Lokasi Kamu</Text>
                     </View>
@@ -241,16 +249,21 @@ const styles = StyleSheet.create({
     backgroundColor: Kuning,
   },
   poin:{
-    backgroundColor: IjoMint,
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+    // borderColor: Ijo,
+    // borderWidth: 1,
     borderRadius: 10,
     width: '100%',
-    padding: 10,
+    // padding: 10,
     marginBottom: 20,
   },
   angkapoin:{
-    fontSize: 20,
+    fontSize: 40,
     color:Ijo,
     fontWeight:'bold',
+    marginTop: -10,
   },
   sampingalamat:{
     width:20,
@@ -303,8 +316,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   gambardompet:{
-    width: width*0.18,
-    height: width*0.13,
-    borderRadius: 10,
+    width: width*0.14,
+    height: width*0.1,
   },
 })
