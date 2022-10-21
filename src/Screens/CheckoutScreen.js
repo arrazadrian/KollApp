@@ -10,6 +10,7 @@ import { kosongkanKeranjang, pilihProdukKeranjang, totalHarga } from '../feature
 import { buatTransaksiPO } from '../../API/firebasemethod';
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { updateBobot } from '../features/bobotSlice';
+import {Picker} from '@react-native-picker/picker';
 
 const { height, width } = Dimensions.get('window')
 
@@ -24,6 +25,8 @@ const CheckoutScreen = ({ route }) => {
   const items = useSelector(pilihProdukKeranjang)
   const [kelompokProduk, setKelompokProduk] = useState([]); 
   const [catatan, setCatatan] = useState("");
+
+  const [pembayaran, setPembayaran] = useState("COD")
 
   const { 
     id_mitra, namalengkap_mitra, namatoko, phonemitra, geo_mangkal,
@@ -179,6 +182,17 @@ const CheckoutScreen = ({ route }) => {
         <GarisBatas/>
 
         <View style={styles.bagian}>
+        <Text style={styles.judul}>Pembayaran</Text>
+            <Picker
+                mode='dropdown'
+                style={{backgroundColor: Kuning, marginBottom: 10}}
+                selectedValue={pembayaran}
+                onValueChange={(itemValue, itemIndex) =>
+                  setPembayaran(itemValue)
+                }>
+                <Picker.Item label="COD" value="Lunas" />
+                <Picker.Item label="Kasbon" value="Kasbon" />
+            </Picker>
             <Text style={styles.judul}>Rangkuman Transaksi</Text>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                 <Text>Subtotal</Text>
@@ -301,7 +315,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         width: width,
-        height: height * 0.16,
+        height: height * 0.26,
         backgroundColor: IjoMint,
     },
 })
