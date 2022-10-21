@@ -24,7 +24,8 @@ const CheckoutScreen = ({ route }) => {
   const dispatch = useDispatch();
   const items = useSelector(pilihProdukKeranjang)
   const [kelompokProduk, setKelompokProduk] = useState([]); 
-  const [catatan, setCatatan] = useState("");
+  const [catatan_lokasi, setCatatan_lokasi] = useState("");
+  const [catatan_produk, setCatatan_produk] = useState("");
 
   const [pembayaran, setPembayaran] = useState("COD")
 
@@ -51,7 +52,8 @@ const CheckoutScreen = ({ route }) => {
 
      //Dapetin jarak dan waktu perjalanan mitra ke pelanggan 
      useEffect(()=>{
-
+        //gausah run kalo udah ada isi
+        if (hargalayanan) return;
        (async () => {
            fetch(
                `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${geo_mangkal.lat},${geo_mangkal.lng}&destinations=${geo.lat},${geo.lng}
@@ -69,7 +71,7 @@ const CheckoutScreen = ({ route }) => {
                 hargalayanan: hargalayanan,
                 }));
 
-           })
+           }) 
        })();
    },[]);
 
@@ -111,13 +113,10 @@ const CheckoutScreen = ({ route }) => {
   return (
     <View style={styles.latar}>
       <View style={{flex: 8}}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.bagian}>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
               <Text style={styles.judul}>Lokasi Antar</Text>
-              {/* <Text style={{fontSize: 18, fontWeight:'bold', color: Ijo, textDecorationLine:'underline'}}
-                  onPress={() => navigation.navigate('FLocScreen')}
-                  >Ubah</Text> */}
             </View>
             <View style={{flexDirection:'row', alignItems:'center', marginBottom:10}}>
               <Image source={Pinkecil} style={styles.locationlogo} />
@@ -144,11 +143,11 @@ const CheckoutScreen = ({ route }) => {
 
             </MapView>
             <TextInput 
-                  style={styles.input} 
+                  style={styles.inputlokasi} 
                   placeholder='Beri catatan lokasi...'
                   multiline={true}
-                  value={catatan}
-                  onChangeText={catatan => setCatatan(catatan)}
+                  value={catatan_lokasi}
+                  onChangeText={catatan => setCatatan_lokasi(catatan)}
             />
         </View>
 
@@ -157,6 +156,13 @@ const CheckoutScreen = ({ route }) => {
         <View style={styles.bagian}>
 
         <Text style={styles.judul}>Produk Pesanan</Text>
+        <TextInput 
+                  style={styles.inputproduk} 
+                  placeholder='Beri catatan produk...'
+                  multiline={true}
+                  value={catatan_produk}
+                  onChangeText={catatan => setCatatan_produk(catatan)}
+            />
         {Object.entries(kelompokProduk).map(([key, items]) => (
             <View key={key}>
               <View style={styles.card}>
@@ -185,7 +191,7 @@ const CheckoutScreen = ({ route }) => {
         <Text style={styles.judul}>Pembayaran</Text>
             <Picker
                 mode='dropdown'
-                style={{backgroundColor: Kuning, marginBottom: 10}}
+                style={{backgroundColor: Kuning, marginBottom: 10, marginTop: -5}}
                 selectedValue={pembayaran}
                 onValueChange={(itemValue, itemIndex) =>
                   setPembayaran(itemValue)
@@ -208,7 +214,7 @@ const CheckoutScreen = ({ route }) => {
                     <Text>{hargalayanan}</Text>
                 </Text>
             </View>
-            <Text style={{fontStyle:'italic', fontSize: 12 }}>*Termasuk ongkir dan pengemasan</Text>
+            <Text style={{fontStyle:'italic', fontSize: 12, marginBottom: height * 0.05 }}>*Termasuk ongkir dan pengemasan</Text>
         </View>
       </ScrollView>
       </View>
@@ -288,7 +294,7 @@ const styles = StyleSheet.create({
         height: 20,
         marginRight: 10,
     },
-    input:{
+    inputlokasi:{
         backgroundColor: Abu,
         padding: 5,
         paddingStart: 10,
@@ -296,6 +302,13 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
         fontSize: 16,
+    },
+    inputproduk:{
+        padding: 5,
+        fontSize: 16,
+        borderBottomColor: Ijo,
+        borderBottomWidth: 1,
+        marginBottom: 10,
     },
     total:{
         flexDirection:'row',
