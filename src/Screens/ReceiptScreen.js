@@ -22,7 +22,7 @@ const ReceiptScreen = ({navigation, route}) => {
   const { 
     hargalayanan, hargasubtotal, hargatotalsemua, id_mitra, id_pelanggan, id_transaksi,  jenislayanan,
     jumlah_kuantitas, namamitra, namatoko, namapelanggan, produk, waktu_selesai, waktu_dipesan, alamat_pelanggan,
-    status_transaksi, catatan, phonemitra, phonepelanggan, rating_layanan, rating_produk,
+    status_transaksi, catatan_lokasi,catatan_produk, pembayaran, phonemitra, phonepelanggan, rating_layanan, rating_produk,
      } = route.params;
 
   const telepon = () => {
@@ -120,7 +120,7 @@ const ReceiptScreen = ({navigation, route}) => {
     <View style={styles.latar}>
       <ScrollView showsVerticalScrollIndicator={false}>
 
-        <View style={{flexDirection:'row', alignItems:'flex-end', justifyContent:'center', marginBottom: 10, paddingTop: 20}}>
+        <View style={{flexDirection:'row', alignItems:'flex-end', justifyContent:'center', paddingTop: 20}}>
           <View>
               <Image source={KollLong} style={styles.logo}/>
           </View>
@@ -135,27 +135,31 @@ const ReceiptScreen = ({navigation, route}) => {
         </View>
         <View style={styles.bagian}>
             <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
-                <Text>Jenis Layanan</Text>
-                <Text>{jenislayanan}</Text>
+                <Text style={styles.deskatas}>Jenis Layanan</Text>
+                <Text style={styles.deskatas}>{jenislayanan}</Text>
             </View>
             <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
-                <Text>ID Transaksi</Text>
-                <Text>{id_transaksi}</Text>
+                <Text style={styles.deskatas}>ID Transaksi</Text>
+                <Text style={styles.deskatas}>{id_transaksi}</Text>
             </View>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                  <Text>Status Transaksi</Text>
-                  <Text>{status_transaksi}</Text>
+                  <Text style={styles.deskatas}>Status Transaksi</Text>
+                  <Text style={styles.deskatas}>{status_transaksi}</Text>
+            </View>
+            <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                  <Text style={styles.deskatas}>Pembayaran</Text>
+                  <Text style={styles.deskatas}>{pembayaran}</Text>
             </View>
             { waktu_selesai ? 
                 (
                 <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text>Selesai Transaksi</Text>
-                    <Text>{moment(waktu_selesai.toDate()).calendar()}</Text>
+                    <Text style={styles.deskatas}>Selesai Transaksi</Text>
+                    <Text style={styles.deskatas}>{moment(waktu_selesai.toDate()).calendar()}</Text>
                 </View>
                 ):(
                 <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text>Waktu Pemesanan</Text>
-                    <Text>{moment(waktu_dipesan.toDate()).calendar()}</Text>
+                    <Text style={styles.deskatas}>Waktu Pemesanan</Text>
+                    <Text style={styles.deskatas}>{moment(waktu_dipesan.toDate()).calendar()}</Text>
                 </View>
                 )
               }
@@ -221,10 +225,10 @@ const ReceiptScreen = ({navigation, route}) => {
                   < Image source={Pinkecil} style={styles.location} />
                     <Text>{alamat_pelanggan}</Text>
                 </View>
-                {catatan ?(
+                {catatan_lokasi ?(
                   <View style={styles.catatan}>
                     <Text style={{fontWeight:'bold'}}>Catatan lokasi</Text>
-                    <Text style={{fontStyle:'italic'}}>{catatan}</Text>
+                    <Text style={{fontStyle:'italic'}}>{catatan_lokasi}</Text>
                   </View>
                 ):(
                   <View style={styles.catatan}>
@@ -239,8 +243,19 @@ const ReceiptScreen = ({navigation, route}) => {
 
 
         <View style={styles.bagian}>
-          <View  style={{marginBottom: height* 0.15}}>
+          <View  style={{marginBottom: height* 0.2}}>
             <Text  style={styles.subjudul}>Daftar Produk</Text>
+                {catatan_produk ?(
+                  <View style={styles.catatan}>
+                    <Text style={{fontWeight:'bold'}}>Catatan Produk</Text>
+                    <Text style={{fontStyle:'italic'}}>{catatan_produk}</Text>
+                  </View>
+                ):(
+                  <View style={styles.catatan}>
+                    <Text style={{fontStyle:'italic'}}>Tanpa catatan produk...</Text>
+                  </View>
+                ) 
+                }
               {Object.entries(produk).map(([key, items]) => (
                   <View key={key}>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
@@ -297,6 +312,10 @@ const styles = StyleSheet.create({
     color: IjoTua,
     fontWeight:'bold',
   },
+  deskatas:{
+    fontSize: 12,
+    color: IjoTua,
+  },
   deskripsi:{
     fontSize: 16,
     color: IjoTua,
@@ -317,7 +336,7 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       padding: 10,
       width: '100%',
-      marginTop: 10,
+      marginVertical: 10,
   },
   harga:{
     fontSize: 16,
