@@ -26,8 +26,7 @@ const CheckoutScreen = ({ route }) => {
   const [kelompokProduk, setKelompokProduk] = useState([]); 
   const [catatan_lokasi, setCatatan_lokasi] = useState("");
   const [catatan_produk, setCatatan_produk] = useState("");
-
-  const [pembayaran, setPembayaran] = useState("COD")
+  const [pembayaran, setPembayaran] = useState("COD");
 
   const { 
     id_mitra, namalengkap_mitra, namatoko, phonemitra, geo_mangkal,
