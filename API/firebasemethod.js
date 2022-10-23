@@ -246,7 +246,7 @@ export const buatTransaksiPO = async (alamat, geo, catatan_lokasi, id_mitra, nam
 // API 7: buatTransaksiPM
 // MEMBUAT TRANSAKSI PM.
 
-export const buatTransaksiPM = async (alamat, geo, catatan_lokasi, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, hargalayanan) => {  
+export const buatTransaksiPM = async (alamat, geo, catatan_lokasi, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, hargalayanan, pembayaran) => {  
   const auth = getAuth();
   const db = getFirestore(app);
 
@@ -272,6 +272,7 @@ export const buatTransaksiPM = async (alamat, geo, catatan_lokasi, id_mitra, nam
         status_transaksi: 'Dalam Proses',
         panggilan: "Menunggu Respon",
         hargalayanan: hargalayanan,
+        pembayaran: pembayaran,
         // produk: kelompokProduk,
         // hargasubtotal: subtotalhargaKeranjang,
         // hargalayanan: hargalayanan,

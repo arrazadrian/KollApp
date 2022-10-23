@@ -42,6 +42,7 @@ const LokasiScreen = ({ route }) => {
             phone,
             namapelanggan,
             hargalayanan,
+            pembayaran,
         );
     console.log('id Transaksi isinya: ' + kode_transaksi);
         navigation.replace('LoadingScreen',{
