@@ -25,7 +25,7 @@ const HomeScreen = ({navigation}) => {
   const auth = getAuth();
   const db = getFirestore(app)
 
-  const { geo, alamat, geohash } = useSelector(state => state.posisi);
+  const { alamat } = useSelector(state => state.posisi);
   const dispatch = useDispatch();
 
   const geofire = require('geofire-common');

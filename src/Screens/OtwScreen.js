@@ -24,7 +24,7 @@ const OtwScreen = ({ navigation, route }) => {
   const [namamitra, setNamamitra] = useState();
   const [phonemitra, setPhonemitra] = useState();
   const [alamat_pelanggan, setAlamat_pelanggan] = useState();
-  const [catatan, setCatatan] = useState();
+  const [catatan_lokasi, setCatatan_lokasi] = useState();
   const [estimasi_waktu, setEstimasi_waktu] = useState();
   const [jarak, setJarak] = useState();
   const [hargasubtotal, setHargasubtotal] = useState();
@@ -105,7 +105,7 @@ const OtwScreen = ({ navigation, route }) => {
         setNamamitra(docSnap.data().namamitra);
         setPhonemitra(docSnap.data().phonemitra);
         setAlamat_pelanggan(docSnap.data().alamat_pelanggan);
-        setCatatan(docSnap.data().catatan);
+        setCatatan_lokasi(docSnap.data().catatan_lokasi);
         setEstimasi_waktu(docSnap.data().estimasi_waktu);
         setJarak(docSnap.data().jarak);
       } else {
@@ -200,7 +200,7 @@ const OtwScreen = ({ navigation, route }) => {
 };
 
   return (
-    <ScrollView style={styles.latar}>
+    <ScrollView style={styles.latar} showsVerticalScrollIndicator={false}>
       <View style={styles.atas}>
         <Pressable onPress={()=> navigation.navigate('HomeScreen')}>
             <Ionicons name="chevron-back-outline" size={30} color={Putih} />
@@ -280,7 +280,7 @@ const OtwScreen = ({ navigation, route }) => {
               </View>
               <View style={styles.catatan}>
                   <Text style={{fontSize:14, fontStyle:'italic', fontWeight:'bold', color:IjoTua}}>Catatan Lokasi</Text>
-                  <Text numberOfLines={3}>{catatan}</Text>
+                  <Text numberOfLines={3}>{catatan_lokasi}</Text>
               </View>
           </View>
           ):(
@@ -459,7 +459,8 @@ const styles = StyleSheet.create({
         color: IjoTua,
     },
     card:{
-      backgroundColor: Putih,
+      borderColor: Ijo,
+      borderWidth: 0.3,
       padding: 10,
       flexDirection: 'row',
       borderRadius: 10,
