@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View, FlatList, ActivityIndicator, Image, Dimensions} from 'react-native'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Ijo, Kuning, Hitam, Putih, IjoTua } from '../Utils/Warna'
 import ProsesCard from '../Components/ProsesCard'
 import { getAuth } from "firebase/auth";
-import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "firebase/firestore";
+import { getFirestore, collection, query, where, getDocs, doc, orderBy, onSnapshot } from "firebase/firestore";
 import { app } from '../../Firebase/config';
 import { Receipt } from '../assets/Images/Index';
+import { useFocusEffect } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('window')
 
@@ -14,78 +15,99 @@ const ProsesScreen = () => {
 
   const[proses,setProses] = useState();
 
-  useEffect(()=>{
-    const fetchProses = async() => {
-      try{
-        const list = []; 
-        const auth = getAuth();
-        const db = getFirestore(app);
-        const colRef = collection(db, "transaksi")
+  // useEffect(()=>{
+  //   const fetchProses = async() => {
+  //     try{
+  //       const list = []; 
+  //       const auth = getAuth();
+  //       const db = getFirestore(app);
+  //       const colRef = collection(db, "transaksi")
 
-        const q = query(colRef, where("id_pelanggan", "==", auth.currentUser.uid), where("status_transaksi", "==", "Dalam Proses"), orderBy("waktu_dipesan","desc"));
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          const { 
-            alamat_pelanggan,
-            geo_alamat,
-            catatan_lokasi,
-            catatan_produk,
-            pembayaran,
-            id_mitra, 
-            namamitra,
-            namatoko,
-            phonemitra,
-            namapelanggan,
-            phonepelanggan,
-            id_pelanggan,
-            waktu_dipesan,
-            jenislayanan,
-            status_transaksi,
-            produk,
-            hargasubtotal,
-            hargalayanan,
-            hargatotalsemua,
-            jumlah_kuantitas,
-            panggilan,
-          } = doc.data();
-          list.push({
-            id: doc.id,
-            alamat_pelanggan,
-            geo_alamat,
-            catatan_lokasi,
-            catatan_produk,
-            pembayaran,
-            id_mitra, 
-            namamitra,
-            namatoko,
-            phonemitra,
-            namapelanggan,
-            phonepelanggan,
-            id_pelanggan,
-            waktu_dipesan,
-            jenislayanan,
-            status_transaksi,
-            produk,
-            hargasubtotal,
-            hargalayanan,
-            hargatotalsemua,
-            jumlah_kuantitas,
-            panggilan,
-          });
-        });
+  //       const q = query(colRef, where("id_pelanggan", "==", auth.currentUser.uid), where("status_transaksi", "==", "Dalam Proses"), orderBy("waktu_dipesan","desc"));
+  //       const querySnapshot = await getDocs(q);
+  //       querySnapshot.forEach((doc) => {
+  //         // doc.data() is never undefined for query doc snapshots
+  //         const { 
+  //           alamat_pelanggan,
+  //           geo_alamat,
+  //           catatan_lokasi,
+  //           catatan_produk,
+  //           pembayaran,
+  //           id_mitra, 
+  //           namamitra,
+  //           namatoko,
+  //           phonemitra,
+  //           namapelanggan,
+  //           phonepelanggan,
+  //           id_pelanggan,
+  //           waktu_dipesan,
+  //           jenislayanan,
+  //           status_transaksi,
+  //           produk,
+  //           hargasubtotal,
+  //           hargalayanan,
+  //           hargatotalsemua,
+  //           jumlah_kuantitas,
+  //           panggilan,
+  //         } = doc.data();
+  //         list.push({
+  //           id: doc.id,
+  //           alamat_pelanggan,
+  //           geo_alamat,
+  //           catatan_lokasi,
+  //           catatan_produk,
+  //           pembayaran,
+  //           id_mitra, 
+  //           namamitra,
+  //           namatoko,
+  //           phonemitra,
+  //           namapelanggan,
+  //           phonepelanggan,
+  //           id_pelanggan,
+  //           waktu_dipesan,
+  //           jenislayanan,
+  //           status_transaksi,
+  //           produk,
+  //           hargasubtotal,
+  //           hargalayanan,
+  //           hargatotalsemua,
+  //           jumlah_kuantitas,
+  //           panggilan,
+  //         });
+  //       });
 
-        setProses(list); 
+  //       setProses(list); 
       
-      } catch(err){
-        console.log(err);
-      };
-    }
-    fetchProses();
+  //     } catch(err){
+  //       console.log(err);
+  //     };
+  //   }
+  //   fetchProses();
 
-    return() => {console.log('Proses Unmonted')}
-  },[])
+  //   return() => {
+  //     console.log('Proses Unmonted');
+  //   }
+  // },[])
   //Tambah parameter "proses" untuk auto update
+
+  //Dapetin data riwayat, putus listener kalo pindah halaman
+  useFocusEffect(
+    useCallback(() => {
+      const auth = getAuth();
+      const db = getFirestore(app);
+      const colRef = collection(db, "transaksi");
+      const q = query(colRef, where("id_pelanggan", "==", auth.currentUser.uid), where("status_transaksi", "==", "Dalam Proses"), orderBy("waktu_dipesan","desc"));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const listProses = []; 
+        querySnapshot.forEach(doc => listProses.push({...doc.data(), id: doc.id}));
+        setProses(listProses);
+      });
+      return () => {
+        console.log('Proses Unmounted'); 
+        unsubscribe();
+      }
+    },[])
+  );
 
   return (
     <View style={styles.latar}>

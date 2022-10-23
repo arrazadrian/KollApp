@@ -17,26 +17,26 @@ const RiwayatCard = ({ item }) => {
 
   const pindahDetail = () => {
     navigation.navigate('ReceiptScreen', { 
-      hargalayanan: item.hargalayanan,
-      hargasubtotal: item.hargasubtotal,
-      hargatotalsemua: item.hargatotalsemua,
+      hargalayanan: item?.hargalayanan,
+      hargasubtotal: item?.hargasubtotal,
+      hargatotalsemua: item?.hargatotalsemua,
       id_mitra: item.id_mitra,
-      id_pelanngan: item.id_mitra,
+      id_pelanngan: item.id_pelanngan,
       alamat_pelanggan: item?.alamat_pelanggan,
       catatan_lokasi: item?.catatan_lokasi,
       catatan_produk: item?.catatan_produk,
       pembayaran: item?.pembayaran,
       jenislayanan: item.jenislayanan,
-      jumlah_kuantitas: item.jumlah_kuantitas,
+      jumlah_kuantitas: item?.jumlah_kuantitas,
       namamitra: item.namamitra,
       namatoko: item.namatoko,
       namapelanggan: item.namapelanggan,
-      produk: item.produk,
-      waktu_selesai: item.waktu_selesai,
-      status_transaksi: item.status_transaksi,
+      produk: item?.produk,
+      waktu_selesai: item?.waktu_selesai,
+      status_transaksi: item?.status_transaksi,
       id_transaksi: item.id,
-      rating_layanan: item.rating_layanan,
-      rating_produk: item.rating_produk,
+      rating_layanan: item?.rating_layanan,
+      rating_produk: item?.rating_produk,
     })
   }
 
@@ -45,11 +45,11 @@ const RiwayatCard = ({ item }) => {
        onPress={pindahDetail}
     >
     { item.jenislayanan == 'Temu Langsung' ? (
-      <Image source={TemuLangsung} style={styles.foto} />      
+      <Image source={TemuLangsung} style={styles.gambar} />      
       ): item.jenislayanan == 'Panggil Mitra' ? (
-        <Image source={PanggilMitra} style={styles.foto} />      
+        <Image source={PanggilMitra} style={styles.gambar} />      
       ) : (
-        <Image source={KategoriPre} style={styles.foto} />
+        <Image source={KategoriPre} style={styles.gambar} />
       )
     }
       <View>
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems:'center',
     },
-    foto:{
+    gambar:{
         width: height * 0.12,
         height: height * 0.12,
         borderRadius: 10,

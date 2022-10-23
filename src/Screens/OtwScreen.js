@@ -72,6 +72,19 @@ const OtwScreen = ({ navigation, route }) => {
           setHargalayanan(doc.data()?.hargalayanan);
           setHargatotalsemua(doc.data()?.hargatotalsemua);
           setProduk(doc.data()?.produk);
+          setNamatoko(doc.data().namatoko);
+          setNamamitra(doc.data().namamitra);
+          setPhonemitra(doc.data().phonemitra);
+          setAlamat_pelanggan(doc.data().alamat_pelanggan);
+          setCatatan_lokasi(doc.data().catatan_lokasi);
+          setEstimasi_waktu(doc.data().estimasi_waktu);
+          setJarak(doc.data().jarak);
+          if(panggilan == "Dibatalkan Mitra"){
+            navigation.replace('HomeScreen');
+            Alert.alert(
+              'Mitra membatalkan panggilan','Mohon maaf, sepertinya mitra sedang ada kendala saat ini.'
+            );
+          } 
             // Respond to data
             // ...
           });
@@ -80,41 +93,41 @@ const OtwScreen = ({ navigation, route }) => {
             console.log('Otw Unmounted') 
             unsubscribe();
           }
-    },[])
+    },[panggilan])
   );
 
-  useEffect(() => {
-    const lihatRespon =  () => {
-      if(panggilan == "Dibatalkan Mitra"){
-          navigation.replace('HomeScreen');
-          Alert.alert(
-            'Mitra membatalkan panggilan','Mohon maaf, sepertinya mitra sedang ada kendala saat ini.'
-          );
-      } 
-    } 
-    lihatRespon();
-  },[panggilan]);
+  // useEffect(() => {
+  //   const lihatRespon =  () => {
+  //     if(panggilan == "Dibatalkan Mitra"){
+  //         navigation.replace('HomeScreen');
+  //         Alert.alert(
+  //           'Mitra membatalkan panggilan','Mohon maaf, sepertinya mitra sedang ada kendala saat ini.'
+  //         );
+  //     } 
+  //   } 
+  //   lihatRespon();
+  // },[panggilan]);
  
-    useEffect(() =>{ 
-    async function getDetailTransaksi(){
-      const docRef = doc(db, "transaksi", id_transaksi);
-      const docSnap = await getDoc(docRef);
+  //   useEffect(() =>{ 
+  //   async function getDetailTransaksi(){
+  //     const docRef = doc(db, "transaksi", id_transaksi);
+  //     const doc = await getDoc(docRef);
       
-      if (docSnap.exists()) {
-        setNamatoko(docSnap.data().namatoko);
-        setNamamitra(docSnap.data().namamitra);
-        setPhonemitra(docSnap.data().phonemitra);
-        setAlamat_pelanggan(docSnap.data().alamat_pelanggan);
-        setCatatan_lokasi(docSnap.data().catatan_lokasi);
-        setEstimasi_waktu(docSnap.data().estimasi_waktu);
-        setJarak(docSnap.data().jarak);
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    }
-    getDetailTransaksi();
-  },[])
+  //     if (doc.exists()) {
+  //       setNamatoko(doc.data().namatoko);
+  //       setNamamitra(doc.data().namamitra);
+  //       setPhonemitra(doc.data().phonemitra);
+  //       setAlamat_pelanggan(doc.data().alamat_pelanggan);
+  //       setCatatan_lokasi(doc.data().catatan_lokasi);
+  //       setEstimasi_waktu(doc.data().estimasi_waktu);
+  //       setJarak(doc.data().jarak);
+  //     } else {
+  //       // doc.data() will be undefined in this case
+  //       console.log("No such document!");
+  //     }
+  //   }
+  //   getDetailTransaksi();
+  // },[])
 
   const handleBatal =()=> {
     Alert.alert('Anda yakin ingin membatalkan panggilan?','Mitra yang sedang di jalan bisa kecewa loh.',
@@ -205,7 +218,7 @@ const OtwScreen = ({ navigation, route }) => {
         <Pressable onPress={()=> navigation.navigate('HomeScreen')}>
             <Ionicons name="chevron-back-outline" size={30} color={Putih} />
         </Pressable>
-        <Text  style={{fontSize:20, color:Putih, textAlign:'center', alignSelf:'center'}} numberOfLines={1}>{namatoko}</Text>
+        <Text  style={{fontSize:20, color:Putih, textAlign:'center', alignSelf:'center', fontWeight:'bold'}} numberOfLines={1}>{namatoko}</Text>
       </View>
       { panggilan == "Diterima" ? (
           <Image source={Perjalanan} style={styles.gambar}/>        
@@ -278,10 +291,18 @@ const OtwScreen = ({ navigation, route }) => {
                   <Text style={{fontSize:14, fontWeight:'bold', color:IjoTua}}>Tujuan Lokasi</Text>
                   <Text numberOfLines={3}>{alamat_pelanggan}</Text>
               </View>
-              <View style={styles.catatan}>
-                  <Text style={{fontSize:14, fontStyle:'italic', fontWeight:'bold', color:IjoTua}}>Catatan Lokasi</Text>
-                  <Text numberOfLines={3}>{catatan_lokasi}</Text>
-              </View>
+              { catatan_lokasi ? 
+                (
+                <View style={styles.catatan}>
+                    <Text style={{fontSize:14, fontStyle:'italic', fontWeight:'bold', color:IjoTua}}>Catatan Lokasi</Text>
+                    <Text numberOfLines={3}>{catatan_lokasi}</Text>
+                </View>
+                ):(
+                <View style={styles.catatan}>
+                    <Text style={{fontSize:14, fontStyle:'italic', color:IjoTua}}>Tanpa catatan lokasi</Text>
+                </View>
+                )
+              }
           </View>
           ):(
             <View>

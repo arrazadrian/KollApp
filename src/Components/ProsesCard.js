@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, Pressable, Dimensions } from 'react-native'
 import React from 'react'
 import { Ijo, IjoMint, IjoTua, Putih } from '../Utils/Warna'
-import { DPkartu, Gerobak, KategoriPre, TemuLangsung } from '../assets/Images/Index'
+import { PanggilMitra, KategoriPre, TemuLangsung } from '../assets/Images/Index'
 import { useNavigation } from '@react-navigation/native'
 
 const { width, height } = Dimensions.get('window')
@@ -42,9 +42,9 @@ const ProsesCard = ({ item }) => {
       alamat_pelanggan: item.alamat_pelanggan,
       geo_alamat: item.geo_alamat,
       id_mitra: item.id_mitra,
-      id_pelanngan: item.id_mitra,
+      id_pelanngan: item.id_pelanngan,
       jenislayanan: item.jenislayanan,
-      jumlah_kuantitas: item.jumlah_kuantitas,
+      jumlah_kuantitas: item?.jumlah_kuantitas,
       namamitra: item.namamitra,
       namatoko: item.namatoko,
       phonemitra: item.phonemitra,
@@ -70,7 +70,7 @@ const ProsesCard = ({ item }) => {
         { item.jenislayanan == 'Temu Langsung' ? (
           <Image source={TemuLangsung} style={styles.foto} />      
           ): item.jenislayanan == 'Panggil Mitra' ? (
-            <Image source={Gerobak} style={styles.foto} />      
+            <Image source={PanggilMitra} style={styles.foto} />      
           ) : (
             <Image source={KategoriPre} style={styles.foto} />
           )
