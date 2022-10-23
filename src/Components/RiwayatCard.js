@@ -41,37 +41,39 @@ const RiwayatCard = ({ item }) => {
   }
 
   return (
-    <Pressable style={styles.card}
-       onPress={pindahDetail}
-    >
     <View>
-      { item.jenislayanan == 'Temu Langsung' ? (
-        <Image source={TemuLangsung} style={styles.gambar} />      
-        ): item.jenislayanan == 'Panggil Mitra' ? (
-          <Image source={PanggilMitra} style={styles.gambar} />      
-        ) : (
-          <Image source={KategoriPre} style={styles.gambar} />
-        )
-      }
-    </View>
+      <Pressable style={styles.card}
+        onPress={pindahDetail}
+      >
       <View>
-        <Text
-        style={{fontSize:18, fontWeight:'bold', color:IjoTua}}
-        >
-            {item.namatoko}
-        </Text>
-        <Text style={{fontSize:16, color:Ijo}}>
-            <Text>Rp</Text>
-            <Text>{item.hargatotalsemua}</Text>
-            <Text> | </Text>
-            <Text>{item.jumlah_kuantitas} </Text>
-            <Text>Produk</Text>
-        </Text>
-        <View style={{flexDirection:'row'}}>
-          <Text>{moment(item.waktu_selesai.toDate()).calendar()}</Text>
-        </View>
+        { item.jenislayanan == 'Temu Langsung' ? (
+          <Image source={TemuLangsung} style={styles.gambar} />      
+          ): item.jenislayanan == 'Panggil Mitra' ? (
+            <Image source={PanggilMitra} style={styles.gambar} />      
+          ) : (
+            <Image source={KategoriPre} style={styles.gambar} />
+          )
+        }
       </View>
-    </Pressable>
+        <View>
+          <Text
+          style={{fontSize:18, fontWeight:'bold', color:IjoTua}}
+          >
+              {item.namatoko}
+          </Text>
+          <Text style={{fontSize:16, color:Ijo}}>
+              <Text>Rp</Text>
+              <Text>{item.hargatotalsemua}</Text>
+              <Text> | </Text>
+              <Text>{item.jumlah_kuantitas} </Text>
+              <Text>Produk</Text>
+          </Text>
+          <View style={{flexDirection:'row'}}>
+            <Text>{moment(item.waktu_selesai.toDate()).calendar()}</Text>
+          </View>
+        </View>
+      </Pressable>
+    </View>
   )
 }
 
