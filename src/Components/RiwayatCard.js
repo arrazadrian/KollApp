@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, Pressable, Dimensions } from 'react-native'
 import React from 'react'
-import { Abu, Ijo, IjoMint, IjoTua, Putih } from '../Utils/Warna'
+import { Ijo, IjoMint, IjoTua, Putih } from '../Utils/Warna'
 import { TemuLangsung, PanggilMitra, KategoriPre } from '../assets/Images/Index'
 import { useNavigation } from '@react-navigation/native'
 import moment from 'moment'
@@ -44,14 +44,16 @@ const RiwayatCard = ({ item }) => {
     <Pressable style={styles.card}
        onPress={pindahDetail}
     >
-    { item.jenislayanan == 'Temu Langsung' ? (
-      <Image source={TemuLangsung} style={styles.gambar} />      
-      ): item.jenislayanan == 'Panggil Mitra' ? (
-        <Image source={PanggilMitra} style={styles.gambar} />      
-      ) : (
-        <Image source={KategoriPre} style={styles.gambar} />
-      )
-    }
+    <View>
+      { item.jenislayanan == 'Temu Langsung' ? (
+        <Image source={TemuLangsung} style={styles.gambar} />      
+        ): item.jenislayanan == 'Panggil Mitra' ? (
+          <Image source={PanggilMitra} style={styles.gambar} />      
+        ) : (
+          <Image source={KategoriPre} style={styles.gambar} />
+        )
+      }
+    </View>
       <View>
         <Text
         style={{fontSize:18, fontWeight:'bold', color:IjoTua}}
