@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Pressable, Dimensions, TouchableOpacity, Image,
 import React, {useEffect, useState, useRef} from 'react'
 import * as Linking from 'expo-linking';
 import { Ijo, IjoMint, IjoTua, Kuning, Hitam, Putih } from '../Utils/Warna'
-import { KollLong, Pinkecil } from '../assets/Images/Index';
+import { Kasbon, KollLong, Lunas, Pinkecil } from '../assets/Images/Index';
 import moment from 'moment';
 import localization from 'moment/locale/id';
 import GarisBatas from '../Components/GarisBatas';
@@ -116,6 +116,129 @@ const ReceiptScreen = ({navigation, route}) => {
   //   getStatus();
   // },[adarating]);
 
+  const WaktuTransaksi = () => {
+    return(
+      <View>
+        { waktu_selesai ? 
+          (
+          <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+              <Text style={styles.deskatas}>Selesai Transaksi</Text>
+              <Text style={styles.deskatas}>{moment(waktu_selesai.toDate()).calendar()}</Text>
+          </View>
+          ):(
+          <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+              <Text style={styles.deskatas}>Waktu Pemesanan</Text>
+              <Text style={styles.deskatas}>{moment(waktu_dipesan.toDate()).calendar()}</Text>
+          </View>
+          )
+        }
+      </View>
+    )
+  };
+
+  const TelponSms = () => {
+    return(
+      <View>
+       { status_transaksi == "Dalam Proses" &&
+          <View style={{flexDirection: 'row'}}>
+            <Pressable onPress={telepon}>
+                <Image style={styles.aksi} source={Call}/>
+            </Pressable>
+            <Pressable onPress={sms}>
+                <Image style={styles.aksi} source={Chat}/>
+            </Pressable>
+          </View>
+        }
+      </View>
+    )
+  };
+
+  const CapPembayaran = () => {
+    return(
+      <View>
+        { pembayaran == "Tunai" ? 
+          (
+            <Image source={Lunas} style={styles.cap}/>
+            ):(
+            <Image source={Kasbon} style={styles.cap}/>
+          )
+        }
+      </View>
+    )
+  };
+
+  const RatingTransaksi = () => {
+    return(
+      <View>
+        {!rating_layanan && !rating_produk  && status_transaksi == "Selesai" &&
+        <View>
+            <View style={styles.bagian}>
+                    <View>
+                    <Text style={{fontSize: 16, fontWeight:'bold', color: IjoTua, fontStyle:'italic', textAlign:'center'}}>
+                      Berikan penilaian anda untuk mitra ini
+                    </Text>
+                    <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
+                        <View style={{ alignItems:'center'}}>
+                            <Text style={{color: Ijo, fontSize: 24, fontWeight:'bold', textAlign: 'center'}}>Layanan</Text>
+                            <NilaiBintangLayanan/>
+                        </View>
+                        <View style={{ alignItems:'center'}}>
+                            <Text style={{color: Ijo, fontSize: 24, fontWeight:'bold', textAlign: 'center'}}>Produk</Text>
+                            <NilaiDaunProduk/>
+                        </View>
+                    </View>
+                    { pilihlayanan && pilihproduk &&
+                      <TouchableOpacity style={styles.kirim} onPress={kirimNilai}>
+                          <Text style={{color: Ijo, fontWeight:'bold', textAlign:'center'}}>Kirim Penilaian</Text>
+                      </TouchableOpacity>
+                    }
+                  </View>
+            </View>
+        <GarisBatas/>
+        </View>
+        }
+      </View>
+    )
+  };
+
+  const AlamatPelanggan = () => {
+    return(
+      <View>
+         { alamat_pelanggan &&
+        <View>
+            <View style={styles.bagian}>
+                <Text  style={styles.subjudul}>Alamat Tujuan</Text>
+                <View style={{flexDirection:'row', alignItems:'center', width:'90%'}}>
+                  < Image source={Pinkecil} style={styles.location} />
+                    <Text>{alamat_pelanggan}</Text>
+                </View>
+                <CatatanLokasi/>
+            </View>
+            <GarisBatas/>
+        </View>
+        }
+      </View>
+    )
+  };
+
+  const CatatanLokasi = () => {
+    return(
+      <View>
+        {catatan_lokasi ?(
+          <View style={styles.catatan}>
+            <Text style={{fontWeight:'bold'}}>Catatan lokasi</Text>
+            <Text style={{fontStyle:'italic'}}>{catatan_lokasi}</Text>
+          </View>
+        ):(
+          <View style={styles.catatan}>
+            <Text style={{fontStyle:'italic'}}>Tanpa catatan lokasi...</Text>
+          </View>
+        ) 
+        }
+      </View>
+    )
+  };
+
   return (
     <View style={styles.latar}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -150,97 +273,27 @@ const ReceiptScreen = ({navigation, route}) => {
                   <Text style={styles.deskatas}>Pembayaran</Text>
                   <Text style={styles.deskatas}>{pembayaran}</Text>
             </View>
-            { waktu_selesai ? 
-                (
-                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text style={styles.deskatas}>Selesai Transaksi</Text>
-                    <Text style={styles.deskatas}>{moment(waktu_selesai.toDate()).calendar()}</Text>
-                </View>
-                ):(
-                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text style={styles.deskatas}>Waktu Pemesanan</Text>
-                    <Text style={styles.deskatas}>{moment(waktu_dipesan.toDate()).calendar()}</Text>
-                </View>
-                )
-              }
+            <WaktuTransaksi/>
         </View>
 
         <GarisBatas/>
         
-      
         <View style={styles.bagian}>
               <View style={{flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
                 <View>
                     <Text style={styles.subjudul}>Nama Mitra</Text>
                     <Text style={[styles.subjudul, {color: Ijo, fontSize: 20}]}>{namamitra}</Text>
                 </View>
-                { status_transaksi == "Dalam Proses" &&
-                  <View style={{flexDirection: 'row'}}>
-                    <Pressable onPress={telepon}>
-                        <Image style={styles.aksi} source={Call}/>
-                    </Pressable>
-                    <Pressable onPress={sms}>
-                        <Image style={styles.aksi} source={Chat}/>
-                    </Pressable>
-                  </View>
-                }
+                <TelponSms/>
+                <CapPembayaran/>
               </View>
         </View>
       
         <GarisBatas/>
         
-        {!rating_layanan && !rating_produk  && status_transaksi == "Selesai" &&
-        <View>
-            <View style={styles.bagian}>
-                    <View>
-                    <Text style={{fontSize: 16, fontWeight:'bold', color: IjoTua, fontStyle:'italic', textAlign:'center'}}>
-                      Berikan penilaian anda untuk mitra ini
-                    </Text>
-                    <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
-                        <View style={{ alignItems:'center'}}>
-                            <Text style={{color: Ijo, fontSize: 24, fontWeight:'bold', textAlign: 'center'}}>Layanan</Text>
-                            <NilaiBintangLayanan/>
-                        </View>
-                        <View style={{ alignItems:'center'}}>
-                            <Text style={{color: Ijo, fontSize: 24, fontWeight:'bold', textAlign: 'center'}}>Produk</Text>
-                            <NilaiDaunProduk/>
-                        </View>
-                    </View>
-                    { pilihlayanan && pilihproduk &&
-                      <TouchableOpacity style={styles.kirim} onPress={kirimNilai}>
-                          <Text style={{color: Ijo, fontWeight:'bold', textAlign:'center'}}>Kirim Penilaian</Text>
-                      </TouchableOpacity>
-                    }
-                  </View>
-            </View>
-        <GarisBatas/>
-        </View>
-        }
+        <RatingTransaksi/>
           
-        { alamat_pelanggan &&
-        <View>
-            <View style={styles.bagian}>
-                <Text  style={styles.subjudul}>Alamat Tujuan</Text>
-                <View style={{flexDirection:'row', alignItems:'center', width:'90%'}}>
-                  < Image source={Pinkecil} style={styles.location} />
-                    <Text>{alamat_pelanggan}</Text>
-                </View>
-                {catatan_lokasi ?(
-                  <View style={styles.catatan}>
-                    <Text style={{fontWeight:'bold'}}>Catatan lokasi</Text>
-                    <Text style={{fontStyle:'italic'}}>{catatan_lokasi}</Text>
-                  </View>
-                ):(
-                  <View style={styles.catatan}>
-                    <Text style={{fontStyle:'italic'}}>Tanpa catatan lokasi...</Text>
-                  </View>
-                ) 
-                }
-            </View>
-            <GarisBatas/>
-        </View>
-        }
-
+        <AlamatPelanggan/>
 
         <View style={styles.bagian}>
           <View  style={{marginBottom: height* 0.2}}>
@@ -307,6 +360,11 @@ const styles = StyleSheet.create({
      width: width*0.29,
      height: height*0.06,
      marginRight: 10,
+  },
+  cap:{
+     width: width*0.2,
+     height: width*0.2,
+     marginVertical: -10,
   },
   subjudul:{
     fontSize: 16,

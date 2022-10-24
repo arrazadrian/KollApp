@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     },
     gerobak:{
         width: width * 0.5,
-        height: height * 0.2,
+        height: height * 0.25,
         marginBottom: 10,
     }
 })

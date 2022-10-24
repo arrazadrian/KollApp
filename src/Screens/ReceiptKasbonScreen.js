@@ -68,7 +68,33 @@ const ReceiptKasbonScreen = ({ navigation, route }) => {
         }
         fetchTransaksikasbon();
       },[])
-    
+
+    const TelponSmsKasbon = () => {
+      return(
+        <View>
+          { status_kasbon == "Belum Lunas" && (
+              <View style={{flexDirection: 'row'}}>
+                <Pressable onPress={telepon}>
+                  <Image style={styles.aksi} source={Call}/>
+                </Pressable>
+                <Pressable  onPress={sms}>
+                    <Image style={styles.aksi} source={Chat}/>
+                </Pressable>
+              </View>
+          )}
+        </View>
+      )
+    }
+
+    const CapLunas = () => {
+      return(
+        <View>
+          { status_kasbon == "Lunas" && (
+              <Image source={Lunas} style={styles.cap}/>
+          )}
+        </View>
+      )
+    }
 
   return (
     <View style={styles.latar}>
@@ -101,19 +127,8 @@ const ReceiptKasbonScreen = ({ navigation, route }) => {
                 <Text style={styles.subjudul}>Nama Mitra</Text>
                 <Text style={[styles.subjudul, {color: Ijo, fontSize: 20}]}>{namamitra}</Text>
             </View>
-            { status_kasbon == "Belum Lunas" && (
-                <View style={{flexDirection: 'row'}}>
-                  <Pressable onPress={telepon}>
-                    <Image style={styles.aksi} source={Call}/>
-                  </Pressable>
-                  <Pressable  onPress={sms}>
-                      <Image style={styles.aksi} source={Chat}/>
-                  </Pressable>
-                </View>
-            )}
-            { status_kasbon == "Lunas" && (
-                <Image source={Lunas} style={{width: width * 0.2, height: width * 0.2, marginVertical:-20}}/>
-            )}
+            <TelponSmsKasbon/>
+            <CapLunas/>
           </View>
       </View>
       <GarisBatas/>
@@ -175,6 +190,11 @@ const styles = StyleSheet.create({
       height: height*0.06,
       marginRight: 10,
     },
+    cap:{
+      width: width*0.2,
+      height: width*0.2,
+      marginVertical: -10,
+   },
     subjudul:{
       fontSize: 16,
       color: IjoTua,
