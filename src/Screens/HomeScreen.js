@@ -149,48 +149,36 @@ const HomeScreen = ({navigation}) => {
       <ScrollView>
           <View style={{paddingHorizontal: 20}}>
                   <View style={{flex: 1}}>
-                    <Pressable style={styles.poin} onPress={() => {
-                      navigation.push('Kasbon')
-                      }}>
-                        <View>
-                            <Text style={[styles.judul,{fontSize: 16, opacity: 0.5}]}>Poin Koll</Text>
-                            <Text style={styles.angkapoin}>1000000</Text>
-                        </View>
-                        <View style={{ padding: 5, alignItems:'center', borderLeftColor: Ijo, borderLeftWidth: 1}}>
-                          <Image source={DompetKasbon} style={styles.gambardompet}/>
-                          <Text style={[styles.judul,{fontSize: 12, textAlign:'center'}]}>Kasbon</Text>
-                        </View>
-                    </Pressable>
-                    <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                        <Text style={[styles.judul,{fontSize: 16}]}>Lokasi Kamu</Text>
-                    </View>
-                    {alamat ? (
-                      <Pressable style={{marginBottom:15, flexDirection:'row', alignItems:'center'}}
-                      onPress={() => navigation.navigate('FLocScreen')}
-                      >
-                        <View style={{flexDirection:'row', alignItems:'center', width: width * 0.8, marginRight: 20}}>
-                          <Image source={Pinkecil} style={styles.sampingalamat} />
-                          <Text style={styles.deskripsi} numberOfLines={2}>{alamat}</Text>
-                        </View>
-                        <Ionicons name="chevron-forward-outline" size={15} color={IjoMint}/>
-                      </Pressable>
-                    ):(
-                      <Pressable style={{marginBottom:15, flexDirection:'row', alignItems:'center'}}
-                      onPress={() => navigation.navigate('FLocScreen')}
-                      >
-                        <View style={{flexDirection:'row', alignItems:'center', width: width * 0.8, marginRight: 20}}>
-                          <Image source={Pinkecil} style={styles.sampingalamat} />
-                          <Text style={[styles.deskripsi,{fontSize: 18}]}>Tentukan lokasi kamu saat ini...</Text>
-                        </View>
-                        <Ionicons name="chevron-forward-outline" size={15} color={IjoMint}/>
-                      </Pressable>
-                    )}
+                      <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                          <Text style={[styles.judul,{fontSize: 16}]}>Lokasi Kamu</Text>
+                      </View>
+                      {alamat ? (
+                        <Pressable style={{marginBottom:15, flexDirection:'row', alignItems:'center'}}
+                        onPress={() => navigation.navigate('FLocScreen')}
+                        >
+                          <View style={{flexDirection:'row', alignItems:'center', width: width * 0.8, marginRight: 20}}>
+                            <Image source={Pinkecil} style={styles.sampingalamat} />
+                            <Text style={styles.deskripsi} numberOfLines={2}>{alamat}</Text>
+                          </View>
+                          <Ionicons name="chevron-forward-outline" size={15} color={IjoMint}/>
+                        </Pressable>
+                      ):(
+                        <Pressable style={{marginBottom:15, flexDirection:'row', alignItems:'center'}}
+                        onPress={() => navigation.navigate('FLocScreen')}
+                        >
+                          <View style={{flexDirection:'row', alignItems:'center', width: width * 0.8, marginRight: 20}}>
+                            <Image source={Pinkecil} style={styles.sampingalamat} />
+                            <Text style={[styles.deskripsi,{fontSize: 18}]}>Tentukan lokasi kamu saat ini...</Text>
+                          </View>
+                          <Ionicons name="chevron-forward-outline" size={15} color={IjoMint}/>
+                        </Pressable>
+                      )}
                   </View>
                   <View style={styles.bungkus}>
                     <Text style={styles.judul}>Siap Melayani!</Text>
-                    <Text style={[styles.deskripsi,{fontSize: 16}]}>Yuk pilih kebutuhanmu</Text>
+                    <Text style={styles.deskripsi}>Yuk pilih kebutuhanmu</Text>
                   </View>
-                  <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                  <View style={{flexDirection:'row', justifyContent:'space-between', marginBottom: 10}}>
                       <Pressable onPress={async () => {
                         await dispatch(kosongkanKeranjang());
                         await dispatch(resetBobot());
@@ -212,15 +200,17 @@ const HomeScreen = ({navigation}) => {
                           </View>
                       </Pressable>
                   </View>
-                  {/* <Pressable style={styles.kasbon}>
+                  <View style={styles.bungkus}>
+                    <Text style={styles.judul}>Lihat Kasbon</Text>
+                  </View>
+                  <Pressable style={styles.kasbon} onPress={() => {
+                      navigation.push('Kasbon')}}>
                     <View>
-                      <Text style={styles.texttemu}>Catatan Kasbon</Text>
-                      <Text style={styles.deskripsi}
-                        numberOfLines={2}
-                      >Daftar pinjaman dengan mitra</Text>
+                        <Text style={styles.judulButton}>Catatan Kasbon</Text>
+                        <Text>Daftar pinjaman dengan mitra</Text>
                     </View>
                     <Image source={DompetKasbon} style={styles.gambardompet}/>
-                  </Pressable> */}
+                  </Pressable>
           </View>
       </ScrollView>
     </View>
@@ -248,30 +238,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Kuning,
   },
-  poin:{
-    flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:'center',
-    // borderColor: Ijo,
-    // borderWidth: 1,
-    borderRadius: 10,
-    width: '100%',
-    // padding: 10,
-    marginBottom: 20,
-  },
-  angkapoin:{
-    fontSize: 40,
-    color:Ijo,
-    fontWeight:'bold',
-    marginTop: -10,
-  },
   sampingalamat:{
     width:20,
     height:20,
     marginRight:5,
   },
   judul:{
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     color: IjoTua,
   },
@@ -280,7 +253,7 @@ const styles = StyleSheet.create({
     color: Ijo,
   },
   judulButton:{
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: 'bold',
     color: Ijo,
   },
@@ -308,9 +281,9 @@ const styles = StyleSheet.create({
     height: height*0.1,
     backgroundColor: Putih,
     padding: 10,
-    marginBottom: 20,
     borderRadius: 10,
-    elevation: 3,
+    elevation: 5,
+    marginBottom: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

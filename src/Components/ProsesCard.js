@@ -60,24 +60,24 @@ const ProsesCard = ({ item }) => {
       jarak: item.jarak,
     })
   }
-  return (
-    <View>
-      { item.jenislayanan == "Panggil Mitra" ? 
-        (
-        <Pressable style={styles.card}
-        onPress={pindahOtw}
-        >
+
+  const GambarKartuProses = () => {
+    return(
+      <View>
         { item.jenislayanan == 'Panggil Mitra' ? (
             <Image source={Pin_gerobak} style={styles.foto} />      
           ) : (
             <Image source={KategoriPre} style={styles.foto} />
           )
         }
-          <View>
-            <Text style={{fontSize:18, fontWeight:'bold', color:IjoTua}}>
-                {item.namatoko} 
-            </Text>
-            { item.panggilan == "Diterima" ? 
+      </View>
+    )
+  };
+
+  const StatusKartuProses = () => {
+    return(
+      <View>
+         { item.panggilan == "Diterima" ? 
             (
             <Text style={{fontSize:16, fontWeight:'bold', color:Ijo}}>
                 Sedang menuju lokasi kamu
@@ -91,20 +91,29 @@ const ProsesCard = ({ item }) => {
                 Menunggu respon mitra
                </Text>  
             )
+          }
+      </View>
+    )
+  };
 
-            }
+  return (
+    <View>
+      { item.jenislayanan == "Panggil Mitra" ? 
+        (
+        <Pressable style={styles.card} onPress={pindahOtw}>
+          <GambarKartuProses/>
+          <View>
+            <Text style={{fontSize:18, fontWeight:'bold', color:IjoTua}}>
+                {item.namatoko} 
+            </Text>
+           <StatusKartuProses/>
           </View>
         </Pressable>
         ):(
           <Pressable style={styles.card}
           onPress={pindahDetail}
           >
-          { item.jenislayanan == 'Panggil Mitra' ? (
-              <Image source={Pin_gerobak} style={styles.foto} />      
-            ) : (
-              <Image source={KategoriPre} style={styles.foto} />
-            )
-          }
+            <Image source={KategoriPre} style={styles.foto} />
             <View>
               <Text style={{fontSize:18, fontWeight:'bold', color:IjoTua}}>
                   {item.namatoko}

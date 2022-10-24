@@ -40,11 +40,8 @@ const RiwayatCard = ({ item }) => {
     })
   }
 
-  return (
-    <View>
-      <Pressable style={styles.card}
-        onPress={pindahDetail}
-      >
+  const GambarKartuRiwayat = () => {
+    return(
       <View>
         { item.jenislayanan == 'Temu Langsung' ? (
           <Image source={Dua_orang} style={styles.gambar} />      
@@ -55,6 +52,15 @@ const RiwayatCard = ({ item }) => {
           )
         }
       </View>
+    )
+  };
+
+  return (
+    <View>
+      <Pressable style={styles.card}
+        onPress={pindahDetail}
+      >
+        <GambarKartuRiwayat/>
         <View>
           <Text
           style={{fontSize:18, fontWeight:'bold', color:IjoTua}}
