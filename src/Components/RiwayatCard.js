@@ -3,15 +3,15 @@ import React from 'react'
 import { Ijo, IjoMint, IjoTua, Putih } from '../Utils/Warna'
 import { Dua_orang, Pin_gerobak, KategoriPre } from '../assets/Images/Index'
 import { useNavigation } from '@react-navigation/native'
-// import moment from 'moment'
-// import localization from 'moment/locale/id';
+import moment from 'moment'
+import localization from 'moment/locale/id';
 
 const { width, height } = Dimensions.get('window')
 
 
 const RiwayatCard = ({ item }) => {
 
-  // moment.updateLocale('id', localization)
+  moment.updateLocale('id', localization)
 
   const navigation = useNavigation();
 
@@ -68,9 +68,9 @@ const RiwayatCard = ({ item }) => {
               <Text>{item.jumlah_kuantitas} </Text>
               <Text>Produk</Text>
           </Text>
-          {/* <View style={{flexDirection:'row'}}>
+          <View style={{flexDirection:'row'}}>
             <Text>{moment(item.waktu_selesai.toDate()).calendar()}</Text>
-          </View> */}
+          </View>
         </View>
       </Pressable>
     </View>
