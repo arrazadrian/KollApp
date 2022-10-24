@@ -75,7 +75,7 @@ const OtwScreen = ({ navigation, route }) => {
           setNamamitra(doc.data().namamitra);
           setPhonemitra(doc.data().phonemitra);
           setAlamat_pelanggan(doc.data().alamat_pelanggan);
-          setCatatan_lokasi(doc.data().catatan_lokasi);
+          setCatatan_lokasi(doc.data()?.catatan_lokasi);
           setEstimasi_waktu(doc.data().estimasi_waktu);
           setJarak(doc.data().jarak);
           if(panggilan == "Dibatalkan Mitra"){
