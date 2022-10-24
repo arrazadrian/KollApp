@@ -92,7 +92,7 @@ const OtwScreen = ({ navigation, route }) => {
             console.log('Otw Unmounted') 
             unsubscribe();
           }
-    },[panggilan])
+    },[])
   );
 
   // useEffect(() => {
