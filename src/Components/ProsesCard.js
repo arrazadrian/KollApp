@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, Pressable, Dimensions } from 'react-native'
 import React from 'react'
 import { Ijo, IjoMint, IjoTua, Putih } from '../Utils/Warna'
-import { PanggilMitra, KategoriPre, TemuLangsung } from '../assets/Images/Index'
+import { KategoriPre, Pin_gerobak } from '../assets/Images/Index'
 import { useNavigation } from '@react-navigation/native'
 
 const { width, height } = Dimensions.get('window')
@@ -67,10 +67,8 @@ const ProsesCard = ({ item }) => {
         <Pressable style={styles.card}
         onPress={pindahOtw}
         >
-        { item.jenislayanan == 'Temu Langsung' ? (
-          <Image source={TemuLangsung} style={styles.foto} />      
-          ): item.jenislayanan == 'Panggil Mitra' ? (
-            <Image source={PanggilMitra} style={styles.foto} />      
+        { item.jenislayanan == 'Panggil Mitra' ? (
+            <Image source={Pin_gerobak} style={styles.foto} />      
           ) : (
             <Image source={KategoriPre} style={styles.foto} />
           )
@@ -101,10 +99,8 @@ const ProsesCard = ({ item }) => {
           <Pressable style={styles.card}
           onPress={pindahDetail}
           >
-          { item.jenislayanan == 'Temu Langsung' ? (
-            <Image source={TemuLangsung} style={styles.foto} />      
-            ): item.jenislayanan == 'Panggil Mitra' ? (
-              <Image source={Gerobak} style={styles.foto} />      
+          { item.jenislayanan == 'Panggil Mitra' ? (
+              <Image source={Pin_gerobak} style={styles.foto} />      
             ) : (
               <Image source={KategoriPre} style={styles.foto} />
             )

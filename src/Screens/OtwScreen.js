@@ -1,6 +1,5 @@
 import { Image, StyleSheet, Text, View, Dimensions, Pressable, Alert, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
-import React, { useState, useEffect, useCallback } from 'react'
-import MapView, { Marker } from 'react-native-maps'
+import React, { useState, useCallback } from 'react'
 import { Ijo, IjoMint, IjoTua, Kuning, Putih, Hitam } from '../Utils/Warna'
 import { Call, Chat } from '../assets/Icons/Index'
 import { Perjalanan, Tiba, TerimaKasihPM, Load1, Load2, Load3 } from '../assets/Images/Index'
@@ -18,7 +17,7 @@ const OtwScreen = ({ navigation, route }) => {
 
   const db = getFirestore(app)
 
-  const [panggilan, setPanggilan] = useState("Diterima")
+  const [panggilan, setPanggilan] = useState()
   
   const [namatoko, setNamatoko] = useState();
   const [namamitra, setNamamitra] = useState();
@@ -214,193 +213,204 @@ const OtwScreen = ({ navigation, route }) => {
 
   return (
     <ScrollView style={styles.latar} showsVerticalScrollIndicator={false}>
-      <View style={styles.atas}>
-        <Pressable onPress={()=> navigation.navigate('HomeScreen')}>
-            <Ionicons name="chevron-back-outline" size={30} color={Putih} />
-        </Pressable>
-        <Text  style={{fontSize:20, color:Putih, textAlign:'center', alignSelf:'center', fontWeight:'bold'}} numberOfLines={1}>{namatoko}</Text>
-      </View>
-      { panggilan == "Diterima" ? (
-          <Image source={Perjalanan} style={styles.gambar}/>        
-        ): panggilan == "Sudah Sampai" ? (
-          <Image source={Tiba} style={styles.gambar}/>
-        ) : (
-          <Image source={TerimaKasihPM} style={styles.gambar}/>
-        )
-      }
-      <View style={styles.bagian}>
-          <View style={{ flexDirection:'row', marginBottom: 5, alignItems:'center' }}>
-              <View style={{flex: 2}}>
-                <Text>Nama Pengelola</Text>
-                <Text style={{fontSize:20, fontWeight:'bold', color:IjoTua}} numberOfLines={1}>
-                  {namamitra}
-                </Text>
-              </View>
-              <View style={{flexDirection:'row', flex: 1}}>
-                <Pressable onPress={telepon}>
-                    <Image source={Call} style={styles.icon} />
-                </Pressable>
-                <Pressable onPress={sms}>
-                    <Image source={Chat} style={styles.icon} />
-                </Pressable>
-              </View>
+      { !panggilan ? 
+        (
+        <View style={{justifyContent:'center', alignItems:'center', flex: 1}}>
+          <ActivityIndicator size="large" color={IjoTua}/>
+        </View>
+        ):(
+          
+        <View>
+          <View style={styles.atas}>
+            <Pressable onPress={()=> navigation.navigate('HomeScreen')}>
+                <Ionicons name="chevron-back-outline" size={30} color={Putih} />
+            </Pressable>
+            <Text  style={{fontSize:20, color:Putih, textAlign:'center', alignSelf:'center', fontWeight:'bold'}} numberOfLines={1}>{namatoko}</Text>
           </View>
-      </View>
-      <GarisBatas/>
-      <View style={styles.bagian}>
-        <View style={{marginBottom: 10}}>
           { panggilan == "Diterima" ? (
-            <View style={{flexDirection:'row', alignItems:'center'}}>
-                <View style={{flex: 1.5}}>
-                  <Text style={[styles.tulisan, {textAlign:'left'}]}>Mitra dalam perjalanan</Text>
-                  <Text style={{fontSize: 12}}>Estimasi sampai: {estimasi_waktu}</Text>
-                </View>  
-                <Image source={Load1} style={styles.load}/>
-              </View>      
+              <Image source={Perjalanan} style={styles.gambar}/>        
             ): panggilan == "Sudah Sampai" ? (
-              <View style={{flexDirection:'row', alignItems:'center'}}>
-                <View style={{flex: 1.5}}>
-                  <Text style={[styles.tulisan, {textAlign:'left'}]}>Mitra sudah sampai</Text>
-                  <Text style={{fontSize: 12}}>Selamat berbelanja</Text>
-                </View>  
-                <Image source={Load2} style={styles.load}/>
-              </View>      
+              <Image source={Tiba} style={styles.gambar}/>
             ) : (
-              <View style={{flexDirection:'row', alignItems:'center'}}>
-                <View style={{flex: 1.5}}>
-                  <Text style={[styles.tulisan, {textAlign:'left'}]}>Transaksi sudah selesai</Text>
-                  <Text style={{fontSize: 12}}>Yuk bantu evaluasi mitra!</Text>
-                </View>  
-                <Image source={Load3} style={styles.load}/>
-              </View>     
+              <Image source={TerimaKasihPM} style={styles.gambar}/>
             )
           }
-        </View>
-      </View>
-          
-      {panggilan != "Selesai" && 
-        <GarisBatas/>
-      }    
-        
-      <View style={styles.bagian}>
-
-        { panggilan != "Selesai" ? 
-          (
-            <View>
-              <View style={{marginBottom: 10}}>
-                  <Text style={{fontSize:14, fontWeight:'bold', color:IjoTua}}>Tujuan Lokasi</Text>
-                  <Text numberOfLines={3}>{alamat_pelanggan}</Text>
+          <View style={styles.bagian}>
+              <View style={{ flexDirection:'row', marginBottom: 5, alignItems:'center' }}>
+                  <View style={{flex: 2}}>
+                    <Text>Nama Pengelola</Text>
+                    <Text style={{fontSize:20, fontWeight:'bold', color:IjoTua}} numberOfLines={1}>
+                      {namamitra}
+                    </Text>
+                  </View>
+                  <View style={{flexDirection:'row', flex: 1}}>
+                    <Pressable onPress={telepon}>
+                        <Image source={Call} style={styles.icon} />
+                    </Pressable>
+                    <Pressable onPress={sms}>
+                        <Image source={Chat} style={styles.icon} />
+                    </Pressable>
+                  </View>
               </View>
-              { catatan_lokasi ? 
-                (
-                <View style={styles.catatan}>
-                    <Text style={{fontSize:14, fontStyle:'italic', fontWeight:'bold', color:IjoTua}}>Catatan Lokasi</Text>
-                    <Text numberOfLines={3}>{catatan_lokasi}</Text>
-                </View>
-                ):(
-                <View style={styles.catatan}>
-                    <Text style={{fontSize:14, fontStyle:'italic', color:IjoTua}}>Tanpa catatan lokasi</Text>
-                </View>
-                )
-              }
           </View>
-          ):(
-            <View>
-              <Text style={{fontSize: 16, fontWeight:'bold', color: IjoTua, fontStyle:'italic', textAlign:'center'}}>
-                Berikan penilaian anda untuk mitra ini
-              </Text>
-              <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
-                  <View style={{ alignItems:'center'}}>
-                      <Text style={{color: Ijo, fontSize: 24, fontWeight:'bold', textAlign: 'center'}}>Layanan</Text>
-                      <NilaiBintangLayanan/>
-                  </View>
-                  <View style={{ alignItems:'center'}}>
-                      <Text style={{color: Ijo, fontSize: 24, fontWeight:'bold', textAlign: 'center'}}>Produk</Text>
-                      <NilaiDaunProduk/>
-                  </View>
-              </View>
-              { pilihlayanan && pilihproduk &&
-                <TouchableOpacity style={styles.kirim} onPress={kirimNilai}>
-                    <Text style={{color: Ijo, fontWeight:'bold', textAlign:'center'}}>Kirim Penilaian</Text>
-                </TouchableOpacity>
-              }
-            </View>
-          )
-        }
-      </View>
-
-      {panggilan == "Selesai" && 
-        <View>
           <GarisBatas/>
           <View style={styles.bagian}>
-              <Text style={{fontSize:16, fontWeight:'bold', color:IjoTua, marginBottom: 10}}>Rincian Belanjaan</Text>
-              { !produk ? (
-                  <View style={{justifyContent:'center', alignItems:'center', flex: 1}}>
-                    <ActivityIndicator size="small" color={IjoTua}/>
-                  </View>
-              ):(
-              <View>
-                  {Object.entries(produk).map(([key, items]) => (
-                        <View key={key}>
-                          <View style={styles.card}>
-                            <View style={{flexDirection:'row', alignItems:'center'}}>
-                                <View style={{flexDirection:'row', marginTop: 5, alignItems:'center', paddingRight: 10}}>
-                                    <Text style={{fontSize: 14}}>{items.length}</Text>
-                                    <Text style={{fontSize: 14}}> x</Text>
-                                </View>
-                                <Image source={{uri: items[0]?.image}} style={styles.foto}/>
-                                <View>
-                                    <Text style={styles.produk} numberOfLines={1}>{items[0]?.namaproduk}</Text>
-                                    <Text style={styles.produk}>Rp{items[0]?.harga}</Text>
-                                </View>
-                            </View>
-                            <View style={{flexDirection:'row', marginTop: 5, alignItems:'center', paddingRight: 10}}>
-                                <Text style={styles.harga}>Rp{items.length*items[0]?.harga}</Text>
-                            </View>
-                        </View>
-                      </View>
-                    ))} 
-                    <View style={{marginTop: 10}}>
-                        <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                            <Text>Subtotal</Text>
-                            <Text>
-                                <Text>Rp</Text>
-                                <Text>{hargasubtotal}</Text>
-                            </Text>
-                        </View>
-                        <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                            <Text>Biaya Layanan</Text>
-                            <Text>
-                                <Text>Rp</Text>
-                                <Text>{hargalayanan}</Text>
-                            </Text>
-                        </View>
-                        <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                            <Text>Total Harga</Text>
-                            <Text style={styles.harga}>
-                                <Text>Rp</Text>
-                                <Text>{hargatotalsemua}</Text>
-                            </Text>
-                        </View>
-                    </View>
-              </View>
-
-              ) }
+            <View style={{marginBottom: 10}}>
+              { panggilan == "Diterima" ? (
+                <View style={{flexDirection:'row', alignItems:'center'}}>
+                    <View style={{flex: 1.5}}>
+                      <Text style={[styles.tulisan, {textAlign:'left'}]}>Mitra dalam perjalanan</Text>
+                      <Text style={{fontSize: 12}}>Estimasi sampai: {estimasi_waktu}</Text>
+                    </View>  
+                    <Image source={Load1} style={styles.load}/>
+                  </View>      
+                ): panggilan == "Sudah Sampai" ? (
+                  <View style={{flexDirection:'row', alignItems:'center'}}>
+                    <View style={{flex: 1.5}}>
+                      <Text style={[styles.tulisan, {textAlign:'left'}]}>Mitra sudah sampai</Text>
+                      <Text style={{fontSize: 12}}>Selamat berbelanja</Text>
+                    </View>  
+                    <Image source={Load2} style={styles.load}/>
+                  </View>      
+                ) : (
+                  <View style={{flexDirection:'row', alignItems:'center'}}>
+                    <View style={{flex: 1.5}}>
+                      <Text style={[styles.tulisan, {textAlign:'left'}]}>Transaksi sudah selesai</Text>
+                      <Text style={{fontSize: 12}}>Yuk bantu evaluasi mitra!</Text>
+                    </View>  
+                    <Image source={Load3} style={styles.load}/>
+                  </View>     
+                )
+              }
+            </View>
           </View>
-        </View>
-      }    
+              
+          {panggilan != "Selesai" && 
+            <GarisBatas/>
+          }    
+            
+          <View style={styles.bagian}>
 
-        { panggilan == "Diterima" &&
-          <TouchableOpacity style={styles.tombol} onPress={handleBatal}>
-              <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textAlign:'center'}}>Batalkan Pesanan</Text>
-          </TouchableOpacity>
-        }
+            { panggilan != "Selesai" ? 
+              (
+                <View>
+                  <View style={{marginBottom: 10}}>
+                      <Text style={{fontSize:14, fontWeight:'bold', color:IjoTua}}>Tujuan Lokasi</Text>
+                      <Text numberOfLines={3}>{alamat_pelanggan}</Text>
+                  </View>
+                  { catatan_lokasi ? 
+                    (
+                    <View style={styles.catatan}>
+                        <Text style={{fontSize:14, fontStyle:'italic', fontWeight:'bold', color:IjoTua}}>Catatan Lokasi</Text>
+                        <Text numberOfLines={3}>{catatan_lokasi}</Text>
+                    </View>
+                    ):(
+                    <View style={styles.catatan}>
+                        <Text style={{fontSize:14, fontStyle:'italic', color:IjoTua}}>Tanpa catatan lokasi</Text>
+                    </View>
+                    )
+                  }
+              </View>
+              ):(
+                <View>
+                  <Text style={{fontSize: 16, fontWeight:'bold', color: IjoTua, fontStyle:'italic', textAlign:'center'}}>
+                    Berikan penilaian anda untuk mitra ini
+                  </Text>
+                  <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
+                      <View style={{ alignItems:'center'}}>
+                          <Text style={{color: Ijo, fontSize: 24, fontWeight:'bold', textAlign: 'center'}}>Layanan</Text>
+                          <NilaiBintangLayanan/>
+                      </View>
+                      <View style={{ alignItems:'center'}}>
+                          <Text style={{color: Ijo, fontSize: 24, fontWeight:'bold', textAlign: 'center'}}>Produk</Text>
+                          <NilaiDaunProduk/>
+                      </View>
+                  </View>
+                  { pilihlayanan && pilihproduk &&
+                    <TouchableOpacity style={styles.kirim} onPress={kirimNilai}>
+                        <Text style={{color: Ijo, fontWeight:'bold', textAlign:'center'}}>Kirim Penilaian</Text>
+                    </TouchableOpacity>
+                  }
+                </View>
+              )
+            }
+          </View>
 
-        { panggilan == "Selesai" &&
-        <TouchableOpacity style={styles.tombol}  onPress={() => navigation.navigate("HomeScreen")}>
-          <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textAlign:'center'}}>Tutup</Text>
-        </TouchableOpacity>
-        }
+          {panggilan == "Selesai" && 
+            <View>
+              <GarisBatas/>
+              <View style={styles.bagian}>
+                  <Text style={{fontSize:16, fontWeight:'bold', color:IjoTua, marginBottom: 10}}>Rincian Belanjaan</Text>
+                  { !produk ? (
+                      <View style={{justifyContent:'center', alignItems:'center', flex: 1}}>
+                        <ActivityIndicator size="small" color={IjoTua}/>
+                      </View>
+                  ):(
+                  <View>
+                      {Object.entries(produk).map(([key, items]) => (
+                            <View key={key}>
+                              <View style={styles.card}>
+                                <View style={{flexDirection:'row', alignItems:'center'}}>
+                                    <View style={{flexDirection:'row', marginTop: 5, alignItems:'center', paddingRight: 10}}>
+                                        <Text style={{fontSize: 14}}>{items.length}</Text>
+                                        <Text style={{fontSize: 14}}> x</Text>
+                                    </View>
+                                    <Image source={{uri: items[0]?.image}} style={styles.foto}/>
+                                    <View>
+                                        <Text style={styles.produk} numberOfLines={1}>{items[0]?.namaproduk}</Text>
+                                        <Text style={styles.produk}>Rp{items[0]?.harga}</Text>
+                                    </View>
+                                </View>
+                                <View style={{flexDirection:'row', marginTop: 5, alignItems:'center', paddingRight: 10}}>
+                                    <Text style={styles.harga}>Rp{items.length*items[0]?.harga}</Text>
+                                </View>
+                            </View>
+                          </View>
+                        ))} 
+                        <View style={{marginTop: 10}}>
+                            <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                                <Text>Subtotal</Text>
+                                <Text>
+                                    <Text>Rp</Text>
+                                    <Text>{hargasubtotal}</Text>
+                                </Text>
+                            </View>
+                            <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                                <Text>Biaya Layanan</Text>
+                                <Text>
+                                    <Text>Rp</Text>
+                                    <Text>{hargalayanan}</Text>
+                                </Text>
+                            </View>
+                            <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                                <Text>Total Harga</Text>
+                                <Text style={styles.harga}>
+                                    <Text>Rp</Text>
+                                    <Text>{hargatotalsemua}</Text>
+                                </Text>
+                            </View>
+                        </View>
+                  </View>
+
+                  ) }
+              </View>
+            </View>
+          }    
+
+            { panggilan == "Diterima" &&
+              <TouchableOpacity style={styles.tombol} onPress={handleBatal}>
+                  <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textAlign:'center'}}>Batalkan Pesanan</Text>
+              </TouchableOpacity>
+            }
+
+            { panggilan == "Selesai" &&
+            <TouchableOpacity style={styles.tombol}  onPress={() => navigation.navigate("HomeScreen")}>
+              <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textAlign:'center'}}>Tutup</Text>
+            </TouchableOpacity>
+            }
+          </View>
+        )
+      }
     </ScrollView>
   )
 }
@@ -499,7 +509,7 @@ const styles = StyleSheet.create({
     produk:{
       fontSize: 14,
       width: width * 0.3,
-  },
+    },
     tombol:{
         width: '90%',
         backgroundColor: IjoMint,

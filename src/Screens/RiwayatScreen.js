@@ -1,8 +1,7 @@
 import { StyleSheet, Text, View, FlatList, ActivityIndicator, Image, Dimensions} from 'react-native'
 import React, { useState, useEffect, useCallback } from 'react'
-import { Ijo, Kuning, Hitam, Putih, IjoTua } from '../Utils/Warna'
+import { Ijo, Kuning, IjoTua } from '../Utils/Warna'
 import RiwayatCard from '../Components/RiwayatCard'
-import { dataRiwayat } from '../Data/dataRiwayat'
 import { getAuth } from "firebase/auth";
 import { getFirestore, collection, query, where, getDocs, doc, orderBy, onSnapshot } from "firebase/firestore";
 import { app } from '../../Firebase/config';

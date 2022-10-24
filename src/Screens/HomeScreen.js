@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, StatusBar, Alert, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, StatusBar, ActivityIndicator } from 'react-native'
 import React, {useState, useEffect, useCallback} from 'react'
-import { Abu, Ijo, IjoMint, IjoTua, Kuning, Putih} from '../Utils/Warna';
-import { Logo, PanggilMitra, TemuLangsung, Pinkecil, DompetKasbon } from '../assets/Images/Index.js';
+import { Ijo, IjoMint, IjoTua, Kuning, Putih} from '../Utils/Warna';
+import { Logo, Pin_gerobak, Dua_orang, Pinkecil, DompetKasbon } from '../assets/Images/Index.js';
 import { app } from '../../Firebase/config';
 import {  getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
@@ -197,7 +197,7 @@ const HomeScreen = ({navigation}) => {
                         navigation.navigate('SekitarScreen')
                         }}>
                           <View style={styles.homeButton}>
-                            <Image source={PanggilMitra} style={styles.imageButton} />
+                            <Image source={Pin_gerobak} style={styles.imageButton} />
                             <View>
                                 <Text style={styles.judulButton}>Pilih Mitra</Text>
                             </View>
@@ -205,7 +205,7 @@ const HomeScreen = ({navigation}) => {
                       </Pressable>
                       <Pressable onPress={() => navigation.navigate('LangsungScreen')}>
                           <View style={styles.homeButton}>
-                            <Image source={TemuLangsung} style={styles.imageButton} />
+                            <Image source={Dua_orang} style={styles.imageButton} />
                             <View>
                               <Text style={styles.judulButton}>Temu Langsung</Text>
                             </View>

@@ -1,17 +1,17 @@
 import { StyleSheet, Text, View, Image, Pressable, Dimensions } from 'react-native'
 import React from 'react'
 import { Ijo, IjoMint, IjoTua, Putih } from '../Utils/Warna'
-import { TemuLangsung, PanggilMitra, KategoriPre } from '../assets/Images/Index'
+import { Dua_orang, Pin_gerobak, KategoriPre } from '../assets/Images/Index'
 import { useNavigation } from '@react-navigation/native'
-import moment from 'moment'
-import localization from 'moment/locale/id';
+// import moment from 'moment'
+// import localization from 'moment/locale/id';
 
 const { width, height } = Dimensions.get('window')
 
 
 const RiwayatCard = ({ item }) => {
 
-  moment.updateLocale('id', localization)
+  // moment.updateLocale('id', localization)
 
   const navigation = useNavigation();
 
@@ -47,9 +47,9 @@ const RiwayatCard = ({ item }) => {
       >
       <View>
         { item.jenislayanan == 'Temu Langsung' ? (
-          <Image source={TemuLangsung} style={styles.gambar} />      
+          <Image source={Dua_orang} style={styles.gambar} />      
           ): item.jenislayanan == 'Panggil Mitra' ? (
-            <Image source={PanggilMitra} style={styles.gambar} />      
+            <Image source={Pin_gerobak} style={styles.gambar} />      
           ) : (
             <Image source={KategoriPre} style={styles.gambar} />
           )
@@ -68,9 +68,9 @@ const RiwayatCard = ({ item }) => {
               <Text>{item.jumlah_kuantitas} </Text>
               <Text>Produk</Text>
           </Text>
-          <View style={{flexDirection:'row'}}>
+          {/* <View style={{flexDirection:'row'}}>
             <Text>{moment(item.waktu_selesai.toDate()).calendar()}</Text>
-          </View>
+          </View> */}
         </View>
       </Pressable>
     </View>
@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
         alignItems:'center',
     },
     gambar:{
-        width: height * 0.12,
-        height: height * 0.12,
+        width: width * 0.24,
+        height: width * 0.24,
         borderRadius: 10,
         margin: 10,
         backgroundColor: IjoMint,
