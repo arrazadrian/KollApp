@@ -9,7 +9,6 @@ import Halaman from './halaman.png'
 import Header1 from './SwiperKoll-19.png'
 import Header2 from './SwiperKoll-20.png'
 import Header3 from './SwiperKoll-21.png'
-import DPkartu from './Dagangan.png'
 import LatarSignIn from './LatarSignIn.png'
 import Dua_orang from './TemuLangsung.png'
 import Pin_gerobak from './PanggilMitra.png'
@@ -44,7 +43,7 @@ import DompetKasbon from './dompet_kasbon.png'
 
 
 export { Awan, Logo, Splash, LogoPutih, Header1, 
-        Header2, Header3, DPkartu, KollLong, Halaman,
+        Header2, Header3, KollLong, Halaman,
         LatarSignIn, Dua_orang, Pin_gerobak,
         Kategori01, Kategori02, Kategori03, Kategori04,
         Kategori05, Kategori06, Kategori07, Kategori08,
