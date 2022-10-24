@@ -4,7 +4,7 @@ import { Ijo, IjoMint, IjoTua, Putih } from '../Utils/Warna'
 import { Dua_orang, Pin_gerobak, KategoriPre } from '../assets/Images/Index'
 import { useNavigation } from '@react-navigation/native'
 import moment from 'moment'
-import localization from 'moment/locale/id';
+import localization from 'moment/locale/id'
 
 const { width, height } = Dimensions.get('window')
 
@@ -13,7 +13,7 @@ const RiwayatCard = ({ item }) => {
 
   moment.updateLocale('id', localization)
 
-  const navigation = useNavigation();
+  const navigation = useNavigation()
 
   const pindahDetail = () => {
     navigation.navigate('ReceiptScreen', { 
