@@ -93,6 +93,7 @@ const ProsesScreen = () => {
   //Dapetin data riwayat, putus listener kalo pindah halaman
   useFocusEffect(
     useCallback(() => {
+      console.log('Proses Mounted'); 
       const auth = getAuth();
       const db = getFirestore(app);
       const colRef = collection(db, "transaksi");

@@ -3,6 +3,8 @@ import React from 'react'
 import { Ijo, IjoMint, IjoTua, Putih } from '../Utils/Warna'
 import { KategoriPre, Pin_gerobak } from '../assets/Images/Index'
 import { useNavigation } from '@react-navigation/native'
+import "intl"
+import "intl/locale-data/jsonp/id"
 
 const { width, height } = Dimensions.get('window')
 
@@ -123,7 +125,7 @@ const ProsesCard = ({ item }) => {
                     Pre-Order kamu dalam proses
                 </Text>  
                 <Text style={{fontSize:14, color:Ijo, fontWeight:'bold'}}>
-                  Rp{item.hargatotalsemua} | {item.jumlah_kuantitas} produk
+                  Rp{new Intl.NumberFormat('id-Id').format(item.hargatotalsemua).toString()} | {item.jumlah_kuantitas} produk
                 </Text>  
               </View>
             </View>

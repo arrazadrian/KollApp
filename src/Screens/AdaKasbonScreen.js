@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, FlatList, ActivityIndicator, Dimensions, Image, Pressable, Alert} from 'react-native'
 import React, { useState, useEffect, useRef } from 'react'
 import { Kuning, IjoTua, Ijo, Putih, IjoMint } from '../Utils/Warna'
-import KasbonCard from '../Components/KasbonCard'
+// import KasbonCard from '../Components/KasbonCard'
 import { getAuth } from "firebase/auth"
 import { getFirestore, collection, query, where, getDocs, doc, orderBy } from "firebase/firestore"
 import { app } from '../../Firebase/config'

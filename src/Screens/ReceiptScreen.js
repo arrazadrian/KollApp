@@ -11,6 +11,8 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { kirimRating } from '../../API/firebasemethod';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { app } from '../../Firebase/config';
+import "intl";
+import "intl/locale-data/jsonp/id";
 
 
 const { width, height } = Dimensions.get('window')
@@ -136,19 +138,31 @@ const ReceiptScreen = ({navigation, route}) => {
     )
   };
 
+  const KeteranganCOD = () => {
+    return(
+      <View>
+        { jenislayanan == 'Pre-Order' &&
+        <View style={styles.kotakcod}>
+          <Text style={[styles.deskatas, {textAlign:'center'}]}>
+            Diantar paling lambat {moment(waktu_dipesan.toDate()).add(1, 'days').format('ll')} dengan pembayaran COD (Diskusikan dengan mitra bila ingin kasbon)
+          </Text>
+        </View>
+        }
+      </View>
+    )
+  };
+
   const TelponSms = () => {
     return(
       <View>
-       { status_transaksi == "Dalam Proses" &&
-          <View style={{flexDirection: 'row'}}>
-            <Pressable onPress={telepon}>
-                <Image style={styles.aksi} source={Call}/>
-            </Pressable>
-            <Pressable onPress={sms}>
-                <Image style={styles.aksi} source={Chat}/>
-            </Pressable>
-          </View>
-        }
+        <View style={{flexDirection: 'row'}}>
+          <Pressable onPress={telepon}>
+              <Image style={styles.aksi} source={Call}/>
+          </Pressable>
+          <Pressable onPress={sms}>
+              <Image style={styles.aksi} source={Chat}/>
+          </Pressable>
+        </View>
       </View>
     )
   };
@@ -156,7 +170,7 @@ const ReceiptScreen = ({navigation, route}) => {
   const CapPembayaran = () => {
     return(
       <View>
-        { pembayaran == "Tunai" ? 
+        { pembayaran == "Lunas" ? 
           (
             <Image source={Lunas} style={styles.cap}/>
             ):(
@@ -274,7 +288,9 @@ const ReceiptScreen = ({navigation, route}) => {
                   <Text style={styles.deskatas}>{pembayaran}</Text>
             </View>
             <WaktuTransaksi/>
+            <KeteranganCOD/>
         </View>
+
 
         <GarisBatas/>
         
@@ -284,8 +300,13 @@ const ReceiptScreen = ({navigation, route}) => {
                     <Text style={styles.subjudul}>Nama Mitra</Text>
                     <Text style={[styles.subjudul, {color: Ijo, fontSize: 20}]}>{namamitra}</Text>
                 </View>
-                <TelponSms/>
-                <CapPembayaran/>
+                { status_transaksi == "Dalam Proses" ?
+                  (
+                    <TelponSms/>
+                    ):(
+                    <CapPembayaran/>
+                  )
+                }
               </View>
         </View>
       
@@ -318,8 +339,7 @@ const ReceiptScreen = ({navigation, route}) => {
                             <Text>{items[0]?.namaproduk}</Text>
                         </Text>
                         <Text style={styles.harga}>
-                            <Text>Rp</Text>
-                            <Text>{items[0]?.harga * items.length}</Text>
+                            <Text>Rp{new Intl.NumberFormat('id-Id').format(items[0]?.harga * items.length).toString()}</Text>
                         </Text>
                     </View>
                   </View>
@@ -332,15 +352,15 @@ const ReceiptScreen = ({navigation, route}) => {
           <View style={styles.bagian}>
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                   <Text>Sub Total</Text>
-                  <Text>Rp{hargasubtotal}</Text>
+                  <Text>Rp{new Intl.NumberFormat('id-Id').format(hargasubtotal).toString()}</Text>
               </View>
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                   <Text>Biaya Layanan</Text>
-                  <Text>Rp{hargalayanan}</Text>
+                  <Text>Rp{new Intl.NumberFormat('id-Id').format(hargalayanan).toString()}</Text>
               </View>
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                   <Text style={styles.subjudul}>Total Harga</Text>
-                  <Text style={styles.subjudul}>Rp{hargatotalsemua}</Text>
+                  <Text style={styles.subjudul}>Rp{new Intl.NumberFormat('id-Id').format(hargatotalsemua).toString()}</Text>
               </View>
           </View>
       </View>
@@ -374,6 +394,12 @@ const styles = StyleSheet.create({
   deskatas:{
     fontSize: 12,
     color: IjoTua,
+  },
+  kotakcod:{
+    borderRadius: 12,
+    backgroundColor: IjoMint,
+    padding: 10,
+    marginTop: 5,
   },
   deskripsi:{
     fontSize: 16,

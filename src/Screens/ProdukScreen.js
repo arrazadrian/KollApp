@@ -64,7 +64,7 @@ const ProdukScreen = ({ route }) => {
 
 
   const { 
-    id_mitra, status_sekarang
+    id_mitra, status_sekarang, namalengkap_mitra, namatoko, phone, foto_akun, geo_mangkal
      } = route.params;
 
   useEffect(()=>{
@@ -155,7 +155,7 @@ const ProdukScreen = ({ route }) => {
            (
               <MitraTutup/>
               ):( 
-              <PanggilMitra/>
+              <PanggilMitra id_mitra={id_mitra} namalengkap_mitra={namalengkap_mitra} namatoko={namatoko} phone={phone} foto_akun={foto_akun} geo_mangkal={geo_mangkal}/>
             )
             }               
       </View>

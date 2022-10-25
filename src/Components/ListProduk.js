@@ -2,6 +2,8 @@ import { StyleSheet, Text, View, Image, Pressable, Dimensions } from 'react-nati
 import React from 'react'
 import { Ijo, Putih } from '../Utils/Warna'
 import { useNavigation } from '@react-navigation/native'
+import "intl"
+import "intl/locale-data/jsonp/id"
 
 const { height, width } = Dimensions.get('window')
 
@@ -40,7 +42,7 @@ const ListProduk = ({item}) => {
           <Text 
           style={{fontSize:18, fontWeight:'bold'}}
           numberOfLines={1}
-          >Rp{item.harga}</Text> 
+          >Rp{new Intl.NumberFormat('id-Id').format(item.harga).toString()}</Text> 
           <Text
           style={{fontSize:16}}
           numberOfLines={1}
@@ -71,7 +73,7 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       alignSelf: 'center',
       resizeMode: 'cover',
-      marginBottom: 10,
+      marginBottom: 5,
     },
     gambarhabis: {
       width:  height * 0.13,

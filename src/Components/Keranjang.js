@@ -5,6 +5,8 @@ import { Bag } from '../assets/Images/Index'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from "react-redux";
 import { pilihProdukKeranjang, totalHarga } from '../features/keranjangSlice'
+import "intl"
+import "intl/locale-data/jsonp/id"
 
 const Keranjang = (props) => {
   const items = useSelector(pilihProdukKeranjang)
@@ -36,7 +38,7 @@ const Keranjang = (props) => {
                       </Text>
                       <Text style={{color:Putih, fontWeight:'bold', fontSize: 20}}>
                           <Text>Rp </Text>
-                          <Text>{totalhargaKeranjang}</Text>
+                          <Text>{new Intl.NumberFormat('id-Id').format(totalhargaKeranjang).toString()}</Text>
                       </Text>
                     </View>
                   </View>

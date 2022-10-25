@@ -27,6 +27,8 @@ const EtalaseScreen = ({ route }) => {
       namalengkap_mitra: namalengkap_mitra, 
       namatoko: namatoko,
       phone: phone,
+      foto_akun: foto_akun,
+      geo_mangkal: geo_mangkal,
     })
   };
 
@@ -44,7 +46,6 @@ const EtalaseScreen = ({ route }) => {
   const pindahPanggil = () => {
     navigation.navigate('LokasiScreen', { 
       id_mitra: id_mitra,
-      status_sekarang: status_sekarang,
       namalengkap_mitra: namalengkap_mitra, 
       namatoko: namatoko,
       phone: phone,

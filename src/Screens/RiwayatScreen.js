@@ -72,6 +72,7 @@ const RiwayatScreen = () => {
     //Dapetin data riwayat, putus listener kalo pindah halaman
     useFocusEffect(
       useCallback(() => {
+        console.log('Riwayat Mounted'); 
         const auth = getAuth();
         const db = getFirestore(app);
         const colRef = collection(db, "transaksi");

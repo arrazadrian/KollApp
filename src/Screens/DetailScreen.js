@@ -2,6 +2,9 @@ import { StyleSheet, Text, View, Image, Pressable, Dimensions } from 'react-nati
 import React from 'react'
 import { IkanMujaer } from '../assets/Images/Index'
 import { Ijo, IjoMint, IjoTua, Kuning, Pink } from '../Utils/Warna'
+import "intl"
+import "intl/locale-data/jsonp/id"
+
 
 const { height, width } = Dimensions.get('window')
 
@@ -27,7 +30,7 @@ const DetailScreen = ({ navigation, route }) => {
       <View style={{paddingHorizontal: width * 0.1}}>
         <Text style={styles.subjudul}>{namaproduk}</Text>
         <Text style={styles.deskripsi}>{deskproduk}</Text>
-        <Text style={{fontSize:20, color:IjoTua, fontWeight:'bold'}}>Rp{harga} | {kuantitas}{satuan}</Text>     
+        <Text style={{fontSize:20, color:IjoTua, fontWeight:'bold'}}>Rp{new Intl.NumberFormat('id-Id').format(harga).toString()} | {kuantitas}{satuan}</Text>     
       </View>
       <Pressable style={styles.tombol}
         onPress={() => navigation.goBack()}>
