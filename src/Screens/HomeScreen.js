@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, ScrollView, Pressable, Dimensions, StatusBar, ActivityIndicator } from 'react-native'
 import React, {useState, useEffect, useCallback} from 'react'
 import { Ijo, IjoMint, IjoTua, Kuning, Putih} from '../Utils/Warna';
-import { Logo, Pin_gerobak, Dua_orang, Pinkecil, DompetKasbon } from '../assets/Images/Index.js';
+import { Logo, Pin_gerobak, Dua_orang, Pinkecil, DompetKasbon, Gerobak } from '../assets/Images/Index.js';
 import { app } from '../../Firebase/config';
 import {  getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
@@ -185,7 +185,7 @@ const HomeScreen = ({navigation}) => {
                         navigation.navigate('SekitarScreen')
                         }}>
                           <View style={styles.homeButton}>
-                            <Image source={Pin_gerobak} style={styles.imageButton} />
+                            <Image source={Gerobak} style={styles.imageButton} />
                             <View>
                                 <Text style={styles.judulButton}>Pilih Mitra</Text>
                             </View>
