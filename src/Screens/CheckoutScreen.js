@@ -21,6 +21,7 @@ const CheckoutScreen = ({ route }) => {
   const { alamat, geo } = useSelector(state => state.posisi);
   const { namapelanggan } = useSelector(state => state.pelanggan);
   const { hargalayanan } = useSelector(state => state.bobot);
+  const { potongan } = useSelector(state => state.voucher);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -71,7 +72,6 @@ const CheckoutScreen = ({ route }) => {
               dispatch(updateBobot({
                 hargalayanan: hargalayanan,
                 }));
-
            }) 
        })();
    },[]);
@@ -126,15 +126,27 @@ const CheckoutScreen = ({ route }) => {
 
   const VoucerPromo = () => {
     return(
-      <Pressable style={styles.promo} onPress={()=> navigation.navigate('VoucherScreen')}>
+      <Pressable style={styles.promo} onPress={pindahVoucher}>
           <View style={{backgroundColor: Ijo, padding: 8, borderRadius: 20}}>
             <Ionicons name="pricetags" size={20} color={IjoMint}/>
           </View>
-          <Text style={[styles.judul, {color:Ijo}]}>Pilih Voucher</Text>
+          { potongan ? (
+            <Text style={[styles.judul, {color:Ijo}]}>Voucher Rp{potongan}</Text>
+            ):(
+            <Text style={[styles.judul, {color:Ijo}]}>Pilih Voucher</Text>
+          )
+          }
           <Ionicons name="chevron-forward-outline" size={15} color={Ijo}/>
       </Pressable>
     )
   };
+
+  const pindahVoucher = () => {
+    navigation.navigate('VoucherScreen',{
+      jenis_layanan: "Pre-Order",
+      hargatotalsemua: hargatotalsemua,
+    })
+  }
 
   return (
     <View style={styles.latar}>

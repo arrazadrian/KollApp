@@ -1,22 +1,50 @@
-import { Dimensions, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, Pressable, StyleSheet, Text, View, Alert } from 'react-native'
 import React from 'react'
 import { Ijo, IjoMint, IjoTua, Putih } from '../Utils/Warna'
+import { useNavigation } from '@react-navigation/native'
+import { useDispatch } from 'react-redux'
+import { updateVoucher } from '../features/voucherSlice'
+import { doc, getDoc, getFirestore } from "firebase/firestore"
+import { app } from '../../Firebase/config';
 
 const { width, height } = Dimensions.get('window')
 
-const VoucherAktif = () => {
-  return (
+const VoucherAktif = ({item}, props) => {
+
+    const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const db = getFirestore(app);
+
+    const pilihVoucher = async (id_voucher) =>{
+        const docRef = doc(db, "promosi", id_voucher);
+        const docSnap = await getDoc(docRef);
+
+        if(docSnap.exists()) {
+            if( props.hargatotalsemua >= docSnap.data().minimal ){
+                dispatch(updateVoucher({potongan:docSnap.data().potongan}));
+                navigation.goBack();
+            } else {
+                Alert.alert('Tidak memenuhi syarat','Total belanja kamu masih di bawah syarat minimal.');
+                console.log(props.hargatotalsemua)
+            }
+        } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+        }
+    };
+
+    return (
     <View style={styles.card}>
         <View style={styles.bagharga}>
-            <Text style={{color: Ijo}}>Besar Potongan</Text>
-            <Text style={styles.harga}>Rp10.000</Text>
+            <Text style={{color: Ijo}}>Voucher {item.jenis_layanan}</Text>
+            <Text style={styles.harga}>Rp{item.potongan}</Text>
         </View>
         <View style={styles.bagmin}>
             <View style={{marginTop: 10}}>
                 <Text style={styles.hargamin}>Minimal belanja</Text>
-                <Text style={styles.deskripsi}>Rp30000</Text>
+                <Text style={styles.deskripsi}>Rp{item.minimal}</Text>
             </View>
-            <Pressable style={styles.tombol}>
+            <Pressable style={styles.tombol} onPress={() => pilihVoucher(item.id)}>
                 <Text style={{color:Putih, fontWeight:'bold'}}>Pakai</Text>
             </Pressable>
         </View>
