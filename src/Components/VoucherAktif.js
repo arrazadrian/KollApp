@@ -1,6 +1,6 @@
 import { Dimensions, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Ijo, IjoMint, Putih } from '../Utils/Warna'
+import { Ijo, IjoMint, IjoTua, Putih } from '../Utils/Warna'
 
 const { width, height } = Dimensions.get('window')
 
@@ -8,15 +8,17 @@ const VoucherAktif = () => {
   return (
     <View style={styles.card}>
         <View style={styles.bagharga}>
-            <Text>Besar Potongan</Text>
+            <Text style={{color: Ijo}}>Besar Potongan</Text>
             <Text style={styles.harga}>Rp10.000</Text>
-            <Pressable style={styles.tombol}>
-                <Text>Pakai</Text>
-            </Pressable>
         </View>
         <View style={styles.bagmin}>
-            <Text style={styles.hargamin}>Minimal belanja</Text>
-            <Text>Rp7000</Text>
+            <View style={{marginTop: 10}}>
+                <Text style={styles.hargamin}>Minimal belanja</Text>
+                <Text style={styles.deskripsi}>Rp30000</Text>
+            </View>
+            <Pressable style={styles.tombol}>
+                <Text style={{color:Putih, fontWeight:'bold'}}>Pakai</Text>
+            </Pressable>
         </View>
     </View>
   )
@@ -34,8 +36,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         borderRadius: 10,
         flexDirection:'row',
-        height: height * 0.14,
+        height: height * 0.15,
         alignItems:'center',
+        marginVertical: 5,
     },
     harga:{
         fontSize: 30,
@@ -43,8 +46,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: -5,
     },
+    deskripsi:{
+        color: IjoTua,
+        textAlign:'center',
+    },
     bagharga:{
-        flex: 3,
+        flex: 4,
         padding: 10,
     },
     bagmin:{
@@ -53,19 +60,23 @@ const styles = StyleSheet.create({
         padding: 10,
         borderTopRightRadius: 10,
         borderBottomRightRadius: 10,
+        justifyContent:'center',
+        alignItems:'center',
     },
     hargamin:{
         fontSize: 12,
         color: Ijo,
         fontWeight: 'bold',
         marginTop: -5,
+        textAlign:'center',
     },
     tombol:{
-        borderWidth: 2,
-        borderColor: Ijo,
-        borderRadius: 10,
+        backgroundColor: Ijo,
+        borderRadius: 5,
         padding: 5,
         alignItems:'center',
-        width: '50%',
+        width: '60%',
+        marginBottom: 10,
+        marginTop: 8,
     }
 })
