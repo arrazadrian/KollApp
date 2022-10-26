@@ -141,7 +141,7 @@ const ReceiptScreen = ({navigation, route}) => {
   const KeteranganCOD = () => {
     return(
       <View>
-        { jenislayanan == 'Pre-Order' &&
+        { jenislayanan == 'Pre-Order' && status_transaksi == 'Dalam Proses' &&
         <View style={styles.kotakcod}>
           <Text style={[styles.deskatas, {textAlign:'center'}]}>
             Diantar paling lambat {moment(waktu_dipesan.toDate()).add(1, 'days').format('ll')} dengan pembayaran COD (Diskusikan dengan mitra bila ingin kasbon)

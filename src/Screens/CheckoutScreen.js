@@ -10,7 +10,9 @@ import { kosongkanKeranjang, pilihProdukKeranjang, totalHarga } from '../feature
 import { buatTransaksiPO } from '../../API/firebasemethod';
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { updateBobot } from '../features/bobotSlice';
-// import {Picker} from '@react-native-picker/picker';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import "intl";
+import "intl/locale-data/jsonp/id";
 
 const { height, width } = Dimensions.get('window')
 
@@ -122,6 +124,18 @@ const CheckoutScreen = ({ route }) => {
       // }
   };
 
+  const VoucerPromo = () => {
+    return(
+      <Pressable style={styles.promo} onPress={()=> navigation.navigate('VoucherScreen')}>
+          <View style={{backgroundColor: Ijo, padding: 8, borderRadius: 20}}>
+            <Ionicons name="pricetags" size={20} color={IjoMint}/>
+          </View>
+          <Text style={[styles.judul, {color:Ijo}]}>Pilih Voucher</Text>
+          <Ionicons name="chevron-forward-outline" size={15} color={Ijo}/>
+      </Pressable>
+    )
+  };
+
   return (
     <View style={styles.latar}>
       <View style={{flex: 8}}>
@@ -186,11 +200,11 @@ const CheckoutScreen = ({ route }) => {
                     <Image source={{uri: items[0]?.image}} style={styles.foto}/>
                     <View>
                         <Text style={styles.produk} numberOfLines={1}>{items[0]?.namaproduk}</Text>
-                        <Text style={styles.produk}>Rp{items[0]?.harga}</Text>
+                        <Text style={styles.produk}>Rp{new Intl.NumberFormat('id-Id').format(items[0]?.harga).toString()}</Text>
                     </View>
                 </View>
                 <View style={{flexDirection:'row', marginTop: 5, alignItems:'center', paddingRight: 10}}>
-                    <Text style={styles.harga}>Rp{items.length*items[0]?.harga}</Text>
+                    <Text style={styles.harga}>Rp{new Intl.NumberFormat('id-Id').format(items.length*items[0]?.harga).toString()}</Text>
                 </View>
             </View>
           </View>
@@ -200,30 +214,18 @@ const CheckoutScreen = ({ route }) => {
         <GarisBatas/>
 
         <View style={styles.bagian}>
-        {/* <Text style={styles.judul}>Pembayaran</Text>
-            <Picker
-                mode='dropdown'
-                style={{backgroundColor: Kuning, marginBottom: 10, marginTop: -5}}
-                selectedValue={pembayaran}
-                onValueChange={(itemValue, itemIndex) =>
-                  setPembayaran(itemValue)
-                }>
-                <Picker.Item label="COD" value="COD" />
-                <Picker.Item label="Kasbon" value="Kasbon" />
-            </Picker> */}
+            <VoucerPromo/>
             <Text style={styles.judul}>Rangkuman Transaksi</Text>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                 <Text>Subtotal</Text>
                 <Text style={[styles.judul, {fontWeight:'normal'}]}>
-                    <Text>Rp</Text>
-                    <Text>{subtotalhargaKeranjang}</Text>
+                    <Text>Rp{new Intl.NumberFormat('id-Id').format(subtotalhargaKeranjang).toString()}</Text>
                 </Text>
             </View>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                 <Text>Biaya Layanan</Text>
                 <Text style={[styles.judul, {fontWeight:'normal', marginBottom: 0}]}>
-                    <Text>Rp</Text>
-                    <Text>{hargalayanan}</Text>
+                    <Text>Rp{new Intl.NumberFormat('id-Id').format(hargalayanan).toString()}</Text>
                 </Text>
             </View>
             <Text style={{fontStyle:'italic', fontSize: 12, marginBottom: height * 0.05 }}>*Termasuk ongkir</Text>
@@ -234,15 +236,14 @@ const CheckoutScreen = ({ route }) => {
           <View style={styles.total}>
               <Text style={styles.judul}>Total Harga:</Text>
               <Text style={styles.harga}>
-                  <Text>Rp</Text>
-                  <Text>{hargatotalsemua}</Text>
+                  <Text>Rp{new Intl.NumberFormat('id-Id').format(hargatotalsemua).toString()}</Text>
               </Text>
           </View>
-          <Pressable style={styles.pesan} 
+          <TouchableOpacity style={styles.pesan} 
             onPress={handlePesanPO}
           >
               <Text style={{color: Putih, fontSize:18, fontWeight:'bold', textAlign:'center'}}>Pesan</Text>
-          </Pressable>
+          </TouchableOpacity>
       </View>
     </View>
   )
@@ -295,7 +296,7 @@ const styles = StyleSheet.create({
     produk:{
       fontSize: 14,
       width: width * 0.3,
-  },
+    },
     harga:{
         fontSize: 18,
         color: IjoTua,
@@ -321,6 +322,16 @@ const styles = StyleSheet.create({
         borderBottomColor: Ijo,
         borderBottomWidth: 1,
         marginBottom: 10,
+    },
+    promo:{
+      flexDirection:'row',
+      borderColor: Ijo,
+      borderWidth: 1,
+      borderRadius: 10,
+      padding: 8,
+      alignItems:'center',
+      justifyContent: 'space-between',
+      marginBottom: 10,
     },
     total:{
         flexDirection:'row',

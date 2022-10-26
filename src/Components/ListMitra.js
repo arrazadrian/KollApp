@@ -5,7 +5,6 @@ import { Abu, Ijo, IjoMint, IjoTua, Kuning, Pink, Putih } from '../Utils/Warna.j
 import { useNavigation } from '@react-navigation/native'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-
 const { width, height } = Dimensions.get('window')
 
 const ListMitra = ({ item }) => {
@@ -78,7 +77,7 @@ export default ListMitra
 const styles = StyleSheet.create({
     card:{
         flexDirection: 'row',
-        backgroundColor: '#fff',
+        backgroundColor: Putih,
         marginBottom: 5,
         marginHorizontal: 15,
         borderRadius: 10,

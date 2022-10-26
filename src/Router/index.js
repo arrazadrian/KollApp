@@ -25,6 +25,7 @@ import {
   SekitarScreen, 
   SignInScreen,
   SignUpScreen,
+  VoucherScreen,
 } from '../Screens/Index.js'
 import TabNavigasi from '../Components/TabNavigasi.js';
 import { NavigationContainer } from '@react-navigation/native';
@@ -72,6 +73,7 @@ export const AppUtama = () => {
         <HomeStack.Screen name="ReceiptKasbonScreen" component={ReceiptKasbonScreen} options={{ title: "Bukti Kasbon", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
         <HomeStack.Screen name="LoadingScreen" component={LoadingScreen} options={{ headerShown: false }}  />
         <HomeStack.Screen name="OtwScreen" component={OtwScreen} options={{ headerShown: false }}/>
+        <HomeStack.Screen name="VoucherScreen" component={VoucherScreen} options={{ title: "Voucher Aktif", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
         
         <HomeStack.Screen name="ReceiptScreen" component={ReceiptScreen} options={{ title: "Detail Transaksi", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>        
       </HomeStack.Navigator>

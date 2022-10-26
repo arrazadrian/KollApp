@@ -147,12 +147,15 @@ const styles = StyleSheet.create({
         elevation: 5,
         flexDirection: 'row',
         alignItems:'center',
+        padding: 10,
     },
     foto:{
-        width: height * 0.12,
-        height: height * 0.12,
+        width: height * 0.1,
+        height: height * 0.1,
         borderRadius: 10,
-        margin: 10,
+        marginRight: 10,
         backgroundColor: IjoMint,
+        alignItems:'center',
+        justifyContent:'center',
     }
 })

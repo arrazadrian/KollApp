@@ -21,6 +21,7 @@ import AdaKasbonScreen from "./AdaKasbonScreen";
 import KasbonScreen from "./KasbonScreen";
 import LunasScreen from "./LunasScreen";
 import ReceiptKasbonScreen from "./ReceiptKasbonScreen";
+import VoucherScreen from "./VoucherScreen";
 
 export {
      HomeScreen,  
@@ -31,4 +32,5 @@ export {
      FLocScreen, OtwScreen, ProsesScreen, ReceiptScreen,
      ProdukScreen, DetailScreen, EtalaseScreen, 
      KasbonScreen, LunasScreen, ReceiptKasbonScreen,
+     VoucherScreen,
     };

@@ -97,8 +97,8 @@ const styles = StyleSheet.create({
         alignItems:'center',
     },
     gambar:{
-        width: width * 0.24,
-        height: width * 0.24,
+        width: height * 0.1,
+        height: height * 0.1,
         borderRadius: 10,
         margin: 10,
         backgroundColor: IjoMint,
