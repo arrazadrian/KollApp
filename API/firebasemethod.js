@@ -400,7 +400,27 @@ export const updatePoinPotongan = async (id_mitra, potongan) => {
             poin_potongan: awal + potongan, 
           });
       } catch (err) {
-        Alert.alert('Ada error merima PM!', err);
+        Alert.alert('Ada error masuk poin mitra!', err);
+      }
+    }
+  })
+};
+
+// API 13: updateJmlVoucher
+// POTONGAN PELANGGAN MASUK POIN POTONGAN MITRA
+
+export const updateJmlVoucher = async (id_voucher) => {
+  const db = getFirestore(app);
+  const docrefmitra = doc(db, "promosi", id_voucher);
+  getDoc(docrefmitra).then(docSnap => {
+    if (docSnap.exists()) {
+      try {
+          let awal = docSnap.data().jml_pengguna
+          updateDoc(docrefmitra, { 
+            jml_pengguna: awal + 1, 
+          });
+      } catch (err) {
+        Alert.alert('Ada error update voucher!', err);
       }
     }
   })

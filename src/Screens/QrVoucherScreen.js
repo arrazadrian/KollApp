@@ -1,14 +1,10 @@
-import { StyleSheet, Text, View, Image, Pressable, Dimensions, ActivityIndicator, Alert } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, ActivityIndicator, Alert } from 'react-native'
 import React, {useState, useEffect} from 'react';
-import { Ijo, Kuning, IjoMint, Putih, IjoTua } from '../Utils/Warna'
+import { Ijo, Putih, IjoTua } from '../Utils/Warna'
 import { LogoQR } from '../assets/Images/Index.js';
 import QRCode from 'react-native-qrcode-svg';
-import { app } from '../../Firebase/config';
-import { getFirestore, doc, getDoc } from "firebase/firestore";
 import {  getAuth } from "firebase/auth";
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+
 import "intl";
 import "intl/locale-data/jsonp/id";
 

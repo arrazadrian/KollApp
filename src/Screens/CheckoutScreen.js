@@ -7,7 +7,7 @@ import GarisBatas from '../Components/GarisBatas';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { kosongkanKeranjang, pilihProdukKeranjang, totalHarga } from '../features/keranjangSlice';
-import { buatTransaksiPO, updatePoinPotongan } from '../../API/firebasemethod';
+import { buatTransaksiPO, updateJmlVoucher, updatePoinPotongan } from '../../API/firebasemethod';
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { updateBobot } from '../features/bobotSlice';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -22,7 +22,7 @@ const CheckoutScreen = ({ route }) => {
   const { alamat, geo } = useSelector(state => state.posisi);
   const { namapelanggan } = useSelector(state => state.pelanggan);
   const { hargalayanan } = useSelector(state => state.bobot);
-  const { potongan } = useSelector(state => state.voucher);
+  const { potongan, id_voucher } = useSelector(state => state.voucher);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -111,7 +111,8 @@ const CheckoutScreen = ({ route }) => {
             jumlah_kuantitas,
           );
           if(potongan > 0){
-            updatePoinPotongan(id_mitra, potongan)
+            updatePoinPotongan(id_mitra, potongan);
+            updateJmlVoucher(id_voucher);
           };
           dispatch(kosongkanKeranjang());
           dispatch(resetVoucher());
