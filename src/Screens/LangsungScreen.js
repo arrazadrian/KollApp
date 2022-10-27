@@ -37,12 +37,7 @@ const LangsungScreen = () => {
           <View style={{backgroundColor: Ijo, padding: 8, borderRadius: 20}}>
             <Ionicons name="pricetags" size={15} color={IjoMint}/>
           </View>
-          { potongan ? (
-            <Text style={[styles.judul, {color:Ijo}]}>Voucher Rp{potongan}</Text>
-            ):(
-            <Text style={[styles.judul, {color:Ijo}]}>Pilih Voucher</Text>
-          )
-          }
+          <Text style={[styles.judul, {color:Ijo, fontSize: 14, marginTop: 0}]}>Pilih Voucher</Text>
           <Ionicons name="chevron-forward-outline" size={15} color={Ijo}/>
       </Pressable>
     )
@@ -57,8 +52,8 @@ const LangsungScreen = () => {
   return (
     <View style={styles.latar}>
       <View style={styles.tulisan}>
-          <Text style={{marginTop: 8, color: Putih, fontSize: 22, fontWeight: 'bold', textAlign:'center'}}>QR Code Kamu</Text>
-          <Text style={{color: Putih, fontSize: 16, textAlign:'center'}}>
+          <Text style={styles.judul}>QR Code Kamu</Text>
+          <Text style={styles.deskripsi}>
             Berikan QR Code ini kepada mitra pada akhir transaksi temu langsung
           </Text>
       </View>
@@ -129,6 +124,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent:'center',
     alignItems:'center',
+  },
+  judul:{
+    marginTop: 8, 
+    color: Putih, 
+    fontSize: 22, 
+    fontWeight: 'bold', 
+    textAlign:'center',
+  },
+  deskripsi:{
+    color: Putih, 
+    fontSize: 16, 
+    textAlign:'center'
   },
   tulisan:{
     alignSelf:'center',

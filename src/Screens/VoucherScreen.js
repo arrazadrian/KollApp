@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { noMitra } from '../assets/Images/Index';
 import VoucherAktif from '../Components/VoucherAktif';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import VoucherQR from '../Components/VoucherQR';
 
 const { height, width } = Dimensions.get('window')
 
@@ -79,7 +80,7 @@ const VoucherScreen = ({ route }) => {
         ):(
         <FlatList
           data={promosi}
-          renderItem= {({item}) => <VoucherAktif item={item}/>}
+          renderItem= {({item}) => <VoucherQR item={item}/>}
           keyExtractor={ item => item.id}
           ListEmptyComponent={kosongVoucher}
           /> 

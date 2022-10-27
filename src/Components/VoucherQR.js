@@ -9,7 +9,7 @@ import { app } from '../../Firebase/config';
 
 const { width, height } = Dimensions.get('window')
 
-const VoucherQR = ({}) => {
+const VoucherQR = ({item}) => {
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -22,7 +22,9 @@ const VoucherQR = ({}) => {
             navigation.navigate('QrVoucherScreen',{
                 id_voucher: id_voucher,
                 minimal: docSnap.data().minimal,
+                potongan: docSnap.data().potongan,
             });
+            console.log(id_voucher)
         } else {
             console.log("No such document!");
         }
