@@ -3,14 +3,14 @@ import { createSlice } from '@reduxjs/toolkit'
 const voucherSlice = createSlice({
     name: "voucher",
     initialState:{
-        potongan: null,
+        potongan: 0,
     },
     reducers:{
         updateVoucher: (state, action) => {
             state.potongan = action.payload.potongan;
         },
         resetVoucher: (state) => {
-            state.potongan = null;
+            state.potongan = 0;
         }
     }
 });

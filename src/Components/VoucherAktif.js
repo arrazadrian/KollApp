@@ -9,7 +9,7 @@ import { app } from '../../Firebase/config';
 
 const { width, height } = Dimensions.get('window')
 
-const VoucherAktif = ({item}, props) => {
+const VoucherAktif = ({item, subtotalhargaKeranjang}) => {
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -20,12 +20,12 @@ const VoucherAktif = ({item}, props) => {
         const docSnap = await getDoc(docRef);
 
         if(docSnap.exists()) {
-            if( props.hargatotalsemua >= docSnap.data().minimal ){
+            if( subtotalhargaKeranjang >= docSnap.data().minimal ){
                 dispatch(updateVoucher({potongan:docSnap.data().potongan}));
                 navigation.goBack();
             } else {
                 Alert.alert('Tidak memenuhi syarat','Total belanja kamu masih di bawah syarat minimal.');
-                console.log(props.hargatotalsemua)
+                console.log(subtotalhargaKeranjang)
             }
         } else {
         // doc.data() will be undefined in this case
@@ -37,12 +37,12 @@ const VoucherAktif = ({item}, props) => {
     <View style={styles.card}>
         <View style={styles.bagharga}>
             <Text style={{color: Ijo}}>Voucher {item.jenis_layanan}</Text>
-            <Text style={styles.harga}>Rp{item.potongan}</Text>
+            <Text style={styles.harga}>Rp{new Intl.NumberFormat('id-Id').format(item.potongan).toString()}</Text>
         </View>
         <View style={styles.bagmin}>
             <View style={{marginTop: 10}}>
                 <Text style={styles.hargamin}>Minimal belanja</Text>
-                <Text style={styles.deskripsi}>Rp{item.minimal}</Text>
+                <Text style={styles.deskripsi}>Rp{new Intl.NumberFormat('id-Id').format(item.minimal).toString()}</Text>
             </View>
             <Pressable style={styles.tombol} onPress={() => pilihVoucher(item.id)}>
                 <Text style={{color:Putih, fontWeight:'bold'}}>Pakai</Text>

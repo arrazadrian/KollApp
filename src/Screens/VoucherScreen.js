@@ -14,7 +14,7 @@ const { height, width } = Dimensions.get('window')
 const VoucherScreen = ({ route }) => {
 
   const { 
-      jenis_layanan, hargatotalsemua,
+      jenis_layanan, subtotalhargaKeranjang,
      } = route.params;
 
   // console.log(hargatotalsemua)
@@ -72,7 +72,7 @@ const VoucherScreen = ({ route }) => {
         ):(
         <FlatList
                 data={promosi}
-                renderItem= {({item}) => <VoucherAktif item={item}/>}
+                renderItem= {({item}) => <VoucherAktif item={item} subtotalhargaKeranjang = {subtotalhargaKeranjang}/>}
                 keyExtractor={ item => item.id}
                 ListEmptyComponent={kosongVoucher}
             /> 

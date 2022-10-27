@@ -7,12 +7,13 @@ import GarisBatas from '../Components/GarisBatas';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { kosongkanKeranjang, pilihProdukKeranjang, totalHarga } from '../features/keranjangSlice';
-import { buatTransaksiPO } from '../../API/firebasemethod';
+import { buatTransaksiPO, updatePoinPotongan } from '../../API/firebasemethod';
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { updateBobot } from '../features/bobotSlice';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import "intl";
 import "intl/locale-data/jsonp/id";
+import { resetVoucher } from '../features/voucherSlice';
 
 const { height, width } = Dimensions.get('window')
 
@@ -79,25 +80,16 @@ const CheckoutScreen = ({ route }) => {
 
   const subtotalhargaKeranjang = useSelector(totalHarga);
   //Harga Layanan dari redux, declare di atas
-  const hargatotalsemua = subtotalhargaKeranjang + hargalayanan;
+  const hargatotalsemua = subtotalhargaKeranjang + hargalayanan - potongan;
 
   const handlePesanPO = () => {
     let jumlah_kuantitas = items.length;
-      // if(pembayaran == "Kasbon"){
-      //   navigation.navigate('AdaKasbonScreen', { 
-      //     catatan_lokasi: catatan_lokasi,
-      //     catatan_produk: catatan_produk,
-      //     pembayaran: pembayaran,
-      //     id_mitra: id_mitra, 
-      //     namamitra: namalengkap_mitra, 
-      //     namatoko: namatoko, 
-      //     phonemitra: phonemitra,
-      //   });
-      // } else {
         if (!alamat) {
           Alert.alert('Alamat masih kosong','Isi alamat dengan benar.');
         } else if (!items) {
           Alert.alert('Tidak ada belnjaan','Isi email dengan benar.');
+        } else if (!phonemitra) {
+          Alert.alert('Ada nomor telepon kosong','Aantara pelanggan atau mitra.');
         } else if (!phonemitra) {
           Alert.alert('Ada nomor telepon kosong','Aantara pelanggan atau mitra.');
         } else {
@@ -115,13 +107,17 @@ const CheckoutScreen = ({ route }) => {
             subtotalhargaKeranjang,
             hargalayanan,
             hargatotalsemua,
+            potongan,
             jumlah_kuantitas,
           );
-  
+          if(potongan > 0){
+            updatePoinPotongan(id_mitra, potongan)
+          };
           dispatch(kosongkanKeranjang());
+          dispatch(resetVoucher());
           navigation.navigate("HomeScreen");
         };
-      // }
+   
   };
 
   const VoucerPromo = () => {
@@ -144,7 +140,7 @@ const CheckoutScreen = ({ route }) => {
   const pindahVoucher = () => {
     navigation.navigate('VoucherScreen',{
       jenis_layanan: "Pre-Order",
-      hargatotalsemua: hargatotalsemua,
+      subtotalhargaKeranjang: subtotalhargaKeranjang,
     })
   }
 
@@ -234,6 +230,14 @@ const CheckoutScreen = ({ route }) => {
                     <Text>Rp{new Intl.NumberFormat('id-Id').format(subtotalhargaKeranjang).toString()}</Text>
                 </Text>
             </View>
+            { potongan > 0 &&
+              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                  <Text>Potongan</Text>
+                  <Text style={[styles.judul, {fontWeight:'normal'}]}>
+                      <Text>-Rp{new Intl.NumberFormat('id-Id').format(potongan).toString()}</Text>
+                  </Text>
+              </View>
+            }
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                 <Text>Biaya Layanan</Text>
                 <Text style={[styles.judul, {fontWeight:'normal', marginBottom: 0}]}>

@@ -39,6 +39,7 @@ const RiwayatCard = ({ item }) => {
       id_transaksi: item.id,
       rating_layanan: item?.rating_layanan,
       rating_produk: item?.rating_produk,
+      potongan: item.potongan,
     })
   }
 
