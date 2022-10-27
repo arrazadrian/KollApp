@@ -20,7 +20,7 @@ const AkunScreen = () => {
     })
   }
 
-  const [namaakun, setNamaakun] = useState('Loading...')
+  const [namaakun, setNamaakun] = useState()
   const [fotoakun, setFotoakun] = useState('')
   const [phoneakun, setPhoneakun] = useState('Loading...')
   const [emailakun, setEmailakun] = useState('Loading...')
