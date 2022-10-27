@@ -69,13 +69,20 @@ const VoucherScreen = ({ route }) => {
         <View style={{justifyContent:'center', alignItems:'center', flex: 1}}>
             <ActivityIndicator size="large" color={IjoTua}/>
         </View>
+        ): jenis_layanan == "Pre-Order" ? (
+        <FlatList
+          data={promosi}
+          renderItem= {({item}) => <VoucherAktif item={item} subtotalhargaKeranjang = {subtotalhargaKeranjang}/>}
+          keyExtractor={ item => item.id}
+          ListEmptyComponent={kosongVoucher}
+          /> 
         ):(
         <FlatList
-                data={promosi}
-                renderItem= {({item}) => <VoucherAktif item={item} subtotalhargaKeranjang = {subtotalhargaKeranjang}/>}
-                keyExtractor={ item => item.id}
-                ListEmptyComponent={kosongVoucher}
-            /> 
+          data={promosi}
+          renderItem= {({item}) => <VoucherAktif item={item}/>}
+          keyExtractor={ item => item.id}
+          ListEmptyComponent={kosongVoucher}
+          /> 
         )
       }
     </View>
