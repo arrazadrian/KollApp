@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, View, ActivityIndicator, FlatList, Image, 
 import React, { useEffect, useRef, useState } from 'react'
 import ListMitra from '../Components/ListMitra'
 import { Ijo, Kuning, Hitam, Putih, IjoTua, IjoMint } from '../Utils/Warna'
-import { getFirestore, collection, query, where, getDocs,} from "firebase/firestore";
+import { getFirestore, collection, query, where, getDocs, orderBy,} from "firebase/firestore";
 import { app } from '../../Firebase/config';
 import { useSelector } from 'react-redux';
 import { noMitra } from '../assets/Images/Index';
@@ -27,7 +27,7 @@ const VoucherScreen = ({ route }) => {
     let unmounted = false;
     const listPromosi = []; 
     const fetcVoucherPO = async () =>{
-      const q = query(collection(db, "promosi"), where("jenis_layanan", "==", jenis_layanan), where("jml_pengguna","<=", 20));
+      const q = query(collection(db, "promosi"), where("jenis_layanan", "==", jenis_layanan), where("tersedia","==", true), orderBy("potongan","desc"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
