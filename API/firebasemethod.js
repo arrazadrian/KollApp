@@ -231,9 +231,6 @@ export const buatTransaksiPO = async (alamat, geo, catatan_lokasi, id_mitra, nam
         potongan: potongan,
         pembayaran: 'Belum Lunas',
       });
-      Alert.alert(
-        'Pre-Order berhasil dibuat','Produk akan diantar paling lambat 1x24 jam.'
-        );
       return docRef.id
     } catch(err){
       console.log('Ada Error Membuat Tranksaksi.', err);

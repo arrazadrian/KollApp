@@ -24,7 +24,7 @@ const ataspreorder = () => {
           <View style={{width:'70%'}}>
               <Text style={{textAlign:'justify', fontSize:14, fontWeight:'bold',color: Ijo}}>Bagaimana mekanisme pre-order?</Text>
               <Text style={{textAlign:'justify', fontSize: 12 }}>
-                Produk pre-order akan diantar paling lambat 1 x 24 jam setelah pemesanan.
+                Produk pre-order akan diantar paling lambat 1 x 24 jam setelah pemesanan dengan pembayaran COD.
               </Text>
           </View>
         </View>

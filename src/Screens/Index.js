@@ -23,6 +23,7 @@ import LunasScreen from "./LunasScreen";
 import ReceiptKasbonScreen from "./ReceiptKasbonScreen";
 import VoucherScreen from "./VoucherScreen";
 import QrVoucherScreen from "./QrVoucherScreen";
+import TQScreen from "./TQScreen";
 
 export {
      HomeScreen,  
@@ -33,5 +34,5 @@ export {
      FLocScreen, OtwScreen, ProsesScreen, ReceiptScreen,
      ProdukScreen, DetailScreen, EtalaseScreen, 
      KasbonScreen, LunasScreen, ReceiptKasbonScreen,
-     VoucherScreen, QrVoucherScreen,
+     VoucherScreen, QrVoucherScreen, TQScreen,
     };

@@ -1,10 +1,8 @@
 import { StyleSheet, Text, View, Dimensions, ActivityIndicator, Alert } from 'react-native'
 import React, {useState, useEffect} from 'react';
 import { Ijo, Putih, IjoTua } from '../Utils/Warna'
-import { LogoQR } from '../assets/Images/Index.js';
 import QRCode from 'react-native-qrcode-svg';
 import {  getAuth } from "firebase/auth";
-
 import "intl";
 import "intl/locale-data/jsonp/id";
 
@@ -39,9 +37,6 @@ const QrVoucherScreen = ({ route }) => {
             <QRCode 
             value={qrvoucher} 
             size={240}
-            logo={LogoQR}
-            logoBackgroundColor={Putih}
-            logoSize={33}
             />
           ):(
               <ActivityIndicator size="large" color={Ijo}/>

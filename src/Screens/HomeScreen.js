@@ -15,6 +15,7 @@ import GarisBatas from '../Components/GarisBatas';
 import { useFocusEffect } from '@react-navigation/native';
 import { resetBobot } from '../features/bobotSlice';
 import { kosongkanKeranjang } from '../features/keranjangSlice';
+import { resetVoucher } from '../features/voucherSlice';
 
 const { height, width } = Dimensions.get('window')
 
@@ -182,6 +183,7 @@ const HomeScreen = ({navigation}) => {
                       <Pressable onPress={async () => {
                         await dispatch(kosongkanKeranjang());
                         await dispatch(resetBobot());
+                        await dispatch(resetVoucher());
                         navigation.navigate('SekitarScreen')
                         }}>
                           <View style={styles.homeButton}>

@@ -82,7 +82,7 @@ const CheckoutScreen = ({ route }) => {
   //Harga Layanan dari redux, declare di atas
   const hargatotalsemua = subtotalhargaKeranjang + hargalayanan - potongan;
 
-  const handlePesanPO = () => {
+  const handlePesanPO = async () => {
     let jumlah_kuantitas = items.length;
         if (!alamat) {
           Alert.alert('Alamat masih kosong','Isi alamat dengan benar.');
@@ -114,9 +114,7 @@ const CheckoutScreen = ({ route }) => {
             updatePoinPotongan(id_mitra, potongan);
             updateJmlVoucher(id_voucher);
           };
-          dispatch(kosongkanKeranjang());
-          dispatch(resetVoucher());
-          navigation.navigate("HomeScreen");
+          navigation.navigate("TQScreen");
         };
    
   };

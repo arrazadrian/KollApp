@@ -26,6 +26,7 @@ import {
   SekitarScreen, 
   SignInScreen,
   SignUpScreen,
+  TQScreen,
   VoucherScreen,
 } from '../Screens/Index.js'
 import TabNavigasi from '../Components/TabNavigasi.js';
@@ -69,6 +70,7 @@ export const AppUtama = () => {
         <HomeStack.Screen name="LokasiScreen" component={LokasiScreen} options={{ headerShown: false }}  />
         <HomeStack.Screen name="PreorderScreen" component={PreorderScreen} options={{ title: "Pre-Order", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
         <HomeStack.Screen name="CheckoutScreen" component={CheckoutScreen} options={{ title: "Checkout", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
+        <HomeStack.Screen name="TQScreen" component={TQScreen} options={{ headerShown: false }}  />
         <HomeStack.Screen name="AdaKasbonScreen" component={AdaKasbonScreen} options={{ title: "Kasbon Milik Pelanggan", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}  />
         <HomeStack.Screen name="Kasbon" component={TopTabKasbon} options={{ headerShown: false }}/>
         <HomeStack.Screen name="ReceiptKasbonScreen" component={ReceiptKasbonScreen} options={{ title: "Bukti Kasbon", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>

@@ -256,10 +256,11 @@ const OtwScreen = ({ navigation, route }) => {
   const TombolPenilaian = () => {
     return(
       <View>
-        { pilihlayanan && pilihproduk &&
+        { pilihlayanan && pilihproduk ? (
           <TouchableOpacity style={styles.kirim} onPress={kirimNilai}>
               <Text style={{color: Ijo, fontWeight:'bold', textAlign:'center'}}>Kirim Penilaian</Text>
           </TouchableOpacity>
+        ):(null)
         }
       </View>
     )
@@ -328,7 +329,7 @@ const OtwScreen = ({ navigation, route }) => {
   const RincianBelanja = () => {
     return(
       <View>
-         {panggilan == "Selesai" && 
+         {panggilan == "Selesai" ? (
           <View>
             <GarisBatas/>
             <View style={styles.bagian}>
@@ -387,6 +388,7 @@ const OtwScreen = ({ navigation, route }) => {
                 ) }
             </View>
           </View>
+         ):(null)
         }  
       </View>
     )
@@ -395,11 +397,12 @@ const OtwScreen = ({ navigation, route }) => {
   const BatalinTransaksi = () => {
     return(
       <View>
-         { panggilan == "Diterima" &&
+        { panggilan == "Diterima"?(
             <TouchableOpacity style={styles.tombol} onPress={handleBatal}>
                 <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textAlign:'center'}}>Batalkan Pesanan</Text>
             </TouchableOpacity>
-          }
+            ):(null)
+        }
       </View>
     )
   }
@@ -407,11 +410,12 @@ const OtwScreen = ({ navigation, route }) => {
   const TutupPesanan = () => {
     return(
       <View>
-         { panggilan == "Selesai" &&
+          { panggilan == "Selesai" ? (
             <TouchableOpacity style={styles.tombol}  onPress={() => navigation.navigate("HomeScreen")}>
               <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textAlign:'center'}}>Tutup</Text>
             </TouchableOpacity>
-            }
+            ):(null)
+          }
       </View>
     )
   }
@@ -458,8 +462,10 @@ const OtwScreen = ({ navigation, route }) => {
             </View>
           </View>
               
-          {panggilan != "Selesai" && 
-            <GarisBatas/>
+          {panggilan != "Selesai" ? 
+            (
+              <GarisBatas/> 
+            ):(null)
           }    
             
           <View style={styles.bagian}>
