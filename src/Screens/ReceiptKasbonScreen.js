@@ -72,16 +72,14 @@ const ReceiptKasbonScreen = ({ navigation, route }) => {
     const TelponSmsKasbon = () => {
       return(
         <View>
-          { status_kasbon == "Belum Lunas" && (
-              <View style={{flexDirection: 'row'}}>
-                <Pressable onPress={telepon}>
-                  <Image style={styles.aksi} source={Call}/>
-                </Pressable>
-                <Pressable  onPress={sms}>
-                    <Image style={styles.aksi} source={Chat}/>
-                </Pressable>
-              </View>
-          )}
+            <View style={{flexDirection: 'row'}}>
+              <Pressable onPress={telepon}>
+                <Image style={styles.aksi} source={Call}/>
+              </Pressable>
+              <Pressable  onPress={sms}>
+                  <Image style={styles.aksi} source={Chat}/>
+              </Pressable>
+            </View>
         </View>
       )
     }
@@ -89,9 +87,7 @@ const ReceiptKasbonScreen = ({ navigation, route }) => {
     const CapLunas = () => {
       return(
         <View>
-          { status_kasbon == "Lunas" && (
-              <Image source={Lunas} style={styles.cap}/>
-          )}
+            <Image source={Lunas} style={styles.cap}/>
         </View>
       )
     }
@@ -127,8 +123,13 @@ const ReceiptKasbonScreen = ({ navigation, route }) => {
                 <Text style={styles.subjudul}>Nama Mitra</Text>
                 <Text style={[styles.subjudul, {color: Ijo, fontSize: 20}]}>{namamitra}</Text>
             </View>
-            <TelponSmsKasbon/>
-            <CapLunas/>
+            {status_kasbon == "Lunas" ?
+              (
+                <CapLunas/>
+              ):(
+                <TelponSmsKasbon/>
+              ) 
+            }
           </View>
       </View>
       <GarisBatas/>

@@ -26,7 +26,7 @@ const VoucherAktif = ({item, subtotalhargaKeranjang}) => {
                 Alert.alert('Tidak memenuhi syarat','Total belanja kamu masih di bawah syarat minimal.');
                 console.log(subtotalhargaKeranjang)
             } else {
-                dispatch(updateVoucher({potongan:docSnap.data().potongan, id_voucher: id_voucher}));
+                dispatch(updateVoucher({potongan: Number(docSnap.data().potongan), id_voucher: id_voucher}));
                 navigation.goBack();
             }
         } else {

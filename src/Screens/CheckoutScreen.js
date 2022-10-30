@@ -128,7 +128,7 @@ const CheckoutScreen = ({ route }) => {
             <Ionicons name="pricetags" size={20} color={IjoMint}/>
           </View>
           { potongan ? (
-            <Text style={[styles.judul, {color:Ijo}]}>Voucher Rp{potongan}</Text>
+            <Text style={[styles.judul, {color:Ijo}]}>Voucher Rp{new Intl.NumberFormat('id-Id').format(potongan).toString()}</Text>
             ):(
             <Text style={[styles.judul, {color:Ijo}]}>Pilih Voucher</Text>
           )
