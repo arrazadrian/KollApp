@@ -9,8 +9,7 @@ import GarisBatas from '../Components/GarisBatas';
 import { buatTransaksiPM } from '../../API/firebasemethod';
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { updateBobot } from '../features/bobotSlice';
-import {Picker} from '@react-native-picker/picker';
-import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 
 const { height, width } = Dimensions.get('window')
@@ -28,7 +27,6 @@ const LokasiScreen = ({ route }) => {
     const { namapelanggan } = useSelector(state => state.pelanggan);
     const { hargalayanan } = useSelector(state => state.bobot);
     const [catatan, setCatatan] = useState("");
-    const [pembayaran, setPembayaran] = useState("Tunai");
 
     const handlePanggil = async () => {
 
@@ -42,7 +40,6 @@ const LokasiScreen = ({ route }) => {
             phone,
             namapelanggan,
             hargalayanan,
-            pembayaran,
         );
     console.log('id Transaksi isinya: ' + kode_transaksi);
         navigation.replace('LoadingScreen',{
@@ -101,7 +98,7 @@ const LokasiScreen = ({ route }) => {
         <View style={styles.bungkus}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{marginBottom: 10}}>
-                    <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                    <View style={{marginTop: 10}}>
                         <Text style={{fontSize: 18, fontWeight:'bold', color: IjoTua}}>Pastikan lokasi kamu benar</Text>
                     </View>
                     <View style={{marginVertical:5, flexDirection:'row', alignItems:'center', width: width * 0.8}}>
@@ -117,35 +114,8 @@ const LokasiScreen = ({ route }) => {
                         value={catatan}
                         onChangeText={catatan => setCatatan(catatan)}
                     />
-                <View style={{flexDirection:'row', justifyContent:'space-between', flex: 1}}>
-                <View style={{width: '50%'}}>
-                    <Text  style={{fontSize: 16, fontWeight:'bold', color: IjoTua, marginBottom:5}}>Jenis Pembayaran</Text>
-                    <View style={{borderColor: Ijo, borderWidth: 1, borderRadius: 10, padding: 3}}>
-                        <Picker
-                            mode='dropdown'
-                            style={{backgroundColor: Kuning, borderWidth: 1, borderColor: Ijo}}
-                            selectedValue={pembayaran}
-                            onValueChange={(itemValue, itemIndex) =>
-                            setPembayaran(itemValue)
-                            }>
-                            <Picker.Item label="Tunai" value="Tunai" />
-                            <Picker.Item label="Kasbon" value="Kasbon" />
-                        </Picker>
-                    </View>
                 </View>
-                <View style={{width: '40%'}}>
-                    <Text  style={{fontSize: 16, fontWeight:'bold', color: IjoTua, marginBottom:5}}>Voucer Potongan</Text>
-                    <View style={{borderColor: Ijo, borderWidth: 1, borderRadius: 10, padding: 3, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
-                        <View style={{flexDirection:'row', alignItems:'center'}}>
-                        <Ionicons name="cut" size={50} color={Ijo}/>
-                        <Ionicons name="pricetag" size={40} color="orange" style={{marginLeft:-15}}/>
-                        </View>
-                        <Ionicons name="chevron-forward-outline" size={22} color={Hitam} style={{marginHorizontal:3, opacity: 0.2}}/>
-                    </View>
-                </View>
-
-                </View>
-                </View>
+                <GarisBatas/>
                 <View style={styles.kotak}>
                     <View style={styles.atas}>
                         <View style={{flex: 1.5}}>
@@ -187,14 +157,14 @@ export default LokasiScreen
 const styles = StyleSheet.create({
     peta:{
         width: width,
-        height: height * 0.4,
+        height: height * 0.7,
         flex: 1.2,
       },
     bungkus:{
         width: width,
-        height: height * 0.6,
+        height: height * 0.45,
         backgroundColor: Kuning,
-        padding: 20,
+        paddingHorizontal: 20,
     },
     foto:{
         width: width * 0.2,
@@ -220,7 +190,6 @@ const styles = StyleSheet.create({
         paddingEnd: 10,
         borderRadius: 10,
         fontSize: 16,
-        marginBottom: 10,
     },
     panggil:{
         backgroundColor: Ijo,

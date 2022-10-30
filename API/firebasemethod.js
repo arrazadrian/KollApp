@@ -245,7 +245,7 @@ export const buatTransaksiPO = async (alamat, geo, catatan_lokasi, id_mitra, nam
 // API 8: buatTransaksiPM
 // MEMBUAT TRANSAKSI PM.
 
-export const buatTransaksiPM = async (alamat, geo, catatan_lokasi, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, hargalayanan, pembayaran) => {  
+export const buatTransaksiPM = async (alamat, geo, catatan_lokasi, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, hargalayanan) => {  
   const auth = getAuth();
   const db = getFirestore(app);
 
@@ -271,7 +271,6 @@ export const buatTransaksiPM = async (alamat, geo, catatan_lokasi, id_mitra, nam
         status_transaksi: 'Dalam Proses',
         panggilan: "Menunggu Respon",
         hargalayanan: hargalayanan,
-        pembayaran: pembayaran,
         // produk: kelompokProduk,
         // hargasubtotal: subtotalhargaKeranjang,
         // hargalayanan: hargalayanan,
@@ -314,17 +313,17 @@ export const noRespon = async (id_transaksi) => {
 
 export const batalPMolehPelanggan = async (id_transaksi) => {
   const db = getFirestore(app);
-  const docrefproduk = doc(db, "transaksi", id_transaksi);
-  getDoc(docrefproduk).then(docSnap => {
+  const docreftran = doc(db, "transaksi", id_transaksi);
+  getDoc(docreftran).then(docSnap => {
     if (docSnap.exists()) {
       try {
-          updateDoc(docrefproduk, { 
+          updateDoc(docreftran, { 
             panggilan: "Dibatalkan Pelanggan", 
             status_transaksi: "Dibatalkan Pelanggan",
             waktu_pembatalan: serverTimestamp(),  
           });
       } catch (err) {
-        Alert.alert('Ada error merima PM!', err);
+        Alert.alert('Ada error batalin PM!', err);
       }
     }
   })

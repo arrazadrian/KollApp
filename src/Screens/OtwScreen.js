@@ -5,7 +5,7 @@ import { Call, Chat } from '../assets/Icons/Index'
 import { Perjalanan, Tiba, TerimaKasihPM, Load1, Load2, Load3 } from '../assets/Images/Index'
 import GarisBatas from '../Components/GarisBatas';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { getFirestore, doc, onSnapshot } from 'firebase/firestore';
 import { app } from '../../Firebase/config';
 import * as Linking from 'expo-linking';
 import { batalPMolehPelanggan, kirimRating } from '../../API/firebasemethod'
@@ -141,8 +141,8 @@ const OtwScreen = ({ navigation, route }) => {
             },
             {
               text: 'Yakin',
-              onPress: () =>{
-                batalPMolehPelanggan();
+              onPress: async () =>{
+                await batalPMolehPelanggan();
                 navigation.navigate('HomeScreen')
               },
             }
