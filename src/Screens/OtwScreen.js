@@ -10,6 +10,8 @@ import { app } from '../../Firebase/config';
 import * as Linking from 'expo-linking';
 import { batalPMolehPelanggan, kirimRating } from '../../API/firebasemethod'
 import { useFocusEffect } from '@react-navigation/native';
+import "intl";
+import "intl/locale-data/jsonp/id";
 
 const { height, width } = Dimensions.get('window')
 
@@ -351,11 +353,11 @@ const OtwScreen = ({ navigation, route }) => {
                                   <Image source={{uri: items[0]?.image}} style={styles.foto}/>
                                   <View>
                                       <Text style={styles.produk} numberOfLines={1}>{items[0]?.namaproduk}</Text>
-                                      <Text style={styles.produk}>Rp{items[0]?.harga}</Text>
+                                      <Text style={styles.produk}>Rp{new Intl.NumberFormat('id-Id').format(items[0]?.harga).toString()}</Text>
                                   </View>
                               </View>
                               <View style={{flexDirection:'row', marginTop: 5, alignItems:'center', paddingRight: 10}}>
-                                  <Text style={styles.harga}>Rp{items.length*items[0]?.harga}</Text>
+                                  <Text style={styles.harga}>Rp{new Intl.NumberFormat('id-Id').format(items.length*items[0]?.harga).toString()}</Text>
                               </View>
                           </View>
                         </View>
@@ -364,22 +366,19 @@ const OtwScreen = ({ navigation, route }) => {
                           <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                               <Text>Subtotal</Text>
                               <Text>
-                                  <Text>Rp</Text>
-                                  <Text>{hargasubtotal}</Text>
+                                  <Text>Rp{new Intl.NumberFormat('id-Id').format(hargasubtotal).toString()}</Text>
                               </Text>
                           </View>
                           <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                               <Text>Biaya Layanan</Text>
                               <Text>
-                                  <Text>Rp</Text>
-                                  <Text>{hargalayanan}</Text>
+                                  <Text>Rp{new Intl.NumberFormat('id-Id').format(hargalayanan).toString()}</Text>
                               </Text>
                           </View>
                           <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                               <Text>Total Harga</Text>
                               <Text style={styles.harga}>
-                                  <Text>Rp</Text>
-                                  <Text>{hargatotalsemua}</Text>
+                                  <Text>Rp{new Intl.NumberFormat('id-Id').format(hargatotalsemua).toString()}</Text>
                               </Text>
                           </View>
                       </View>

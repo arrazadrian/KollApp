@@ -1,9 +1,6 @@
 import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Dimensions } from 'react-native'
 import React, { useState } from 'react';
 import { Ijo, IjoTua, Kuning, Putih } from '../Utils/Warna'
-import { app } from '../../Firebase/config';
-import {  getAuth } from "firebase/auth";
-import { getFirestore, doc, getDoc } from 'firebase/firestore/lite';
 import { updateakunTanpafoto, updateakunDenganfoto } from '../../API/firebasemethod';
 import * as ImagePicker from 'expo-image-picker';
 import { Logo } from '../assets/Images/Index';
@@ -17,10 +14,6 @@ const EditAkunScreen = ({navigation, route}) => {
   const [namaakun, setNamaakun] = useState(nama)
   const [fotoakun, setFotoakun] = useState(foto)
   const [phoneakun, setPhoneakun] = useState(phone)
-  const auth = getAuth();
-  const db = getFirestore(app)
-
-  const fotolama = foto;
 
 
   const pickImage = async () => {
@@ -43,7 +36,7 @@ const EditAkunScreen = ({navigation, route}) => {
 
 
   const handleperbaruiakun = async () =>{
-    if ( !fotoakun || fotoakun == fotolama){
+    if ( !fotoakun || fotoakun == foto){
         if (!namaakun) {
           Alert.alert('Nama lengkap masih kosong','Isi nama lengkap anda.');
         } else if (!phoneakun && 9 < phoneakun.length < 14) {
