@@ -20,12 +20,14 @@ const VoucherAktif = ({item, subtotalhargaKeranjang}) => {
         const docSnap = await getDoc(docRef);
 
         if(docSnap.exists()) {
-            if( subtotalhargaKeranjang >= docSnap.data().minimal ){
-                dispatch(updateVoucher({potongan:docSnap.data().potongan, id_voucher: id_voucher}));
-                navigation.goBack();
-            } else {
+            if (docSnap.data(). tersedia == false){
+                Alert.alert('Maaf voucher sudah tidak berlaku','Baru saja persediaan voucher tersebut sudah habis.');
+            } else if (subtotalhargaKeranjang < docSnap.data().minimal){
                 Alert.alert('Tidak memenuhi syarat','Total belanja kamu masih di bawah syarat minimal.');
                 console.log(subtotalhargaKeranjang)
+            } else {
+                dispatch(updateVoucher({potongan:docSnap.data().potongan, id_voucher: id_voucher}));
+                navigation.goBack();
             }
         } else {
         // doc.data() will be undefined in this case

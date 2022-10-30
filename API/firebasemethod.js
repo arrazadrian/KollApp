@@ -199,7 +199,7 @@ async function uploadgambarakun(uri) {
 // API 7: buatTransaksiPO
 // MEMBUAT TRANSAKSI PO. 
 
-export const buatTransaksiPO = async (alamat, geo, catatan_lokasi, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, kelompokProduk, catatan_produk, subtotalhargaKeranjang, hargalayanan, hargatotalsemua, potongan, jumlah_kuantitas) => {  
+export const buatTransaksiPO = async (alamat, geo, catatan_lokasi, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, kelompokProduk, catatan_produk, subtotalhargaKeranjang, hargalayanan, hargatotalsemua, id_voucher, potongan, jumlah_kuantitas) => {  
   const auth = getAuth();
   const db = getFirestore(app);
 
@@ -228,6 +228,7 @@ export const buatTransaksiPO = async (alamat, geo, catatan_lokasi, id_mitra, nam
         hargalayanan: hargalayanan,
         hargatotalsemua: hargatotalsemua,
         jumlah_kuantitas: jumlah_kuantitas,
+        id_voucher: id_voucher,
         potongan: potongan,
         pembayaran: 'Belum Lunas',
       });
@@ -383,42 +384,97 @@ export const kirimRating = async (pilihlayanan, pilihproduk, id_mitra, id_transa
   }
 };
 
-// API 12: updatePoinPotongan
-// POTONGAN PELANGGAN MASUK POIN POTONGAN MITRA
+// // API 12: updatePoinPotongan
+// // POTONGAN PELANGGAN MASUK POIN POTONGAN MITRA
 
-export const updatePoinPotongan = async (id_mitra, potongan) => {
+// export const updatePoinPotongan = async (id_mitra, potongan) => {
+//   const db = getFirestore(app);
+//   const docrefmitra = doc(db, "mitra", id_mitra);
+//   getDoc(docrefmitra).then(docSnap => {
+//     if (docSnap.exists()) {
+//       try {
+//           let awal = docSnap.data().poin_potongan
+//           updateDoc(docrefmitra, { 
+//             poin_potongan: awal + potongan, 
+//           });
+//       } catch (err) {
+//         Alert.alert('Ada error masuk poin mitra!', err);
+//       }
+//     }
+//   })
+// };
+
+// // API 13: updateJmlVoucher
+// // POTONGAN PELANGGAN MASUK POIN POTONGAN MITRA
+
+// export const updateJmlVoucher = async (id_voucher) => {
+//   const db = getFirestore(app);
+//   const docrefmitra = doc(db, "promosi", id_voucher);
+//   getDoc(docrefmitra).then(docSnap => {
+//     if (docSnap.exists()) {
+//       try {
+//           let awal = docSnap.data().jml_pengguna
+//           updateDoc(docrefmitra, { 
+//             jml_pengguna: awal + 1, 
+//           });
+//       } catch (err) {
+//         Alert.alert('Ada error update voucher!', err);
+//       }
+//     }
+//   })
+// };
+
+// API 12: updateVoucherMitra
+// MENAMBAH TRANSAKSI DALAM KASBON. 
+
+export const updateVoucherMitra = async (id_mitra, id_voucher, potongan) => {  
   const db = getFirestore(app);
-  const docrefmitra = doc(db, "mitra", id_mitra);
-  getDoc(docrefmitra).then(docSnap => {
-    if (docSnap.exists()) {
-      try {
-          let awal = docSnap.data().poin_potongan
-          updateDoc(docrefmitra, { 
-            poin_potongan: awal + potongan, 
-          });
-      } catch (err) {
-        Alert.alert('Ada error masuk poin mitra!', err);
-      }
+  const docRefVou = doc(db, "promosi", id_voucher);
+  const docSnapVou = await getDoc(docRefVou);
+  const docRefMit = doc(db, "mitra", id_mitra);
+  const docSnapMit= await getDoc(docRefMit);
+  try{
+    if(docSnapVou.exists() && docSnapMit.exists()){
+      let awal_pengguna =  docSnapVou.data().jml_pengguna
+      let awal_poin =  docSnapMit.data().poin_potongan
+      let jml_terbaru = awal_pengguna + 1
+      await updateDoc(docRefVou, { 
+          jml_pengguna: awal_pengguna + 1, 
+      });
+      updateDoc(docRefMit, { 
+          poin_potongan: awal_poin + potongan, 
+      });
+      return jml_terbaru
+    } else {
+      console.log("No such document!");
     }
-  })
+   
+  } catch(err){
+    console.log('Ada Error update voucher.', err);
+  };
 };
 
-// API 13: updateJmlVoucher
-// POTONGAN PELANGGAN MASUK POIN POTONGAN MITRA
 
-export const updateJmlVoucher = async (id_voucher) => {
+// API 13: updateTersediaVoucher
+// VOUCHER SUDAH MEMENUHU KUOTA ATAU BELUM
+
+export const updateTersediaVoucher = async (id_mitra, id_voucher, potongan) => {  
+  const jml_terbaru = await updateVoucherMitra(id_mitra, id_voucher, potongan)
+
   const db = getFirestore(app);
-  const docrefmitra = doc(db, "promosi", id_voucher);
-  getDoc(docrefmitra).then(docSnap => {
-    if (docSnap.exists()) {
-      try {
-          let awal = docSnap.data().jml_pengguna
-          updateDoc(docrefmitra, { 
-            jml_pengguna: awal + 1, 
-          });
-      } catch (err) {
-        Alert.alert('Ada error update voucher!', err);
+  const docRef = doc(db, "promosi", id_voucher);
+  const docSnap = await getDoc(docRef);
+  try{
+    if(docSnap.exists()){
+      if( jml_terbaru >= docSnap.data().kuota){
+        updateDoc(docRef, { 
+          tersedia: false, 
+        });
       }
+    } else {
+      console.log("No such document!");
     }
-  })
+  } catch(err){
+    console.log('Ada Error update kesediaan voucher.', err);
+  };
 };

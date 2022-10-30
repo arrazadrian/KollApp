@@ -7,7 +7,7 @@ import GarisBatas from '../Components/GarisBatas';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { kosongkanKeranjang, pilihProdukKeranjang, totalHarga } from '../features/keranjangSlice';
-import { buatTransaksiPO, updateJmlVoucher, updatePoinPotongan } from '../../API/firebasemethod';
+import { buatTransaksiPO, updateJmlVoucher, updatePoinPotongan, updateTersediaVoucher } from '../../API/firebasemethod';
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { updateBobot } from '../features/bobotSlice';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -107,12 +107,14 @@ const CheckoutScreen = ({ route }) => {
             subtotalhargaKeranjang,
             hargalayanan,
             hargatotalsemua,
+            id_voucher,
             potongan,
             jumlah_kuantitas,
           );
           if(potongan > 0){
-            updatePoinPotongan(id_mitra, potongan);
-            updateJmlVoucher(id_voucher);
+            // updatePoinPotongan(id_mitra, potongan);
+            // updateJmlVoucher(id_voucher);
+            updateTersediaVoucher(id_mitra, id_voucher, potongan);
           };
           navigation.navigate("TQScreen");
         };

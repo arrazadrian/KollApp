@@ -60,7 +60,7 @@ const HomeScreen = ({navigation}) => {
           setNamapelanggan(doc.data().namalengkap);
           //console.log(doc.data())
           console.log('getuserHome jalan (Home Screen)')
-          dispatch(updateUID({kodeUID,namapelanggan}));
+          dispatch(updateUID({kodeUID: kodeUID,namapelanggan: namapelanggan}));
             // Respond to data
             // ...
           });
