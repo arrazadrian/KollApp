@@ -450,7 +450,7 @@ const OtwScreen = ({ navigation, route }) => {
     <ScrollView style={styles.latar} showsVerticalScrollIndicator={false}>
       { !panggilan ? 
         (
-        <View style={{justifyContent:'center', alignItems:'center', flex: 1}}>
+        <View style={{justifyContent:'center', alignItems:'center', marginTop: height * 0.4}}>
           <ActivityIndicator size="large" color={IjoTua}/>
         </View>
         ):(
