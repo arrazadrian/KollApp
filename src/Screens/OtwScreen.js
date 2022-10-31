@@ -27,7 +27,7 @@ const OtwScreen = ({ navigation, route }) => {
   const [alamat_pelanggan, setAlamat_pelanggan] = useState();
   const [catatan_lokasi, setCatatan_lokasi] = useState();
   const [estimasi_waktu, setEstimasi_waktu] = useState();
-  // const [jarak, setJarak] = useState();
+  const [jarak, setJarak] = useState();
   const [hargasubtotal, setHargasubtotal] = useState();
   const [hargalayanan, setHargalayanan] = useState();
   const [hargatotalsemua, setHargatotalsemua] = useState();
@@ -68,27 +68,25 @@ const OtwScreen = ({ navigation, route }) => {
   useFocusEffect(
     useCallback(() => {
       const db = getFirestore(app)
-          const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (docPang) => {
+          const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (doc) => {
             if(panggilan == "Dibatalkan Mitra"){
               navigation.replace('HomeScreen');
               Alert.alert(
                 'Mitra membatalkan panggilan','Mohon maaf, sepertinya mitra sedang ada kendala saat ini.'
               );
             } 
-          setPanggilan(docPang.data().panggilan);
-          // setHargasubtotal(doc.data()?.hargasubtotal);
-          // setHargalayanan(doc.data()?.hargalayanan);
-          // setHargatotalsemua(doc.data()?.hargatotalsemua);
-          // setProduk(doc.data()?.produk);
-          // setNamatoko(doc.data().namatoko);
-          // setNamamitra(doc.data().namamitra);
-          // setPhonemitra(doc.data().phonemitra);
-          // setAlamat_pelanggan(doc.data().alamat_pelanggan);
-          // setCatatan_lokasi(doc.data()?.catatan_lokasi);
-          // setEstimasi_waktu(doc.data().estimasi_waktu);
-          // setJarak(doc.data().jarak);
-            // Respond to data
-            // ...
+          setPanggilan(doc.data().panggilan);
+          setHargasubtotal(doc.data()?.hargasubtotal);
+          setHargalayanan(doc.data()?.hargalayanan);
+          setHargatotalsemua(doc.data()?.hargatotalsemua);
+          setProduk(doc.data()?.produk);
+          setNamatoko(doc.data().namatoko);
+          setNamamitra(doc.data().namamitra);
+          setPhonemitra(doc.data().phonemitra);
+          setAlamat_pelanggan(doc.data().alamat_pelanggan);
+          setCatatan_lokasi(doc.data()?.catatan_lokasi);
+          setEstimasi_waktu(doc.data().estimasi_waktu);
+          setJarak(doc.data().jarak);
           });
           //unsubscribe();
           return () => {
@@ -110,54 +108,54 @@ const OtwScreen = ({ navigation, route }) => {
   //   lihatRespon();
   // },[panggilan]);
  
-    useEffect(() =>{ 
-    let unmounted = false
+  //   useEffect(() =>{ 
+  //   let unmounted = false
     
-    async function getDetailTransaksi(){
-      const db = getFirestore(app)
-      const docRef = doc(db, "transaksi", id_transaksi);
-      const docSnap = await getDoc(docRef);
+  //   async function getDetailTransaksi(){
+  //     const db = getFirestore(app)
+  //     const docRef = doc(db, "transaksi", id_transaksi);
+  //     const docSnap = await getDoc(docRef);
       
-      if (docSnap.exists()) {
-        setNamatoko(docSnap.data()?.namatoko);
-        setNamamitra(docSnap.data()?.namamitra);
-        setPhonemitra(docSnap.data()?.phonemitra);
-        setAlamat_pelanggan(docSnap.data()?.alamat_pelanggan);
-        setCatatan_lokasi(docSnap.data()?.catatan_lokasi);
-        setEstimasi_waktu(docSnap.data()?.estimasi_waktu);
-        // setJarak(doc.data().jarak);
-        setHargasubtotal(docSnap.data()?.hargasubtotal);
-        setHargalayanan(docSnap.data()?.hargalayanan);
-        setHargatotalsemua(docSnap.data()?.hargatotalsemua);
-        setProduk(docSnap.data()?.produk);
-        console.log("Jalan Detailnya!");
+  //     if (docSnap.exists()) {
+  //       setNamatoko(docSnap.data()?.namatoko);
+  //       setNamamitra(docSnap.data()?.namamitra);
+  //       setPhonemitra(docSnap.data()?.phonemitra);
+  //       setAlamat_pelanggan(docSnap.data()?.alamat_pelanggan);
+  //       setCatatan_lokasi(docSnap.data()?.catatan_lokasi);
+  //       setEstimasi_waktu(docSnap.data()?.estimasi_waktu);
+  //       // setJarak(doc.data().jarak);
+  //       setHargasubtotal(docSnap.data()?.hargasubtotal);
+  //       setHargalayanan(docSnap.data()?.hargalayanan);
+  //       setHargatotalsemua(docSnap.data()?.hargatotalsemua);
+  //       setProduk(docSnap.data()?.produk);
+  //       console.log("Jalan Detailnya!");
 
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    }
+  //     } else {
+  //       // doc.data() will be undefined in this case
+  //       console.log("No such document!");
+  //     }
+  //   }
 
-    if(!unmounted){
-      getDetailTransaksi();
-    }
+  //   if(!unmounted){
+  //     getDetailTransaksi();
+  //   }
 
-    return() => {
-      unmounted = true
-      setNamatoko();
-      setNamamitra();
-      setPhonemitra();
-      setAlamat_pelanggan();
-      setCatatan_lokasi();
-      setEstimasi_waktu();
-      setHargasubtotal();
-      setHargalayanan();
-      setHargatotalsemua();
-      setProduk();
-      console.log('getDetailTransaksi cleared')
-    }
+  //   return() => {
+  //     unmounted = true
+  //     setNamatoko();
+  //     setNamamitra();
+  //     setPhonemitra();
+  //     setAlamat_pelanggan();
+  //     setCatatan_lokasi();
+  //     setEstimasi_waktu();
+  //     setHargasubtotal();
+  //     setHargalayanan();
+  //     setHargatotalsemua();
+  //     setProduk();
+  //     console.log('getDetailTransaksi cleared')
+  //   }
 
-  },[panggilan])
+  // },[panggilan])
 
   const handleBatal =()=> {
     Alert.alert('Anda yakin ingin membatalkan panggilan?','Mitra yang sedang di jalan bisa kecewa loh.',
