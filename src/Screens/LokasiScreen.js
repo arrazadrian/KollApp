@@ -20,7 +20,7 @@ const LokasiScreen = ({ route }) => {
     const dispatch = useDispatch();
 
     const { 
-        namatoko, foto_akun, id_mitra, namalengkap_mitra, phone, geo_mangkal,
+        namatoko, foto_akun, id_mitra, namalengkap_mitra, phonemitra, geo_mangkal,
          } = route.params;
 
     const { alamat, geo } = useSelector(state => state.posisi);
@@ -29,7 +29,6 @@ const LokasiScreen = ({ route }) => {
     const [catatan, setCatatan] = useState("");
 
     const handlePanggil = async () => {
-     let phonemitra = phone;
      const kode_transaksi = await buatTransaksiPM(
             alamat, 
             geo, 

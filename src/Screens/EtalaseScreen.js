@@ -26,7 +26,7 @@ const EtalaseScreen = ({ route }) => {
       status_sekarang: status_sekarang,
       namalengkap_mitra: namalengkap_mitra, 
       namatoko: namatoko,
-      phone: phone,
+      phonemitra: phone,
       foto_akun: foto_akun,
       geo_mangkal: geo_mangkal,
     })
@@ -38,7 +38,7 @@ const EtalaseScreen = ({ route }) => {
       status_sekarang: status_sekarang,
       namalengkap_mitra: namalengkap_mitra, 
       namatoko: namatoko,
-      phone: phone,
+      phonemitra: phone,
       geo_mangkal: geo_mangkal,
     })
   };
@@ -48,7 +48,7 @@ const EtalaseScreen = ({ route }) => {
       id_mitra: id_mitra,
       namalengkap_mitra: namalengkap_mitra, 
       namatoko: namatoko,
-      phone: phone,
+      phonemitra: phone,
       foto_akun: foto_akun,
       geo_mangkal: geo_mangkal,
     })
