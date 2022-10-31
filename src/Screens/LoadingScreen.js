@@ -1,54 +1,80 @@
 import { StyleSheet, Text, View, Image, ActivityIndicator, Alert, Dimensions } from 'react-native'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useCallback} from 'react'
 import { Ijo, Kuning } from '../Utils/Warna'
 import { Gerobak } from '../assets/Images/Index'
 import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { app } from '../../Firebase/config';
 import { noRespon } from '../../API/firebasemethod';
+import { useFocusEffect } from '@react-navigation/native';
 
 const { height, width } = Dimensions.get('window')
 
 const LoadingScreen = ({ navigation, route }) => {
 
-  const [panggilan, setPanggilan] = useState("Menunggu Respon");
+  const [panggilan, setPanggilan] = useState();
   const db = getFirestore(app);
 
   const { 
     id_transaksi, id_mitra,
      } = route.params;
 
-  useEffect(() =>{ 
-    async function getStatusPM(){
-      try{
+  useFocusEffect(
+    useCallback(() => {
         const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (doc) => {
         setPanggilan(doc.data().panggilan);
-          // Respond to data
-          // ...
-        });
-        //unsubscribe();
-      } catch (err){
-        Alert.alert('Ada error sama status PM.', err.message)
-      }
-    }
-    getStatusPM();
-  },[]);
-
-  useEffect(() => {
-    const lihatRespon =  () => {
-      if(panggilan == "Diterima"){
-          navigation.replace('OtwScreen',{
+        console.log('Menunggu respon mitra di loading')
+         if(panggilan == "Diterima"){
+            navigation.replace('OtwScreen',{
             id_transaksi: id_transaksi,
             id_mitra: id_mitra,
           });
-      } else if(panggilan == "Ditolak"){
-          navigation.replace('HomeScreen');
-          Alert.alert(
-            'Mitra menolak panggilan','Mohon maaf, sepertinya mitra sedang sibuk saat ini.'
-          );
-      } 
-    } 
-    lihatRespon();
-  },[panggilan]);
+          } else if(panggilan == "Ditolak"){
+            navigation.replace('HomeScreen');
+            Alert.alert(
+              'Mitra menolak panggilan','Mohon maaf, sepertinya mitra sedang sibuk saat ini.'
+            );
+          } 
+          });
+          //unsubscribe();
+          return () => {
+            console.log('Loading Unmounted') 
+            unsubscribe();
+          }
+    },[panggilan])
+  );
+  
+  // useEffect(() =>{ 
+  //   async function getStatusPM(){
+  //     try{
+  //       const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (doc) => {
+  //       setPanggilan(doc.data().panggilan);
+  //         // Respond to data
+  //         // ...
+  //       });
+  //       //unsubscribe();
+  //     } catch (err){
+  //       Alert.alert('Ada error sama status PM.', err.message)
+  //     }
+  //   }
+  //   getStatusPM();
+  // },[]);
+
+  // useEffect(() => {
+  //   const lihatRespon =  () => {
+  //     if(panggilan == "Diterima"){
+  //         navigation.replace('OtwScreen',{
+  //           id_transaksi: id_transaksi,
+  //           id_mitra: id_mitra,
+  //         });
+  //     } else if(panggilan == "Ditolak"){
+  //         navigation.replace('HomeScreen');
+  //         Alert.alert(
+  //           'Mitra menolak panggilan','Mohon maaf, sepertinya mitra sedang sibuk saat ini.'
+  //         );
+  //     } 
+  //   } 
+  //   lihatRespon();
+  // },[panggilan]);
 
   useEffect(()=>{
     const waktuNunggu = setTimeout(  () =>{
