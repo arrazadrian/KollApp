@@ -29,7 +29,7 @@ const LokasiScreen = ({ route }) => {
     const [catatan, setCatatan] = useState("");
 
     const handlePanggil = async () => {
-
+     let phonemitra = phone;
      const kode_transaksi = await buatTransaksiPM(
             alamat, 
             geo, 
@@ -37,7 +37,7 @@ const LokasiScreen = ({ route }) => {
             id_mitra,
             namalengkap_mitra, 
             namatoko,
-            phone,
+            phonemitra,
             namapelanggan,
             hargalayanan,
         );
