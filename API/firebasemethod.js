@@ -280,7 +280,7 @@ export const buatTransaksiPM = async (alamat, geo, catatan_lokasi, id_mitra, nam
       console.log("ID dokumennya: ", docRef.id)
       return docRef.id;
     } catch(err){
-      console.log('Ada Error Membuat Tranksaksi.', error);
+      console.log('Ada Error Membuat Tranksaksi.', err);
     };
   } else {
     // doc.data() will be undefined in this case

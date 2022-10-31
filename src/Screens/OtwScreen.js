@@ -1,11 +1,11 @@
 import { Image, StyleSheet, Text, View, Dimensions, Pressable, Alert, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { Ijo, IjoMint, IjoTua, Kuning, Putih, Hitam } from '../Utils/Warna'
 import { Call, Chat } from '../assets/Icons/Index'
 import { Perjalanan, Tiba, TerimaKasihPM, Load1, Load2, Load3 } from '../assets/Images/Index'
 import GarisBatas from '../Components/GarisBatas';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { getFirestore, doc, onSnapshot } from 'firebase/firestore';
+import { getFirestore, doc, onSnapshot, getDoc } from 'firebase/firestore';
 import { app } from '../../Firebase/config';
 import * as Linking from 'expo-linking';
 import { batalPMolehPelanggan, kirimRating } from '../../API/firebasemethod'
@@ -17,7 +17,7 @@ const { height, width } = Dimensions.get('window')
 
 const OtwScreen = ({ navigation, route }) => {
 
-  const db = getFirestore(app)
+ 
 
   const [panggilan, setPanggilan] = useState()
   
@@ -27,7 +27,7 @@ const OtwScreen = ({ navigation, route }) => {
   const [alamat_pelanggan, setAlamat_pelanggan] = useState();
   const [catatan_lokasi, setCatatan_lokasi] = useState();
   const [estimasi_waktu, setEstimasi_waktu] = useState();
-  const [jarak, setJarak] = useState();
+  // const [jarak, setJarak] = useState();
   const [hargasubtotal, setHargasubtotal] = useState();
   const [hargalayanan, setHargalayanan] = useState();
   const [hargatotalsemua, setHargatotalsemua] = useState();
@@ -67,25 +67,26 @@ const OtwScreen = ({ navigation, route }) => {
 
   useFocusEffect(
     useCallback(() => {
-          const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (doc) => {
-          setPanggilan(doc.data().panggilan);
-          setHargasubtotal(doc.data()?.hargasubtotal);
-          setHargalayanan(doc.data()?.hargalayanan);
-          setHargatotalsemua(doc.data()?.hargatotalsemua);
-          setProduk(doc.data()?.produk);
-          setNamatoko(doc.data().namatoko);
-          setNamamitra(doc.data().namamitra);
-          setPhonemitra(doc.data().phonemitra);
-          setAlamat_pelanggan(doc.data().alamat_pelanggan);
-          setCatatan_lokasi(doc.data()?.catatan_lokasi);
-          setEstimasi_waktu(doc.data().estimasi_waktu);
-          setJarak(doc.data().jarak);
-          if(panggilan == "Dibatalkan Mitra"){
-            navigation.replace('HomeScreen');
-            Alert.alert(
-              'Mitra membatalkan panggilan','Mohon maaf, sepertinya mitra sedang ada kendala saat ini.'
-            );
-          } 
+      const db = getFirestore(app)
+          const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (docPang) => {
+            if(panggilan == "Dibatalkan Mitra"){
+              navigation.replace('HomeScreen');
+              Alert.alert(
+                'Mitra membatalkan panggilan','Mohon maaf, sepertinya mitra sedang ada kendala saat ini.'
+              );
+            } 
+          setPanggilan(docPang.data().panggilan);
+          // setHargasubtotal(doc.data()?.hargasubtotal);
+          // setHargalayanan(doc.data()?.hargalayanan);
+          // setHargatotalsemua(doc.data()?.hargatotalsemua);
+          // setProduk(doc.data()?.produk);
+          // setNamatoko(doc.data().namatoko);
+          // setNamamitra(doc.data().namamitra);
+          // setPhonemitra(doc.data().phonemitra);
+          // setAlamat_pelanggan(doc.data().alamat_pelanggan);
+          // setCatatan_lokasi(doc.data()?.catatan_lokasi);
+          // setEstimasi_waktu(doc.data().estimasi_waktu);
+          // setJarak(doc.data().jarak);
             // Respond to data
             // ...
           });
@@ -94,7 +95,7 @@ const OtwScreen = ({ navigation, route }) => {
             console.log('Otw Unmounted') 
             unsubscribe();
           }
-    },[])
+    },[]) 
   );
 
   // useEffect(() => {
@@ -109,26 +110,54 @@ const OtwScreen = ({ navigation, route }) => {
   //   lihatRespon();
   // },[panggilan]);
  
-  //   useEffect(() =>{ 
-  //   async function getDetailTransaksi(){
-  //     const docRef = doc(db, "transaksi", id_transaksi);
-  //     const doc = await getDoc(docRef);
+    useEffect(() =>{ 
+    let unmounted = false
+    
+    async function getDetailTransaksi(){
+      const db = getFirestore(app)
+      const docRef = doc(db, "transaksi", id_transaksi);
+      const docSnap = await getDoc(docRef);
       
-  //     if (doc.exists()) {
-  //       setNamatoko(doc.data().namatoko);
-  //       setNamamitra(doc.data().namamitra);
-  //       setPhonemitra(doc.data().phonemitra);
-  //       setAlamat_pelanggan(doc.data().alamat_pelanggan);
-  //       setCatatan_lokasi(doc.data().catatan_lokasi);
-  //       setEstimasi_waktu(doc.data().estimasi_waktu);
-  //       setJarak(doc.data().jarak);
-  //     } else {
-  //       // doc.data() will be undefined in this case
-  //       console.log("No such document!");
-  //     }
-  //   }
-  //   getDetailTransaksi();
-  // },[])
+      if (docSnap.exists()) {
+        setNamatoko(docSnap.data()?.namatoko);
+        setNamamitra(docSnap.data()?.namamitra);
+        setPhonemitra(docSnap.data()?.phonemitra);
+        setAlamat_pelanggan(docSnap.data()?.alamat_pelanggan);
+        setCatatan_lokasi(docSnap.data()?.catatan_lokasi);
+        setEstimasi_waktu(docSnap.data()?.estimasi_waktu);
+        // setJarak(doc.data().jarak);
+        setHargasubtotal(docSnap.data()?.hargasubtotal);
+        setHargalayanan(docSnap.data()?.hargalayanan);
+        setHargatotalsemua(docSnap.data()?.hargatotalsemua);
+        setProduk(docSnap.data()?.produk);
+        console.log("Jalan Detailnya!");
+
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    }
+
+    if(!unmounted){
+      getDetailTransaksi();
+    }
+
+    return() => {
+      unmounted = true
+      setNamatoko();
+      setNamamitra();
+      setPhonemitra();
+      setAlamat_pelanggan();
+      setCatatan_lokasi();
+      setEstimasi_waktu();
+      setHargasubtotal();
+      setHargalayanan();
+      setHargatotalsemua();
+      setProduk();
+      console.log('getDetailTransaksi cleared')
+    }
+
+  },[panggilan])
 
   const handleBatal =()=> {
     Alert.alert('Anda yakin ingin membatalkan panggilan?','Mitra yang sedang di jalan bisa kecewa loh.',
@@ -466,16 +495,16 @@ const OtwScreen = ({ navigation, route }) => {
               <GarisBatas/> 
             ):(null)
           }    
-            
+           
           <View style={styles.bagian}>
             <Lokasi_Rating/>
           </View>
 
           <RincianBelanja/>  
 
-          <BatalinTransaksi/>
-
-          <TutupPesanan/>
+          
+        <TutupPesanan/>
+        <BatalinTransaksi/>
 
           </View>
         )
