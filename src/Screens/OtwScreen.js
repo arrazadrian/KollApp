@@ -320,6 +320,30 @@ const OtwScreen = ({ navigation, route }) => {
     )
   }
 
+  const VoucherPromo = () => {
+    return(
+      <View>
+      { panggilan == "Sudah Sampai" ? 
+        (
+          <Pressable style={styles.promo} onPress={pindahVoucher}>
+              <View style={{backgroundColor: Ijo, padding: 8, borderRadius: 20}}>
+                <Ionicons name="pricetags" size={20} color={IjoMint}/>
+              </View>
+              <Text style={[styles.judul, {color:Ijo}]}>Pilih Voucher</Text>
+              <Ionicons name="chevron-forward-outline" size={15} color={Ijo}/>
+          </Pressable>
+        ):(null)
+      }
+      </View>
+    )
+  };
+
+  const pindahVoucher = () => {
+    navigation.navigate('VoucherScreen',{
+      jenis_layanan: "Panggil Mitra",
+    })
+  }
+
   const Lokasi_Rating = () => {
     return(
       <View>
@@ -450,7 +474,7 @@ const OtwScreen = ({ navigation, route }) => {
     <ScrollView style={styles.latar} showsVerticalScrollIndicator={false}>
       { !panggilan ? 
         (
-        <View style={{justifyContent:'center', alignItems:'center', marginTop: height * 0.4}}>
+        <View style={{justifyContent:'center', alignItems:'center', marginTop: height * 0.45}}>
           <ActivityIndicator size="large" color={IjoTua}/>
         </View>
         ):(
@@ -485,6 +509,7 @@ const OtwScreen = ({ navigation, route }) => {
           <View style={styles.bagian}>
             <View style={{marginBottom: 10}}>
               <StatusTransaksi/>
+              <VoucherPromo/>
             </View>
           </View>
               
@@ -556,6 +581,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         flex: 1,
     },
+    judul:{
+        fontSize: 16,
+        color: IjoTua,
+        fontWeight: 'bold',
+        marginBottom: 5,
+  },
     tulisan:{
         color: Ijo,
         textAlign:'center',
@@ -568,6 +599,16 @@ const styles = StyleSheet.create({
         borderRadius: 10, 
         borderColor: Ijo, 
         borderWidth: 1,
+    },
+    promo:{
+        flexDirection:'row',
+        borderColor: Ijo,
+        borderWidth: 1,
+        borderRadius: 10,
+        padding: 8,
+        alignItems:'center',
+        justifyContent: 'space-between',
+        marginBottom: 10,
     },
     kirim:{
         borderColor: Ijo,

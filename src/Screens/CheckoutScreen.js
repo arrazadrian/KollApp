@@ -121,7 +121,7 @@ const CheckoutScreen = ({ route }) => {
    
   };
 
-  const VoucerPromo = () => {
+  const VoucherPromo = () => {
     return(
       <Pressable style={styles.promo} onPress={pindahVoucher}>
           <View style={{backgroundColor: Ijo, padding: 8, borderRadius: 20}}>
@@ -223,7 +223,7 @@ const CheckoutScreen = ({ route }) => {
         <GarisBatas/>
 
         <View style={styles.bagian}>
-            <VoucerPromo/>
+            <VoucherPromo/>
             <Text style={styles.judul}>Rangkuman Transaksi</Text>
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                 <Text>Subtotal</Text>

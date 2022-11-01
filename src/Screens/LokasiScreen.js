@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image,  TextInput, ScrollView, Dimensions, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image,  TextInput, ScrollView, Dimensions, TouchableOpacity, Pressable } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { Abu, Hitam, Ijo, IjoMint, IjoTua, Kuning, Pink, Putih } from '../Utils/Warna'
 import { DPkartu, Gerobak, Pinkecil } from '../assets/Images/Index'
@@ -6,11 +6,10 @@ import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import GarisBatas from '../Components/GarisBatas';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { buatTransaksiPM } from '../../API/firebasemethod';
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { updateBobot } from '../features/bobotSlice';
-
-
 
 const { height, width } = Dimensions.get('window')
 
@@ -73,6 +72,24 @@ const LokasiScreen = ({ route }) => {
        },[]);
 
 
+    const VoucherPromo = () => {
+    return(
+        <Pressable style={styles.promo} onPress={pindahVoucher}>
+            <View style={{backgroundColor: Ijo, padding: 8, borderRadius: 20}}>
+            <Ionicons name="pricetags" size={20} color={IjoMint}/>
+            </View>
+            <Text style={[styles.judul, {color:Ijo}]}>Lihat Voucher</Text>
+            <Ionicons name="chevron-forward-outline" size={15} color={Ijo}/>
+        </Pressable>
+    )
+    };
+
+    const pindahVoucher = () => {
+    navigation.navigate('VoucherScreen',{
+        jenis_layanan: "Panggil Mitra",
+    })
+    }
+    
   return (
     <View style={{flex: 1}}>
        <MapView style={styles.peta} 
@@ -114,6 +131,7 @@ const LokasiScreen = ({ route }) => {
                         onChangeText={catatan => setCatatan(catatan)}
                     />
                 </View>
+                <VoucherPromo/>
                 <GarisBatas/>
                 <View style={styles.kotak}>
                     <View style={styles.atas}>
@@ -156,12 +174,12 @@ export default LokasiScreen
 const styles = StyleSheet.create({
     peta:{
         width: width,
-        height: height * 0.7,
+        height: height * 0.4,
         flex: 1.2,
       },
     bungkus:{
         width: width,
-        height: height * 0.45,
+        height: height * 0.55,
         backgroundColor: Kuning,
         paddingHorizontal: 20,
     },
@@ -189,6 +207,22 @@ const styles = StyleSheet.create({
         paddingEnd: 10,
         borderRadius: 10,
         fontSize: 16,
+    },
+    judul:{
+        fontSize: 16,
+        color: IjoTua,
+        fontWeight: 'bold',
+        marginBottom: 5,
+    },
+    promo:{
+        flexDirection:'row',
+        borderColor: Ijo,
+        borderWidth: 1,
+        borderRadius: 10,
+        padding: 8,
+        alignItems:'center',
+        justifyContent: 'space-between',
+        marginBottom: 10,
     },
     panggil:{
         backgroundColor: Ijo,
