@@ -32,6 +32,7 @@ const OtwScreen = ({ navigation, route }) => {
   const [hargalayanan, setHargalayanan] = useState();
   const [hargatotalsemua, setHargatotalsemua] = useState();
   const [produk, setProduk] = useState();
+  const [potongan, setPotongan] = useState();
 
   const telepon = () => {
     Linking.openURL(`tel:${phonemitra}`);
@@ -44,26 +45,6 @@ const OtwScreen = ({ navigation, route }) => {
   const { 
     id_transaksi, id_mitra,
      } = route.params;
-
-  // useEffect(() =>{ 
-  //   async function getStatusPM(){
-  //     try{
-  //       const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (doc) => {
-  //       setPanggilan(doc.data().panggilan);
-  //       setHargasubtotal(doc.data()?.hargasubtotal);
-  //       setHargalayanan(doc.data()?.hargalayanan);
-  //       setHargatotalsemua(doc.data()?.hargatotalsemua);
-  //       setProduk(doc.data()?.produk);
-  //         // Respond to data
-  //         // ...
-  //       });
-  //       //unsubscribe();
-  //     } catch (err){
-  //       Alert.alert('Ada error sama status PM.', err.message)
-  //     }
-  //   }
-  //   getStatusPM();
-  // },[]);
 
   useFocusEffect(
     useCallback(() => {
@@ -87,6 +68,7 @@ const OtwScreen = ({ navigation, route }) => {
           setCatatan_lokasi(doc.data()?.catatan_lokasi);
           setEstimasi_waktu(doc.data().estimasi_waktu);
           setJarak(doc.data().jarak);
+          setPotongan(doc.data().potongan);
           });
           //unsubscribe();
           return () => {
@@ -95,67 +77,6 @@ const OtwScreen = ({ navigation, route }) => {
           }
     },[]) 
   );
-
-  // useEffect(() => {
-  //   const lihatRespon =  () => {
-  //     if(panggilan == "Dibatalkan Mitra"){
-  //         navigation.replace('HomeScreen');
-  //         Alert.alert(
-  //           'Mitra membatalkan panggilan','Mohon maaf, sepertinya mitra sedang ada kendala saat ini.'
-  //         );
-  //     } 
-  //   } 
-  //   lihatRespon();
-  // },[panggilan]);
- 
-  //   useEffect(() =>{ 
-  //   let unmounted = false
-    
-  //   async function getDetailTransaksi(){
-  //     const db = getFirestore(app)
-  //     const docRef = doc(db, "transaksi", id_transaksi);
-  //     const docSnap = await getDoc(docRef);
-      
-  //     if (docSnap.exists()) {
-  //       setNamatoko(docSnap.data()?.namatoko);
-  //       setNamamitra(docSnap.data()?.namamitra);
-  //       setPhonemitra(docSnap.data()?.phonemitra);
-  //       setAlamat_pelanggan(docSnap.data()?.alamat_pelanggan);
-  //       setCatatan_lokasi(docSnap.data()?.catatan_lokasi);
-  //       setEstimasi_waktu(docSnap.data()?.estimasi_waktu);
-  //       // setJarak(doc.data().jarak);
-  //       setHargasubtotal(docSnap.data()?.hargasubtotal);
-  //       setHargalayanan(docSnap.data()?.hargalayanan);
-  //       setHargatotalsemua(docSnap.data()?.hargatotalsemua);
-  //       setProduk(docSnap.data()?.produk);
-  //       console.log("Jalan Detailnya!");
-
-  //     } else {
-  //       // doc.data() will be undefined in this case
-  //       console.log("No such document!");
-  //     }
-  //   }
-
-  //   if(!unmounted){
-  //     getDetailTransaksi();
-  //   }
-
-  //   return() => {
-  //     unmounted = true
-  //     setNamatoko();
-  //     setNamamitra();
-  //     setPhonemitra();
-  //     setAlamat_pelanggan();
-  //     setCatatan_lokasi();
-  //     setEstimasi_waktu();
-  //     setHargasubtotal();
-  //     setHargalayanan();
-  //     setHargatotalsemua();
-  //     setProduk();
-  //     console.log('getDetailTransaksi cleared')
-  //   }
-
-  // },[panggilan])
 
   const handleBatal =()=> {
     Alert.alert('Anda yakin ingin membatalkan panggilan?','Mitra yang sedang di jalan bisa kecewa loh.',
@@ -420,6 +341,15 @@ const OtwScreen = ({ navigation, route }) => {
                                   <Text>Rp{new Intl.NumberFormat('id-Id').format(hargasubtotal).toString()}</Text>
                               </Text>
                           </View>
+                          { potongan ? (
+                            <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                                <Text>Potongan</Text>
+                                <Text>
+                                    <Text>-Rp{new Intl.NumberFormat('id-Id').format(potongan).toString()}</Text>
+                                </Text>
+                            </View>
+                            ):(null)
+                          }
                           <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                               <Text>Biaya Layanan</Text>
                               <Text>
@@ -447,12 +377,9 @@ const OtwScreen = ({ navigation, route }) => {
   const BatalinTransaksi = () => {
     return(
       <View>
-        { panggilan == "Diterima"?(
-            <TouchableOpacity style={styles.tombol} onPress={handleBatal}>
-                <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textAlign:'center'}}>Batalkan Pesanan</Text>
-            </TouchableOpacity>
-            ):(null)
-        }
+        <TouchableOpacity style={styles.tombol} onPress={handleBatal}>
+            <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textAlign:'center'}}>Batalkan Pesanan</Text>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -460,18 +387,16 @@ const OtwScreen = ({ navigation, route }) => {
   const TutupPesanan = () => {
     return(
       <View>
-          { panggilan == "Selesai" ? (
-            <TouchableOpacity style={styles.tombol}  onPress={() => navigation.navigate("HomeScreen")}>
-              <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textAlign:'center'}}>Tutup</Text>
-            </TouchableOpacity>
-            ):(null)
-          }
+        <TouchableOpacity style={styles.tombol}  onPress={() => navigation.navigate("HomeScreen")}>
+          <Text style={{fontSize:16, fontWeight:'bold', color:Ijo, textAlign:'center'}}>Tutup</Text>
+        </TouchableOpacity>
       </View>
     )
   }
 
   return (
-    <ScrollView style={styles.latar} showsVerticalScrollIndicator={false}>
+    <View style={styles.latar}>
+    
       { !panggilan ? 
         (
         <View style={{justifyContent:'center', alignItems:'center', marginTop: height * 0.45}}>
@@ -486,6 +411,7 @@ const OtwScreen = ({ navigation, route }) => {
             </Pressable>
             <Text  style={{fontSize:20, color:Putih, textAlign:'center', alignSelf:'center', fontWeight:'bold'}} numberOfLines={1}>{namatoko}</Text>
           </View>
+          <ScrollView showsVerticalScrollIndicator={false}>
           <GambarAtas/>
           <View style={styles.bagian}>
               <View style={{ flexDirection:'row', marginBottom: 5, alignItems:'center' }}>
@@ -524,15 +450,17 @@ const OtwScreen = ({ navigation, route }) => {
           </View>
 
           <RincianBelanja/>  
+          { panggilan == "Diterima" ?
+            (<BatalinTransaksi/>) : 
+            panggilan == "Selesai" ?
+            (<TutupPesanan/>):(null)
+          }
 
-          
-        <TutupPesanan/>
-        <BatalinTransaksi/>
-
-          </View>
+          </ScrollView>
+        </View>
         )
       }
-    </ScrollView>
+    </View>
   )
 }
 
@@ -653,7 +581,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         alignSelf:'center',
-        marginTop: 40,
-        marginBottom: 20,
+        marginTop: 20,
+        marginBottom: height * 0.2,
     },
 })
