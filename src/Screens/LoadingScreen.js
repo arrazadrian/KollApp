@@ -101,7 +101,7 @@ const LoadingScreen = ({ navigation, route }) => {
     <View style={styles.latar}>
         <Image source={Gerobak} style={styles.gerobak} />
         <View style={{marginBottom: 10}}>
-              <Text style={{fontSize: 18}}>Menunggu respon mitra</Text>
+              <Text style={{fontSize: 18, color: Ijo}}>Menunggu respon mitra</Text>
         </View>
         <ActivityIndicator size="large" color={Ijo} />
     </View>
