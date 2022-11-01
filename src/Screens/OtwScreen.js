@@ -521,7 +521,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     catatan:{
-        marginBottom: 20, 
+        marginBottom: 10, 
         backgroundColor: Putih, 
         padding: 10, 
         borderRadius: 10, 
@@ -536,7 +536,7 @@ const styles = StyleSheet.create({
         padding: 8,
         alignItems:'center',
         justifyContent: 'space-between',
-        marginBottom: 10,
+        marginBottom: 5,
     },
     kirim:{
         borderColor: Ijo,
@@ -581,7 +581,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         alignSelf:'center',
-        marginTop: 20,
+        marginTop: 10,
         marginBottom: height * 0.2,
     },
 })
