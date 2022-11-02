@@ -3,11 +3,8 @@ import React, {useState, useEffect} from 'react';
 import { Ijo, Kuning, IjoMint, Putih, IjoTua } from '../Utils/Warna'
 import { LogoQR, meetup } from '../assets/Images/Index.js';
 import QRCode from 'react-native-qrcode-svg';
-import { app } from '../../Firebase/config';
-import { getFirestore, doc, getDoc } from "firebase/firestore";
 import {  getAuth } from "firebase/auth";
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 const { height, width } = Dimensions.get('window')
@@ -15,7 +12,6 @@ const { height, width } = Dimensions.get('window')
 const LangsungScreen = () => {
 
   const navigation = useNavigation();
-  const { potongan } = useSelector(state => state.voucher);
   const [qr,setQR] = useState()
   const auth = getAuth();
 
