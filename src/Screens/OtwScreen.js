@@ -17,8 +17,6 @@ const { height, width } = Dimensions.get('window')
 
 const OtwScreen = ({ navigation, route }) => {
 
- 
-
   const [panggilan, setPanggilan] = useState()
   
   const [namatoko, setNamatoko] = useState();
@@ -27,12 +25,12 @@ const OtwScreen = ({ navigation, route }) => {
   const [alamat_pelanggan, setAlamat_pelanggan] = useState();
   const [catatan_lokasi, setCatatan_lokasi] = useState();
   const [estimasi_waktu, setEstimasi_waktu] = useState();
-  const [jarak, setJarak] = useState();
   const [hargasubtotal, setHargasubtotal] = useState();
   const [hargalayanan, setHargalayanan] = useState();
   const [hargatotalsemua, setHargatotalsemua] = useState();
   const [produk, setProduk] = useState();
   const [potongan, setPotongan] = useState();
+  const [pembatalan, setPembatalan] = useState();
 
   const telepon = () => {
     Linking.openURL(`tel:${phonemitra}`);
@@ -50,7 +48,7 @@ const OtwScreen = ({ navigation, route }) => {
     useCallback(() => {
       const db = getFirestore(app)
           const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (doc) => {
-            if(panggilan == "Dibatalkan Mitra"){
+            if(pembatalan == "Dibatalkan Mitra"){
               navigation.replace('HomeScreen');
               Alert.alert(
                 'Mitra membatalkan panggilan','Mohon maaf, sepertinya mitra sedang ada kendala saat ini.'
@@ -67,8 +65,8 @@ const OtwScreen = ({ navigation, route }) => {
           setAlamat_pelanggan(doc.data().alamat_pelanggan);
           setCatatan_lokasi(doc.data()?.catatan_lokasi);
           setEstimasi_waktu(doc.data().estimasi_waktu);
-          setJarak(doc.data().jarak);
           setPotongan(doc.data().potongan);
+          setPembatalan(doc.data()?.pembatalan);
           });
           //unsubscribe();
           return () => {

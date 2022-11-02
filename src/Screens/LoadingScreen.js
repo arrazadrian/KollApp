@@ -42,39 +42,6 @@ const LoadingScreen = ({ navigation, route }) => {
           }
     },[panggilan])
   );
-  
-  // useEffect(() =>{ 
-  //   async function getStatusPM(){
-  //     try{
-  //       const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (doc) => {
-  //       setPanggilan(doc.data().panggilan);
-  //         // Respond to data
-  //         // ...
-  //       });
-  //       //unsubscribe();
-  //     } catch (err){
-  //       Alert.alert('Ada error sama status PM.', err.message)
-  //     }
-  //   }
-  //   getStatusPM();
-  // },[]);
-
-  // useEffect(() => {
-  //   const lihatRespon =  () => {
-  //     if(panggilan == "Diterima"){
-  //         navigation.replace('OtwScreen',{
-  //           id_transaksi: id_transaksi,
-  //           id_mitra: id_mitra,
-  //         });
-  //     } else if(panggilan == "Ditolak"){
-  //         navigation.replace('HomeScreen');
-  //         Alert.alert(
-  //           'Mitra menolak panggilan','Mohon maaf, sepertinya mitra sedang sibuk saat ini.'
-  //         );
-  //     } 
-  //   } 
-  //   lihatRespon();
-  // },[panggilan]);
 
   useEffect(()=>{
     const waktuNunggu = setTimeout(  () =>{

@@ -318,8 +318,8 @@ export const batalPMolehPelanggan = async (id_transaksi) => {
     if (docSnap.exists()) {
       try {
           updateDoc(docreftran, { 
-            panggilan: "Dibatalkan Pelanggan", 
-            status_transaksi: "Dibatalkan Pelanggan",
+            pembatalan: "Dibatalkan Pelanggan", 
+            status_transaksi: "Selesai",
             waktu_pembatalan: serverTimestamp(),  
           });
       } catch (err) {
