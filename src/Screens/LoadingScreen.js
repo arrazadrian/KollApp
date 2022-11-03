@@ -58,7 +58,7 @@ const LoadingScreen = ({ navigation, route }) => {
           },
         ]
       );
-    }, 600000000000);
+    }, 90000);
     // 1 minute =  60 seconds = 60000 miliseconds
     // 10 minutes = 600000 ms
     return() => clearTimeout(waktuNunggu); 
