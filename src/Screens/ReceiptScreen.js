@@ -279,7 +279,7 @@ const ReceiptScreen = ({navigation, route}) => {
               ):(
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                     <Text style={styles.deskatas}>Status Transaksi</Text>
-                    <Text style={styles.deskatas}>{pembatalan}</Text>
+                    <Text style={[styles.deskatas, {color: 'tomato'}]}>{pembatalan}</Text>
               </View>
               )
             }
@@ -318,37 +318,40 @@ const ReceiptScreen = ({navigation, route}) => {
 
         <View style={styles.bagian}>
           <View  style={{marginBottom: height* 0.2}}>
-            {!pembatalan ? 
-              (
-                <Text  style={styles.subjudul}>Daftar Produk</Text>
-              ):(null)
+            {pembatalan && jenislayanan == "Panggil Mitra" ? 
+              (null)
+              :(
+                <View>
+                    <Text  style={styles.subjudul}>Daftar Produk</Text>
+                    { jenislayanan == "Pre-Order" && catatan_produk ?
+                    (
+                      <View style={styles.catatan}>
+                          <Text style={{fontWeight:'bold'}}>Catatan Produk</Text>
+                          <Text style={{fontStyle:'italic'}}>{catatan_produk}</Text>
+                        </View>
+                      ): jenislayanan == "Pre-Order" && !catatan_produk ? (
+                        <View style={styles.catatan}>
+                          <Text style={{fontStyle:'italic'}}>Tanpa catatan produk...</Text>
+                        </View>
+                      ):(null)
+                    }
+      
+                    {Object.entries(produk).map(([key, items]) => (
+                      <View key={key}>
+                      <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                              <Text style={styles.deskripsi}>
+                                  <Text>{items.length}x   </Text>
+                                  <Text>{items[0]?.namaproduk}</Text>
+                              </Text>
+                              <Text style={styles.harga}>
+                                  <Text>Rp{new Intl.NumberFormat('id-Id').format(items[0]?.harga * items.length).toString()}</Text>
+                              </Text>
+                          </View>
+                        </View>
+                    ))}
+                </View>
+              )
             }
-                { jenislayanan == "Pre-Order" && catatan_produk ?
-                  (
-                    <View style={styles.catatan}>
-                      <Text style={{fontWeight:'bold'}}>Catatan Produk</Text>
-                      <Text style={{fontStyle:'italic'}}>{catatan_produk}</Text>
-                    </View>
-                  ): jenislayanan == "Pre-Order" && !catatan_produk ? (
-                    <View style={styles.catatan}>
-                      <Text style={{fontStyle:'italic'}}>Tanpa catatan produk...</Text>
-                    </View>
-                  ):(null)
-                }
-   
-              { jenislayanan != "Pre-Order" && !pembatalan && Object.entries(produk).map(([key, items]) => (
-                  <View key={key}>
-                    <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                        <Text style={styles.deskripsi}>
-                            <Text>{items.length}x   </Text>
-                            <Text>{items[0]?.namaproduk}</Text>
-                        </Text>
-                        <Text style={styles.harga}>
-                            <Text>Rp{new Intl.NumberFormat('id-Id').format(items[0]?.harga * items.length).toString()}</Text>
-                        </Text>
-                    </View>
-                  </View>
-              ))}
           </View>
         </View>
 
