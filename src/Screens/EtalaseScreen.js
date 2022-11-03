@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, Pressable, Dimensions, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Ijo, IjoMint, IjoTua, Kuning, Putih} from '../Utils/Warna';
+import { Abu, Ijo, IjoMint, IjoTua, Kuning, Putih} from '../Utils/Warna';
 import { Gerobak, KategoriPre } from '../assets/Images/Index.js'
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
@@ -17,13 +17,15 @@ const EtalaseScreen = ({ route }) => {
   const { namapelanggan } = useSelector(state => state.pelanggan);
 
   const { 
-    namalengkap_mitra, namatoko, foto_akun, geo_mangkal, alamat, mangkal, id_mitra, waktu_buka, waktu_tutup, status_sekarang, phone, 
+    namalengkap_mitra, namatoko, foto_akun, geo_mangkal, alamat, mangkal, id_mitra, waktu_buka, waktu_tutup, status_sekarang, phone, dipanggil,
      } = route.params;
 
   const pindahUtama = () => {
     navigation.navigate('ProdukScreen', { 
       id_mitra: id_mitra,
       status_sekarang: status_sekarang,
+      mangkal: mangkal,
+      dipanggil: dipanggil,
       namalengkap_mitra: namalengkap_mitra, 
       namatoko: namatoko,
       phonemitra: phone,
@@ -128,14 +130,18 @@ const EtalaseScreen = ({ route }) => {
               </TouchableOpacity>
           </View>
           { status_sekarang == "Tidak Aktif" ?(
-              <View style={{ borderColor:Ijo, borderWidth: 0.5, borderRadius: 10, padding: 10, width:'100%', alignSelf:'center', alignItems:'center'}}>
-                  <Text style={{color: Ijo, fontStyle:'italic', fontSize: 16, textAlign:'center'}}>Maaf, mitra sedang tidak berjualan</Text>
+              <View style={{ borderColor:Ijo, borderWidth: 0.8, borderRadius: 10, padding: 10, width:'100%', alignSelf:'center', alignItems:'center'}}>
+                  <Text style={{color: Abu, fontStyle:'italic', textAlign:'center'}}>Maaf, mitra sedang tidak berjualan</Text>
               </View> 
           ): mangkal ? (
-              <View style={{ borderColor:Ijo, borderWidth: 0.5, borderRadius: 10, padding: 10, width:'100%', alignSelf:'center', alignItems:'center'}}>
-                  <Text style={{color: Ijo, fontStyle:'italic', fontSize: 16, textAlign:'center'}}>Maaf, mitra yang mangkal tidak bisa dipanggil</Text>
+              <View style={{ borderColor:Ijo, borderWidth: 0.8, borderRadius: 10, padding: 10, width:'100%', alignSelf:'center', alignItems:'center'}}>
+                  <Text style={{color: Abu, fontStyle:'italic', textAlign:'center'}}>Maaf, mitra yang mangkal tidak bisa dipanggil</Text>
               </View> 
-            ):(
+          ): dipanggil ? (
+              <View style={{ borderColor:Ijo, borderWidth: 0.8, borderRadius: 10, padding: 10, width:'100%', alignSelf:'center', alignItems:'center'}}>
+                  <Text style={{color: Abu, fontStyle:'italic', textAlign:'center'}}>Maaf, mitra sedang dipanggil pelanggan lain</Text>
+              </View> 
+          ):(
               <Pressable style={styles.tombolpanggil} onPress={pindahPanggil}>
                   <Text style={{color: Putih, fontWeight: 'bold',  fontSize: 16}}>Panggil Mitra</Text>
               </Pressable> 

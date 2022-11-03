@@ -24,6 +24,7 @@ const ListMitra = ({ item }) => {
       waktu_buka: item.waktu_buka,
       waktu_tutup: item.waktu_tutup,
       status_sekarang: item.status_sekarang,
+      dipanggil: item.dipanggil,
     })
   }
 
@@ -43,13 +44,18 @@ const ListMitra = ({ item }) => {
             <View style={{flexDirection:'row', justifyContent:'space-between',  alignItems:'center'}}>
                     { 
                     item.status_sekarang == "Tidak Aktif" ? (
-                      <View style={styles.tutup}>
-                        <Text style={{fontSize: 12, color: 'red'}}>Sedang Tutup</Text> 
-                      </View>
+                        <View style={styles.tutup}>
+                          <Text style={{fontSize: 12, color: 'red'}}>Sedang Tutup</Text> 
+                        </View>
                     ): item.mangkal ? 
                       (
                         <View style={styles.mangkal}>
                           <Text style={{fontSize: 12, fontWeight: 'bold', color: "#DDC238"}}>Lagi Mangkal</Text> 
+                        </View>
+                    ): item.dipanggil ? 
+                      (
+                        <View style={styles.mangkal}>
+                          <Text style={{fontSize: 12, fontWeight: 'bold', color: "#DDC238"}}>Lagi Dipanggil</Text> 
                         </View>
                       ):(
                         <View style={styles.siap}>

@@ -12,6 +12,7 @@ import ProdukKosong from '../Components/ProdukKosong';
 import GarisBatas from '../Components/GarisBatas';
 import { useDispatch, useSelector } from 'react-redux';
 import MitraTutup from '../Components/MitraTutup';
+import MitraNoPanggil from '../Components/MitraNoPanggil';
 
 const { height, width } = Dimensions.get('window')
 
@@ -64,7 +65,7 @@ const ProdukScreen = ({ route }) => {
 
 
   const { 
-    id_mitra, status_sekarang, namalengkap_mitra, namatoko, phonemitra, foto_akun, geo_mangkal
+    id_mitra, status_sekarang, mangkal, dipanggil, namalengkap_mitra, namatoko, phonemitra, foto_akun, geo_mangkal
      } = route.params;
 
   useEffect(()=>{
@@ -151,11 +152,9 @@ const ProdukScreen = ({ route }) => {
                 </View>
                 }
             /> 
-           { status_sekarang == "Tidak Aktif" ? 
-           (
-              <MitraTutup/>
-              ):( 
-              <PanggilMitra id_mitra={id_mitra} namalengkap_mitra={namalengkap_mitra} namatoko={namatoko} phonemitra={phonemitra} foto_akun={foto_akun} geo_mangkal={geo_mangkal}/>
+           { status_sekarang == "Tidak Aktif" ? <MitraTutup/>
+            : mangkal || dipanggil ? <MitraNoPanggil/> 
+            :( <PanggilMitra id_mitra={id_mitra} namalengkap_mitra={namalengkap_mitra} namatoko={namatoko} phonemitra={phonemitra} foto_akun={foto_akun} geo_mangkal={geo_mangkal}/>
             )
             }               
       </View>

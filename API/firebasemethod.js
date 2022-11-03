@@ -312,22 +312,26 @@ export const noRespon = async (id_transaksi) => {
 // API 10: batalPMolehPelanggan
 //  PELANGGAN MEMBATALKAN PANGGILAN SAAT OTW
 
-export const batalPMolehPelanggan = async (id_transaksi) => {
+export const batalPMolehPelanggan = async (id_transaksi, id_mitra) => {
   const db = getFirestore(app);
   const docreftran = doc(db, "transaksi", id_transaksi);
-  getDoc(docreftran).then(docSnap => {
-    if (docSnap.exists()) {
-      try {
-          updateDoc(docreftran, { 
-            pembatalan: "Dibatalkan Pelanggan", 
-            status_transaksi: "Selesai",
-            waktu_selesai: serverTimestamp(),  
-          });
-      } catch (err) {
-        Alert.alert('Ada error batalin PM!', err);
-      }
+  const docrefmit = doc(db, "mitra", id_mitra);
+  const docSnaptran = await getDoc(docreftran);
+  const docSnapmit = await getDoc(docrefmit);
+  try{
+    if(docSnaptran.exists() && docSnapmit.exists()){
+      updateDoc(docreftran, { 
+        pembatalan: "Dibatalkan Pelanggan", 
+        status_transaksi: "Selesai",
+        waktu_selesai: serverTimestamp(),  
+      });
+      updateDoc(docSnapmit, { 
+        dipanggil: false, 
+      });
     }
-  })
+  } catch (err) {
+    Alert.alert('Ada error merima PM!', err);
+  }
 };
 
 // API 11: kirimRating

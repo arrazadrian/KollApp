@@ -87,7 +87,7 @@ const OtwScreen = ({ navigation, route }) => {
             {
               text: 'Yakin',
               onPress: async () =>{
-                await batalPMolehPelanggan(id_transaksi);
+                await batalPMolehPelanggan(id_transaksi, id_mitra);
                 navigation.navigate('HomeScreen')
               },
             }

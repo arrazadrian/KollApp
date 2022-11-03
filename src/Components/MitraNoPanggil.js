@@ -2,18 +2,17 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Ijo, IjoTua, Putih } from '../Utils/Warna'
 
-
-const MitraTutup = () => {
+const MitraNoPanggil = () => {
   return (
     <View style={styles.tutup}>
         <View style={{width: '70%', flex: 2}}>
-            <Text style={{fontWeight:'bold', color: Putih, fontSize: 16, textAlign:'center'}}>Maaf, mitra sedang tidak berjualan</Text>
+            <Text style={{fontWeight:'bold', color: Putih, fontSize: 16, textAlign:'center'}}>Maaf, mitra sedang tidak bisa dipanggil</Text>
         </View>
     </View>
   )
 }
 
-export default MitraTutup
+export default MitraNoPanggil
 
 const styles = StyleSheet.create({
     tutup:{
