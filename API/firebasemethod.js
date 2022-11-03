@@ -271,6 +271,7 @@ export const buatTransaksiPM = async (alamat, geo, catatan_lokasi, id_mitra, nam
         status_transaksi: 'Dalam Proses',
         panggilan: "Menunggu Respon",
         hargalayanan: hargalayanan,
+        pembayaran: "Belum Lunas",
         // produk: kelompokProduk,
         // hargasubtotal: subtotalhargaKeranjang,
         // hargalayanan: hargalayanan,

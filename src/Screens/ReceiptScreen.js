@@ -25,7 +25,7 @@ const ReceiptScreen = ({navigation, route}) => {
     hargalayanan, hargasubtotal, hargatotalsemua, id_mitra, id_pelanggan, id_transaksi,  jenislayanan,
     jumlah_kuantitas, namamitra, namatoko, namapelanggan, produk, waktu_selesai, waktu_dipesan, alamat_pelanggan,
     status_transaksi, catatan_lokasi,catatan_produk, pembayaran, phonemitra, phonepelanggan, rating_layanan, rating_produk,
-    potongan,
+    potongan, pembatalan,
      } = route.params;
 
   const telepon = () => {
@@ -103,27 +103,16 @@ const ReceiptScreen = ({navigation, route}) => {
 
   const db = getFirestore(app)
 
-  // //Untuk mendapatkan foto dan nama mitra,
-  // useEffect(() => {
-  //   async function getStatus(){
-  //   const docRef = doc(db, "transaksi", id_transaksi);
-  //   const docSnap = await getDoc(docRef);
-    
-  //   if (docSnap.exists()) {
-  //       setAdarating(docSnap.data()?.rating)
-  //   } else {
-  //       // doc.data() will be undefined in this case
-  //       console.log("No such document!");
-  //   };
-  //   };
-  //   getStatus();
-  // },[adarating]);
-
   const WaktuTransaksi = () => {
     return(
       <View>
-        { waktu_selesai ? 
+        { pembatalan && waktu_selesai ? 
           (
+          <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+              <Text style={styles.deskatas}>Waktu Pembatalan</Text>
+              <Text style={styles.deskatas}>{moment(waktu_selesai.toDate()).calendar()}</Text>
+          </View>
+          ): !pembatalan && waktu_selesai ? (
           <View style={{flexDirection:'row', justifyContent:'space-between'}}>
               <Text style={styles.deskatas}>Selesai Transaksi</Text>
               <Text style={styles.deskatas}>{moment(waktu_selesai.toDate()).calendar()}</Text>
@@ -171,12 +160,12 @@ const ReceiptScreen = ({navigation, route}) => {
   const CapPembayaran = () => {
     return(
       <View>
-        { pembayaran == "Lunas" ? 
+        { !pembatalan && pembayaran == "Lunas" ? 
           (
             <Image source={Lunas} style={styles.cap}/>
-            ):(
+          ): !pembatalan && pembayaran == "Kasbon" ? (
             <Image source={Kasbon} style={styles.cap}/>
-          )
+          ):(null)
         }
       </View>
     )
@@ -185,7 +174,7 @@ const ReceiptScreen = ({navigation, route}) => {
   const RatingTransaksi = () => {
     return(
       <View>
-        {!rating_layanan && !rating_produk  && status_transaksi == "Selesai" &&
+        {!pembatalan && !rating_layanan && !rating_produk  && status_transaksi == "Selesai" &&
         <View>
             <View style={styles.bagian}>
                     <View>
@@ -219,18 +208,19 @@ const ReceiptScreen = ({navigation, route}) => {
   const AlamatPelanggan = () => {
     return(
       <View>
-         { alamat_pelanggan &&
-        <View>
-            <View style={styles.bagian}>
-                <Text  style={styles.subjudul}>Alamat Tujuan</Text>
-                <View style={{flexDirection:'row', alignItems:'center', width:'90%'}}>
-                  < Image source={Pinkecil} style={styles.location} />
-                    <Text>{alamat_pelanggan}</Text>
-                </View>
-                <CatatanLokasi/>
-            </View>
-            <GarisBatas/>
-        </View>
+         { alamat_pelanggan ? (
+          <View>
+              <View style={styles.bagian}>
+                  <Text  style={styles.subjudul}>Alamat Tujuan</Text>
+                  <View style={{flexDirection:'row', alignItems:'center', width:'90%'}}>
+                    < Image source={Pinkecil} style={styles.location} />
+                      <Text>{alamat_pelanggan}</Text>
+                  </View>
+                  <CatatanLokasi/>
+              </View>
+              <GarisBatas/>
+          </View>
+         ):(null)
         }
       </View>
     )
@@ -280,10 +270,19 @@ const ReceiptScreen = ({navigation, route}) => {
                 <Text style={styles.deskatas}>ID Transaksi</Text>
                 <Text style={styles.deskatas}>{id_transaksi}</Text>
             </View>
-            <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                  <Text style={styles.deskatas}>Status Transaksi</Text>
-                  <Text style={styles.deskatas}>{status_transaksi}</Text>
-            </View>
+            { !pembatalan ?
+              (
+              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                    <Text style={styles.deskatas}>Status Transaksi</Text>
+                    <Text style={styles.deskatas}>{status_transaksi}</Text>
+              </View>
+              ):(
+              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                    <Text style={styles.deskatas}>Status Transaksi</Text>
+                    <Text style={styles.deskatas}>{pembatalan}</Text>
+              </View>
+              )
+            }
             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                   <Text style={styles.deskatas}>Pembayaran</Text>
                   <Text style={styles.deskatas}>{pembayaran}</Text>
@@ -319,7 +318,11 @@ const ReceiptScreen = ({navigation, route}) => {
 
         <View style={styles.bagian}>
           <View  style={{marginBottom: height* 0.2}}>
-            <Text  style={styles.subjudul}>Daftar Produk</Text>
+            {!pembatalan ? 
+              (
+                <Text  style={styles.subjudul}>Daftar Produk</Text>
+              ):(null)
+            }
                 { jenislayanan == "Pre-Order" && catatan_produk ?
                   (
                     <View style={styles.catatan}>
@@ -330,9 +333,10 @@ const ReceiptScreen = ({navigation, route}) => {
                     <View style={styles.catatan}>
                       <Text style={{fontStyle:'italic'}}>Tanpa catatan produk...</Text>
                     </View>
-                  ):(<View/>)
+                  ):(null)
                 }
-              {Object.entries(produk).map(([key, items]) => (
+   
+              { jenislayanan != "Pre-Order" && !pembatalan && Object.entries(produk).map(([key, items]) => (
                   <View key={key}>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                         <Text style={styles.deskripsi}>
@@ -349,28 +353,34 @@ const ReceiptScreen = ({navigation, route}) => {
         </View>
 
       </ScrollView>
-      <View style={styles.bawah}>
-          <View style={styles.bagian}>
-              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                  <Text>Sub Total</Text>
-                  <Text>Rp{new Intl.NumberFormat('id-Id').format(hargasubtotal).toString()}</Text>
-              </View>
-              { potongan > 0 &&
-              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                  <Text>Potongan</Text>
-                  <Text>-Rp{new Intl.NumberFormat('id-Id').format(potongan).toString()}</Text>
-              </View>
-              }
-              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                  <Text>Biaya Layanan</Text>
-                  <Text>Rp{new Intl.NumberFormat('id-Id').format(hargalayanan).toString()}</Text>
-              </View>
-              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                  <Text style={styles.subjudul}>Total Harga</Text>
-                  <Text style={styles.subjudul}>Rp{new Intl.NumberFormat('id-Id').format(hargatotalsemua).toString()}</Text>
-              </View>
-          </View>
-      </View>
+      { !pembatalan ?
+        (
+        <View style={styles.bawah}>
+            <View style={styles.bagian}>
+                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                    <Text>Sub Total</Text>
+                    <Text>Rp{new Intl.NumberFormat('id-Id').format(hargasubtotal).toString()}</Text>
+                </View>
+                { potongan > 0 ?(
+                  <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                      <Text>Potongan</Text>
+                      <Text>-Rp{new Intl.NumberFormat('id-Id').format(potongan).toString()}</Text>
+                  </View>
+                ):(null)
+                }
+                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                    <Text>Biaya Layanan</Text>
+                    <Text>Rp{new Intl.NumberFormat('id-Id').format(hargalayanan).toString()}</Text>
+                </View>
+                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                    <Text style={styles.subjudul}>Total Harga</Text>
+                    <Text style={styles.subjudul}>Rp{new Intl.NumberFormat('id-Id').format(hargatotalsemua).toString()}</Text>
+                </View>
+            </View>
+        </View>
+        ):(null)
+      }
+      
     </View>
   )
 }

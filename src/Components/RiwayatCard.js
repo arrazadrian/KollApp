@@ -40,6 +40,7 @@ const RiwayatCard = ({ item }) => {
       rating_layanan: item?.rating_layanan,
       rating_produk: item?.rating_produk,
       potongan: item.potongan,
+      pembatalan: item?.pembatalan,
     })
   }
 
@@ -70,12 +71,18 @@ const RiwayatCard = ({ item }) => {
           >
               {item.namatoko}
           </Text>
-          <Text style={{fontSize:16, color:Ijo}}>
-              <Text>Rp{new Intl.NumberFormat('id-Id').format(item.hargatotalsemua).toString()}</Text>
-              <Text> | </Text>
-              <Text>{item.jumlah_kuantitas} </Text>
-              <Text>Produk</Text>
-          </Text>
+          { item.pembatalan ? 
+            (
+              <Text style={{color:'tomato'}}>{item.pembatalan}</Text>
+            ):(
+            <Text style={{fontSize:16, color:Ijo}}>
+                <Text>Rp{new Intl.NumberFormat('id-Id').format(item.hargatotalsemua).toString()}</Text>
+                <Text> | </Text>
+                <Text>{item.jumlah_kuantitas} </Text>
+                <Text>Produk</Text>
+            </Text>
+            )
+          }
           <View style={{flexDirection:'row'}}>
             <Text>{moment(item.waktu_selesai.toDate()).calendar()}</Text>
           </View>
