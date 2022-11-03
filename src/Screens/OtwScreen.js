@@ -67,8 +67,7 @@ const OtwScreen = ({ navigation, route }) => {
           setEstimasi_waktu(doc.data().estimasi_waktu);
           setPotongan(doc.data().potongan);
           setPembatalan(doc.data()?.pembatalan);
-          });
-          //unsubscribe();
+        });
           return () => {
             console.log('Otw Unmounted') 
             unsubscribe();
