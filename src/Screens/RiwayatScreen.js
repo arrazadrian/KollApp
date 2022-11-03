@@ -15,60 +15,6 @@ const RiwayatScreen = () => {
 
   const[riwayat,setRiwayat] = useState();
 
-  // useEffect(()=>{
-  //   const fetchRiwayat = async() => {
-  //     try{
-  //       const list = []; 
-  //       const auth = getAuth();
-  //       const db = getFirestore(app);
-  //       const colRef = collection(db, "transaksi")
-
-  //       const q = query(colRef, where("id_pelanggan", "==", auth.currentUser.uid), where("status_transaksi", "==", "Selesai"), orderBy("waktu_selesai","desc"));
-  //       const querySnapshot = await getDocs(q);
-  //       querySnapshot.forEach((doc) => {
-  //         // doc.data() is never undefined for query doc snapshots
-  //         const { 
-  //           hargalayanan, hargasubtotal, hargatotalsemua, id_mitra, id_pelanggan, jenislayanan, alamat_pelanggan, catatan_lokasi, catatan_produk, pembayaran,
-  //           jumlah_kuantitas, namamitra,  namatoko, namapelanggan, produk, waktu_selesai, status_transaksi, rating_layanan, rating_produk,
-  //         } = doc.data();
-  //         list.push({
-  //           id: doc.id,
-  //           alamat_pelanggan,
-  //           catatan_lokasi,
-  //           catatan_produk,
-  //           pembayaran,
-  //           hargalayanan,
-  //           hargasubtotal,
-  //           hargatotalsemua,
-  //           id_mitra,
-  //           id_pelanggan,
-  //           jenislayanan,
-  //           jumlah_kuantitas,
-  //           namamitra,
-  //           namatoko,
-  //           namapelanggan,
-  //           produk,
-  //           waktu_selesai,
-  //           status_transaksi,
-  //           rating_layanan,
-  //           rating_produk,
-  //         });
-  //       });
-
-  //       setRiwayat(list); // (1) write data to state 
-
-  //     } catch(err){
-  //       console.log(err);
-  //     }
-  //   }
-  //   fetchRiwayat();
-
-  //   return() => {
-  //     console.log('Riwayat Unmonted');
-  //   }
-  // },[])
-  //Tambah parameter "riwayat" bila mau auto refresh
-
     //Dapetin data riwayat, putus listener kalo pindah halaman
     useFocusEffect(
       useCallback(() => {

@@ -72,7 +72,7 @@ const OtwScreen = ({ navigation, route }) => {
             console.log('Otw Unmounted') 
             unsubscribe();
           }
-    },[]) 
+    },[pembatalan]) 
   );
 
   const handleBatal =()=> {
@@ -87,7 +87,7 @@ const OtwScreen = ({ navigation, route }) => {
             {
               text: 'Yakin',
               onPress: async () =>{
-                await batalPMolehPelanggan();
+                await batalPMolehPelanggan(id_transaksi);
                 navigation.navigate('HomeScreen')
               },
             }

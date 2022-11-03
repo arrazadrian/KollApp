@@ -320,7 +320,7 @@ export const batalPMolehPelanggan = async (id_transaksi) => {
           updateDoc(docreftran, { 
             pembatalan: "Dibatalkan Pelanggan", 
             status_transaksi: "Selesai",
-            waktu_pembatalan: serverTimestamp(),  
+            waktu_selesai: serverTimestamp(),  
           });
       } catch (err) {
         Alert.alert('Ada error batalin PM!', err);
@@ -382,49 +382,6 @@ export const kirimRating = async (pilihlayanan, pilihproduk, id_mitra, id_transa
 
   }
 };
-
-// // API 12: updatePoinPotongan
-// // POTONGAN PELANGGAN MASUK POIN POTONGAN MITRA
-
-// export const updatePoinPotongan = async (id_mitra, potongan) => {
-//   const db = getFirestore(app);
-//   const docrefmitra = doc(db, "mitra", id_mitra);
-//   getDoc(docrefmitra).then(docSnap => {
-//     if (docSnap.exists()) {
-//       try {
-//           let awal = docSnap.data().poin_potongan
-//           updateDoc(docrefmitra, { 
-//             poin_potongan: awal + potongan, 
-//           });
-//       } catch (err) {
-//         Alert.alert('Ada error masuk poin mitra!', err);
-//       }
-//     }
-//   })
-// };
-
-// // API 13: updateJmlVoucher
-// // POTONGAN PELANGGAN MASUK POIN POTONGAN MITRA
-
-// export const updateJmlVoucher = async (id_voucher) => {
-//   const db = getFirestore(app);
-//   const docrefmitra = doc(db, "promosi", id_voucher);
-//   getDoc(docrefmitra).then(docSnap => {
-//     if (docSnap.exists()) {
-//       try {
-//           let awal = docSnap.data().jml_pengguna
-//           updateDoc(docrefmitra, { 
-//             jml_pengguna: awal + 1, 
-//           });
-//       } catch (err) {
-//         Alert.alert('Ada error update voucher!', err);
-//       }
-//     }
-//   })
-// };
-
-// API 12: updateVoucherMitra
-// MENAMBAH TRANSAKSI DALAM KASBON. 
 
 export const updateVoucherMitra = async (id_mitra, id_voucher, potongan) => {  
   const db = getFirestore(app);
