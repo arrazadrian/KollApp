@@ -98,7 +98,7 @@ const ReceiptScreen = ({navigation, route}) => {
     const kirimNilai = () => {
       kirimRating(pilihlayanan, pilihproduk, id_mitra, id_transaksi);
       Alert.alert('Nilai sudah masuk','Terima kasih atas penilaian anda.');
-      navigation.replace('HomeScreen');
+      navigation.goBack();
     };
 
   const db = getFirestore(app)

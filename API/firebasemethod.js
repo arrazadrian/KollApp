@@ -228,7 +228,7 @@ export const buatTransaksiPO = async (alamat, geo, catatan_lokasi, id_mitra, nam
       });
       return docRef.id
     } catch(err){
-      console.log('Ada Error Membuat Tranksaksi.', err);
+      console.log('Ada Error Membuat Tranksaksi.', err.message);
     };
   } else {
     // doc.data() will be undefined in this case
@@ -270,7 +270,7 @@ export const buatTransaksiPM = async (alamat, geo, catatan_lokasi, id_mitra, nam
       console.log("ID dokumennya: ", docRef.id)
       return docRef.id;
     } catch(err){
-      console.log('Ada Error Membuat Tranksaksi PM.', err);
+      console.log('Ada Error Membuat Tranksaksi PM.', err.message);
     };
   } else {
     // doc.data() will be undefined in this case
@@ -292,7 +292,7 @@ export const noRespon = async (id_transaksi) => {
             status_transaksi:  "Tidak ada respon",  
           });
       } catch (err) {
-        Alert.alert('Ada error pada no respon PM!', err);
+        Alert.alert('Ada error pada no respon PM!', err.message);
       }
     }
   })
@@ -319,7 +319,7 @@ export const batalPMolehPelanggan = async (id_transaksi, id_mitra) => {
       });
     }
   } catch (err) {
-    Alert.alert('Ada error membatalkan PM oleh pelanggan!', err);
+    Alert.alert('Ada error membatalkan PM oleh pelanggan!', err.message);
   }
 };
 
@@ -356,7 +356,7 @@ export const kirimRating = async (pilihlayanan, pilihproduk, id_mitra, id_transa
               nilai_masuk: n_sekarang,  
             });
         } catch (err) {
-          Alert.alert('Ada error kirim rating mitra!', err);
+          Alert.alert('Ada error kirim rating mitra!', err.message);
         }
       }
     }); 
@@ -369,7 +369,7 @@ export const kirimRating = async (pilihlayanan, pilihproduk, id_mitra, id_transa
               rating_produk: pilihproduk, 
             });
         } catch (err) {
-          Alert.alert('Ada error kirim rating transaksi!', err);
+          Alert.alert('Ada error kirim rating transaksi!', err.message);
         }
       }
     }); 
@@ -400,7 +400,7 @@ export const updateVoucherMitra = async (id_mitra, id_voucher, potongan) => {
     }
    
   } catch(err){
-    console.log('Ada Error update voucher.', err);
+    console.log('Ada Error update voucher.', err.message);
   };
 };
 
@@ -425,6 +425,6 @@ export const updateTersediaVoucher = async (id_mitra, id_voucher, potongan) => {
       console.log("No such document!");
     }
   } catch(err){
-    console.log('Ada Error update kesediaan voucher.', err);
+    console.log('Ada Error update kesediaan voucher.', err.message);
   };
 };
