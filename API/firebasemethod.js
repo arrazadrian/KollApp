@@ -1,6 +1,5 @@
 import { 
     getAuth, 
-    onAuthStateChanged, 
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
@@ -8,8 +7,7 @@ import {
 import { 
   getFirestore, collection, 
   addDoc, setDoc, doc, 
-  serverTimestamp, onSnapshot,
-  deleteDoc, getDoc, updateDoc,
+  serverTimestamp, getDoc, updateDoc,
   } from 'firebase/firestore/lite';
 import { 
   getStorage, ref, 
@@ -63,7 +61,6 @@ export async function signIn(email, password) {
 
 export async function handleSignOut() {
   const auth = getAuth();
-  const db = getFirestore(app);
   try {
       signOut(auth);
   } catch (err) {
@@ -79,15 +76,12 @@ export async function updateakunTanpafoto(namaakun, phoneakun){
 
   const auth = getAuth();
   const db = getFirestore(app);
-  // const docRef = doc(db, "pelanggan", auth.currentUser.uid);
-  // const colRef = collection(docRef, "produk")
-  // const storage = getStorage();
   
-  const docrefproduk = doc(db, "pelanggan", auth.currentUser.uid);
-  getDoc(docrefproduk).then(docSnap => {
+  const docrefakun = doc(db, "pelanggan", auth.currentUser.uid);
+  getDoc(docrefakun).then(docSnap => {
     if (docSnap.exists()) {
       try{
-        updateDoc(docrefproduk, {
+        updateDoc(docrefakun, {
           namalengkap: namaakun,
           phone: phoneakun,
         });
@@ -116,15 +110,15 @@ export async function updateakunDenganfoto(fotoakun, namaakun, phoneakun){
 
   const storage = getStorage();
   
-  const docrefproduk = doc(db, "pelanggan", auth.currentUser.uid);
-  getDoc(docrefproduk).then(docSnap => {
+  const docrefakun = doc(db, "pelanggan", auth.currentUser.uid);
+  getDoc(docrefakun).then(docSnap => {
     if (docSnap.exists()) {
       if(docSnap.data().foto_akun) {
         const imgURL =  docSnap.data().foto_akun;
         const storageRef = ref(storage, imgURL);
         try{
           deleteObject(storageRef);
-          updateDoc(docrefproduk, {
+          updateDoc(docrefakun, {
             foto_akun: urlgambarbaru,
             namalengkap: namaakun,
             phone: phoneakun,
@@ -137,7 +131,7 @@ export async function updateakunDenganfoto(fotoakun, namaakun, phoneakun){
         };
       } else{
         try{
-          updateDoc(docrefproduk, {
+          updateDoc(docrefakun, {
             foto_akun: urlgambarbaru,
             namalengkap: namaakun,
             phone: phoneakun,
@@ -272,16 +266,11 @@ export const buatTransaksiPM = async (alamat, geo, catatan_lokasi, id_mitra, nam
         panggilan: "Menunggu Respon",
         hargalayanan: hargalayanan,
         pembayaran: "Belum Lunas",
-        // produk: kelompokProduk,
-        // hargasubtotal: subtotalhargaKeranjang,
-        // hargalayanan: hargalayanan,
-        // hargatotalsemua: hargatotalsemua,
-        // jumlah_kuantitas: jumlah_kuantitas,
       }); 
       console.log("ID dokumennya: ", docRef.id)
       return docRef.id;
     } catch(err){
-      console.log('Ada Error Membuat Tranksaksi.', err);
+      console.log('Ada Error Membuat Tranksaksi PM.', err);
     };
   } else {
     // doc.data() will be undefined in this case
@@ -294,11 +283,11 @@ export const buatTransaksiPM = async (alamat, geo, catatan_lokasi, id_mitra, nam
 
 export const noRespon = async (id_transaksi) => {
   const db = getFirestore(app);
-  const docrefproduk = doc(db, "transaksi", id_transaksi);
-  getDoc(docrefproduk).then(docSnap => {
+  const docreftran = doc(db, "transaksi", id_transaksi);
+  getDoc(docreftran).then(docSnap => {
     if (docSnap.exists()) {
       try {
-          updateDoc(docrefproduk, { 
+          updateDoc(docreftran, { 
             panggilan: "Tidak ada respon", 
             status_transaksi:  "Tidak ada respon",  
           });
@@ -330,7 +319,7 @@ export const batalPMolehPelanggan = async (id_transaksi, id_mitra) => {
       });
     }
   } catch (err) {
-    Alert.alert('Ada error merima PM!', err);
+    Alert.alert('Ada error membatalkan PM oleh pelanggan!', err);
   }
 };
 
