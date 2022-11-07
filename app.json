@@ -29,6 +29,19 @@
     },
     "web": {
       "favicon": "./src/assets/Images/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./src/assets/Images/logoKollApp.png",
+          "color": "#FFF3C8",
+          "sounds": [
+            "./local/assets/notification-sound.wav",
+            "./local/assets/notification-sound-other.wav"
+          ]
+        }
+      ]
+    ]
   }
 }
