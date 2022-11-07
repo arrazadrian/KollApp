@@ -66,7 +66,7 @@ const CheckoutScreen = ({ route }) => {
                //console.log(data.rows[0].elements[0].duration.text);
               console.log(data.rows[0].elements[0].distance.value);
 
-              let hasilbagi = Math.round(data.rows[0].elements[0].distance.value / 1000);
+              let hasilbagi = Math.floor(data.rows[0].elements[0].distance.value / 1000);
 
               let hargalayanan = hasilbagi * 2500
               // console.log(hargalayanan)
