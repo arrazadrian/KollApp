@@ -17,8 +17,9 @@ const EtalaseScreen = ({ route }) => {
   const { namapelanggan } = useSelector(state => state.pelanggan);
 
   const { 
-    namalengkap_mitra, namatoko, foto_akun, geo_mangkal, alamat, mangkal, id_mitra, waktu_buka, waktu_tutup, status_sekarang, phone, dipanggil,
-     } = route.params;
+    namalengkap_mitra, namatoko, foto_akun, geo_mangkal, alamat, mangkal, id_mitra, 
+    waktu_buka, waktu_tutup, status_sekarang, phone, dipanggil, token_notifmitra,
+  } = route.params;
 
   const pindahUtama = () => {
     navigation.navigate('ProdukScreen', { 
@@ -31,6 +32,7 @@ const EtalaseScreen = ({ route }) => {
       phonemitra: phone,
       foto_akun: foto_akun,
       geo_mangkal: geo_mangkal,
+      token_notifmitra: token_notifmitra,
     })
   };
 
@@ -42,6 +44,7 @@ const EtalaseScreen = ({ route }) => {
       namatoko: namatoko,
       phonemitra: phone,
       geo_mangkal: geo_mangkal,
+      token_notifmitra: token_notifmitra,
     })
   };
 
@@ -53,6 +56,7 @@ const EtalaseScreen = ({ route }) => {
       phonemitra: phone,
       foto_akun: foto_akun,
       geo_mangkal: geo_mangkal,
+      token_notifmitra: token_notifmitra,
     })
   };
 

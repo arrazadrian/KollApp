@@ -33,7 +33,7 @@ const CheckoutScreen = ({ route }) => {
   // const [pembayaran, setPembayaran] = useState("COD");
 
   const { 
-    id_mitra, namalengkap_mitra, namatoko, phonemitra, geo_mangkal,
+    id_mitra, namalengkap_mitra, namatoko, phonemitra, geo_mangkal, token_notifmitra,
      } = route.params;
 
   useEffect(() => {
@@ -110,6 +110,7 @@ const CheckoutScreen = ({ route }) => {
             id_voucher,
             potongan,
             jumlah_kuantitas,
+            token_notifmitra,
           );
           if(potongan > 0){
             // updatePoinPotongan(id_mitra, potongan);
@@ -118,7 +119,6 @@ const CheckoutScreen = ({ route }) => {
           };
           navigation.navigate("TQScreen");
         };
-   
   };
 
   const VoucherPromo = () => {

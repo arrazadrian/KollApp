@@ -13,6 +13,7 @@ const PanggilMitra = (props) => {
       namatoko: props.namatoko,
       phonemitra: props.phonemitra,
       geo_mangkal: props.geo_mangkal,
+      token_notifmitra: props.token_notifmitra,
     })
   }
 

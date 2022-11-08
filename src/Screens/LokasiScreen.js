@@ -19,7 +19,7 @@ const LokasiScreen = ({ route }) => {
     const dispatch = useDispatch();
 
     const { 
-        namatoko, foto_akun, id_mitra, namalengkap_mitra, phonemitra, geo_mangkal,
+        namatoko, foto_akun, id_mitra, namalengkap_mitra, phonemitra, geo_mangkal, token_notifmitra,
          } = route.params;
 
     const { alamat, geo } = useSelector(state => state.posisi);
@@ -38,6 +38,7 @@ const LokasiScreen = ({ route }) => {
             phonemitra,
             namapelanggan,
             hargalayanan,
+            token_notifmitra,
         );
     console.log('id Transaksi isinya: ' + kode_transaksi);
         navigation.replace('LoadingScreen',{

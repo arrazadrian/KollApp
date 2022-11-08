@@ -35,6 +35,7 @@ export async function registration(email, password, namalengkap, phone) {
                 email: email,
                 namalengkap: namalengkap,
                 phone: phone,
+                token_notif: "",
             })
         })
   } catch (err) {
@@ -193,7 +194,10 @@ async function uploadgambarakun(uri) {
 // API 7: buatTransaksiPO
 // MEMBUAT TRANSAKSI PO. 
 
-export const buatTransaksiPO = async (alamat, geo, catatan_lokasi, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, kelompokProduk, catatan_produk, subtotalhargaKeranjang, hargalayanan, hargatotalsemua, id_voucher, potongan, jumlah_kuantitas) => {  
+export const buatTransaksiPO = async (
+      alamat, geo, catatan_lokasi, id_mitra, namalengkap_mitra, namatoko, phonemitra, 
+      namapelanggan, kelompokProduk, catatan_produk, subtotalhargaKeranjang, hargalayanan, 
+      hargatotalsemua, id_voucher, potongan, jumlah_kuantitas, token_notifmitra) => {  
   const auth = getAuth();
   const db = getFirestore(app);
 
@@ -202,30 +206,31 @@ export const buatTransaksiPO = async (alamat, geo, catatan_lokasi, id_mitra, nam
 
   if (docSnap.exists()) {
     try{
-    const docRef = await addDoc(collection(db, "transaksi"), {
-        alamat_pelanggan: alamat,
-        geo_alamat: geo,
-        catatan_lokasi: catatan_lokasi,
-        id_mitra: id_mitra, 
-        namamitra: namalengkap_mitra,
-        namatoko: namatoko,
-        phonemitra: phonemitra,
-        namapelanggan: namapelanggan,
-        phonepelanggan: docSnap.data().phone,
-        id_pelanggan: auth.currentUser.uid,
-        waktu_dipesan: serverTimestamp(),
-        jenislayanan: 'Pre-Order',
-        status_transaksi: 'Dalam Proses',
-        produk: kelompokProduk,
-        catatan_produk: catatan_produk,
-        hargasubtotal: subtotalhargaKeranjang,
-        hargalayanan: hargalayanan,
-        hargatotalsemua: hargatotalsemua,
-        jumlah_kuantitas: jumlah_kuantitas,
-        id_voucher: id_voucher,
-        potongan: potongan,
-        pembayaran: 'Belum Lunas',
-      });
+      const docRef = await addDoc(collection(db, "transaksi"), {
+          alamat_pelanggan: alamat,
+          geo_alamat: geo,
+          catatan_lokasi: catatan_lokasi,
+          id_mitra: id_mitra, 
+          namamitra: namalengkap_mitra,
+          namatoko: namatoko,
+          phonemitra: phonemitra,
+          namapelanggan: namapelanggan,
+          phonepelanggan: docSnap.data().phone,
+          id_pelanggan: auth.currentUser.uid,
+          waktu_dipesan: serverTimestamp(),
+          jenislayanan: 'Pre-Order',
+          status_transaksi: 'Dalam Proses',
+          produk: kelompokProduk,
+          catatan_produk: catatan_produk,
+          hargasubtotal: subtotalhargaKeranjang,
+          hargalayanan: hargalayanan,
+          hargatotalsemua: hargatotalsemua,
+          jumlah_kuantitas: jumlah_kuantitas,
+          id_voucher: id_voucher,
+          potongan: potongan,
+          pembayaran: 'Belum Lunas',
+        });
+      notifPOmasuk(token_notifmitra)
       return docRef.id
     } catch(err){
       console.log('Ada Error Membuat Tranksaksi.', err.message);
@@ -239,7 +244,9 @@ export const buatTransaksiPO = async (alamat, geo, catatan_lokasi, id_mitra, nam
 // API 8: buatTransaksiPM
 // MEMBUAT TRANSAKSI PM.
 
-export const buatTransaksiPM = async (alamat, geo, catatan_lokasi, id_mitra, namalengkap_mitra, namatoko, phonemitra, namapelanggan, hargalayanan) => {  
+export const buatTransaksiPM = async (
+  alamat, geo, catatan_lokasi, id_mitra, namalengkap_mitra, 
+  namatoko, phonemitra, namapelanggan, hargalayanan, token_notifmitra) => {  
   const auth = getAuth();
   const db = getFirestore(app);
 
@@ -249,24 +256,25 @@ export const buatTransaksiPM = async (alamat, geo, catatan_lokasi, id_mitra, nam
   if (docSnap.exists()) {
     let phonepelanggan = docSnap.data().phone;
     try{
-    const docRef = await addDoc(collection(db, "transaksi"), {
-        alamat_pelanggan: alamat,
-        geo_alamat: geo,
-        catatan_lokasi: catatan_lokasi,
-        id_mitra: id_mitra, 
-        namamitra: namalengkap_mitra,
-        namatoko: namatoko,
-        phonemitra: phonemitra,
-        namapelanggan: namapelanggan,
-        phonepelanggan: phonepelanggan,
-        id_pelanggan: auth.currentUser.uid,
-        waktu_dipesan: serverTimestamp(),
-        jenislayanan: 'Panggil Mitra',
-        status_transaksi: 'Dalam Proses',
-        panggilan: "Menunggu Respon",
-        hargalayanan: hargalayanan,
-        pembayaran: "Belum Lunas",
-      }); 
+      const docRef = await addDoc(collection(db, "transaksi"), {
+          alamat_pelanggan: alamat,
+          geo_alamat: geo,
+          catatan_lokasi: catatan_lokasi,
+          id_mitra: id_mitra, 
+          namamitra: namalengkap_mitra,
+          namatoko: namatoko,
+          phonemitra: phonemitra,
+          namapelanggan: namapelanggan,
+          phonepelanggan: phonepelanggan,
+          id_pelanggan: auth.currentUser.uid,
+          waktu_dipesan: serverTimestamp(),
+          jenislayanan: 'Panggil Mitra',
+          status_transaksi: 'Dalam Proses',
+          panggilan: "Menunggu Respon",
+          hargalayanan: hargalayanan,
+          pembayaran: "Belum Lunas",
+        });
+      notifPMmasuk(token_notifmitra) 
       console.log("ID dokumennya: ", docRef.id)
       return docRef.id;
     } catch(err){
@@ -301,7 +309,7 @@ export const noRespon = async (id_transaksi) => {
 // API 10: batalPMolehPelanggan
 //  PELANGGAN MEMBATALKAN PANGGILAN SAAT OTW
 
-export const batalPMolehPelanggan = async (id_transaksi, id_mitra) => {
+export const batalPMolehPelanggan = async (id_transaksi, id_mitra, token_notifmitra) => {
   const db = getFirestore(app);
   const docreftran = doc(db, "transaksi", id_transaksi);
   const docrefmit = doc(db, "mitra", id_mitra);
@@ -317,6 +325,7 @@ export const batalPMolehPelanggan = async (id_transaksi, id_mitra) => {
       updateDoc(docSnapmit, { 
         dipanggil: false, 
       });
+      notifPMpelangganbatal(token_notifmitra)
     }
   } catch (err) {
     Alert.alert('Ada error membatalkan PM oleh pelanggan!', err.message);
@@ -428,3 +437,74 @@ export const updateTersediaVoucher = async (id_mitra, id_voucher, potongan) => {
     console.log('Ada Error update kesediaan voucher.', err.message);
   };
 };
+
+// Can use this function below, OR use Expo's Push Notification Tool-> https://expo.dev/notifications
+
+// API 14: notifPOmasuk
+// NOTIF UNTUK MITRA BAHWA PO MASUK
+
+async function notifPOmasuk(token_notifmitra) {
+  const message = {
+    to: token_notifmitra,
+    sound: 'default',
+    title: 'Ada pesanan Pre-Order',
+    body: 'Pre-order baru telah masuk!',
+    // data: { someData: 'goes here' },
+  };
+
+  await fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Accept-encoding': 'gzip, deflate',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(message),
+  });
+}
+
+// API 15: notifPMmasuk
+// NOTIF UNTUK MITRA BAHWA ADA PANGGILAN
+
+async function notifPMmasuk(token_notifmitra) {
+  const message = {
+    to: token_notifmitra,
+    sound: 'default',
+    title: 'Ada panggilan mitra',
+    body: 'Pelanggan memanggil kamu untuk datang',
+    // data: { someData: 'goes here' },
+  };
+
+  await fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Accept-encoding': 'gzip, deflate',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(message),
+  });
+}
+
+// API 16: notifPMpelangganbatal
+// NOTIF UNTUK MITRA BAHWA PM DIBATALKAN PELANGGAN
+
+async function notifPMpelangganbatal(token_notifmitra) {
+  const message = {
+    to: token_notifmitra,
+    sound: 'default',
+    title: 'Panggilan dibatalkan pelanggan',
+    body: 'Mohon maaf, pelanggan membatalkan panggilan',
+    // data: { someData: 'goes here' },
+  };
+
+  await fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Accept-encoding': 'gzip, deflate',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(message),
+  });
+}

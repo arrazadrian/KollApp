@@ -65,8 +65,9 @@ const ProdukScreen = ({ route }) => {
 
 
   const { 
-    id_mitra, status_sekarang, mangkal, dipanggil, namalengkap_mitra, namatoko, phonemitra, foto_akun, geo_mangkal
-     } = route.params;
+    id_mitra, status_sekarang, mangkal, dipanggil, namalengkap_mitra, 
+    namatoko, phonemitra, foto_akun, geo_mangkal, token_notifmitra,
+  } = route.params;
 
   useEffect(()=>{
     const fetchProdukutama = async() => {
@@ -154,7 +155,8 @@ const ProdukScreen = ({ route }) => {
             /> 
            { status_sekarang == "Tidak Aktif" ? <MitraTutup/>
             : mangkal || dipanggil ? <MitraNoPanggil/> 
-            :( <PanggilMitra id_mitra={id_mitra} namalengkap_mitra={namalengkap_mitra} namatoko={namatoko} phonemitra={phonemitra} foto_akun={foto_akun} geo_mangkal={geo_mangkal}/>
+            :( <PanggilMitra id_mitra={id_mitra} namalengkap_mitra={namalengkap_mitra} namatoko={namatoko} 
+              phonemitra={phonemitra} foto_akun={foto_akun} geo_mangkal={geo_mangkal} token_notifmitra={token_notifmitra}/>
             )
             }               
       </View>

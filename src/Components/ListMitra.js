@@ -25,6 +25,7 @@ const ListMitra = ({ item }) => {
       waktu_tutup: item.waktu_tutup,
       status_sekarang: item.status_sekarang,
       dipanggil: item.dipanggil,
+      token_notifmitra: item.token_notif,
     })
   }
 

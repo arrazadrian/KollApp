@@ -31,27 +31,6 @@ const HomeScreen = ({navigation}) => {
 
   const geofire = require('geofire-common');
  
- 
-  // useEffect(() =>{ 
-  //   async function getuserHome(){
-  //     try{
-  //       const unsubscribe = onSnapshot(doc(db, "pelanggan", auth.currentUser.uid ), (doc) => {
-  //       setKodeUID(auth.currentUser.uid);
-  //       setNamapelanggan(doc.data().namalengkap);
-  //       //console.log(doc.data())
-  //       console.log('getuserHome jalan (Home Screen)')
-  //         // Respond to data
-  //         // ...
-  //       });
-  //       //unsubscribe();
-  //     } catch (err){
-  //       Alert.alert('There is an error.', err.message)
-  //     }
-  //   }
-  //   getuserHome();
-  //   dispatch(updateUID({kodeUID,namapelanggan}));
-  // },[namapelanggan])
- 
   //Dapetin nama pelanggan dan uid buat home, putus listener kalo pindah halaman
   useFocusEffect(
     useCallback(() => {

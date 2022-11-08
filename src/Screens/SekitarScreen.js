@@ -40,13 +40,14 @@ const SekitarScreen = ({ navigation }) => {
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
           const { alamat, email, foto_akun, geo, geohash, id_mitra, mangkal, namalengkap, dipanggil,
-                   namatoko, phone, status_sekarang, waktu_buka, waktu_tutup, rating_layanan, rating_produk } = doc.data();
+                   namatoko, phone, status_sekarang, waktu_buka, waktu_tutup, rating_layanan, rating_produk,
+                   token_notif } = doc.data();
           list.push({
             id_mitra: doc.id,
             alamat, email, foto_akun, geo, geohash,
             id_mitra, mangkal, namalengkap, namatoko,
             phone, status_sekarang, waktu_buka, waktu_tutup,
-            rating_layanan, rating_produk, dipanggil,
+            rating_layanan, rating_produk, dipanggil, token_notif,
             });
           });
         };
