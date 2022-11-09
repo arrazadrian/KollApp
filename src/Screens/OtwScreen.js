@@ -78,7 +78,7 @@ const OtwScreen = ({ navigation, route }) => {
 
   useEffect(()=>{
     let unmounted = false
-    const getToken_notifmitra = async (id_mitra) =>{
+    const getToken_notifmitra = async () =>{
       const db = getFirestore(app);
       const docRef = doc(db, "mitra", id_mitra);
       const docSnap = await getDoc(docRef);

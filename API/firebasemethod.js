@@ -313,24 +313,34 @@ export const batalPMolehPelanggan = async (id_transaksi, id_mitra, token_notifmi
   const db = getFirestore(app);
   const docreftran = doc(db, "transaksi", id_transaksi);
   const docrefmit = doc(db, "mitra", id_mitra);
-  const docSnaptran = await getDoc(docreftran);
-  const docSnapmit = await getDoc(docrefmit);
-  try{
-    if(docSnaptran.exists() && docSnapmit.exists()){
-      updateDoc(docreftran, { 
-        pembatalan: "Dibatalkan Pelanggan", 
-        status_transaksi: "Selesai",
-        waktu_selesai: serverTimestamp(),  
-      });
-      updateDoc(docSnapmit, { 
-        dipanggil: false, 
-      });
-      notifPMpelangganbatal(token_notifmitra)
+  await getDoc(docreftran).then(docSnap => {
+    if (docSnap.exists()) {
+      try {
+        updateDoc(docreftran, {
+          pembatalan: "Dibatalkan Pelanggan", 
+          status_transaksi: "Selesai",
+          waktu_selesai: serverTimestamp(),  
+        });
+        notifPMpelangganbatal(token_notifmitra)
+      } catch (err) {
+        Alert.alert('Ada error untuk membatalkan PO dari pelanggan!', err.message);
+      }
     }
-  } catch (err) {
-    Alert.alert('Ada error membatalkan PM oleh pelanggan!', err.message);
-  }
+  })
+  await getDoc(docrefmit).then(docSnap => {
+    if (docSnap.exists()) {
+      try {
+        updateDoc(docrefmit, { 
+          dipanggil: false, 
+        });
+      } catch (err) {
+        Alert.alert('Ada error untuk update status dipanggil!', err.message);
+      }
+    }
+  })
 };
+
+
 
 // API 11: kirimRating
 // PELANGGAN MENILAI MITRA
