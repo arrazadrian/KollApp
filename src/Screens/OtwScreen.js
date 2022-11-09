@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View, Dimensions, Pressable, Alert, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { Ijo, IjoMint, IjoTua, Kuning, Putih, Hitam } from '../Utils/Warna'
 import { Call, Chat } from '../assets/Icons/Index'
 import { Perjalanan, Tiba, TerimaKasihPM, Load1, Load2, Load3 } from '../assets/Images/Index'
@@ -31,6 +31,7 @@ const OtwScreen = ({ navigation, route }) => {
   const [produk, setProduk] = useState();
   const [potongan, setPotongan] = useState();
   const [pembatalan, setPembatalan] = useState();
+  const [token_notifmitra, setToken_notifmitra] = useState();
 
   const telepon = () => {
     Linking.openURL(`tel:${phonemitra}`);
@@ -75,6 +76,33 @@ const OtwScreen = ({ navigation, route }) => {
     },[pembatalan]) 
   );
 
+  useEffect(()=>{
+    let unmounted = false
+    const getToken_notifmitra = async (id_mitra) =>{
+      const db = getFirestore(app);
+      const docRef = doc(db, "mitra", id_mitra);
+      const docSnap = await getDoc(docRef);
+      try{
+        if(docSnap.exists()){
+          setToken_notifmitra(docSnap.data()?.token_notif)
+        } else {
+          console.log("No such document!");
+        }
+      } catch(err){
+        console.log('Ada Error update kesediaan voucher.', err.message);
+      };
+    }
+    
+    if(!unmounted){
+      getToken_notifmitra()
+    }
+
+    return() => {
+      unmounted = true
+      console.log('Clear getToken_notifmitra')
+    }
+  },[])
+
   const handleBatal =()=> {
     Alert.alert('Anda yakin ingin membatalkan panggilan?','Mitra yang sedang di jalan bisa kecewa loh.',
           [
@@ -87,7 +115,7 @@ const OtwScreen = ({ navigation, route }) => {
             {
               text: 'Yakin',
               onPress: async () =>{
-                await batalPMolehPelanggan(id_transaksi, id_mitra);
+                await batalPMolehPelanggan(id_transaksi, id_mitra, token_notifmitra);
                 navigation.navigate('HomeScreen')
               },
             }

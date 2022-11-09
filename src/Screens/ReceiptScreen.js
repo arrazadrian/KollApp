@@ -25,7 +25,8 @@ const ReceiptScreen = ({navigation, route}) => {
     hargalayanan, hargasubtotal, hargatotalsemua, id_mitra, id_pelanggan, id_transaksi,  jenislayanan,
     jumlah_kuantitas, namamitra, namatoko, namapelanggan, produk, waktu_selesai, waktu_dipesan, alamat_pelanggan,
     status_transaksi, catatan_lokasi,catatan_produk, pembayaran, phonemitra, phonepelanggan, rating_layanan, rating_produk,
-    potongan, pembatalan,
+    potongan, pembatalan, 
+
      } = route.params;
 
   const telepon = () => {
