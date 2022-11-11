@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   gambardompet:{
-    width: width*0.14,
+    width: width*0.15,
     height: width*0.1,
   },
 })

@@ -41,14 +41,13 @@ import TopTabKasbon from '../Components/TopTabKasbon.js';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
-const AkunStack = createNativeStackNavigator();
 
 const HomeStackScreen = () =>{
   return(
       <Tab.Navigator tabBar={props => <TabNavigasi {...props}/>}>
           <Tab.Screen name="Beranda" component={HomeScreen} options={{ headerShown: false }}/>
           <Tab.Screen name="Riwayat" component={TopTab} options={{ headerShown: false }}/>
-          <Tab.Screen name="Akun" component={AkunStackScreen} options={{ headerShown: false }}/>
+          <Tab.Screen name="Akun" component={AkunScreen} options={{ headerShown: false }}/>
       </Tab.Navigator>
   );
 };
@@ -79,19 +78,12 @@ export const AppUtama = () => {
         <HomeStack.Screen name="VoucherScreen" component={VoucherScreen} options={{ title: "Voucher Aktif", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
         <HomeStack.Screen name="QrVoucherScreen" component={QrVoucherScreen} options={{ title: "QR Voucher", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
         
-        <HomeStack.Screen name="ReceiptScreen" component={ReceiptScreen} options={{ title: "Detail Transaksi", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>        
+        <HomeStack.Screen name="ReceiptScreen" component={ReceiptScreen} options={{ title: "Detail Transaksi", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo} }}/>      
+        <HomeStack.Screen name="AkunScreen" component={AkunScreen} options={{ headerShown: false }}/>
+        <HomeStack.Screen name="EditAkunScreen" component={EditAkunScreen} options={{ title: "Atur Profil", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>  
       </HomeStack.Navigator>
     </Provider>
   </NavigationContainer>
-  );
-};
-
-const AkunStackScreen = () => {
-  return(
-  <AkunStack.Navigator>
-    <AkunStack.Screen name="AkunScreen" component={AkunScreen} options={{ headerShown: false }}/>
-    <AkunStack.Screen name="EditAkunScreen" component={EditAkunScreen} options={{ title: "Atur Profil", headerTintColor: Putih, headerStyle:{backgroundColor: Ijo}  }}/>
-  </AkunStack.Navigator>
   );
 };
 
