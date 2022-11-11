@@ -15,5 +15,10 @@ const firebaseConfig = {
   measurementId: "G-EVDPW5KD8M"
 };
 
+initializeApp({
+  credential: applicationDefault(),
+  // databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
+});
+
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
