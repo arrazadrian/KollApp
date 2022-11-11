@@ -11,6 +11,7 @@ import ReceiptScreen from "./ReceiptScreen";
 import RiwayatScreen from "./RiwayatScreen";
 import AkunScreen from "./AkunScreen";
 import EditAkunScreen from "./EditAkunScreen";
+import ScreeningScreen from "./ScreeningScreen";
 import SignInScreen from "./SignInScreen";
 import SignUpScreen from "./SignUpScreen";
 import LokasiScreen from "./LokasiScreen";
@@ -28,7 +29,7 @@ import TQScreen from "./TQScreen";
 export {
      HomeScreen,  
      RiwayatScreen, AkunScreen, SignInScreen, SignUpScreen, 
-     SekitarScreen, EditAkunScreen,
+     SekitarScreen, EditAkunScreen, ScreeningScreen,
      LangsungScreen, PreorderScreen, AdaKasbonScreen,
      LokasiScreen, LoadingScreen, CheckoutScreen,
      FLocScreen, OtwScreen, ProsesScreen, ReceiptScreen,
