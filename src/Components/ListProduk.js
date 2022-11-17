@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       alignSelf: 'center',
       resizeMode: 'cover',
-      marginBottom: 10,
+      marginBottom: 5,
       opacity: 0.3,
     },
     habis:{
