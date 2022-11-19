@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Dimensions } from 'react-native'
 import React, { useState } from 'react';
-import { Ijo, IjoTua, Kuning, Putih } from '../Utils/Warna'
+import { Ijo, IjoTua, Putih } from '../Utils/Warna'
 import { updateakunTanpafoto, updateakunDenganfoto } from '../../API/firebasemethod';
 import * as ImagePicker from 'expo-image-picker';
 import { Logo } from '../assets/Images/Index';
@@ -25,12 +25,12 @@ const EditAkunScreen = ({navigation, route}) => {
       quality: 1,
     });
 
-    if (!result.cancelled) {
-      setFotoakun(result.uri);
-      console.log(result.uri);
+    if (!result.canceled) {
+      setFotoakun(result.assets[0].uri);
+      console.log(result.assets[0].uri);
     }
     
-    return result.uri
+    return result.assets[0].uri
     
   };
 
