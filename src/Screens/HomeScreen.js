@@ -4,7 +4,7 @@ import { Ijo, IjoMint, IjoTua, Kuning, Putih} from '../Utils/Warna';
 import { Logo, Pin_gerobak, Dua_orang, Pinkecil, DompetKasbon, Gerobak } from '../assets/Images/Index.js';
 import { app } from '../../Firebase/config';
 import {  getAuth } from "firebase/auth";
-import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { getFirestore, doc, onSnapshot } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux'
 import { updateUID } from '../features/pelangganSlice';
 import { GOOGLE_MAPS_APIKEY } from "@env";
@@ -97,7 +97,7 @@ const HomeScreen = ({navigation}) => {
   }, []); 
   
   // console.log(geo);
-  // console.log(alamat);
+  // console.log("Alamatnya adalah " + alamat);
   // console.log(geohash);
 
   let text = 'Waiting..';

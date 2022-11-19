@@ -243,7 +243,7 @@ const OtwScreen = ({ navigation, route }) => {
 
   const kirimNilai = () => {
     kirimRating(pilihlayanan, pilihproduk, id_mitra, id_transaksi);
-    Alert.alert('Nilai sudah masuk','Terima kasih atas penilaian anda.');
+    Alert.alert('Nilai sudah masuk','Terima kasih sudah berbelanja bersama kami, penilaian anda sangat berarti bagi kami.');
     navigation.replace('HomeScreen');
   };
 
