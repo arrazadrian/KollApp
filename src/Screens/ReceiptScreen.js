@@ -98,7 +98,7 @@ const ReceiptScreen = ({navigation, route}) => {
 
     const kirimNilai = () => {
       kirimRating(pilihlayanan, pilihproduk, id_mitra, id_transaksi);
-      Alert.alert('Nilai sudah masuk','Terima kasih atas penilaian anda.');
+      Alert.alert('Nilai sudah masuk','Penilaian anda sangat berarti bagi kami, terima kasih.');
       navigation.goBack();
     };
 
