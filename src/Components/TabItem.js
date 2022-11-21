@@ -23,7 +23,7 @@ Notifications.setNotificationHandler({
 const TabItem = ({ isFocused, onPress, onLongPress, label}) => {
   const Icon = () => { 
     if(label === "Beranda") return isFocused ? <IconHomePutih/> : <IconHomeIjo/>
-    if(label === "Riwayat") return isFocused ? <IconRiwayatPutih/> : <IconRiwayatIjo/>
+    if(label === "Pesanan") return isFocused ? <IconRiwayatPutih/> : <IconRiwayatIjo/>
     if(label === "Akun") return isFocused ? <IconAkunPutih/> : <IconAkunIjo/>
   }
 
