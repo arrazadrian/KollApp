@@ -40,7 +40,6 @@ import Kasbon from './cap_kasbon.png'
 import Lunas from './cap_lunas.png'
 import DompetKasbon from './dompet_kasbon.png'
 import Blokir from './blokir.png'
-import Validasi from './validasi.png'
 
 
 export { Awan, Logo, Splash, LogoPutih, Header1, 
@@ -48,7 +47,7 @@ export { Awan, Logo, Splash, LogoPutih, Header1,
         LatarSignIn, Dua_orang, Pin_gerobak,
         Kategori01, Kategori02, Kategori03, Kategori04,
         Kategori05, Kategori06, Kategori07, Kategori08,
-        Kategori09, KategoriPre, noMitra, Blokir, Validasi,
+        Kategori09, KategoriPre, noMitra, Blokir, 
         meetup,Bag, Gerobak, Pinkecil, Bawah, LogoKoll,
         LogoQR, Kosong, Receipt, Tiba, Perjalanan, TerimaKasihPM,
         Load1, Load2, Load3, Kasbon, Lunas, DompetKasbon }

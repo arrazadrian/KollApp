@@ -31,6 +31,7 @@ export async function registration(email, password, namalengkap, phone) {
     await createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
             setDoc(doc(db, "pelanggan", auth.currentUser.uid),{
+                akun: "Aktif",
                 id_pelanggan: auth.currentUser.uid,
                 email: email,
                 namalengkap: namalengkap,
