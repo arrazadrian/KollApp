@@ -6,7 +6,7 @@ import { getAuth } from 'firebase/auth'
 import { doc, getDoc, getFirestore } from 'firebase/firestore'
 import { handleSignOut } from '../../API/firebasemethod'
 import { useNavigation } from '@react-navigation/native'
-import { Blokir, Validasi } from '../assets/Images/Index.js';
+import { Blokir } from '../assets/Images/Index.js';
 
 const { height, width } = Dimensions.get('window')
 
