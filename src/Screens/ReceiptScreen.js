@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Pressable, Dimensions, TouchableOpacity, Image, ScrollView, Alert } from 'react-native'
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useState,} from 'react'
 import * as Linking from 'expo-linking';
-import { Ijo, IjoMint, IjoTua, Kuning, Hitam, Putih, Pink, Merah } from '../Utils/Warna'
+import { Ijo, IjoMint, IjoTua, Kuning, Hitam } from '../Utils/Warna'
 import { Kasbon, KollLong, Lunas, Pinkecil } from '../assets/Images/Index';
 import moment from 'moment';
 import localization from 'moment/locale/id';
@@ -42,8 +42,29 @@ const ReceiptScreen = ({navigation, route}) => {
   const [ nilailayanan, setNilailayanan ] = useState([1,2,3,4,5]);
   const [ pilihproduk, setPilihproduk ] = useState();
   const [ nilaiproduk, setNilaiproduk ] = useState([1,2,3,4,5]);
+  
+  const [ bisabatal, setBisabatal] = useState(false);
 
+  useEffect(()=>{
+    let unmounted = false
 
+    const expire = () => {
+      let batas = moment(waktu_dipesan.toDate()).add(3, 'hours');
+      let sekarang = new Date();
+      if(batas.getTime() > sekarang.getTime()){
+        setBisabatal(true)
+      } else {setBisabatal(false)}
+    }
+
+    if(!unmounted){
+      expire()
+    }
+
+    return () =>{
+      unmounted = true
+    }
+  },[])
+  
   const NilaiBintangLayanan = () => {
     return(
         <View style={{flexDirection:'row', marginBottom: 10}}>
@@ -406,7 +427,7 @@ const ReceiptScreen = ({navigation, route}) => {
                     <Text style={styles.subjudul}>Total Harga</Text>
                     <Text style={styles.subjudul}>Rp{new Intl.NumberFormat('id-Id').format(hargatotalsemua).toString()}</Text>
                 </View>
-                { !pembatalan && jenislayanan == "Pre-Order" && status_transaksi == "Dalam Proses" ?
+                { !pembatalan && jenislayanan == "Pre-Order" && status_transaksi == "Dalam Proses" && bisabatal ?
                   <BatalPreOrder/> : (null)
                 }
             </View>
