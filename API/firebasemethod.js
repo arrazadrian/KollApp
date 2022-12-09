@@ -341,8 +341,6 @@ export const batalPMolehPelanggan = async (id_transaksi, id_mitra, token_notifmi
   })
 };
 
-
-
 // API 11: kirimRating
 // PELANGGAN MENILAI MITRA
 
@@ -449,9 +447,43 @@ export const updateTersediaVoucher = async (id_mitra, id_voucher, potongan) => {
   };
 };
 
+// API 14: batalkanPO
+//  PELANGGAN MEMBATALKAN PO
+
+export const batalkanPO = async (id_transaksi, id_mitra, token_notifmitra) => {
+  const db = getFirestore(app);
+  const docreftran = doc(db, "transaksi", id_transaksi);
+  const docrefmit = doc(db, "mitra", id_mitra);
+  await getDoc(docreftran).then(docSnap => {
+    if (docSnap.exists()) {
+      try {
+        updateDoc(docreftran, {
+          pembatalan: "Dibatalkan Pelanggan", 
+          status_transaksi: "Selesai",
+          waktu_selesai: serverTimestamp(),  
+        });
+        notifPOpelangganbatal(token_notifmitra)
+      } catch (err) {
+        Alert.alert('Ada error untuk membatalkan PO dari pelanggan!', err.message);
+      }
+    }
+  })
+  await getDoc(docrefmit).then(docSnap => {
+    if (docSnap.exists()) {
+      try {
+        updateDoc(docrefmit, { 
+          dipanggil: false, 
+        });
+      } catch (err) {
+        Alert.alert('Ada error untuk update status dipanggil!', err.message);
+      }
+    }
+  })
+};
+
 // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.dev/notifications
 
-// API 14: notifPOmasuk
+// API 15: notifPOmasuk
 // NOTIF UNTUK MITRA BAHWA PO MASUK
 
 async function notifPOmasuk(token_notifmitra) {
@@ -474,7 +506,7 @@ async function notifPOmasuk(token_notifmitra) {
   });
 }
 
-// API 15: notifPMmasuk
+// API 16: notifPMmasuk
 // NOTIF UNTUK MITRA BAHWA ADA PANGGILAN
 
 async function notifPMmasuk(token_notifmitra) {
@@ -497,7 +529,7 @@ async function notifPMmasuk(token_notifmitra) {
   });
 }
 
-// API 16: notifPMpelangganbatal
+// API 17: notifPMpelangganbatal
 // NOTIF UNTUK MITRA BAHWA PM DIBATALKAN PELANGGAN
 
 async function notifPMpelangganbatal(token_notifmitra) {
@@ -506,6 +538,29 @@ async function notifPMpelangganbatal(token_notifmitra) {
     sound: 'default',
     title: 'Panggilan dibatalkan pelanggan',
     body: 'Mohon maaf, pelanggan membatalkan panggilan',
+    // data: { someData: 'goes here' },
+  };
+
+  await fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Accept-encoding': 'gzip, deflate',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(message),
+  });
+}
+
+// API 18: notifPOpelangganbatal
+// NOTIF UNTUK MITRA BAHWA PO DIBATALKAN PELANGGAN
+
+async function notifPOpelangganbatal(token_notifmitra) {
+  const message = {
+    to: token_notifmitra,
+    sound: 'default',
+    title: 'Pre-Order dibatalkan pelanggan',
+    body: 'Mohon maaf, pelanggan membatalkan pesanan',
     // data: { someData: 'goes here' },
   };
 

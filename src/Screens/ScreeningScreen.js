@@ -14,11 +14,11 @@ const Peringatan = () => {
     return(
         <View>
             <Text style={styles.judul}>
-                Akun Anda Kami Blokir 
+               Maaf Akun Anda Kami Blokir 
             </Text>
             <Image source={Blokir} style={styles.gambar}/>
             <Text style={styles.tulisan}>
-                Mohon maaf akun anda sedang <Text style={{fontWeight:'bold'}}>diblokir</Text> karena ada aktivitas mencurigakan. Silahkan hubungi layanan pelanggan Koll untuk aktivasi.
+                Akun anda sedang <Text style={{fontWeight:'bold'}}>diblokir</Text> karena ada aktivitas mencurigakan. Silahkan hubungi layanan pelanggan Koll untuk aktivasi.
             </Text>
             <TouchableOpacity style={styles.tombol} onPress={handleSignOut}>
                 <Text style={styles.keluar}>Keluar</Text>

@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View, Pressable, Dimensions, TouchableOpacity, Image, ScrollView, Alert } from 'react-native'
 import React, {useEffect, useState, useRef} from 'react'
 import * as Linking from 'expo-linking';
-import { Ijo, IjoMint, IjoTua, Kuning, Hitam, Putih } from '../Utils/Warna'
+import { Ijo, IjoMint, IjoTua, Kuning, Hitam, Putih, Pink, Merah } from '../Utils/Warna'
 import { Kasbon, KollLong, Lunas, Pinkecil } from '../assets/Images/Index';
 import moment from 'moment';
 import localization from 'moment/locale/id';
 import GarisBatas from '../Components/GarisBatas';
 import { Call, Chat } from '../assets/Icons/Index';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { kirimRating } from '../../API/firebasemethod';
+import { batalkanPO, kirimRating } from '../../API/firebasemethod';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { app } from '../../Firebase/config';
 import "intl";
@@ -96,13 +96,11 @@ const ReceiptScreen = ({navigation, route}) => {
     )
   };
 
-    const kirimNilai = () => {
-      kirimRating(pilihlayanan, pilihproduk, id_mitra, id_transaksi);
-      Alert.alert('Nilai sudah masuk','Penilaian anda sangat berarti bagi kami, terima kasih.');
-      navigation.goBack();
-    };
-
-  const db = getFirestore(app)
+  const kirimNilai = () => {
+    kirimRating(pilihlayanan, pilihproduk, id_mitra, id_transaksi);
+    Alert.alert('Nilai sudah masuk','Penilaian anda sangat berarti bagi kami, terima kasih.');
+    navigation.goBack();
+  };
 
   const WaktuTransaksi = () => {
     return(
@@ -245,6 +243,34 @@ const ReceiptScreen = ({navigation, route}) => {
     )
   };
 
+  const BatalPreOrder = () => {
+    return(
+      <TouchableOpacity style={styles.batalPO} onPress={alertPO}>
+          <Text style={styles.tulisbatal}>Batalkan Pre-Order</Text>
+      </TouchableOpacity>
+    )
+  };
+
+  const alertPO =()=> {
+    Alert.alert('Anda yakin ingin membatalkan Pre-Order?','Tentu mitra akan sedih bila anda mebatalkannya.',
+          [
+            {
+              text: 'Batal',
+              onPress: () => {
+                console.log('Batal dipencet')
+              }
+            },
+            {
+              text: 'Yakin',
+              onPress: async ()=>{
+               await batalkanPO(id_transaksi, id_mitra)
+               navigation.navigate('HomeScreen')
+              }, 
+            }
+          ]
+          )
+  }
+
   return (
     <View style={styles.latar}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -318,7 +344,7 @@ const ReceiptScreen = ({navigation, route}) => {
         <AlamatPelanggan/>
 
         <View style={styles.bagian}>
-          <View  style={{marginBottom: height* 0.2}}>
+          <View  style={{marginBottom: height* 0.22}}>
             {pembatalan && jenislayanan == "Panggil Mitra" ? 
               (null)
               :(
@@ -380,6 +406,9 @@ const ReceiptScreen = ({navigation, route}) => {
                     <Text style={styles.subjudul}>Total Harga</Text>
                     <Text style={styles.subjudul}>Rp{new Intl.NumberFormat('id-Id').format(hargatotalsemua).toString()}</Text>
                 </View>
+                { !pembatalan && jenislayanan == "Pre-Order" && status_transaksi == "Dalam Proses" ?
+                  <BatalPreOrder/> : (null)
+                }
             </View>
         </View>
         ):(null)
@@ -476,6 +505,19 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 10,
     borderRadius: 10,
-},
-
+  },
+  batalPO:{
+    padding: 8,
+    borderWidth: 1,
+    borderColor: IjoTua,
+    borderRadius: 10,
+    alignSelf:'center',
+    width: '100%',
+    marginTop: 10,
+  },
+  tulisbatal:{
+    color: IjoTua,
+    fontWeight: 'bold',
+    textAlign:'center',
+  },
 }) 
