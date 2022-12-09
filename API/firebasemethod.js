@@ -450,40 +450,86 @@ export const updateTersediaVoucher = async (id_mitra, id_voucher, potongan) => {
 // API 14: batalkanPO
 //  PELANGGAN MEMBATALKAN PO
 
-export const batalkanPO = async (id_transaksi, id_mitra, token_notifmitra) => {
+export const batalkanPO = async (id_transaksi, id_mitra, potongan) => {
   const db = getFirestore(app);
   const docreftran = doc(db, "transaksi", id_transaksi);
-  const docrefmit = doc(db, "mitra", id_mitra);
   await getDoc(docreftran).then(docSnap => {
     if (docSnap.exists()) {
       try {
+        if(potongan > 0){
+          kurangiTersediaVoucher(id_voucher, potongan)
+        }
         updateDoc(docreftran, {
           pembatalan: "Dibatalkan Pelanggan", 
           status_transaksi: "Selesai",
           waktu_selesai: serverTimestamp(),  
         });
-        notifPOpelangganbatal(token_notifmitra)
+        notifPOpelangganbatal(id_mitra)
       } catch (err) {
         Alert.alert('Ada error untuk membatalkan PO dari pelanggan!', err.message);
       }
     }
   })
-  await getDoc(docrefmit).then(docSnap => {
-    if (docSnap.exists()) {
-      try {
-        updateDoc(docrefmit, { 
-          dipanggil: false, 
-        });
-      } catch (err) {
-        Alert.alert('Ada error untuk update status dipanggil!', err.message);
-      }
+};
+
+// API 15: kurangVoucherMitra
+// MENGURANGI JML DATA VOUCHER. 
+
+export const kurangVoucherMitra = async (id_voucher, potongan) => {  
+  const auth = getAuth();
+  const db = getFirestore(app);
+  const docRefVou = doc(db, "promosi", id_voucher);
+  const docSnapVou = await getDoc(docRefVou);
+  const docRefMit = doc(db, "mitra", auth.currentUser.uid);
+  const docSnapMit= await getDoc(docRefMit);
+  try{
+    if(docSnapVou.exists() && docSnapMit.exists()){
+      let awal_pengguna =  docSnapVou.data().jml_pengguna
+      let awal_poin =  docSnapMit.data().poin_potongan
+      let jml_terbaru = awal_pengguna - 1
+      await updateDoc(docRefVou, { 
+          jml_pengguna: awal_pengguna - 1, 
+      });
+      updateDoc(docRefMit, { 
+          poin_potongan: awal_poin - potongan, 
+      });
+      return jml_terbaru
+    } else {
+      console.log("No such document!");
     }
-  })
+   
+  } catch(err){
+    console.log('Ada Error update pengurangan voucher.', err.message);
+  };
+};
+
+//API 16: kurangiTersediaVoucher
+// VOUCHER SUDAH MEMENUHU KUOTA ATAU BELUM
+
+export const kurangiTersediaVoucher = async (id_voucher, potongan) => {  
+  const jml_terbaru = await kurangVoucherMitra(id_voucher, potongan)
+
+  const db = getFirestore(app);
+  const docRef = doc(db, "promosi", id_voucher);
+  const docSnap = await getDoc(docRef);
+  try{
+    if(docSnap.exists()){
+      if( jml_terbaru < docSnap.data().kuota){
+        updateDoc(docRef, { 
+          tersedia: true, 
+        });
+      }
+    } else {
+      console.log("No such document!");
+    }
+  } catch(err){
+    console.log('Ada Error update kesediaan voucher.', err.message);
+  };
 };
 
 // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.dev/notifications
 
-// API 15: notifPOmasuk
+// API 17: notifPOmasuk
 // NOTIF UNTUK MITRA BAHWA PO MASUK
 
 async function notifPOmasuk(token_notifmitra) {
@@ -506,7 +552,7 @@ async function notifPOmasuk(token_notifmitra) {
   });
 }
 
-// API 16: notifPMmasuk
+// API 18: notifPMmasuk
 // NOTIF UNTUK MITRA BAHWA ADA PANGGILAN
 
 async function notifPMmasuk(token_notifmitra) {
@@ -529,7 +575,7 @@ async function notifPMmasuk(token_notifmitra) {
   });
 }
 
-// API 17: notifPMpelangganbatal
+// API 19: notifPMpelangganbatal
 // NOTIF UNTUK MITRA BAHWA PM DIBATALKAN PELANGGAN
 
 async function notifPMpelangganbatal(token_notifmitra) {
@@ -552,25 +598,36 @@ async function notifPMpelangganbatal(token_notifmitra) {
   });
 }
 
-// API 18: notifPOpelangganbatal
+// API 20: notifPOpelangganbatal
 // NOTIF UNTUK MITRA BAHWA PO DIBATALKAN PELANGGAN
 
-async function notifPOpelangganbatal(token_notifmitra) {
-  const message = {
-    to: token_notifmitra,
-    sound: 'default',
-    title: 'Pre-Order dibatalkan pelanggan',
-    body: 'Mohon maaf, pelanggan membatalkan pesanan',
-    // data: { someData: 'goes here' },
-  };
+async function notifPOpelangganbatal(id_mitra) {
+  const db = getFirestore(app);
+  const docrefmit = doc(db, "mitra", id_mitra);
+  await getDoc(docrefmit).then(docSnap => {
+    if (docSnap.exists()) {
+      try{
+        const message = {
+          to: docSnap.data().token_notif,
+          sound: 'default',
+          title: 'Pre-Order dibatalkan pelanggan',
+          body: 'Mohon maaf, pelanggan membatalkan pesanan',
+          // data: { someData: 'goes here' },
+        };
 
-  await fetch('https://exp.host/--/api/v2/push/send', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Accept-encoding': 'gzip, deflate',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(message),
-  });
-}
+        fetch('https://exp.host/--/api/v2/push/send', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Accept-encoding': 'gzip, deflate',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(message),
+        });
+
+      } catch (err){
+        Alert.alert('Ada error untuk notif batal PO dari pelanggan!', err.message);
+      }
+    }
+  })
+};

@@ -263,7 +263,7 @@ const ReceiptScreen = ({navigation, route}) => {
             {
               text: 'Yakin',
               onPress: async ()=>{
-               await batalkanPO(id_transaksi, id_mitra)
+               await batalkanPO(id_transaksi, id_mitra, potongan)
                navigation.navigate('HomeScreen')
               }, 
             }
