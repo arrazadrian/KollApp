@@ -50,7 +50,7 @@ const ScreeningScreen = () => {
         }
 
        if(!unmounted){
-           setTimeout(getData, 6000)
+           setTimeout(getData, 3000)
        }
 
        return() =>{ 

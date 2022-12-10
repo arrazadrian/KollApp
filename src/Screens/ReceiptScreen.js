@@ -47,13 +47,12 @@ const ReceiptScreen = ({navigation, route}) => {
 
   useEffect(()=>{
     let unmounted = false
-
+    
     const expire = () => {
-      let batas = moment(waktu_dipesan.toDate()).add(3, 'hours');
       let sekarang = new Date();
-      if(batas.getTime() > sekarang.getTime()){
+      if( sekarang.getTime() <  waktu_dipesan.toDate().setTime(waktu_dipesan.toDate().getTime() + (300*60*60*1000))){
         setBisabatal(true)
-      } else {setBisabatal(false)}
+      } else {setBisabatal(false)} 
     }
 
     if(!unmounted){
@@ -266,9 +265,19 @@ const ReceiptScreen = ({navigation, route}) => {
 
   const BatalPreOrder = () => {
     return(
-      <TouchableOpacity style={styles.batalPO} onPress={alertPO}>
-          <Text style={styles.tulisbatal}>Batalkan Pre-Order</Text>
-      </TouchableOpacity>
+      <View>
+        { bisabatal ? (
+          <TouchableOpacity style={styles.batalPO} onPress={alertPO}>
+              <Text style={styles.tulisbatal}>Batalkan Pre-Order</Text>
+          </TouchableOpacity>
+        ):(
+          <View style={styles.kotaknoBatal}>
+            <Text style={styles.nobatal}>
+              Pelanggan tidak bisa membatalkan pesanan setelah 3 jam dari pemesanan.
+            </Text>
+          </View>
+        )}
+      </View>
     )
   };
 
@@ -427,8 +436,9 @@ const ReceiptScreen = ({navigation, route}) => {
                     <Text style={styles.subjudul}>Total Harga</Text>
                     <Text style={styles.subjudul}>Rp{new Intl.NumberFormat('id-Id').format(hargatotalsemua).toString()}</Text>
                 </View>
-                { !pembatalan && jenislayanan == "Pre-Order" && status_transaksi == "Dalam Proses" && bisabatal ?
-                  <BatalPreOrder/> : (null)
+                { !pembatalan && jenislayanan == "Pre-Order" && status_transaksi == "Dalam Proses" ?
+                  <BatalPreOrder/> 
+                  : (null)                    
                 }
             </View>
         </View>
@@ -540,5 +550,19 @@ const styles = StyleSheet.create({
     color: IjoTua,
     fontWeight: 'bold',
     textAlign:'center',
+  },
+  nobatal:{
+    fontSize: 14,
+    fontStyle: 'italic',
+    color: IjoTua,
+    textAlign: 'center',
+  },
+  kotaknoBatal:{
+    borderColor: IjoTua,
+    borderWidth: 0.5,
+    borderRadius: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    marginTop: 5,
   },
 }) 
