@@ -50,7 +50,7 @@ const ReceiptScreen = ({navigation, route}) => {
     
     const expire = () => {
       let sekarang = new Date();
-      if( sekarang.getTime() <  waktu_dipesan.toDate().setTime(waktu_dipesan.toDate().getTime() + (300*60*60*1000))){
+      if( sekarang.getTime() <  waktu_dipesan.toDate().setTime(waktu_dipesan.toDate().getTime() + (3*60*60*1000))){
         setBisabatal(true)
       } else {setBisabatal(false)} 
     }
