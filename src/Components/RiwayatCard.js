@@ -35,6 +35,7 @@ const RiwayatCard = ({ item }) => {
       namapelanggan: item.namapelanggan,
       produk: item?.produk,
       waktu_selesai: item?.waktu_selesai,
+      waktu_dipesan: item?.waktu_dipesan,
       status_transaksi: item?.status_transaksi,
       id_transaksi: item.id,
       rating_layanan: item?.rating_layanan,
