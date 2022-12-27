@@ -349,7 +349,7 @@ const ReceiptScreen = ({navigation, route}) => {
                   (
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                           <Text style={styles.deskatas}>Biaya Pembatalan</Text>
-                          <Text style={styles.deskatas}>Rp{biayaBatal}</Text>
+                          <Text style={styles.deskatas}>Rp{new Intl.NumberFormat('id-Id').format(biayaBatal).toString()}</Text>
                     </View>
                   ):(null)
                 }
