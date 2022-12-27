@@ -345,10 +345,14 @@ const ReceiptScreen = ({navigation, route}) => {
                       <Text style={styles.deskatas}>Status Transaksi</Text>
                       <Text style={[styles.deskatas, {color: 'tomato'}]}>{pembatalan}</Text>
                 </View>
-                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                      <Text style={styles.deskatas}>Biaya Pembatalan</Text>
-                      <Text style={styles.deskatas}>Rp{biayaBatal}</Text>
-                </View>
+                { jenislayanan == 'Panggil Mitra' ? 
+                  (
+                    <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                          <Text style={styles.deskatas}>Biaya Pembatalan</Text>
+                          <Text style={styles.deskatas}>Rp{biayaBatal}</Text>
+                    </View>
+                  ):(null)
+                }
               </View>
               )
             }
