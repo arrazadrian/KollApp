@@ -76,6 +76,24 @@ const OtwScreen = ({ navigation, route }) => {
     },[pembatalan]) 
   );
 
+  useFocusEffect(
+    useCallback(() => {
+      const db = getFirestore(app)
+          const unsubscribe = onSnapshot(doc(db, "transaksi", id_transaksi), (doc) => {
+            if(pembatalan == "Tidak berbelanja"){
+              navigation.replace('HomeScreen');
+              Alert.alert(
+                'Mohon maaf bila tidak sesuai','Maaf bila dagangan mitra kami tidak sesuia harapan kamu.'
+              );
+            } 
+        });
+          return () => {
+            console.log('Otw Unmounted') 
+            unsubscribe();
+          }
+    },[pembatalan]) 
+  );
+
   useEffect(()=>{
     let unmounted = false
     const getToken_notifmitra = async () =>{
@@ -266,6 +284,31 @@ const OtwScreen = ({ navigation, route }) => {
     )
   }
 
+  const Biayapembatalan = () => {
+    if(hargalayanan == 0){
+      let biayaBatal= 5000
+      return(
+        <View>
+          <Text style={styles.biayabatal}>
+              <Text>Pelanggan perlu membayar </Text>
+              <Text>Rp{biayaBatal} </Text>
+              <Text>bila batal berbelanja ketika mitra sudah sampai</Text>
+          </Text>
+      </View>
+    )
+    } else {
+      return(
+      <View>
+          <Text style={styles.biayabatal}>
+              <Text>Pelanggan perlu membayar </Text>
+              <Text>Rp{hargalayanan} </Text>
+              <Text>bila batal berbelanja ketika mitra sudah sampai</Text>
+          </Text>
+      </View>
+    )
+    }
+  }
+
   const VoucherPromo = () => {
     return(
       <View>
@@ -295,12 +338,13 @@ const OtwScreen = ({ navigation, route }) => {
       <View>
         { panggilan != "Selesai" ? 
           (
-            <View>
+          <View>
               <View style={{marginBottom: 10}}>
                   <Text style={{fontSize:14, fontWeight:'bold', color:IjoTua}}>Tujuan Lokasi</Text>
                   <Text numberOfLines={3}>{alamat_pelanggan}</Text>
               </View>
               <CatatanLokasiOTW/>
+              <Biayapembatalan/>
           </View>
           ):(
             <View>
@@ -608,5 +652,10 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         marginTop: 10,
         marginBottom: height * 0.2,
+    },
+    biayabatal:{
+        color: Ijo,
+        textAlign:'center',
+        marginBottom: height * 0.15,
     },
 })
