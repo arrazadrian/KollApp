@@ -291,7 +291,7 @@ const OtwScreen = ({ navigation, route }) => {
         <View>
           <Text style={styles.biayabatal}>
               <Text>Pelanggan perlu membayar </Text>
-              <Text>Rp{biayaBatal} </Text>
+              <Text>Rp{new Intl.NumberFormat('id-Id').format(biayaBatal).toString()} </Text>
               <Text>bila batal berbelanja ketika mitra sudah sampai</Text>
           </Text>
       </View>
@@ -301,7 +301,7 @@ const OtwScreen = ({ navigation, route }) => {
       <View>
           <Text style={styles.biayabatal}>
               <Text>Pelanggan perlu membayar </Text>
-              <Text>Rp{hargalayanan} </Text>
+              <Text>Rp{new Intl.NumberFormat('id-Id').format(hargalayanan).toString()} </Text>
               <Text>bila batal berbelanja ketika mitra sudah sampai</Text>
           </Text>
       </View>
@@ -656,6 +656,5 @@ const styles = StyleSheet.create({
     biayabatal:{
         color: Ijo,
         textAlign:'center',
-        marginBottom: height * 0.15,
     },
 })
